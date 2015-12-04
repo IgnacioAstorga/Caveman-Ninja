@@ -1,23 +1,20 @@
-// ----------------------------------------------------
-// Point class    -----------
-// ----------------------------------------------------
-
 #ifndef __POINT_H__
 #define __POINT_H__
 
-template<class TYPE>
+template<class T>
+
 class Point
 {
 public:
+	// Constructores
+	Point() {}
+	Point(T x, T y) : x(x), y(y) {}
 
-	TYPE x, y;
+	// Atributos
+	T x;
+	T y;
 
-	Point()
-	{}
-	Point(TYPE x, TYPE y) : x(x), y(y)
-	{}
-
-	// Operators ------------------------------------------------
+	// Operadores
 	Point operator -(const Point &v) const
 	{
 		p2Vector2 r;
@@ -64,7 +61,7 @@ public:
 		return (x != v.x || y != v.y);
 	}
 
-	// Utils ------------------------------------------------
+	// Otros métodos
 	bool IsZero() const
 	{
 		return (x == 0 && y == 0);
@@ -84,11 +81,10 @@ public:
 		return(*this);
 	}
 
-	// Distances ---------------------------------------------
-	TYPE DistanceTo(const Point& v) const
+	T DistanceTo(const Point& v) const
 	{
-		TYPE fx = x - v.x;
-		TYPE fy = y - v.y;
+		T fx = x - v.x;
+		T fy = y - v.y;
 
 		return sqrt((fx*fx) + (fy*fy));
 	}
@@ -97,4 +93,4 @@ public:
 typedef Point<int> iPoint;
 typedef Point<float> fPoint;
 
-#endif // __POINT_H__
+#endif	// __POINT_H__

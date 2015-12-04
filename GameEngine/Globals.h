@@ -14,7 +14,7 @@ enum update_status
 	UPDATE_ERROR
 };
 
-// Deletes a buffer
+// Borra un puntero
 #define RELEASE( x ) \
     {\
        if( x != nullptr )\
@@ -24,7 +24,7 @@ enum update_status
        }\
     }
 
-// Deletes an array of buffers
+// Borra un array de punteros
 #define RELEASE_ARRAY( x ) \
 	{\
        if( x != nullptr )\
@@ -34,12 +34,12 @@ enum update_status
 		 }\
 	 }
 
-// Configuration -----------
+// Configuración
 #define SCREEN_WIDTH 384
 #define SCREEN_HEIGHT 224
 #define SCREEN_SIZE 2
 #define FULLSCREEN false
 #define VSYNC true
-#define TITLE "Super Awesome Game"
+#define TITLE "My game"
 
 #endif //__GLOBALS_H__

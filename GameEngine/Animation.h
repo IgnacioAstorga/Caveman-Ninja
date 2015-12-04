@@ -1,26 +1,21 @@
-#pragma once
+#ifndef __ANIMATION_H__
+#define __ANIMATION_H__
+
 #include <vector>
 
-using namespace std;
+struct SDL_Rect;
 
 class Animation
 {
 public:
+	Animation();
+	SDL_Rect& GetCurrentFrame();
+
 	float speed;
-	vector<SDL_Rect> frames;
+	std::vector<SDL_Rect> frames;
 
 private:
 	float current_frame;
-
-public:
-	Animation() : frames(), speed(1.0f), current_frame(0.0f)
-	{}
-
-	SDL_Rect& GetCurrentFrame()
-	{
-		current_frame += speed;
-		if(current_frame >= frames.size())
-			current_frame = 0.0f;
-		return frames[(int)current_frame];
-	}
 };
+
+#endif //__ANIMATION_H__
