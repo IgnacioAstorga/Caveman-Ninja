@@ -10,12 +10,12 @@
     <Filter Include="Util">
       <UniqueIdentifier>{11dc695b-1e13-4596-91e2-7022b08220ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Elements">
+      <UniqueIdentifier>{683cf98c-621c-4bc4-ab39-72e8d1e95ece}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.h">
-      <Filter>Util</Filter>
-    </ClInclude>
-    <ClInclude Include="Animation.h">
       <Filter>Util</Filter>
     </ClInclude>
     <ClInclude Include="Module.h">
@@ -41,6 +41,15 @@
     </ClInclude>
     <ClInclude Include="Application.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleScene.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Elements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -68,8 +77,14 @@
     <ClCompile Include="ModuleWindow.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleScene.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
     <ClCompile Include="Animation.cpp">
-      <Filter>Util</Filter>
+      <Filter>Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Elements</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

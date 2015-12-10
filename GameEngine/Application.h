@@ -11,20 +11,30 @@ class ModuleWindow;
 class ModuleTextures;
 class ModuleInput;
 class ModuleAudio;
-class ModuleFadeToBlack;
-class ModulePlayer;
-class ModuleSceneKen;
+class ModuleScene;
 
 class Application
 {
 public:
-
 	Application();
 	~Application();
+
+	void Create();
+	void Destroy();
+	int Run();
 
 	bool Init();
 	update_status Update();
 	bool CleanUp();
+
+protected:
+	virtual void OnCreateApplication() {};
+	virtual void OnDestroyApplication() {};
+
+	virtual bool OnApplicationInit() { return true; };	// Previo a la inicialización (cambiar la configuración aquí)
+	virtual bool OnApplicationStart() { return true; };	// Previo a que los módulos se inicien (cargar la escena aquí)
+	virtual update_status OnApplicationUpdate() { return UPDATE_CONTINUE; };	// Previo a cada update del juego
+	virtual bool OnApplicationCleanUp() { return true; };	// Previo a la limpieza de la aplicación (guardar datos aquí)
 
 public:
 	ModuleRender* renderer;
@@ -32,14 +42,10 @@ public:
 	ModuleTextures* textures;
 	ModuleInput* input;
 	ModuleAudio* audio;
-	ModuleFadeToBlack* fade;
-	ModulePlayer* player;
-	ModuleSceneKen* scene_ken;
+	ModuleScene* scene;
 
 private:
-
 	std::list<Module*> modules;
-
 };
 
 extern Application* App;
