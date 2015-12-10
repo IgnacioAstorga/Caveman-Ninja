@@ -102,13 +102,35 @@ void Application::Create() {
 	modules.push_back(audio = new ModuleAudio());
 	modules.push_back(scene = new ModuleScene());
 
-	// Llamada al método hijo (después)
-	OnCreateApplication();
+	try {
+		// Llamada al método hijo (después)
+		OnCreateApplication();
+	}
+	catch (const runtime_error re) {
+		LOG("Unhandled user runtime error: ", re.what());
+	}
+	catch (const exception e) {
+		LOG("Unhandled user exception: ", e.what());
+	}
+	catch (...) {
+		LOG("Unknown unhandled user error.");
+	}
 }
 
 void Application::Destroy() {
-	// Llamada al método hijo
-	OnDestroyApplication();
+	try {
+		// Llamada al método hijo
+		OnDestroyApplication();
+	}
+	catch (const runtime_error re) {
+		LOG("Unhandled user runtime error: ", re.what());
+	}
+	catch (const exception e) {
+		LOG("Unhandled user exception: ", e.what());
+	}
+	catch (...) {
+		LOG("Unknown unhandled user error.");
+	}
 
 	for (list<Module*>::iterator it = modules.begin(); it != modules.end(); ++it)
 		RELEASE(*it);
@@ -116,14 +138,43 @@ void Application::Destroy() {
 
 bool Application::Init()
 {
-	// Llamada al método hijo
-	bool ret = OnApplicationInit();
+	bool ret = true;
+	try {
+		// Llamada al método hijo
+		ret = OnApplicationInit();
+	}
+	catch (const runtime_error re) {
+		LOG("Unhandled user runtime error: ", re.what());
+		ret = false;
+	}
+	catch (const exception e) {
+		LOG("Unhandled user exception: ", e.what());
+		ret = false;
+	}
+	catch (...) {
+		LOG("Unknown unhandled user error.");
+		ret = false;
+	}
 
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret; ++it)
 		ret = (*it)->Init();	// Se hace Init incluso a módulos desactivados
 
-	// Llamada al método hijo
-	ret &= OnApplicationStart();
+	try {
+		// Llamada al método hijo
+		ret = OnApplicationStart();
+	}
+	catch (const runtime_error re) {
+		LOG("Unhandled user runtime error: ", re.what());
+		ret = false;
+	}
+	catch (const exception e) {
+		LOG("Unhandled user exception: ", e.what());
+		ret = false;
+	}
+	catch (...) {
+		LOG("Unknown unhandled user error.");
+		ret = false;
+	}
 
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret; ++it)
 	{
@@ -136,8 +187,23 @@ bool Application::Init()
 
 update_status Application::Update()
 {
-	// Llamada al método hijo
-	update_status ret = OnApplicationUpdate();
+	update_status ret = UPDATE_CONTINUE;
+	try {
+		// Llamada al método hijo
+		ret = OnApplicationUpdate();
+	}
+	catch (const runtime_error re) {
+		LOG("Unhandled user runtime error: ", re.what());
+		ret = UPDATE_ERROR;
+	}
+	catch (const exception e) {
+		LOG("Unhandled user exception: ", e.what());
+		ret = UPDATE_ERROR;
+	}
+	catch (...) {
+		LOG("Unknown unhandled user error.");
+		ret = UPDATE_ERROR;
+	}
 
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
 		if((*it)->IsEnabled() == true) 
@@ -156,8 +222,23 @@ update_status Application::Update()
 
 bool Application::CleanUp()
 {
-	// Llamada al método hijo
-	bool ret = OnApplicationCleanUp();
+	bool ret = true;
+	try {
+		// Llamada al método hijo
+		ret = OnApplicationCleanUp();
+	}
+	catch (const runtime_error re) {
+		LOG("Unhandled user runtime error: ", re.what());
+		ret = false;
+	}
+	catch (const exception e) {
+		LOG("Unhandled user exception: ", e.what());
+		ret = false;
+	}
+	catch (...) {
+		LOG("Unknown unhandled user error.");
+		ret = false;
+	}
 
 	for(list<Module*>::reverse_iterator it = modules.rbegin(); it != modules.rend() && ret; ++it)
 		if((*it)->IsEnabled() == true) 

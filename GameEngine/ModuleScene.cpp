@@ -15,9 +15,14 @@ ModuleScene::~ModuleScene()
 
 bool ModuleScene::Start()
 {
+	LOG("Starting scene");
+
 	// Inicializa la escena actual
 	if (currentScene == nullptr)
+	{
+		LOG("No starting scene declarated!")
 		return false;
+	}
 	return currentScene->Start();
 }
 
@@ -51,6 +56,8 @@ update_status ModuleScene::PostUpdate()
 
 bool ModuleScene::CleanUp()
 {
+	LOG("Cleaning scene");
+
 	// Llamada al CleanUp de la escena actual
 	if (currentScene == nullptr)
 		return false;
@@ -59,12 +66,16 @@ bool ModuleScene::CleanUp()
 
 void ModuleScene::ChangeScene(Scene* scene)
 {
+	LOG("Setup for scene change");
+
 	// Realiza la preparación para cambiar la escena
 	nextScene = scene;
 }
 
 void ModuleScene::DoChangeScene()
 {
+	LOG("Changing current scene");
+
 	if (nextScene != nullptr) {
 		// Elimina la escena anterior (de haberla)
 		if (currentScene != nullptr) {

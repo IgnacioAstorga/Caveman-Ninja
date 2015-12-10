@@ -51,6 +51,9 @@
     <ClInclude Include="Scene.h">
       <Filter>Elements</Filter>
     </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Elements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -84,6 +87,9 @@
       <Filter>Elements</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
+      <Filter>Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
       <Filter>Elements</Filter>
     </ClCompile>
   </ItemGroup>

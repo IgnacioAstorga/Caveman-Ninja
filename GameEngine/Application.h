@@ -18,11 +18,13 @@ class Application
 public:
 	Application();
 	~Application();
-
-	void Create();
-	void Destroy();
 	int Run();
 
+private:
+	void Create();
+	void Destroy();
+
+public:
 	bool Init();
 	update_status Update();
 	bool CleanUp();
