@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "TestApp.cpp"
 
 #include "SDL.h"
 #pragma comment( lib, "SDL2.lib" )
@@ -6,7 +7,7 @@
 
 int main(int argc, char ** argv)
 {
-	Application* app = new Application();
+	Application* app = new TestApp();
 
 	int return_value = app->Run();
 

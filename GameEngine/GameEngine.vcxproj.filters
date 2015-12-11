@@ -13,6 +13,9 @@
     <Filter Include="Elements">
       <UniqueIdentifier>{683cf98c-621c-4bc4-ab39-72e8d1e95ece}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Elements\Particles">
+      <UniqueIdentifier>{84b6d3fb-b964-48be-ae9e-74ac59991a07}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.h">
@@ -54,6 +57,30 @@
     <ClInclude Include="Entity.h">
       <Filter>Elements</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleParticles.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleEmitter.h">
+      <Filter>Elements\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleInitializer.h">
+      <Filter>Elements\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleOperator.h">
+      <Filter>Elements\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleRenderer.h">
+      <Filter>Elements\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>Elements\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Elements\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -91,6 +118,12 @@
     </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleParticles.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>Elements\Particles</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
