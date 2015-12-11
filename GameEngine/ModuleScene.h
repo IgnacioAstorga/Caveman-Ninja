@@ -8,6 +8,7 @@ class Scene;
 
 class ModuleScene : public Module
 {
+	friend class Application;
 
 public:
 	ModuleScene();

@@ -164,6 +164,27 @@ bool Application::Init()
 		ret = (*it)->Init();	// Se hace Init incluso a módulos desactivados
 
 	try {
+		// Llamada al método que determina la escena inicial
+		scene->ChangeScene(OnCreateScene());
+		scene->DoChangeScene();	// Fuerza el cambio, gracias a ser friend
+	}
+	catch (const runtime_error re) {
+		LOG("Unhandled user runtime error: ", re.what());
+	}
+	catch (const exception e) {
+		LOG("Unhandled user exception: ", e.what());
+	}
+	catch (...) {
+		LOG("Unknown unhandled user error.");
+	}
+
+	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret; ++it)
+	{
+		if((*it)->IsEnabled() == true)
+			ret = (*it)->Start();
+	}
+
+	try {
 		// Llamada al método hijo
 		ret = OnApplicationStart();
 	}
@@ -178,12 +199,6 @@ bool Application::Init()
 	catch (...) {
 		LOG("Unknown unhandled user error.");
 		ret = false;
-	}
-
-	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret; ++it)
-	{
-		if((*it)->IsEnabled() == true)
-			ret = (*it)->Start();
 	}
 
 	return ret;

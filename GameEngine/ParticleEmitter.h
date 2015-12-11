@@ -7,7 +7,7 @@
 class ParticleEmitter
 {
 public:
-	ParticleEmitter() {};
+	ParticleEmitter(bool start_enabled = true) : enabled(start_enabled) {};
 	virtual ~ParticleEmitter() {};
 
 	bool IsEnabled() const
@@ -35,8 +35,8 @@ public:
 	}
 
 public:
-	virtual bool Start() {};
-	virtual bool CleanUp() {};
+	virtual bool Start() { return true; };
+	virtual bool CleanUp() { return true; };
 
 	virtual update_status Emit() = 0;
 

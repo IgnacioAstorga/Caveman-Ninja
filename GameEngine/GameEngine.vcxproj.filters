@@ -16,6 +16,18 @@
     <Filter Include="Elements\Particles">
       <UniqueIdentifier>{84b6d3fb-b964-48be-ae9e-74ac59991a07}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Elements\Particles\Emitters">
+      <UniqueIdentifier>{2ba5a41c-e9e5-4492-80c6-dd2ae4a03bcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Elements\Particles\Initializers">
+      <UniqueIdentifier>{672c11ce-22cc-4737-a05c-6ea421cde393}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Elements\Particles\Operators">
+      <UniqueIdentifier>{92bba1b3-ae7c-4b28-916a-ba5cba283b72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Elements\Particles\Renderers">
+      <UniqueIdentifier>{d9714b3c-e59c-4633-9d6a-a40596889771}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.h">
@@ -81,6 +93,30 @@
     <ClInclude Include="Color.h">
       <Filter>Util</Filter>
     </ClInclude>
+    <ClInclude Include="EmitContinuously.h">
+      <Filter>Elements\Particles\Emitters</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleTime.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="MovementBasic.h">
+      <Filter>Elements\Particles\Operators</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="SpeedRandom.h">
+      <Filter>Elements\Particles\Initializers</Filter>
+    </ClInclude>
+    <ClInclude Include="LifetimeRandom.h">
+      <Filter>Elements\Particles\Initializers</Filter>
+    </ClInclude>
+    <ClInclude Include="LifetimeDecay.h">
+      <Filter>Elements\Particles\Operators</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>Elements\Particles\Renderers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -88,9 +124,6 @@
     </ClCompile>
     <ClCompile Include="Log.cpp">
       <Filter>Util</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="ModuleAudio.cpp">
       <Filter>Modules</Filter>
@@ -124,6 +157,11 @@
     </ClCompile>
     <ClCompile Include="ParticleSystem.cpp">
       <Filter>Elements\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="TestApp.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="ModuleTime.cpp">
+      <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

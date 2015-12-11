@@ -9,7 +9,7 @@ class Particle;
 class ParticleInitializer
 {
 public:
-	ParticleInitializer() {};
+	ParticleInitializer(bool start_enabled = true) : enabled(start_enabled) {};
 	virtual ~ParticleInitializer() {};
 
 	bool IsEnabled() const
@@ -37,8 +37,8 @@ public:
 	}
 
 public:
-	virtual bool Start() {};
-	virtual bool CleanUp() {};
+	virtual bool Start() { return true; };
+	virtual bool CleanUp() { return true; };
 
 	virtual bool Initialize(Particle& particle) = 0;
 

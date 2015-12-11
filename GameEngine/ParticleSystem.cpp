@@ -5,9 +5,8 @@
 #include "ParticleRenderer.h"
 #include "Particle.h"
 
-ParticleSystem::ParticleSystem()
+ParticleSystem::ParticleSystem(bool start_enabled) : active(start_enabled)
 {
-	// Llamada al método de usuario
 	OnCreate();
 }
 
@@ -81,18 +80,22 @@ void ParticleSystem::Add(ParticleRenderer* particleRenderer)
 
 bool ParticleSystem::CreateParticle(unsigned int amount)
 {
-	for (unsigned int i = 0; i < amount; ++i) {
-		// Crea una partícula nueva y la registra
+	bool ret = true;
+
+	for (unsigned int i = 0; i < amount && ret; ++i) {
+		// Crea una partícula nueva
 		Particle* particle = new Particle();
-		particles.push_back(particle);
 
 		// Inicializa la partícula
-		bool ret = true;
 		for (list<ParticleInitializer*>::iterator it = initializers.begin(); it != initializers.end() && ret; ++it)
 			ret = (*it)->Initialize(*particle);
 
-		return ret;
+		// Registra la partícula
+		if (ret == true)
+			particles.push_back(particle);
 	}
+
+	return ret;
 }
 
 bool ParticleSystem::Start()
@@ -134,29 +137,32 @@ update_status ParticleSystem::Update()
 			if ((*it)->IsEnabled())
 				ret = (*it)->Modify(*(*particle));
 
-	return ret;
-}
 
-update_status ParticleSystem::PostUpdate()
-{
-	update_status ret = UPDATE_CONTINUE;
-
-	// Antes de nada, borra las partículas muertas
-	for (list<Particle*>::iterator particle = particles.begin(); particle != particles.end(); ++particle)
-		if ((*particle)->dead)
-		{
-			particle = particles.erase(particle);	// Eliminación segura de la lista mientras se recorre
-			RELEASE(*particle);
-		}
-	
-
-	// En PostUpdate, llama a los renderizadores para cada partícula
+	// Después, todavía en Update, llama a los renderizadores para cada partícula
 	for (list<Particle*>::iterator particle = particles.begin(); particle != particles.end(); ++particle)
 		for (list<ParticleRenderer*>::iterator it = renderers.begin(); it != renderers.end() && ret == UPDATE_CONTINUE; ++it)
 			if ((*it)->IsEnabled())
 				ret = (*it)->Render(*(*particle));
 
 	return ret;
+}
+
+update_status ParticleSystem::PostUpdate()
+{
+	// En PostUpdate, borra las partículas muertas
+	list<Particle*> toRemove;
+	for (list<Particle*>::iterator it = particles.begin(); it != particles.end(); ++it)
+		if ((*it)->dead)
+			toRemove.push_back(*it);
+
+	// Eliminación segura de la lista después de recorrerla
+	for (list<Particle*>::iterator it = toRemove.begin(); it != toRemove.end(); ++it) {
+		particles.remove(*it);
+		RELEASE(*it);
+	}
+	toRemove.clear();
+
+	return UPDATE_CONTINUE;
 }
 
 bool ParticleSystem::CleanUp()

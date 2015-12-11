@@ -16,7 +16,7 @@ using namespace std;
 class ParticleSystem
 {
 public:
-	ParticleSystem();
+	ParticleSystem(bool start_enabled = true);
 	virtual ~ParticleSystem();
 	
 	bool IsEnabled();

@@ -15,6 +15,8 @@ class ModuleTime;
 class ModuleParticles;
 class ModuleScene;
 
+class Scene;
+
 class Application
 {
 public:
@@ -39,6 +41,8 @@ protected:
 	virtual bool OnApplicationStart() { return true; };	// Previo a que los módulos se inicien (cargar la escena aquí)
 	virtual update_status OnApplicationUpdate() { return UPDATE_CONTINUE; };	// Previo a cada update del juego
 	virtual bool OnApplicationCleanUp() { return true; };	// Previo a la limpieza de la aplicación (guardar datos aquí)
+
+	virtual Scene* OnCreateScene() = 0;
 
 public:
 	ModuleRender* renderer;

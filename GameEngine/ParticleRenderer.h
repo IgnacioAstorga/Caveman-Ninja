@@ -4,10 +4,12 @@
 #include "Globals.h"
 #include "ParticleSystem.h"
 
+class Particle;
+
 class ParticleRenderer
 {
 public:
-	ParticleRenderer() {};
+	ParticleRenderer(bool start_enabled = true) : enabled(start_enabled) {};
 	virtual ~ParticleRenderer() {};
 
 	bool IsEnabled() const
@@ -35,8 +37,8 @@ public:
 	}
 
 public:
-	virtual bool Start() {};
-	virtual bool CleanUp() {};
+	virtual bool Start() { return true; };
+	virtual bool CleanUp() { return true; };
 
 	virtual update_status Render(const Particle& particle) = 0;
 

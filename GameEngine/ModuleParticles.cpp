@@ -65,16 +65,13 @@ bool ModuleParticles::CleanUp()
 
 void ModuleParticles::RegisterParticleSystem(ParticleSystem* particleSystem)
 {
-	if (find(particleSystems.begin(), particleSystems.end(), particleSystem) == particleSystems.end())
-		particleSystems.push_back(particleSystem);
+	particleSystems.push_back(particleSystem);
+	particleSystem->Start();
 }
 
 void ModuleParticles::RemoveParticleSystem(ParticleSystem* particleSystem)
 {
-	if (find(particleSystems.begin(), particleSystems.end(), particleSystem) != particleSystems.end())
-	{
-		particleSystems.remove(particleSystem);
-		particleSystem->CleanUp();
-		RELEASE(particleSystem);
-	}
+	particleSystems.remove(particleSystem);
+	particleSystem->CleanUp();
+	RELEASE(particleSystem);
 }

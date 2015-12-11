@@ -13,14 +13,18 @@ public:
 	bool Start() {
 		timeAlive = 0.0f;
 		particleCount = 0;
+
+		return true;
 	}
 
 	update_status Emit()
 	{
 		timeAlive += App->time->DeltaTime();
-		unsigned int numToEmit = timeAlive * rate - particleCount;
-		particleCount += numToEmit;
+		unsigned int numToEmit = (int) floor(timeAlive * rate - particleCount);
 		system->CreateParticle(numToEmit);
+		particleCount += numToEmit;
+
+		return UPDATE_CONTINUE;
 	}
 
 private:

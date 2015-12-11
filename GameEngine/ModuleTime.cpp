@@ -16,6 +16,7 @@ bool ModuleTime::Start()
 {
 	// Establece el tiempo de la frame inicial (en milisegundos)
 	lastFrameTime = SDL_GetTicks();
+	return true;
 }
 
 update_status ModuleTime::PreUpdate()
@@ -24,11 +25,13 @@ update_status ModuleTime::PreUpdate()
 	unsigned long newFrameTime = SDL_GetTicks();
 	deltaTime = (newFrameTime - lastFrameTime) / 1000.0f;
 	lastFrameTime = newFrameTime;
+	return UPDATE_CONTINUE;
 }
 
 bool ModuleTime::CleanUp()
 {
 	// Por ahora no hace nada
+	return true;
 }
 
 float ModuleTime::DeltaTime()

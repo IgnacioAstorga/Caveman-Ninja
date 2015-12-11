@@ -17,7 +17,7 @@ public:
 	// Operadores
 	Point operator -(const Point &v) const
 	{
-		p2Vector2 r;
+		Point r;
 
 		r.x = x - v.x;
 		r.y = y - v.y;
@@ -27,10 +27,20 @@ public:
 
 	Point operator + (const Point &v) const
 	{
-		p2Vector2 r;
+		Point r;
 
 		r.x = x + v.x;
 		r.y = y + v.y;
+
+		return(r);
+	}
+
+	Point operator * (float f) const
+	{
+		Point r;
+
+		r.x = f * x;
+		r.y = f * y;
 
 		return(r);
 	}
@@ -47,6 +57,14 @@ public:
 	{
 		x += v.x;
 		y += v.y;
+
+		return(*this);
+	}
+
+	const Point& operator *= (float f)
+	{
+		x *= f;
+		y *= f;
 
 		return(*this);
 	}
