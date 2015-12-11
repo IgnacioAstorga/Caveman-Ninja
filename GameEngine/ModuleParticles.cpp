@@ -15,6 +15,8 @@ ModuleParticles::~ModuleParticles()
 
 bool ModuleParticles::Start()
 {
+	LOG("Starting Particles Module");
+
 	bool ret = true;
 	for (list<ParticleSystem*>::iterator it = particleSystems.begin(); it != particleSystems.end() && ret; ++it)
 		ret = (*it)->Start();
@@ -56,6 +58,8 @@ update_status ModuleParticles::PostUpdate()
 
 bool ModuleParticles::CleanUp()
 {
+	LOG("Cleaning up Particles Module");
+
 	// Limpia la lista de partículas
 	bool ret = true;
 	for (list<ParticleSystem*>::iterator it = particleSystems.begin(); it != particleSystems.end() && ret; ++it)
@@ -65,12 +69,16 @@ bool ModuleParticles::CleanUp()
 
 void ModuleParticles::RegisterParticleSystem(ParticleSystem* particleSystem)
 {
+	LOG("Particle System registration");
+
 	particleSystems.push_back(particleSystem);
 	particleSystem->Start();
 }
 
 void ModuleParticles::RemoveParticleSystem(ParticleSystem* particleSystem)
 {
+	LOG("Particle System removal");
+
 	particleSystems.remove(particleSystem);
 	particleSystem->CleanUp();
 	RELEASE(particleSystem);

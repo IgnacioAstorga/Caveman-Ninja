@@ -2,29 +2,27 @@
 
 Entity::Entity()
 {
-	Create();
+	dead = false;
+
+	// Llamada al delegado
+	OnCreate();
 }
 
 Entity::~Entity()
 {
-	Destroy();
-}
-
-void Entity::Create()
-{
-	// Llamada al método hijo
-	OnCreate();
-}
-
-void Entity::Destroy()
-{
-	// Llamada al método hijo
+	// Llamada al delegado
 	OnDestroy();
 
 	// Limpia la lista de hijos
 	for (list<Entity*>::iterator it = children.begin(); it != children.end(); ++it)
 		RELEASE(*it);
 	children.clear();
+}
+
+void Entity::Destroy()
+{
+	// Marca la entidad para morir
+	dead = true;
 }
 
 bool Entity::IsEnabled()
@@ -50,7 +48,7 @@ bool Entity::Disable()
 
 bool Entity::Start()
 {
-	// Llamada al método hijo
+	// Llamada al delegado
 	bool ret = OnStart();
 
 	// Llamada al Start de los hijos de la entidad
@@ -65,52 +63,53 @@ bool Entity::Start()
 
 update_status Entity::PreUpdate()
 {
-	// Llamada al método hijo
-	update_status ret = OnPreUpdate();
+	update_status ret = UPDATE_CONTINUE;
 
 	// Llamada al PreUpdate de los hijos de la entidad
 	for (list<Entity*>::iterator it = children.begin(); it != children.end() && ret == UPDATE_CONTINUE; ++it)
-	{
 		if ((*it)->IsEnabled() == true)
 			ret = (*it)->PreUpdate();
-	}
 
 	return ret;
 }
 
 update_status Entity::Update()
 {
-	// Llamada al método hijo
-	update_status ret = OnUpdate();
+	update_status ret = UPDATE_CONTINUE;
 
 	// Llamada al Update de los hijos de la entidad
 	for (list<Entity*>::iterator it = children.begin(); it != children.end() && ret == UPDATE_CONTINUE; ++it)
-	{
 		if ((*it)->IsEnabled() == true)
 			ret = (*it)->Update();
-	}
 
 	return ret;
 }
 
 update_status Entity::PostUpdate()
 {
-	// Llamada al método hijo
-	update_status ret = OnPostUpdate();
+	update_status ret = UPDATE_CONTINUE;
 
 	// Llamada al PostUpdate de los hijos de la entidad
 	for (list<Entity*>::iterator it = children.begin(); it != children.end() && ret == UPDATE_CONTINUE; ++it)
-	{
 		if ((*it)->IsEnabled() == true)
 			ret = (*it)->PostUpdate();
-	}
+
+	// Por último, elimina todas sus entidades hijas que hayan muerto
+	list<Entity*> toDestroy;
+	for (list<Entity*>::iterator it = children.begin(); it != children.end() && ret == UPDATE_CONTINUE; ++it)
+		if ((*it)->dead == true)
+			toDestroy.push_back(*it);
+	// Forma segura de destruir elementos mientras se recorre la lista
+	for (list<Entity*>::iterator it = toDestroy.begin(); it != toDestroy.end() && ret == UPDATE_CONTINUE; ++it)
+		RELEASE(*it);
+	toDestroy.clear();
 
 	return ret;
 }
 
 bool Entity::CleanUp()
 {
-	// Llamada al método hijo
+	// Llamada al delegado
 	bool ret = OnCleanUp();
 
 	// Llamada al CleanUp de los hijos de la entidad

@@ -10,18 +10,21 @@
 #include "LifetimeDecay.h"
 #include "SpriteRenderer.h"
 
+class TestScene : public Scene
+{
+protected:
+};
+
 class TestApp : public Application
 {
 protected:
 
 	Scene* OnCreateScene()
 	{
-		sc = new Scene();
-
-		return sc;
+		return new TestScene();
 	}
 
-	bool OnApplicationStart() {	// TODO: cambiar a OnPopulateScene
+	bool OnPopulateScene(Scene* scene) {
 		ParticleSystem* ps = new ParticleSystem();
 		ps->Add(new EmitContinuously(10));
 		ps->Add(new SpeedRandom(100, 300, 100, 300));
@@ -33,7 +36,4 @@ protected:
 
 		return true;
 	}
-
-private:
-	Scene* sc;
 };

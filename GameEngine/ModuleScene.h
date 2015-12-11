@@ -4,7 +4,11 @@
 #include "Module.h"
 #include "Globals.h"
 
+#include <list>
+
 class Scene;
+
+using namespace std;
 
 class ModuleScene : public Module
 {
@@ -21,10 +25,12 @@ public:
 	bool CleanUp();
 
 	void ChangeScene(Scene* scene);
+	void DestroyScene(Scene* scene);
 
 private:
 	Scene* currentScene;
 	Scene* nextScene;
+	list<Scene*> toDestroy;
 
 	void DoChangeScene();
 };

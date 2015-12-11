@@ -26,7 +26,6 @@ public:
 
 private:
 	void Create();
-	void Destroy();
 
 public:
 	bool Init();
@@ -37,12 +36,8 @@ protected:
 	virtual void OnCreateApplication() {};
 	virtual void OnDestroyApplication() {};
 
-	virtual bool OnApplicationInit() { return true; };	// Previo a la inicialización (cambiar la configuración aquí)
-	virtual bool OnApplicationStart() { return true; };	// Previo a que los módulos se inicien (cargar la escena aquí)
-	virtual update_status OnApplicationUpdate() { return UPDATE_CONTINUE; };	// Previo a cada update del juego
-	virtual bool OnApplicationCleanUp() { return true; };	// Previo a la limpieza de la aplicación (guardar datos aquí)
-
-	virtual Scene* OnCreateScene() = 0;
+	virtual Scene* OnCreateScene() = 0;	// Crea y devuelve la escena inicial
+	virtual bool OnPopulateScene(Scene* scene) { return true; };	// Llamado tras arrancar la escena inicial
 
 public:
 	ModuleRender* renderer;

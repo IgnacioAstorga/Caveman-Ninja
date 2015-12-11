@@ -14,7 +14,6 @@ public:
 	virtual ~Entity();
 
 private:
-	void Create();
 	void Destroy();
 
 public:
@@ -45,20 +44,18 @@ public:
 	bool CleanUp();
 
 protected:
-	virtual void OnCreate() {};	// Previo a la inicialización de la entidad, utilizar para cargar cosas
-	virtual void OnDestroy() {};	// Posterior a la descarga de los elementos de la entidad, utilizar para borrar cosas
+	virtual void OnCreate() {};
+	virtual void OnDestroy() {};
 
-	virtual bool OnStart() { return true; };	// Inicialización de la escena, utilizar para configurar las cosas
-	virtual bool OnCleanUp() { return true; };	// Descarga de los elementos de la escena
-	virtual update_status OnPreUpdate() { return UPDATE_CONTINUE; };
-	virtual update_status OnUpdate() { return UPDATE_CONTINUE; };
-	virtual update_status OnPostUpdate() { return UPDATE_CONTINUE; };
+	virtual bool OnStart() { return true; };
+	virtual bool OnCleanUp() { return true; };
 
 public:
 	string name;
 
 private:
 	bool enabled;
+	bool dead;
 	Entity* parent;
 	list<Entity*> children;
 };

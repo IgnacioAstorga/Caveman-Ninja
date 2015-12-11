@@ -8,6 +8,7 @@
 #include "ModuleParticles.h"
 #include "ModuleScene.h"
 #include "Globals.h"
+#include "Scene.h"
 
 #include <stdlib.h>
 
@@ -86,17 +87,19 @@ int Application::Run()
 
 Application::Application()
 {
-	// El constructor no hace nada
+	// La creación ha sido delegada al método Create()
 }
 
 Application::~Application()
 {
-	Destroy();
+	for (list<Module*>::iterator it = modules.begin(); it != modules.end(); ++it)
+		RELEASE(*it);
+
+	// Llamada al delegado
+	OnDestroyApplication();
 }
 
 void Application::Create() {
-
-	// Creación de la aplicación
 	modules.push_back(input = new ModuleInput());
 	modules.push_back(window = new ModuleWindow());
 	modules.push_back(renderer = new ModuleRender());
@@ -106,67 +109,22 @@ void Application::Create() {
 	modules.push_back(particles = new ModuleParticles());
 	modules.push_back(scene = new ModuleScene());
 
-	try {
-		// Llamada al método hijo (después)
-		OnCreateApplication();
-	}
-	catch (const runtime_error re) {
-		LOG("Unhandled user runtime error: ", re.what());
-	}
-	catch (const exception e) {
-		LOG("Unhandled user exception: ", e.what());
-	}
-	catch (...) {
-		LOG("Unknown unhandled user error.");
-	}
-}
-
-void Application::Destroy() {
-	try {
-		// Llamada al método hijo
-		OnDestroyApplication();
-	}
-	catch (const runtime_error re) {
-		LOG("Unhandled user runtime error: ", re.what());
-	}
-	catch (const exception e) {
-		LOG("Unhandled user exception: ", e.what());
-	}
-	catch (...) {
-		LOG("Unknown unhandled user error.");
-	}
-
-	for (list<Module*>::iterator it = modules.begin(); it != modules.end(); ++it)
-		RELEASE(*it);
+	// Llamada al delegado
+	OnCreateApplication();
 }
 
 bool Application::Init()
 {
 	bool ret = true;
-	try {
-		// Llamada al método hijo
-		ret = OnApplicationInit();
-	}
-	catch (const runtime_error re) {
-		LOG("Unhandled user runtime error: ", re.what());
-		ret = false;
-	}
-	catch (const exception e) {
-		LOG("Unhandled user exception: ", e.what());
-		ret = false;
-	}
-	catch (...) {
-		LOG("Unknown unhandled user error.");
-		ret = false;
-	}
 
+	// Inicialización de los módulos
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret; ++it)
 		ret = (*it)->Init();	// Se hace Init incluso a módulos desactivados
 
+	// Llamada al delegado que determina la escena inicial
 	try {
-		// Llamada al método que determina la escena inicial
 		scene->ChangeScene(OnCreateScene());
-		scene->DoChangeScene();	// Fuerza el cambio, gracias a ser friend
+		scene->DoChangeScene();	// Fuerza el cambio de forma inmediata
 	}
 	catch (const runtime_error re) {
 		LOG("Unhandled user runtime error: ", re.what());
@@ -178,27 +136,23 @@ bool Application::Init()
 		LOG("Unknown unhandled user error.");
 	}
 
+	// Arranque de los módulos
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret; ++it)
-	{
 		if((*it)->IsEnabled() == true)
 			ret = (*it)->Start();
-	}
 
+	// Llamada al delegado que actúa tras el arranque de la escena
 	try {
-		// Llamada al método hijo
-		ret = OnApplicationStart();
+		ret = OnPopulateScene(scene->currentScene);
 	}
 	catch (const runtime_error re) {
 		LOG("Unhandled user runtime error: ", re.what());
-		ret = false;
 	}
 	catch (const exception e) {
 		LOG("Unhandled user exception: ", e.what());
-		ret = false;
 	}
 	catch (...) {
 		LOG("Unknown unhandled user error.");
-		ret = false;
 	}
 
 	return ret;
@@ -207,22 +161,6 @@ bool Application::Init()
 update_status Application::Update()
 {
 	update_status ret = UPDATE_CONTINUE;
-	try {
-		// Llamada al método hijo
-		ret = OnApplicationUpdate();
-	}
-	catch (const runtime_error re) {
-		LOG("Unhandled user runtime error: ", re.what());
-		ret = UPDATE_ERROR;
-	}
-	catch (const exception e) {
-		LOG("Unhandled user exception: ", e.what());
-		ret = UPDATE_ERROR;
-	}
-	catch (...) {
-		LOG("Unknown unhandled user error.");
-		ret = UPDATE_ERROR;
-	}
 
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
 		if((*it)->IsEnabled() == true) 
@@ -242,22 +180,6 @@ update_status Application::Update()
 bool Application::CleanUp()
 {
 	bool ret = true;
-	try {
-		// Llamada al método hijo
-		ret = OnApplicationCleanUp();
-	}
-	catch (const runtime_error re) {
-		LOG("Unhandled user runtime error: ", re.what());
-		ret = false;
-	}
-	catch (const exception e) {
-		LOG("Unhandled user exception: ", e.what());
-		ret = false;
-	}
-	catch (...) {
-		LOG("Unknown unhandled user error.");
-		ret = false;
-	}
 
 	for(list<Module*>::reverse_iterator it = modules.rbegin(); it != modules.rend() && ret; ++it)
 		if((*it)->IsEnabled() == true) 

@@ -1,17 +1,9 @@
 #include "Scene.h"
 #include "Entity.h"
+#include "Application.h"
+#include "ModuleScene.h"
 
 Scene::Scene()
-{
-	Create();
-}
-
-Scene::~Scene()
-{
-	Destroy();
-}
-
-void Scene::Create()
 {
 	// Crea la entidad padre
 	root = new Entity();
@@ -31,7 +23,7 @@ void Scene::Create()
 	}
 }
 
-void Scene::Destroy()
+Scene::~Scene()
 {
 	try {
 		// Llamada al método hijo
@@ -49,6 +41,12 @@ void Scene::Destroy()
 
 	// Limpia las entidades
 	RELEASE(root);
+}
+
+void Scene::Destroy()
+{
+	// Marca la escena para morir
+	App->scene->DestroyScene(this);
 }
 
 bool Scene::Start()
@@ -81,22 +79,6 @@ bool Scene::Start()
 update_status Scene::PreUpdate()
 {
 	update_status ret = UPDATE_CONTINUE;
-	try {
-		// Llamada al método hijo
-		ret = OnScenePreUpdate();
-	}
-	catch (const runtime_error re) {
-		LOG("Unhandled user runtime error while preupdating scene: ", re.what());
-		ret = UPDATE_ERROR;
-	}
-	catch (const exception e) {
-		LOG("Unhandled user exception while preupdating scene: ", e.what());
-		ret = UPDATE_ERROR;
-	}
-	catch (...) {
-		LOG("Unknown unhandled user error while preupdating scene.");
-		ret = UPDATE_ERROR;
-	}
 
 	// Llamada al PreUpdate de los hijos de la escena
 	if (root->IsEnabled() == true && ret == UPDATE_CONTINUE)
@@ -108,22 +90,6 @@ update_status Scene::PreUpdate()
 update_status Scene::Update()
 {
 	update_status ret = UPDATE_CONTINUE;
-	try {
-		// Llamada al método hijo
-		ret = OnSceneUpdate();
-	}
-	catch (const runtime_error re) {
-		LOG("Unhandled user runtime error while updating scene: ", re.what());
-		ret = UPDATE_ERROR;
-	}
-	catch (const exception e) {
-		LOG("Unhandled user exception while updating scene: ", e.what());
-		ret = UPDATE_ERROR;
-	}
-	catch (...) {
-		LOG("Unknown unhandled user error while updating scene.");
-		ret = UPDATE_ERROR;
-	}
 
 	// Llamada al Update de los hijos de la escena
 	if (root->IsEnabled() == true && ret == UPDATE_CONTINUE)
@@ -135,22 +101,6 @@ update_status Scene::Update()
 update_status Scene::PostUpdate()
 {
 	update_status ret = UPDATE_CONTINUE;
-	try {
-		// Llamada al método hijo
-		ret = OnScenePostUpdate();
-	}
-	catch (const runtime_error re) {
-		LOG("Unhandled user runtime error while postupdating scene: ", re.what());
-		ret = UPDATE_ERROR;
-	}
-	catch (const exception e) {
-		LOG("Unhandled user exception while postupdating scene: ", e.what());
-		ret = UPDATE_ERROR;
-	}
-	catch (...) {
-		LOG("Unknown unhandled user error while postupdating scene.");
-		ret = UPDATE_ERROR;
-	}
 
 	// Llamada al PostUpdate de los hijos de la escena
 	if (root->IsEnabled() == true && ret == UPDATE_CONTINUE)
