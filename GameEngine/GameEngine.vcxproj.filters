@@ -28,6 +28,9 @@
     <Filter Include="Elements\Particles\Renderers">
       <UniqueIdentifier>{d9714b3c-e59c-4633-9d6a-a40596889771}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Elements\Entities">
+      <UniqueIdentifier>{f2ac7bf3-b6a2-4723-afa0-d311736243f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.h">
@@ -64,9 +67,6 @@
       <Filter>Elements</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Elements</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
       <Filter>Elements</Filter>
     </ClInclude>
     <ClInclude Include="ModuleParticles.h">
@@ -117,6 +117,12 @@
     <ClInclude Include="SpriteRenderer.h">
       <Filter>Elements\Particles\Renderers</Filter>
     </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Elements\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Elements\Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -149,9 +155,6 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Elements</Filter>
     </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Elements</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleParticles.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
@@ -162,6 +165,12 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ModuleTime.cpp">
       <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Elements\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Elements\Entities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

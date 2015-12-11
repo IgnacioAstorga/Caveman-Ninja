@@ -5,6 +5,9 @@
 
 #include <list>
 
+class Transform;
+class Scene;
+
 using namespace std;
 
 class Entity
@@ -14,6 +17,10 @@ public:
 	virtual ~Entity();
 
 private:
+	void Instantiate(string name, Scene* scene);
+	void Instantiate(string name, Entity* parent);
+	void Instantiate(string name, float x, float y, Scene* scene);
+	void Instantiate(string name, float x, float y, Entity* parent);
 	void Destroy();
 
 public:
@@ -52,11 +59,13 @@ protected:
 
 public:
 	string name;
+	Transform* transform;
 
 private:
 	bool enabled;
 	bool dead;
 	Entity* parent;
+	Scene* scene;
 	list<Entity*> children;
 };
 #endif //__ENTITY_H__

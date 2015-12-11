@@ -1,4 +1,6 @@
 #include "Entity.h"
+#include "Transform.h"
+#include "Scene.h"
 
 Entity::Entity()
 {
@@ -6,6 +8,9 @@ Entity::Entity()
 
 	// Llamada al delegado
 	OnCreate();
+
+	// Crea el transform
+	transform = new Transform(this);
 }
 
 Entity::~Entity()
@@ -17,6 +22,35 @@ Entity::~Entity()
 	for (list<Entity*>::iterator it = children.begin(); it != children.end(); ++it)
 		RELEASE(*it);
 	children.clear();
+
+	// Destruye el transform
+	RELEASE(transform);
+}
+
+void Entity::Instantiate(string name, Scene* scene)
+{
+	Instantiate(name, 0, 0, scene);
+}
+
+void Entity::Instantiate(string name, Entity* parent)
+{
+	Instantiate(name, 0, 0, parent);
+}
+
+void Entity::Instantiate(string name, float x, float y, Entity * parent)
+{
+	this->name = name;
+	scene->AddChild(this);
+	this->scene = scene;
+	transform->position.x = x;
+	transform->position.y = y;
+}
+
+void Entity::Instantiate(string name, float x, float y, Scene * scene)
+{
+	this->name = name;
+	parent->AddChild(this);
+	this->scene = parent->scene;
 }
 
 void Entity::Destroy()
@@ -100,8 +134,10 @@ update_status Entity::PostUpdate()
 		if ((*it)->dead == true)
 			toDestroy.push_back(*it);
 	// Forma segura de destruir elementos mientras se recorre la lista
-	for (list<Entity*>::iterator it = toDestroy.begin(); it != toDestroy.end() && ret == UPDATE_CONTINUE; ++it)
+	for (list<Entity*>::iterator it = toDestroy.begin(); it != toDestroy.end() && ret == UPDATE_CONTINUE; ++it) {
+		(*it)->CleanUp();
 		RELEASE(*it);
+	}
 	toDestroy.clear();
 
 	return ret;
@@ -129,19 +165,30 @@ Entity* Entity::GetParent()
 
 void Entity::SetParent(Entity* entity)
 {
-	parent = entity;
+	if (entity == nullptr) {
+		if (parent != nullptr)
+			parent->RemoveChild(this);
+		parent = nullptr;
+	}
+	else
+		entity->AddChild(this);
 }
 
 void Entity::AddChild(Entity* child)
 {
+	if (child->parent != nullptr)
+		child->parent->RemoveChild(child);
+	child->parent = this;
 	children.push_back(child);
-	child->SetParent(this);
 }
 
 void Entity::RemoveChild(Entity* child)
 {
-	children.remove(child);
-	child->SetParent(nullptr);
+	if (child->parent == this)
+	{
+		child->parent = nullptr;
+		children.remove(child);
+	}
 }
 
 const list<Entity*>& Entity::GetChildren()
