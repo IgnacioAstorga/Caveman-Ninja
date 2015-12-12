@@ -2,6 +2,7 @@
 #define __PARTICLESYSTEM_H__
 
 #include "Globals.h"
+#include "Point.h"
 
 #include <list>
 
@@ -10,13 +11,14 @@ class ParticleInitializer;
 class ParticleOperator;
 class ParticleRenderer;
 class Particle;
+class Transform;
 
 using namespace std;
 
 class ParticleSystem
 {
 public:
-	ParticleSystem(bool start_enabled = true);
+	ParticleSystem(Transform* transform, bool start_enabled = true);
 	virtual ~ParticleSystem();
 	
 	bool IsEnabled();
@@ -37,6 +39,8 @@ public:
 
 	bool CreateParticle(unsigned int amount);
 
+	fPoint GetPosition();
+
 public:
 	bool Start();
 	update_status PreUpdate();
@@ -53,5 +57,7 @@ private:
 	list<ParticleRenderer*> renderers;
 
 	list<Particle*> particles;
+
+	Transform* transform;
 };
 #endif // __PARTICLESYSTEM_H__

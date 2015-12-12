@@ -1,6 +1,8 @@
 #ifndef __POINT_H__
 #define __POINT_H__
 
+#include "Globals.h"
+
 template<class T>
 
 class Point
@@ -95,6 +97,19 @@ public:
 	{
 		x = -x;
 		y = -y;
+
+		return(*this);
+	}
+
+	Point& Rotate(float degrees)
+	{
+		double rads = degrees * 2 * M_PI / 360.0;
+
+		double cosine = cos(rads);
+		double sine = sin(rads);
+
+		x = (float)(x * cosine - y * sine);
+		y = (float)(x * sine + y * cosine);
 
 		return(*this);
 	}

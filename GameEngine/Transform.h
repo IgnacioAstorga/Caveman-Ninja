@@ -1,13 +1,14 @@
 #ifndef __TRANSFORM_H__
 #define __TRANSFORM_H__
 
-#include "Entity.h"
 #include "Point.h"
+
+class Entity;
 
 class Transform
 {
 public:
-	Transform(Entity* parent);
+	Transform(Entity* entity);
 	virtual ~Transform();
 
 	fPoint GetLocalPosition();
@@ -31,6 +32,6 @@ public:
 	fPoint scale;
 
 private:
-	Entity* parent;
+	Entity* entity;
 };
 #endif //__TRANSFORM_H__

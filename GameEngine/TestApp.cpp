@@ -24,10 +24,14 @@ protected:
 		return new TestScene();
 	}
 
-	bool OnPopulateScene(Scene* scene) {
-		ParticleSystem* ps = new ParticleSystem();
-		ps->Add(new EmitContinuously(10));
-		ps->Add(new SpeedRandom(100, 300, 100, 300));
+	bool OnPopulateScene(Scene* scene)
+	{
+		Entity* en = new Entity();
+		en->Instantiate("try", 200, 100, scene);
+
+		ParticleSystem* ps = new ParticleSystem(en->transform);
+		ps->Add(new EmitContinuously(200));
+		ps->Add(new SpeedRandom(-300, 300, -300, 300));
 		ps->Add(new LifetimeRandom(0.5, 2));
 		ps->Add(new MovementBasic());
 		ps->Add(new LifetimeDecay());

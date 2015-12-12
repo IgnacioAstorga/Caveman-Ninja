@@ -4,9 +4,13 @@
 #include "ParticleOperator.h"
 #include "ParticleRenderer.h"
 #include "Particle.h"
+#include "Transform.h"
 
-ParticleSystem::ParticleSystem(bool start_enabled) : active(start_enabled)
+ParticleSystem::ParticleSystem(Transform* transform, bool start_enabled) : active(start_enabled)
 {
+	this->transform = transform;
+
+	// Llamada al delegado
 	OnCreate();
 }
 
@@ -96,6 +100,11 @@ bool ParticleSystem::CreateParticle(unsigned int amount)
 	}
 
 	return ret;
+}
+
+fPoint ParticleSystem::GetPosition()
+{
+	return transform->GetGlobalPosition();
 }
 
 bool ParticleSystem::Start()

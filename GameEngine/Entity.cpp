@@ -37,7 +37,7 @@ void Entity::Instantiate(string name, Entity* parent)
 	Instantiate(name, 0, 0, parent);
 }
 
-void Entity::Instantiate(string name, float x, float y, Entity * parent)
+void Entity::Instantiate(string name, float x, float y, Scene * scene)
 {
 	this->name = name;
 	scene->AddChild(this);
@@ -46,11 +46,13 @@ void Entity::Instantiate(string name, float x, float y, Entity * parent)
 	transform->position.y = y;
 }
 
-void Entity::Instantiate(string name, float x, float y, Scene * scene)
+void Entity::Instantiate(string name, float x, float y, Entity * parent)
 {
 	this->name = name;
 	parent->AddChild(this);
 	this->scene = parent->scene;
+	transform->position.x = x;
+	transform->position.y = y;
 }
 
 void Entity::Destroy()

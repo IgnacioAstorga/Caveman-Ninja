@@ -1,8 +1,9 @@
 #include "Transform.h"
+#include "Entity.h"
 
-Transform::Transform(Entity* parent)
+Transform::Transform(Entity* entity)
 {
-	this->parent = parent;
+	this->entity = entity;
 }
 
 Transform::~Transform()
@@ -17,10 +18,10 @@ fPoint Transform::GetLocalPosition()
 
 fPoint Transform::GetGlobalPosition()
 {
-	if (parent == nullptr)
+	if (entity->GetParent() == nullptr)
 		return GetLocalPosition();
 	else
-		return parent->transform->GetGlobalPosition();
+		return entity->GetParent()->transform->GetGlobalPosition() + GetLocalPosition().Rotate(GetLocalRotation());
 }
 
 fPoint Transform::GetLocalSpeed()
@@ -30,10 +31,10 @@ fPoint Transform::GetLocalSpeed()
 
 fPoint Transform::GetGlobalSpeed()
 {
-	if (parent == nullptr)
+	if (entity->GetParent() == nullptr)
 		return GetLocalSpeed();
 	else
-		return parent->transform->GetGlobalSpeed();
+		return entity->GetParent()->transform->GetGlobalSpeed() + GetLocalSpeed().Rotate(GetLocalRotation());
 }
 
 float Transform::GetLocalRotation()
@@ -43,10 +44,10 @@ float Transform::GetLocalRotation()
 
 float Transform::GetGlobalRotation()
 {
-	if (parent == nullptr)
+	if (entity->GetParent() == nullptr)
 		return GetLocalRotation();
 	else
-		return parent->transform->GetGlobalRotation();
+		return entity->GetParent()->transform->GetGlobalRotation() + GetLocalRotation();
 }
 
 fPoint Transform::GetLocalScale()
@@ -56,15 +57,16 @@ fPoint Transform::GetLocalScale()
 
 fPoint Transform::GetGlobalScale()
 {
-	if (parent == nullptr)
+	if (entity->GetParent() == nullptr)
 		return GetLocalScale();
 	else
-		return parent->transform->GetGlobalScale();
+		return entity->GetParent()->transform->GetGlobalScale() + GetLocalScale();
 }
 
 fPoint Transform::GetForwardVector()
 {
-	return fPoint(cos(rotation), sin(rotation));
+	double rads = rotation * 2 * M_PI / 360.0;
+	return fPoint((float)cos(rads), (float)sin(rads));
 }
 
 fPoint Transform::GetBackwardVector()
@@ -74,7 +76,8 @@ fPoint Transform::GetBackwardVector()
 
 fPoint Transform::GetRightVector()
 {
-	return fPoint(sin(rotation), -cos(rotation));
+	double rads = rotation * 2 * M_PI / 360.0;
+	return fPoint((float)sin(rads), (float)-cos(rads));
 }
 
 fPoint Transform::GetLeftVector()

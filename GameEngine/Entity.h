@@ -16,7 +16,7 @@ public:
 	Entity();
 	virtual ~Entity();
 
-private:
+public:
 	void Instantiate(string name, Scene* scene);
 	void Instantiate(string name, Entity* parent);
 	void Instantiate(string name, float x, float y, Scene* scene);

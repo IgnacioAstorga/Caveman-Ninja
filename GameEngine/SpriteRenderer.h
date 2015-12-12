@@ -36,10 +36,12 @@ public:
 		if (texture == nullptr)
 			return UPDATE_ERROR;
 
+		fPoint renderPosition = system->GetPosition();
+		renderPosition += particle.position;
+
 		int w, h;
 		SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-
-		App->renderer->Blit(texture, (int) particle.position.x - (w / 2), (int) particle.position.y - (h / 2), NULL, 1.0f);
+		App->renderer->Blit(texture, (int)(renderPosition.x - (w / 2)), (int)(renderPosition.y - (h / 2)), NULL, 1.0f);
 
 		return UPDATE_CONTINUE;
 	}
