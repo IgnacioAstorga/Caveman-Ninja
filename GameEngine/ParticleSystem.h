@@ -17,7 +17,7 @@ using namespace std;
 class ParticleSystem
 {
 public:
-	ParticleSystem(Transform* transform, bool start_enabled = true);
+	ParticleSystem(Transform* transform = nullptr, bool start_enabled = true);
 	virtual ~ParticleSystem();
 	
 	bool IsEnabled();
@@ -38,7 +38,7 @@ public:
 
 	bool CreateParticle(unsigned int amount);
 
-	Transform* GetTransform();
+	Transform* transform;
 
 public:
 	bool Start();
@@ -56,7 +56,5 @@ private:
 	list<ParticleRenderer*> renderers;
 
 	list<Particle*> particles;
-
-	Transform* transform;
 };
 #endif // __PARTICLESYSTEM_H__

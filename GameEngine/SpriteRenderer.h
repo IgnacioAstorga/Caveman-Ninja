@@ -60,9 +60,9 @@ public:
 
 		// Determina la posición y rotación de la partícula en pantalla
 		fPoint temp = particle.position;
-		fPoint renderPosition = system->GetTransform()->GetGlobalPosition();
-		renderPosition += temp.Rotate(system->GetTransform()->GetGlobalRotation());
-		float renderRotation = system->GetTransform()->GetGlobalRotation() + particle.rotation;
+		fPoint renderPosition = system->transform->GetGlobalPosition();
+		renderPosition += temp.Rotate(system->transform->GetGlobalRotation());
+		float renderRotation = system->transform->GetGlobalRotation() + particle.rotation;
 
 		// Determina el color y opacidad de la partícula
 		SDL_Color renderColor;

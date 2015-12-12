@@ -144,6 +144,9 @@
     <ClInclude Include="SpriteRendererComponent.h">
       <Filter>Elements\Entities\Components</Filter>
     </ClInclude>
+    <ClInclude Include="ParticleSystemComponent.h">
+      <Filter>Elements\Entities\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">

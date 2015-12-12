@@ -47,6 +47,7 @@
     <ClInclude Include="ParticleOperator.h" />
     <ClInclude Include="ParticleRenderer.h" />
     <ClInclude Include="ParticleSystem.h" />
+    <ClInclude Include="ParticleSystemComponent.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="RotationMatchingSpeed.h" />

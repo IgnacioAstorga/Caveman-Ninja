@@ -14,6 +14,7 @@
 #include "SpriteRenderer.h"
 #include "Color.h"
 #include "SpriteRendererComponent.h"
+#include "ParticleSystemComponent.h"
 
 #include <sstream>
 
@@ -47,14 +48,14 @@ protected:
 		Entity* en1 = new Entity();
 		en1->Instantiate("character", 100, 200, scene);
 
-		Component* cp = new SpriteRendererComponent("try_character_animated.png", a1, -46, -77);
-		cp->Create(en1);
+		Component* cp1 = new SpriteRendererComponent("try_character_animated.png", a1, -46, -77);
+		cp1->Create(en1);
 
 		Entity* en2 = new Entity();
 		en2->Instantiate("particles", 67, -56, en1);
 		en2->transform->rotation = -90.0f;
 
-		ParticleSystem* ps = new ParticleSystem(en2->transform);
+		ParticleSystem* ps = new ParticleSystem();
 		ps->Add(new EmitContinuously(20));
 		ps->Add(new SpeedRandom(-100, 100, 300, 500));
 		ps->Add(new LifetimeRandom(0.5, 2));
@@ -64,7 +65,9 @@ protected:
 		ps->Add(new LifetimeDecay());
 		ps->Add(new AlphaFadeInOut(0.1f, 0.75f));
 		ps->Add(new SpriteRenderer("try_particles_animated.png", a2));
-		App->particles->RegisterParticleSystem(ps);
+
+		Component* cp2 = new ParticleSystemComponent(ps);
+		cp2->Create(en2);
 
 		return true;
 	}

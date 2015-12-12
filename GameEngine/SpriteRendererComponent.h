@@ -23,7 +23,7 @@ public:
 	SpriteRendererComponent(string textureName, Animation* animation, float rotation = 0.0f)
 		: SpriteRendererComponent(textureName, animation, 0.0f, 0.0f, rotation) {}
 
-	SpriteRendererComponent(string textureName, Animation* animation, float offsetX, float offsetY, float rotation = 0.0f)
+	SpriteRendererComponent(string textureName, Animation* animation, float offsetX, float offsetY, float rotation = 0.0f, bool start_enabled = true) : Component(start_enabled)
 	{
 		this->textureName = textureName;
 		this->animation = animation;

@@ -102,11 +102,6 @@ bool ParticleSystem::CreateParticle(unsigned int amount)
 	return ret;
 }
 
-Transform* ParticleSystem::GetTransform()
-{
-	return transform;
-}
-
 bool ParticleSystem::Start()
 {
 	bool ret = true;
