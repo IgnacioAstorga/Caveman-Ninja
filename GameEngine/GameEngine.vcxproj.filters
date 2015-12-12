@@ -132,6 +132,9 @@
     <ClInclude Include="AlphaFadeInOut.h">
       <Filter>Elements\Particles\Operators</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleAnimation.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -180,6 +183,9 @@
     </ClCompile>
     <ClCompile Include="Transform.cpp">
       <Filter>Elements\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleAnimation.cpp">
+      <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

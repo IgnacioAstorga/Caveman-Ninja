@@ -30,6 +30,7 @@
     <ClInclude Include="LifetimeDecay.h" />
     <ClInclude Include="LifetimeRandom.h" />
     <ClInclude Include="Module.h" />
+    <ClInclude Include="ModuleAnimation.h" />
     <ClInclude Include="ModuleAudio.h" />
     <ClInclude Include="ModuleParticles.h" />
     <ClInclude Include="ModuleScene.h" />
@@ -59,6 +60,7 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="ModuleAnimation.cpp" />
     <ClCompile Include="ModuleAudio.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
     <ClCompile Include="ModuleParticles.cpp" />

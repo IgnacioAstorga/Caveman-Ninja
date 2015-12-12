@@ -113,13 +113,17 @@ bool ParticleSystem::Start()
 
 	// Inicializa todos los elementos
 	for (list<ParticleEmitter*>::iterator it = emitters.begin(); it != emitters.end() && ret; ++it)
-		ret = (*it)->Start();
+		if ((*it)->IsEnabled())
+			ret = (*it)->Start();
 	for (list<ParticleInitializer*>::iterator it = initializers.begin(); it != initializers.end() && ret; ++it)
-		ret = (*it)->Start();
+		if ((*it)->IsEnabled())
+			ret = (*it)->Start();
 	for (list<ParticleOperator*>::iterator it = operators.begin(); it != operators.end() && ret; ++it)
-		ret = (*it)->Start();
+		if ((*it)->IsEnabled())
+			ret = (*it)->Start();
 	for (list<ParticleRenderer*>::iterator it = renderers.begin(); it != renderers.end() && ret; ++it)
-		ret = (*it)->Start();
+		if ((*it)->IsEnabled())
+			ret = (*it)->Start();
 
 	return ret;
 }
@@ -180,13 +184,17 @@ bool ParticleSystem::CleanUp()
 
 	// Limpia todos los elementos
 	for (list<ParticleEmitter*>::iterator it = emitters.begin(); it != emitters.end() && ret; ++it)
-		ret = (*it)->CleanUp();
+		if ((*it)->IsEnabled())
+			ret = (*it)->CleanUp();
 	for (list<ParticleInitializer*>::iterator it = initializers.begin(); it != initializers.end() && ret; ++it)
-		ret = (*it)->CleanUp();
+		if ((*it)->IsEnabled())
+			ret = (*it)->CleanUp();
 	for (list<ParticleOperator*>::iterator it = operators.begin(); it != operators.end() && ret; ++it)
-		ret = (*it)->CleanUp();
+		if ((*it)->IsEnabled())
+			ret = (*it)->CleanUp();
 	for (list<ParticleRenderer*>::iterator it = renderers.begin(); it != renderers.end() && ret; ++it)
-		ret = (*it)->CleanUp();
+		if ((*it)->IsEnabled())
+			ret = (*it)->CleanUp();
 
 	// Elimina las partículas guardadas
 	for (list<Particle*>::iterator it = particles.begin(); it != particles.end() && ret; ++it)

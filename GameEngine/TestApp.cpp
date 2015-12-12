@@ -29,23 +29,31 @@ protected:
 
 	bool OnPopulateScene(Scene* scene)
 	{
+		Animation* a = new Animation();
+		a->speed = 24.0f;
+		a->frames.push_back({ 0, 0, 60, 60 });
+		a->frames.push_back({ 60, 0, 60, 60 });
+		a->frames.push_back({ 120, 0, 60, 60 });
+		a->frames.push_back({ 0, 60, 60, 60 });
+		a->frames.push_back({ 60, 60, 60, 60 });
+		a->frames.push_back({ 120, 60, 60, 60 });
+
 		Entity* en1 = new Entity();
-		en1->Instantiate("try", 200, 100, scene);
-		en1->transform->rotation = 90.0f;
+		en1->Instantiate("try", 100, 100, scene);
 		Entity* en2 = new Entity();
-		en2->Instantiate("try", 0, 25, scene);
+		en2->Instantiate("try", 0, 0, scene);
 		en1->AddChild(en2);
 
 		ParticleSystem* ps = new ParticleSystem(en2->transform);
 		ps->Add(new EmitContinuously(20));
-		ps->Add(new SpeedRandom(-100, 100, -500, -300));
+		ps->Add(new SpeedRandom(300, 500, -100, 100));
 		ps->Add(new LifetimeRandom(0.5, 2));
 		ps->Add(new ColorRandom(Color(0.5f, 0.65f, 1.0f), Color(0.65f, 0.85f, 1.0f)));
 		ps->Add(new MovementBasic());
 		ps->Add(new RotationMatchingSpeed());
 		ps->Add(new LifetimeDecay());
 		ps->Add(new AlphaFadeInOut(0.1f, 0.75f));
-		ps->Add(new SpriteRenderer("try.png"));
+		ps->Add(new SpriteRenderer("try_animated_white.png", a));
 		App->particles->RegisterParticleSystem(ps);
 
 		return true;

@@ -7,6 +7,9 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "Transform.h"
+#include "Animation.h"
+#include "Application.h"
+#include "ModuleAnimation.h"
 
 #include "SDL.h"
 
@@ -18,16 +21,35 @@ public:
 	SpriteRenderer(string textureName)
 	{
 		this->textureName = textureName;
+		animation = nullptr;
 	}
 
-	bool Start() {
+	SpriteRenderer(string textureName, Animation* animation)
+	{
+		this->textureName = textureName;
+		this->animation = animation;
+	}
+
+	bool Start()
+	{
 		texture = App->textures->Load(textureName.c_str());
+		if (texture == nullptr)
+			return false;
+
+		if (animation != nullptr)
+			App->animation->RegisterAnimation(animation);
 
 		return true;
 	}
 
-	bool CleanUp() {
+	bool CleanUp()
+	{
+		if (texture == nullptr)
+			return false;
 		App->textures->Unload(texture);
+
+		if (animation != nullptr)
+			App->animation->UnregisterAnimation(animation);
 
 		return true;
 	}
@@ -50,10 +72,19 @@ public:
 		renderColor.b = (unsigned int)(particle.tint.blue * 255);
 		renderColor.a = (unsigned int)(particle.tint.alpha * 255);
 
-		// Pinta la partícula
-		int w, h;
-		SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-		App->renderer->Blit(texture, (int)(renderPosition.x - (w / 2)), (int)(renderPosition.y - (h / 2)), renderRotation, NULL, &renderColor);
+		// Determina el frame que pintar
+		SDL_Rect* renderArea = NULL;
+		int width, height;
+		if (animation != nullptr)
+		{
+			renderArea = &(animation->GetCurrentFrame());
+			width = renderArea->w;
+			height = renderArea->h;
+		}
+		else
+			SDL_QueryTexture(texture, NULL, NULL, &width, &height);
+
+		App->renderer->Blit(texture, (int)(renderPosition.x - (width / 2)), (int)(renderPosition.y - (height / 2)), renderRotation, NULL, &renderColor, renderArea);
 
 		return UPDATE_CONTINUE;
 	}
@@ -61,6 +92,7 @@ public:
 private:
 	string textureName;
 	SDL_Texture* texture = nullptr;
+	Animation* animation = nullptr;
 };
 
 #endif //  __SPRITERENDERER_H__

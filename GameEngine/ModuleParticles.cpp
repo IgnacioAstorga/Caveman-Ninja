@@ -82,7 +82,7 @@ void ModuleParticles::RegisterParticleSystem(ParticleSystem* particleSystem)
 
 void ModuleParticles::UnregisterParticleSystem(ParticleSystem* particleSystem)
 {
-	LOG("Particle System removal");
+	LOG("Particle System unregistration");
 
 	particleSystems.remove(particleSystem);
 	particleSystem->CleanUp();

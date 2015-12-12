@@ -12,6 +12,7 @@ class ModuleTextures;
 class ModuleInput;
 class ModuleAudio;
 class ModuleTime;
+class ModuleAnimation;
 class ModuleParticles;
 class ModuleScene;
 
@@ -46,6 +47,7 @@ public:
 	ModuleInput* input;
 	ModuleAudio* audio;
 	ModuleTime* time;
+	ModuleAnimation* animation;
 	ModuleParticles* particles;
 	ModuleScene* scene;
 
