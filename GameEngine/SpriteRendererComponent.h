@@ -56,7 +56,7 @@ public:
 		return true;
 	}
 
-	bool Update()
+	bool PostUpdate()
 	{
 		if (texture == nullptr || GetEntity() == nullptr)
 			return false;

@@ -150,19 +150,20 @@ update_status ParticleSystem::Update()
 			if ((*it)->IsEnabled())
 				ret = (*it)->Modify(*(*particle));
 
-
-	// Después, todavía en Update, llama a los renderizadores para cada partícula
-	for (list<Particle*>::iterator particle = particles.begin(); particle != particles.end(); ++particle)
-		for (list<ParticleRenderer*>::iterator it = renderers.begin(); it != renderers.end() && ret == UPDATE_CONTINUE; ++it)
-			if ((*it)->IsEnabled())
-				ret = (*it)->Render(*(*particle));
-
 	return ret;
 }
 
 update_status ParticleSystem::PostUpdate()
 {
-	// En PostUpdate, borra las partículas muertas
+	update_status ret = UPDATE_CONTINUE;
+
+	// En PostUpdate, llama a los renderizadores para cada partícula
+	for (list<Particle*>::iterator particle = particles.begin(); particle != particles.end(); ++particle)
+		for (list<ParticleRenderer*>::iterator it = renderers.begin(); it != renderers.end() && ret == UPDATE_CONTINUE; ++it)
+			if ((*it)->IsEnabled())
+				ret = (*it)->Render(*(*particle));
+
+	// Después, todavía en PostUpdate, borra las partículas muertas
 	list<Particle*> toRemove;
 	for (list<Particle*>::iterator it = particles.begin(); it != particles.end(); ++it)
 		if ((*it)->dead)
@@ -175,7 +176,7 @@ update_status ParticleSystem::PostUpdate()
 	}
 	toRemove.clear();
 
-	return UPDATE_CONTINUE;
+	return ret;
 }
 
 bool ParticleSystem::CleanUp()
