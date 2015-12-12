@@ -31,6 +31,9 @@
     <Filter Include="Elements\Entities">
       <UniqueIdentifier>{f2ac7bf3-b6a2-4723-afa0-d311736243f9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Elements\Entities\Components">
+      <UniqueIdentifier>{142f3005-5c49-4593-977a-db78d3db0cd2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.h">
@@ -135,6 +138,12 @@
     <ClInclude Include="ModuleAnimation.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Elements\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRendererComponent.h">
+      <Filter>Elements\Entities\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -186,6 +195,9 @@
     </ClCompile>
     <ClCompile Include="ModuleAnimation.cpp">
       <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Elements\Entities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

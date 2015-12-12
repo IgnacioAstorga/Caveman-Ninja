@@ -8,7 +8,6 @@
 #include "ModuleRender.h"
 #include "Transform.h"
 #include "Animation.h"
-#include "Application.h"
 #include "ModuleAnimation.h"
 
 #include "SDL.h"

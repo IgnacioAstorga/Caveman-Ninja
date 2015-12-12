@@ -5,6 +5,7 @@
 
 #include <list>
 
+class Component;
 class Transform;
 class Scene;
 
@@ -13,14 +14,14 @@ using namespace std;
 class Entity
 {
 public:
-	Entity();
+	Entity(bool start_enabled = true);
 	virtual ~Entity();
 
 public:
-	void Instantiate(string name, Scene* scene);
-	void Instantiate(string name, Entity* parent);
-	void Instantiate(string name, float x, float y, Scene* scene);
-	void Instantiate(string name, float x, float y, Entity* parent);
+	Entity* Instantiate(string name, Scene* scene);
+	Entity* Instantiate(string name, Entity* parent);
+	Entity* Instantiate(string name, float x, float y, Scene* scene);
+	Entity* Instantiate(string name, float x, float y, Entity* parent);
 	void Destroy();
 
 public:
@@ -42,6 +43,12 @@ public:
 	list<Entity*> FindAllChildren(string name, int deepness);
 	template <class T> list<T*> FindAllChildren();
 	template <class T> list<T*> FindAllChildren(int deepness);
+
+	void AddComponent(Component* component);
+	void RemoveComponent(Component* component);
+	const list<Component*>& GetComponents();
+	template <class T> T* FindComponent();
+	template <class T> list<T*> FindAllComponents();
 
 public:
 	bool Start();
@@ -67,5 +74,6 @@ private:
 	Entity* parent;
 	Scene* scene;
 	list<Entity*> children;
+	list<Component*> components;
 };
 #endif //__ENTITY_H__

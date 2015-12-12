@@ -1,21 +1,24 @@
 #include "Entity.h"
 #include "Transform.h"
 #include "Scene.h"
+#include "Component.h"
 
-Entity::Entity()
+#include <typeinfo>
+
+Entity::Entity(bool start_enabled) : enabled(start_enabled)
 {
 	dead = false;
 
-	// Llamada al delegado
-	OnCreate();
-
 	// Crea el transform
 	transform = new Transform(this);
+
+	// Llamada al delegado
+	OnCreate();
 }
 
 Entity::~Entity()
 {
-	// Llamada al delegado
+	// Llamada al delegado (antes)
 	OnDestroy();
 
 	// Limpia la lista de hijos
@@ -23,36 +26,45 @@ Entity::~Entity()
 		RELEASE(*it);
 	children.clear();
 
+	// Limpia la lista de componentes
+	for (list<Component*>::iterator it = components.begin(); it != components.end(); ++it)
+		RELEASE(*it);
+	components.clear();
+
 	// Destruye el transform
 	RELEASE(transform);
 }
 
-void Entity::Instantiate(string name, Scene* scene)
+Entity* Entity::Instantiate(string name, Scene* scene)
 {
-	Instantiate(name, 0, 0, scene);
+	return Instantiate(name, 0, 0, scene);
 }
 
-void Entity::Instantiate(string name, Entity* parent)
+Entity* Entity::Instantiate(string name, Entity* parent)
 {
-	Instantiate(name, 0, 0, parent);
+	return Instantiate(name, 0, 0, parent);
 }
 
-void Entity::Instantiate(string name, float x, float y, Scene * scene)
+Entity* Entity::Instantiate(string name, float x, float y, Scene* scene)
 {
 	this->name = name;
 	scene->AddChild(this);
 	this->scene = scene;
 	transform->position.x = x;
 	transform->position.y = y;
+
+	return this;
 }
 
-void Entity::Instantiate(string name, float x, float y, Entity * parent)
+Entity* Entity::Instantiate(string name, float x, float y, Entity* parent)
 {
 	this->name = name;
 	parent->AddChild(this);
 	this->scene = parent->scene;
 	transform->position.x = x;
 	transform->position.y = y;
+
+	return this;
 }
 
 void Entity::Destroy()
@@ -89,10 +101,14 @@ bool Entity::Start()
 
 	// Llamada al Start de los hijos de la entidad
 	for (list<Entity*>::iterator it = children.begin(); it != children.end() && ret; ++it)
-	{
 		if ((*it)->IsEnabled() == true)
 			ret = (*it)->Start();
-	}
+
+	// Llamada al Start de los componentes de la entidad
+	for (list<Component*>::iterator it = components.begin(); it != components.end() && ret; ++it)
+		if ((*it)->IsEnabled() == true)
+			if (!(*it)->Start())
+				LOG("Error al hacer Start en el componente: ", typeid(*(*it)).name());
 
 	return ret;
 }
@@ -106,6 +122,12 @@ update_status Entity::PreUpdate()
 		if ((*it)->IsEnabled() == true)
 			ret = (*it)->PreUpdate();
 
+	// Llamada al PreUpdate de los componentes de la entidad
+	for (list<Component*>::iterator it = components.begin(); it != components.end() && ret == UPDATE_CONTINUE; ++it)
+		if ((*it)->IsEnabled() == true)
+			if (!(*it)->PreUpdate())
+				LOG("Error al hacer PreUpdate en el componente: ", typeid(*(*it)).name());
+
 	return ret;
 }
 
@@ -118,6 +140,12 @@ update_status Entity::Update()
 		if ((*it)->IsEnabled() == true)
 			ret = (*it)->Update();
 
+	// Llamada al Update de los componentes de la entidad
+	for (list<Component*>::iterator it = components.begin(); it != components.end() && ret == UPDATE_CONTINUE; ++it)
+		if ((*it)->IsEnabled() == true)
+			if (!(*it)->Update())
+				LOG("Error al hacer Update en el componente: ", typeid(*(*it)).name());
+
 	return ret;
 }
 
@@ -129,6 +157,12 @@ update_status Entity::PostUpdate()
 	for (list<Entity*>::iterator it = children.begin(); it != children.end() && ret == UPDATE_CONTINUE; ++it)
 		if ((*it)->IsEnabled() == true)
 			ret = (*it)->PostUpdate();
+
+	// Llamada al PostUpdate de los componentes de la entidad
+	for (list<Component*>::iterator it = components.begin(); it != components.end() && ret == UPDATE_CONTINUE; ++it)
+		if ((*it)->IsEnabled() == true)
+			if (!(*it)->PostUpdate())
+				LOG("Error al hacer PostUpdate en el componente: ", typeid(*(*it)).name());
 
 	// Por último, elimina todas sus entidades hijas que hayan muerto
 	list<Entity*> toDestroy;
@@ -152,10 +186,14 @@ bool Entity::CleanUp()
 
 	// Llamada al CleanUp de los hijos de la entidad
 	for (list<Entity*>::iterator it = children.begin(); it != children.end() && ret; ++it)
-	{
 		if ((*it)->IsEnabled() == true)
 			ret = (*it)->CleanUp();
-	}
+
+	// Llamada al CleanUp de los componentes de la entidad
+	for (list<Component*>::iterator it = components.begin(); it != components.end() && ret; ++it)
+		if ((*it)->IsEnabled() == true)
+			if (!(*it)->CleanUp())
+				LOG("Error al hacer CleanUp en el componente: ", typeid(*(*it)).name());
 
 	return ret;
 }
@@ -182,12 +220,14 @@ void Entity::AddChild(Entity* child)
 		child->parent->RemoveChild(child);
 	child->parent = this;
 	children.push_back(child);
+	child->Start();
 }
 
 void Entity::RemoveChild(Entity* child)
 {
 	if (child->parent == this)
 	{
+		child->CleanUp();
 		child->parent = nullptr;
 		children.remove(child);
 	}
@@ -264,6 +304,30 @@ list<Entity*> Entity::FindAllChildren(string name, int deepness)
 	return allChildren;
 }
 
+void Entity::AddComponent(Component* component)
+{
+	if (component->entity != nullptr)
+		component->entity->RemoveComponent(component);
+	component->entity = this;
+	components.push_back(component);
+	component->Start();
+}
+
+void Entity::RemoveComponent(Component* component)
+{
+	if (component->entity == this)
+	{
+		component->CleanUp();
+		component->entity = nullptr;
+		components.remove(component);
+	}
+}
+
+const list<Component*>& Entity::GetComponents()
+{
+	return components;
+}
+
 template<class T>
 inline list<T*> Entity::FindAllChildren()
 {
@@ -286,5 +350,26 @@ inline list<T*> Entity::FindAllChildren(int deepness)
 		}
 	}
 	return allChildren;
+}
+
+template<class T>
+T* Entity::FindComponent()
+{
+	for (list<Component*>::iterator it = components.begin(); it != components.end(); ++it)
+		if (dynamic_cast<T*>(*it) != NULL)
+			return *it;
+
+	return nullptr;
+}
+
+template<class T>
+list<T*> Entity::FindAllComponents()
+{
+	list<Component*> allComponents;
+	for (list<Component*>::iterator it = components.begin(); it != components.end(); ++it)
+		if (dynamic_cast<T*>(*it) != NULL)
+			allComponents.push_back(*it);
+
+	return allComponents;
 }
 
