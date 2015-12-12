@@ -6,6 +6,7 @@
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
+#include "Transform.h"
 
 #include "SDL.h"
 
@@ -36,12 +37,13 @@ public:
 		if (texture == nullptr)
 			return UPDATE_ERROR;
 
-		fPoint renderPosition = system->GetPosition();
-		renderPosition += particle.position;
+		fPoint temp = particle.position;
+		fPoint renderPosition = system->GetTransform()->position;
+		renderPosition = renderPosition + temp.Rotate(system->GetTransform()->rotation);
 
 		int w, h;
 		SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-		App->renderer->Blit(texture, (int)(renderPosition.x - (w / 2)), (int)(renderPosition.y - (h / 2)), NULL, 1.0f);
+		App->renderer->Blit(texture, (int)(renderPosition.x - (w / 2)), (int)(renderPosition.y - (h / 2)), particle.rotation, NULL);
 
 		return UPDATE_CONTINUE;
 	}

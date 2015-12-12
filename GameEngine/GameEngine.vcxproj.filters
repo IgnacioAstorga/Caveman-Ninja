@@ -123,6 +123,9 @@
     <ClInclude Include="Transform.h">
       <Filter>Elements\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="RotationMatchingSpeed.h">
+      <Filter>Elements\Particles\Operators</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">

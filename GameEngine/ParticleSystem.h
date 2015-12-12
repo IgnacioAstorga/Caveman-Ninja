@@ -2,7 +2,6 @@
 #define __PARTICLESYSTEM_H__
 
 #include "Globals.h"
-#include "Point.h"
 
 #include <list>
 
@@ -39,7 +38,7 @@ public:
 
 	bool CreateParticle(unsigned int amount);
 
-	fPoint GetPosition();
+	Transform* GetTransform();
 
 public:
 	bool Start();

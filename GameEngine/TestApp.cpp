@@ -7,6 +7,7 @@
 #include "SpeedRandom.h"
 #include "LifetimeRandom.h"
 #include "MovementBasic.h"
+#include "RotationMatchingSpeed.h"
 #include "LifetimeDecay.h"
 #include "SpriteRenderer.h"
 
@@ -34,6 +35,7 @@ protected:
 		ps->Add(new SpeedRandom(-300, 300, -300, 300));
 		ps->Add(new LifetimeRandom(0.5, 2));
 		ps->Add(new MovementBasic());
+		ps->Add(new RotationMatchingSpeed());
 		ps->Add(new LifetimeDecay());
 		ps->Add(new SpriteRenderer("try.png"));
 		App->particles->RegisterParticleSystem(ps);

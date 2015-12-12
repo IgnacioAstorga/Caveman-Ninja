@@ -102,9 +102,9 @@ bool ParticleSystem::CreateParticle(unsigned int amount)
 	return ret;
 }
 
-fPoint ParticleSystem::GetPosition()
+Transform* ParticleSystem::GetTransform()
 {
-	return transform->GetGlobalPosition();
+	return transform;
 }
 
 bool ParticleSystem::Start()
