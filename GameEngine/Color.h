@@ -4,11 +4,15 @@
 class Color
 {
 public:
-	Color() {
-		red = 1.0f;
-		green = 1.0f;
-		blue = 1.0f;
-		alpha = 1.0f;
+	Color() : Color(1.0f, 1.0f, 1.0f, 1.0f) {}
+
+	Color(float red, float green, float blue) : Color(red, green, blue, 1.0f) {}
+
+	Color(float red, float green, float blue, float alpha) {
+		this->red = red;
+		this->green = green;
+		this->blue = blue;
+		this->alpha = alpha;
 	}
 
 	float red;

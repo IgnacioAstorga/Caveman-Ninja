@@ -13,8 +13,8 @@ public:
 
 	update_status Modify(Particle& particle)
 	{
-		particle.lifetime -= App->time->DeltaTime();
-		if (particle.lifetime <= 0)
+		particle.duration += App->time->DeltaTime();
+		if (particle.duration >= particle.lifetime)
 			particle.dead = true;
 
 		return UPDATE_CONTINUE;

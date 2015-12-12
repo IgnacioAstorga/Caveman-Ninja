@@ -102,12 +102,14 @@ Application::~Application()
 void Application::Create() {
 	modules.push_back(input = new ModuleInput());
 	modules.push_back(window = new ModuleWindow());
-	modules.push_back(renderer = new ModuleRender());
 	modules.push_back(textures = new ModuleTextures());
 	modules.push_back(audio = new ModuleAudio());
 	modules.push_back(time = new ModuleTime());
 	modules.push_back(particles = new ModuleParticles());
 	modules.push_back(scene = new ModuleScene());
+
+	// El renderer siempre es el último módulo
+	modules.push_back(renderer = new ModuleRender());
 
 	// Llamada al delegado
 	OnCreateApplication();

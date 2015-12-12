@@ -130,3 +130,44 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, double angle, SDL_Po
 
 	return ret;
 }
+
+bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, double angle, SDL_Point* pivot, SDL_Color* color, SDL_Rect* section, float speed)
+{
+	bool ret = true;
+	SDL_Rect rect;
+	rect.x = (int)(camera.x * speed) + x * SCREEN_SIZE;
+	rect.y = (int)(camera.y * speed) + y * SCREEN_SIZE;
+
+	if (section != NULL)
+	{
+		rect.w = section->w;
+		rect.h = section->h;
+	}
+	else
+	{
+		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
+	}
+
+	rect.w *= SCREEN_SIZE;
+	rect.h *= SCREEN_SIZE;
+	
+	if (SDL_SetTextureColorMod(texture, color->r, color->g, color->b))
+	{
+		LOG("Cannot tint texture. SDL_SetTextureColorMod error: %s", SDL_GetError());
+		ret = false;
+	}
+
+	if (SDL_SetTextureAlphaMod(texture, color->a))
+	{
+		LOG("Cannot change texture opacity. SDL_SetTextureAlphaMod error: %s", SDL_GetError());
+		ret = false;
+	}
+
+	if (SDL_RenderCopyEx(renderer, texture, section, &rect, angle, pivot, SDL_RendererFlip()) != 0)
+	{
+		LOG("Cannot blit to screen. SDL_RenderCopyEx error: %s", SDL_GetError());
+		ret = false;
+	}
+
+	return ret;
+}

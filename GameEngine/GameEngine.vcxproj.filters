@@ -126,6 +126,12 @@
     <ClInclude Include="RotationMatchingSpeed.h">
       <Filter>Elements\Particles\Operators</Filter>
     </ClInclude>
+    <ClInclude Include="ColorRandom.h">
+      <Filter>Elements\Particles\Initializers</Filter>
+    </ClInclude>
+    <ClInclude Include="AlphaFadeInOut.h">
+      <Filter>Elements\Particles\Operators</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">

@@ -1,5 +1,5 @@
-#ifndef __RANDOMSPEED_H__
-#define __RANDOMSPEED_H__
+#ifndef __SPEEDRANDOM_H__
+#define __SPEEDRANDOM_H__
 
 #include "ParticleInitializer.h"
 #include "Particle.h"
@@ -30,4 +30,4 @@ private:
 	float xMin, xMax, yMin, yMax;
 };
 
-#endif //  __RANDOMSPEED_H__
+#endif //  __SPEEDRANDOM_H__

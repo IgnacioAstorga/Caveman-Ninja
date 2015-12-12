@@ -17,6 +17,7 @@ public:
 	{
 		Random r;
 		particle.lifetime = r.Range(lifetimeMin, lifetimeMax);
+		particle.duration = 0;
 
 		return true;
 	}

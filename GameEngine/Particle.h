@@ -11,6 +11,7 @@ public:
 	fPoint speed;
 	fPoint scale;
 	float rotation;
+	float duration;
 	float lifetime;
 	Color tint;
 	bool dead = false;

@@ -22,6 +22,7 @@ public:
 
 	bool Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section = NULL, float speed = 1.0f);
 	bool Blit(SDL_Texture* texture, int x, int y, double angle, SDL_Point* pivot, SDL_Rect* section = NULL, float speed = 1.0f);
+	bool Blit(SDL_Texture* texture, int x, int y, double angle, SDL_Point* pivot, SDL_Color* color, SDL_Rect* section = NULL, float speed = 1.0f);
 
 public:
 	SDL_Renderer* renderer = nullptr;
