@@ -24,7 +24,7 @@ public:
 
 public:
 	void RegisterParticleSystem(ParticleSystem* particleSystem);
-	void RemoveParticleSystem(ParticleSystem* particleSystem);
+	void UnregisterParticleSystem(ParticleSystem* particleSystem);
 
 private:
 	list<ParticleSystem*> particleSystems;

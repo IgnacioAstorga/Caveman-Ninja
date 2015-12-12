@@ -21,7 +21,7 @@ fPoint Transform::GetGlobalPosition()
 	if (entity->GetParent() == nullptr)
 		return GetLocalPosition();
 	else
-		return entity->GetParent()->transform->GetGlobalPosition() + GetLocalPosition().Rotate(GetLocalRotation());
+		return entity->GetParent()->transform->GetGlobalPosition() + GetLocalPosition().Rotate(entity->GetParent()->transform->GetLocalRotation());
 }
 
 fPoint Transform::GetLocalSpeed()
@@ -34,7 +34,7 @@ fPoint Transform::GetGlobalSpeed()
 	if (entity->GetParent() == nullptr)
 		return GetLocalSpeed();
 	else
-		return entity->GetParent()->transform->GetGlobalSpeed() + GetLocalSpeed().Rotate(GetLocalRotation());
+		return entity->GetParent()->transform->GetGlobalSpeed() + GetLocalSpeed().Rotate(entity->GetParent()->transform->GetLocalRotation());
 }
 
 float Transform::GetLocalRotation()

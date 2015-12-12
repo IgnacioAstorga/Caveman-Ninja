@@ -18,41 +18,44 @@ bool ModuleParticles::Start()
 	LOG("Starting Particles Module");
 
 	bool ret = true;
+
 	for (list<ParticleSystem*>::iterator it = particleSystems.begin(); it != particleSystems.end() && ret; ++it)
-		ret = (*it)->Start();
+		if ((*it)->IsEnabled())
+			ret = (*it)->Start();
+
 	return ret;
 }
 
 update_status ModuleParticles::PreUpdate()
 {
 	update_status ret = UPDATE_CONTINUE;
+
 	for (list<ParticleSystem*>::iterator it = particleSystems.begin(); it != particleSystems.end() && ret == UPDATE_CONTINUE; ++it)
-	{
 		if ((*it)->IsEnabled())
 			ret = (*it)->PreUpdate();
-	}
+
 	return ret;
 }
 
 update_status ModuleParticles::Update()
 {
 	update_status ret = UPDATE_CONTINUE;
+
 	for (list<ParticleSystem*>::iterator it = particleSystems.begin(); it != particleSystems.end() && ret == UPDATE_CONTINUE; ++it)
-	{
 		if ((*it)->IsEnabled())
 			ret = (*it)->Update();
-	}
+
 	return ret;
 }
 
 update_status ModuleParticles::PostUpdate()
 {
 	update_status ret = UPDATE_CONTINUE;
+
 	for (list<ParticleSystem*>::iterator it = particleSystems.begin(); it != particleSystems.end() && ret == UPDATE_CONTINUE; ++it)
-	{
 		if ((*it)->IsEnabled())
 			ret = (*it)->PostUpdate();
-	}
+	
 	return ret;
 }
 
@@ -62,8 +65,10 @@ bool ModuleParticles::CleanUp()
 
 	// Limpia la lista de partículas
 	bool ret = true;
+
 	for (list<ParticleSystem*>::iterator it = particleSystems.begin(); it != particleSystems.end() && ret; ++it)
 		ret = (*it)->CleanUp();
+
 	return ret;
 }
 
@@ -75,11 +80,10 @@ void ModuleParticles::RegisterParticleSystem(ParticleSystem* particleSystem)
 	particleSystem->Start();
 }
 
-void ModuleParticles::RemoveParticleSystem(ParticleSystem* particleSystem)
+void ModuleParticles::UnregisterParticleSystem(ParticleSystem* particleSystem)
 {
 	LOG("Particle System removal");
 
 	particleSystems.remove(particleSystem);
 	particleSystem->CleanUp();
-	RELEASE(particleSystem);
 }

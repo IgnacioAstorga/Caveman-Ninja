@@ -38,12 +38,13 @@ public:
 			return UPDATE_ERROR;
 
 		fPoint temp = particle.position;
-		fPoint renderPosition = system->GetTransform()->position;
-		renderPosition = renderPosition + temp.Rotate(system->GetTransform()->rotation);
+		fPoint renderPosition = system->GetTransform()->GetGlobalPosition();
+		renderPosition += temp.Rotate(system->GetTransform()->GetGlobalRotation());
+		float renderRotation = system->GetTransform()->GetGlobalRotation() + particle.rotation;
 
 		int w, h;
 		SDL_QueryTexture(texture, NULL, NULL, &w, &h);
-		App->renderer->Blit(texture, (int)(renderPosition.x - (w / 2)), (int)(renderPosition.y - (h / 2)), particle.rotation, NULL);
+		App->renderer->Blit(texture, (int)(renderPosition.x - (w / 2)), (int)(renderPosition.y - (h / 2)), renderRotation, NULL);
 
 		return UPDATE_CONTINUE;
 	}

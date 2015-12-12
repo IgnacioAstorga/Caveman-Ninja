@@ -107,9 +107,11 @@ public:
 
 		double cosine = cos(rads);
 		double sine = sin(rads);
+		float tx = (float)(x * cosine - y * sine);
+		float ty = (float)(x * sine + y * cosine);
 
-		x = (float)(x * cosine - y * sine);
-		y = (float)(x * sine + y * cosine);
+		x = tx;
+		y = ty;
 
 		return(*this);
 	}
