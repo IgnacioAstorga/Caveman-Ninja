@@ -4,6 +4,7 @@
 Transform::Transform(Entity* entity)
 {
 	this->entity = entity;
+	scale = fPoint(1.0f, 1.0f);
 }
 
 Transform::~Transform()
@@ -21,7 +22,12 @@ fPoint Transform::GetGlobalPosition()
 	if (entity->GetParent() == nullptr)
 		return GetLocalPosition();
 	else
-		return entity->GetParent()->transform->GetGlobalPosition() + GetLocalPosition().Rotate(entity->GetParent()->transform->GetLocalRotation());
+	{
+		fPoint temp = GetLocalPosition().Rotate(entity->GetParent()->transform->GetLocalRotation());
+		temp.x *= entity->GetParent()->transform->GetGlobalScale().x;
+		temp.y *= entity->GetParent()->transform->GetGlobalScale().y;
+		return  entity->GetParent()->transform->GetGlobalPosition() + temp;
+	}
 }
 
 fPoint Transform::GetLocalSpeed()
@@ -34,7 +40,12 @@ fPoint Transform::GetGlobalSpeed()
 	if (entity->GetParent() == nullptr)
 		return GetLocalSpeed();
 	else
-		return entity->GetParent()->transform->GetGlobalSpeed() + GetLocalSpeed().Rotate(entity->GetParent()->transform->GetLocalRotation());
+	{
+		fPoint temp = GetLocalSpeed().Rotate(entity->GetParent()->transform->GetLocalRotation());
+		temp.x *= entity->GetParent()->transform->GetGlobalScale().x;
+		temp.y *= entity->GetParent()->transform->GetGlobalScale().y;
+		return  entity->GetParent()->transform->GetGlobalSpeed() + temp;
+	}
 }
 
 float Transform::GetLocalRotation()
@@ -60,7 +71,12 @@ fPoint Transform::GetGlobalScale()
 	if (entity->GetParent() == nullptr)
 		return GetLocalScale();
 	else
-		return entity->GetParent()->transform->GetGlobalScale() + GetLocalScale();
+	{
+		fPoint temp = GetLocalScale();
+		temp.x *= entity->GetParent()->transform->GetGlobalScale().x;
+		temp.y *= entity->GetParent()->transform->GetGlobalScale().y;
+		return  temp;
+	}
 }
 
 fPoint Transform::GetForwardVector()

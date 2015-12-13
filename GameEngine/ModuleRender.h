@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "Globals.h"
+#include "Point.h"
 
 struct SDL_Texture;
 struct SDL_Renderer;
@@ -20,9 +21,9 @@ public:
 	update_status PostUpdate();
 	bool CleanUp();
 
-	bool Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section = NULL, float speed = 1.0f);
-	bool Blit(SDL_Texture* texture, int x, int y, double angle, SDL_Point* pivot, SDL_Rect* section = NULL, float speed = 1.0f);
-	bool Blit(SDL_Texture* texture, int x, int y, double angle, SDL_Point* pivot, SDL_Color* color, SDL_Rect* section = NULL, float speed = 1.0f);
+	bool Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section = NULL, fPoint scale = fPoint(1.0f, 1.0f), float speed = 1.0f);
+	bool Blit(SDL_Texture* texture, int x, int y, double angle, SDL_Point* pivot, SDL_Rect* section = NULL, fPoint scale = fPoint(1.0f, 1.0f), float speed = 1.0f);
+	bool Blit(SDL_Texture* texture, int x, int y, double angle, SDL_Point* pivot, SDL_Color* color, SDL_Rect* section = NULL, fPoint scale = fPoint(1.0f, 1.0f), float speed = 1.0f);
 
 public:
 	SDL_Renderer* renderer = nullptr;

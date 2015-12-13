@@ -1,5 +1,5 @@
-#ifndef __SPRITERENDERER_H__
-#define __SPRITERENDERER_H__
+#ifndef __SPRITEPARTICLERENDERER_H__
+#define __SPRITEPARTICLERENDERER_H__
 
 #include "ParticleRenderer.h"
 #include "Particle.h"
@@ -14,16 +14,16 @@
 
 using namespace std;
 
-class SpriteRenderer : public ParticleRenderer
+class SpriteParticleRenderer : public ParticleRenderer
 {
 public:
-	SpriteRenderer(string textureName)
+	SpriteParticleRenderer(string textureName)
 	{
 		this->textureName = textureName;
 		animation = nullptr;
 	}
 
-	SpriteRenderer(string textureName, Animation* animation)
+	SpriteParticleRenderer(string textureName, Animation* animation)
 	{
 		this->textureName = textureName;
 		this->animation = animation;
@@ -58,10 +58,19 @@ public:
 		if (texture == nullptr)
 			return UPDATE_ERROR;
 
-		// Determina la posición y rotación de la partícula en pantalla
-		fPoint temp = particle.position;
+		// Determina la posición de la partícula en pantalla
 		fPoint renderPosition = system->transform->GetGlobalPosition();
-		renderPosition += temp.Rotate(system->transform->GetGlobalRotation());
+		fPoint offset = particle.position;
+		offset.x *= system->transform->GetGlobalScale().x;
+		offset.y *= system->transform->GetGlobalScale().y;
+		renderPosition += offset.Rotate(system->transform->GetGlobalRotation());
+
+		// Determina la escala de la partícula
+		fPoint renderScale = particle.scale;
+		renderScale.x *= system->transform->GetGlobalScale().x;
+		renderScale.y *= system->transform->GetGlobalScale().y;
+
+		// Determina la rotación de la partícula en pantalla
 		float renderRotation = system->transform->GetGlobalRotation() + particle.rotation;
 
 		// Determina el color y opacidad de la partícula
@@ -70,6 +79,7 @@ public:
 		renderColor.g = (unsigned int)(particle.tint.green * 255);
 		renderColor.b = (unsigned int)(particle.tint.blue * 255);
 		renderColor.a = (unsigned int)(particle.tint.alpha * 255);
+
 
 		// Determina el frame que pintar
 		SDL_Rect* renderArea = NULL;
@@ -81,9 +91,13 @@ public:
 			height = renderArea->h;
 		}
 		else
+		{
 			SDL_QueryTexture(texture, NULL, NULL, &width, &height);
+		}
+		width *= renderScale.x;
+		height *= renderScale.y;
 
-		App->renderer->Blit(texture, (int)(renderPosition.x - (width / 2)), (int)(renderPosition.y - (height / 2)), renderRotation, NULL, &renderColor, renderArea);
+		App->renderer->Blit(texture, (int)(renderPosition.x - (width / 2)), (int)(renderPosition.y - (height / 2)), renderRotation, NULL, &renderColor, renderArea, renderScale);
 
 		return UPDATE_CONTINUE;
 	}
@@ -94,4 +108,4 @@ private:
 	Animation* animation = nullptr;
 };
 
-#endif //  __SPRITERENDERER_H__
+#endif //  __SPRITEPARTICLERENDERER_H__

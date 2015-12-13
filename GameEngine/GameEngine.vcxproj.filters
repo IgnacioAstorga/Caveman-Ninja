@@ -117,9 +117,6 @@
     <ClInclude Include="LifetimeDecay.h">
       <Filter>Elements\Particles\Operators</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteRenderer.h">
-      <Filter>Elements\Particles\Renderers</Filter>
-    </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>Elements\Entities</Filter>
     </ClInclude>
@@ -146,6 +143,9 @@
     </ClInclude>
     <ClInclude Include="ParticleSystemComponent.h">
       <Filter>Elements\Entities\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteParticleRenderer.h">
+      <Filter>Elements\Particles\Renderers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

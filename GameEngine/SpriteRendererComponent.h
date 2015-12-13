@@ -61,18 +61,29 @@ public:
 		if (texture == nullptr || GetEntity() == nullptr)
 			return false;
 
-		// Determina la posición y rotación de la imagen en pantalla
+		// Determina la posición de la imagen en pantalla
 		fPoint temp = offset;
+		temp.x *= GetEntity()->transform->GetGlobalScale().x;
+		temp.y *= GetEntity()->transform->GetGlobalScale().y;
 		fPoint renderPosition = GetEntity()->transform->GetGlobalPosition();
 		renderPosition += temp.Rotate(GetEntity()->transform->GetGlobalRotation());
+
+		// Determina la rotación de la imagen en pantalla
 		float renderRotation = GetEntity()->transform->GetGlobalRotation() + rotation;
+		SDL_Point* pivot = new SDL_Point();
+		pivot->x = 0;
+		pivot->y = 0;
+
+		// Determina la escala de la imagen en pantalla
+		fPoint renderScale = GetEntity()->transform->GetGlobalScale();
+
 		
 		// Determina el frame que pintar
 		SDL_Rect* renderArea = NULL;
 		if (animation != nullptr)
 			renderArea = &(animation->GetCurrentFrame());
 
-		App->renderer->Blit(texture, (int)renderPosition.x, (int)renderPosition.y, renderRotation, NULL, renderArea);
+		App->renderer->Blit(texture, (int)renderPosition.x, (int)renderPosition.y, renderRotation, pivot, renderArea, renderScale);
 
 		return true;
 	}

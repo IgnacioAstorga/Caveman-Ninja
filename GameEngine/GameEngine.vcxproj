@@ -53,7 +53,7 @@
     <ClInclude Include="RotationMatchingSpeed.h" />
     <ClInclude Include="SpeedRandom.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="SpriteRenderer.h" />
+    <ClInclude Include="SpriteParticleRenderer.h" />
     <ClInclude Include="SpriteRendererComponent.h" />
     <ClInclude Include="Transform.h" />
   </ItemGroup>

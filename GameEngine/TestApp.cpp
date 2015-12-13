@@ -11,7 +11,7 @@
 #include "RotationMatchingSpeed.h"
 #include "LifetimeDecay.h"
 #include "AlphaFadeInOut.h"
-#include "SpriteRenderer.h"
+#include "SpriteParticleRenderer.h"
 #include "Color.h"
 #include "SpriteRendererComponent.h"
 #include "ParticleSystemComponent.h"
@@ -55,6 +55,9 @@ protected:
 		en2->Instantiate("particles", 67, -56, en1);
 		en2->transform->rotation = -90.0f;
 
+		Component* cpX = new SpriteRendererComponent("try_character_animated.png", a1, -46, -77);
+		cpX->Create(en2);
+
 		ParticleSystem* ps = new ParticleSystem();
 		ps->Add(new EmitContinuously(20));
 		ps->Add(new SpeedRandom(-100, 100, 300, 500));
@@ -64,7 +67,7 @@ protected:
 		ps->Add(new RotationMatchingSpeed());
 		ps->Add(new LifetimeDecay());
 		ps->Add(new AlphaFadeInOut(0.1f, 0.75f));
-		ps->Add(new SpriteRenderer("try_particles_animated.png", a2));
+		ps->Add(new SpriteParticleRenderer("try_particles_animated.png", a2));
 
 		Component* cp2 = new ParticleSystemComponent(ps);
 		cp2->Create(en2);

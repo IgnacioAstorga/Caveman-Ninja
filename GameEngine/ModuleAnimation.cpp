@@ -3,6 +3,8 @@
 #include "ModuleTime.h"
 #include "Animation.h"
 
+#include <algorithm>
+
 ModuleAnimation::ModuleAnimation(bool start_enabled) : Module(start_enabled)
 {
 	// No hace nada
@@ -57,14 +59,20 @@ void ModuleAnimation::RegisterAnimation(Animation* animation)
 {
 	LOG("Animation registration");
 
-	animations.push_back(animation);
-	animation->Start();
+	if (std::find(animations.begin(), animations.end(), animation) == animations.end())
+	{
+		animations.push_back(animation);
+		animation->Start();
+	}
 }
 
 void ModuleAnimation::UnregisterAnimation(Animation* animation)
 {
 	LOG("Animation unregistration");
 
-	animations.remove(animation);
-	animation->CleanUp();
+	if (std::find(animations.begin(), animations.end(), animation) == animations.end())
+	{
+		animations.remove(animation);
+		animation->CleanUp();
+	}
 }

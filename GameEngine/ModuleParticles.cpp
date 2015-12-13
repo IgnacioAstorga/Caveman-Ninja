@@ -76,14 +76,20 @@ void ModuleParticles::RegisterParticleSystem(ParticleSystem* particleSystem)
 {
 	LOG("Particle System registration");
 
-	particleSystems.push_back(particleSystem);
-	particleSystem->Start();
+	if (std::find(particleSystems.begin(), particleSystems.end(), particleSystem) == particleSystems.end())
+	{
+		particleSystems.push_back(particleSystem);
+		particleSystem->Start();
+	}
 }
 
 void ModuleParticles::UnregisterParticleSystem(ParticleSystem* particleSystem)
 {
 	LOG("Particle System unregistration");
 
-	particleSystems.remove(particleSystem);
-	particleSystem->CleanUp();
+	if (std::find(particleSystems.begin(), particleSystems.end(), particleSystem) == particleSystems.end())
+	{
+		particleSystems.remove(particleSystem);
+		particleSystem->CleanUp();
+	}
 }
