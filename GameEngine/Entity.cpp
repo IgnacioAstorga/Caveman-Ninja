@@ -3,14 +3,15 @@
 #include "Scene.h"
 #include "Component.h"
 
-#include <typeinfo>
-
-Entity::Entity(bool start_enabled) : enabled(start_enabled)
+Entity::Entity(string name, float x, float y, bool start_enabled) : enabled(start_enabled)
 {
+	// Flags
 	dead = false;
+	started = false;
 
 	// Crea el transform
 	transform = new Transform(this);
+	transform->SetPosition(x, y);
 
 	// Llamada al delegado
 	OnCreate();
@@ -35,32 +36,18 @@ Entity::~Entity()
 	RELEASE(transform);
 }
 
-Entity* Entity::Instantiate(string name, Scene* scene)
+Entity* Entity::Instantiate(Scene* scene)
 {
-	return Instantiate(name, 0, 0, scene);
-}
-
-Entity* Entity::Instantiate(string name, Entity* parent)
-{
-	return Instantiate(name, 0, 0, parent);
-}
-
-Entity* Entity::Instantiate(string name, float x, float y, Scene* scene)
-{
-	this->name = name;
 	scene->AddChild(this);
-	this->scene = scene;
-	transform->SetPosition(x, y);
+	Start();
 
 	return this;
 }
 
-Entity* Entity::Instantiate(string name, float x, float y, Entity* parent)
+Entity* Entity::Instantiate(Entity* parent)
 {
-	this->name = name;
 	parent->AddChild(this);
-	this->scene = parent->scene;
-	transform->SetPosition(x, y);
+	Start();
 
 	return this;
 }
@@ -94,6 +81,11 @@ bool Entity::Disable()
 
 bool Entity::Start()
 {
+	// Comprobación por si acaso de que no se ha iniciado
+	if (started == true)
+		return true;
+	started = true;
+
 	// Llamada al delegado
 	bool ret = OnStart();
 
@@ -105,8 +97,7 @@ bool Entity::Start()
 	// Llamada al Start de los componentes de la entidad
 	for (list<Component*>::iterator it = components.begin(); it != components.end() && ret; ++it)
 		if ((*it)->IsEnabled() == true)
-			if (!(*it)->Start())
-				LOG("Error al hacer Start en el componente: ", typeid(*(*it)).name());
+			ret = (*it)->Start();
 
 	return ret;
 }
@@ -123,8 +114,7 @@ update_status Entity::PreUpdate()
 	// Llamada al PreUpdate de los componentes de la entidad
 	for (list<Component*>::iterator it = components.begin(); it != components.end() && ret == UPDATE_CONTINUE; ++it)
 		if ((*it)->IsEnabled() == true)
-			if (!(*it)->PreUpdate())
-				LOG("Error al hacer PreUpdate en el componente: ", typeid(*(*it)).name());
+			ret = (*it)->PreUpdate();
 
 	return ret;
 }
@@ -141,8 +131,7 @@ update_status Entity::Update()
 	// Llamada al Update de los componentes de la entidad
 	for (list<Component*>::iterator it = components.begin(); it != components.end() && ret == UPDATE_CONTINUE; ++it)
 		if ((*it)->IsEnabled() == true)
-			if (!(*it)->Update())
-				LOG("Error al hacer Update en el componente: ", typeid(*(*it)).name());
+			ret = (*it)->Update();
 
 	return ret;
 }
@@ -159,8 +148,7 @@ update_status Entity::PostUpdate()
 	// Llamada al PostUpdate de los componentes de la entidad
 	for (list<Component*>::iterator it = components.begin(); it != components.end() && ret == UPDATE_CONTINUE; ++it)
 		if ((*it)->IsEnabled() == true)
-			if (!(*it)->PostUpdate())
-				LOG("Error al hacer PostUpdate en el componente: ", typeid(*(*it)).name());
+			ret = (*it)->PostUpdate();
 
 	// Por último, elimina todas sus entidades hijas que hayan muerto
 	list<Entity*> toDestroy;
@@ -179,6 +167,11 @@ update_status Entity::PostUpdate()
 
 bool Entity::CleanUp()
 {
+	// Comprobación por si acaso de que ya se ha iniciado
+	if (started != true)
+		return true;
+	started = false;
+
 	// Llamada al delegado
 	bool ret = OnCleanUp();
 
@@ -190,8 +183,7 @@ bool Entity::CleanUp()
 	// Llamada al CleanUp de los componentes de la entidad
 	for (list<Component*>::iterator it = components.begin(); it != components.end() && ret; ++it)
 		if ((*it)->IsEnabled() == true)
-			if (!(*it)->CleanUp())
-				LOG("Error al hacer CleanUp en el componente: ", typeid(*(*it)).name());
+			ret = (*it)->CleanUp();
 
 	return ret;
 }
@@ -203,13 +195,17 @@ Entity* Entity::GetParent()
 
 void Entity::SetParent(Entity* entity)
 {
-	if (entity == nullptr) {
-		if (parent != nullptr)
-			parent->RemoveChild(this);
-		parent = nullptr;
-	}
+	if (entity == nullptr)
+		SetParent(scene);	// Si se introduce null, la entidad pasará a ser hija de la propia escena
 	else
 		entity->AddChild(this);
+}
+
+void Entity::SetParent(Scene* scene)
+{
+	if (parent != nullptr)
+		parent->RemoveChild(this);
+	scene->AddChild(this);
 }
 
 void Entity::AddChild(Entity* child)
@@ -217,17 +213,17 @@ void Entity::AddChild(Entity* child)
 	if (child->parent != nullptr)
 		child->parent->RemoveChild(child);
 	child->parent = this;
+	child->scene = scene;
 	children.push_back(child);
-	child->Start();
 }
 
 void Entity::RemoveChild(Entity* child)
 {
 	if (child->parent == this)
 	{
-		child->CleanUp();
 		child->parent = nullptr;
 		children.remove(child);
+		child->scene->AddChild(child);	// Al quedarse sin padre, la entidad pasará a ser hija de su escena
 	}
 }
 
@@ -308,14 +304,12 @@ void Entity::AddComponent(Component* component)
 		component->entity->RemoveComponent(component);
 	component->entity = this;
 	components.push_back(component);
-	component->Start();
 }
 
 void Entity::RemoveComponent(Component* component)
 {
 	if (component->entity == this)
 	{
-		component->CleanUp();
 		component->entity = nullptr;
 		components.remove(component);
 	}

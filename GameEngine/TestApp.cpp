@@ -47,17 +47,6 @@ protected:
 		a2->frames.push_back({ 60, 60, 60, 60 });
 		a2->frames.push_back({ 120, 60, 60, 60 });
 
-		Entity* en1 = new Entity();
-		en1->Instantiate("character", 100, 200, scene);
-		en1->transform->SetScale(0.667f);
-
-		Component* cp1 = new SpriteRendererComponent("try_character_animated.png", a1, -46, -77);
-		cp1->Create(en1);
-
-		Entity* en2 = new Entity();
-		en2->Instantiate("particles", 67, -56, en1);
-		en2->transform->SetRotation(-90.0f);
-
 		ParticleSystem* ps = new ParticleSystem();
 		ps->Add(new EmitContinuouslyEmitter(20));
 		ps->Add(new SpeedRandomInitializer(-100, 100, 300, 500));
@@ -71,8 +60,20 @@ protected:
 		ps->Add(new ScaleBasicOperator(1.0f, 5.0f));
 		ps->Add(new SpriteParticleRenderer("try_particles_animated.png", a2));
 
+		Entity* en1 = new Entity("character", 100, 200);
+		en1->transform->SetScale(0.667f);
+
+		Entity* en2 = new Entity("particles", 67, -56);
+		en1->AddChild(en2);
+		en2->transform->SetRotation(-90.0f);
+
+		Component* cp1 = new SpriteRendererComponent("try_character_animated.png", a1, -46, -77);
+		en1->AddComponent(cp1);
+
 		Component* cp2 = new ParticleSystemComponent(ps);
-		cp2->Create(en2);
+		en2->AddComponent(cp2);
+
+		en1->Instantiate(scene);
 
 		return true;
 	}

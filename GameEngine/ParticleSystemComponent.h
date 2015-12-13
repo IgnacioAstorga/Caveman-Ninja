@@ -17,20 +17,20 @@ public:
 		this->system = system;
 	}
 
-	bool Start()
+	bool OnStart()
 	{
-		if (system == nullptr || GetEntity() == nullptr)
+		if (system == nullptr || entity == nullptr)
 			return false;
 
-		system->transform = GetEntity()->transform;
+		system->transform = entity->transform;
 		App->particles->RegisterParticleSystem(system);
 
 		return true;
 	}
 
-	bool CleanUp()
+	bool OnCleanUp()
 	{
-		if (system == nullptr || GetEntity() == nullptr)
+		if (system == nullptr || entity == nullptr)
 			return false;
 
 		App->particles->UnregisterParticleSystem(system);

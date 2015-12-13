@@ -6,7 +6,7 @@
 Scene::Scene()
 {
 	// Crea la entidad padre
-	root = new Entity();
+	root = new Entity("root");
 
 	try {
 		// Llamada al método hijo (después)

@@ -32,7 +32,7 @@ public:
 		this->rotation = rotation;
 	}
 
-	bool Start()
+	bool OnStart()
 	{
 		texture = App->textures->Load(textureName.c_str());
 		if (texture == nullptr)
@@ -44,7 +44,7 @@ public:
 		return true;
 	}
 
-	bool CleanUp()
+	bool OnleanUp()
 	{
 		if (texture == nullptr)
 			return false;
@@ -56,26 +56,26 @@ public:
 		return true;
 	}
 
-	bool PostUpdate()
+	bool OnPostUpdate()
 	{
-		if (texture == nullptr || GetEntity() == nullptr)
+		if (texture == nullptr || entity == nullptr)
 			return false;
 
 		// Determina la posición de la imagen en pantalla
 		fPoint temp = offset;
-		temp.x *= GetEntity()->transform->GetGlobalScale().x;
-		temp.y *= GetEntity()->transform->GetGlobalScale().y;
-		fPoint renderPosition = GetEntity()->transform->GetGlobalPosition();
-		renderPosition += temp.Rotate(GetEntity()->transform->GetGlobalRotation());
+		temp.x *= entity->transform->GetGlobalScale().x;
+		temp.y *= entity->transform->GetGlobalScale().y;
+		fPoint renderPosition = entity->transform->GetGlobalPosition();
+		renderPosition += temp.Rotate(entity->transform->GetGlobalRotation());
 
 		// Determina la rotación de la imagen en pantalla
-		float renderRotation = GetEntity()->transform->GetGlobalRotation() + rotation;
+		float renderRotation = entity->transform->GetGlobalRotation() + rotation;
 		SDL_Point* pivot = new SDL_Point();
 		pivot->x = 0;
 		pivot->y = 0;
 
 		// Determina la escala de la imagen en pantalla
-		fPoint renderScale = GetEntity()->transform->GetGlobalScale();
+		fPoint renderScale = entity->transform->GetGlobalScale();
 
 		
 		// Determina el frame que pintar

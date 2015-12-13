@@ -14,14 +14,12 @@ using namespace std;
 class Entity
 {
 public:
-	Entity(bool start_enabled = true);
+	Entity(string name, float x = 0.0f, float y = 0.0f, bool start_enabled = true);
 	virtual ~Entity();
 
 public:
-	Entity* Instantiate(string name, Scene* scene);
-	Entity* Instantiate(string name, Entity* parent);
-	Entity* Instantiate(string name, float x, float y, Scene* scene);
-	Entity* Instantiate(string name, float x, float y, Entity* parent);
+	Entity* Instantiate(Scene* scene);		// Instantiate se debe llamar solo cuando se crea una entidad durante el juego
+	Entity* Instantiate(Entity* parent);	// En la preparación de la escena o para cambiar el padre de la entidad, utilizar los métodos AddChild/SetParent de la escena/entidad padre
 	void Destroy();
 
 public:
@@ -31,6 +29,7 @@ public:
 
 	Entity* GetParent();
 	void SetParent(Entity* entity);
+	void SetParent(Scene* scene);
 
 	void AddChild(Entity* child);
 	void RemoveChild(Entity* child);
@@ -69,6 +68,7 @@ public:
 	Transform* transform;
 
 private:
+	bool started;
 	bool enabled;
 	bool dead;
 	Entity* parent;

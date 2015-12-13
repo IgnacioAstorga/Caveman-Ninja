@@ -7,35 +7,37 @@ class Entity;
 
 class Component
 {
-friend class Entity;
-
 public:
 	Component(bool start_enabled = true);
 	virtual ~Component();
-
-	Component* Create(Entity* entity);
 
 public:
 	bool IsEnabled();
 	bool Enable();
 	bool Disable();
 
-	Entity* GetEntity();
-	void SetEntity(Entity* entity);
-
 public:
-	virtual bool Start() { return true; };
-	virtual bool PreUpdate() { return true; };
-	virtual bool Update() { return true; };
-	virtual bool PostUpdate() { return true; };
-	virtual bool CleanUp() { return true; };
+	bool Start();
+	update_status PreUpdate();
+	update_status Update();
+	update_status PostUpdate();
+	bool CleanUp();
 
 protected:
 	virtual void OnCreate() {};
 	virtual void OnDestroy() {};
+
+	virtual bool OnStart() { return true; };
+	virtual bool OnPreUpdate() { return true; };
+	virtual bool OnUpdate() { return true; };
+	virtual bool OnPostUpdate() { return true; };
+	virtual bool OnCleanUp() { return true; };
+
+public:
+	Entity* entity;
 	
 private:
 	bool enabled;
-	Entity* entity;
+	bool started;
 };
 #endif //__COMPONENT_H__

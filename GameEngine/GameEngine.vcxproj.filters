@@ -69,9 +69,6 @@
     <ClInclude Include="Animation.h">
       <Filter>Elements</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Elements</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleParticles.h">
       <Filter>Modules</Filter>
     </ClInclude>
@@ -153,6 +150,9 @@
     <ClInclude Include="ScaleBasicOperator.h">
       <Filter>Elements\Particles\Operators</Filter>
     </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Elements\Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -182,9 +182,6 @@
     <ClCompile Include="Animation.cpp">
       <Filter>Elements</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Elements</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleParticles.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
@@ -206,6 +203,9 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="Component.cpp">
+      <Filter>Elements\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
       <Filter>Elements\Entities</Filter>
     </ClCompile>
   </ItemGroup>
