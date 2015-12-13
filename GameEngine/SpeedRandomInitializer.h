@@ -1,14 +1,14 @@
-#ifndef __SPEEDRANDOM_H__
-#define __SPEEDRANDOM_H__
+#ifndef __SPEEDRANDOMINITIALIZER_H__
+#define __SPEEDRANDOMINITIALIZER_H__
 
 #include "ParticleInitializer.h"
 #include "Particle.h"
 #include "Random.h"
 
-class SpeedRandom : public ParticleInitializer
+class SpeedRandomInitializer : public ParticleInitializer
 {
 public:
-	SpeedRandom(float xMin, float xMax, float yMin, float yMax) {
+	SpeedRandomInitializer(float xMin, float xMax, float yMin, float yMax) {
 		this->xMin = xMin;
 		this->xMax = xMax;
 		this->yMin = yMin;
@@ -30,4 +30,4 @@ private:
 	float xMin, xMax, yMin, yMax;
 };
 
-#endif //  __SPEEDRANDOM_H__
+#endif //  __SPEEDRANDOMINITIALIZER_H__

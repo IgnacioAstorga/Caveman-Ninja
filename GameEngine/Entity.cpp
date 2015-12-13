@@ -50,8 +50,7 @@ Entity* Entity::Instantiate(string name, float x, float y, Scene* scene)
 	this->name = name;
 	scene->AddChild(this);
 	this->scene = scene;
-	transform->position.x = x;
-	transform->position.y = y;
+	transform->SetPosition(x, y);
 
 	return this;
 }
@@ -61,8 +60,7 @@ Entity* Entity::Instantiate(string name, float x, float y, Entity* parent)
 	this->name = name;
 	parent->AddChild(this);
 	this->scene = parent->scene;
-	transform->position.x = x;
-	transform->position.y = y;
+	transform->SetPosition(x, y);
 
 	return this;
 }

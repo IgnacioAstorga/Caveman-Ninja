@@ -12,6 +12,31 @@ Transform::~Transform()
 	// En principio no hace nada
 }
 
+void Transform::SetPosition(float xPosition, float yPosition)
+{
+	position = fPoint(xPosition, yPosition);
+}
+
+void Transform::SetSpeed(float xSpeed, float ySpeed)
+{
+	speed = fPoint(xSpeed, ySpeed);
+}
+
+void Transform::SetRotation(float rotation)
+{
+	this->rotation = rotation;
+}
+
+void Transform::SetScale(float scale)
+{
+	SetScale(scale, scale);
+}
+
+void Transform::SetScale(float xScale, float yScale)
+{
+	scale = fPoint(xScale, yScale);
+}
+
 fPoint Transform::GetLocalPosition()
 {
 	return position;

@@ -96,41 +96,17 @@
     <ClInclude Include="Color.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="EmitContinuously.h">
-      <Filter>Elements\Particles\Emitters</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleTime.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="MovementBasic.h">
-      <Filter>Elements\Particles\Operators</Filter>
-    </ClInclude>
     <ClInclude Include="Random.h">
       <Filter>Util</Filter>
-    </ClInclude>
-    <ClInclude Include="SpeedRandom.h">
-      <Filter>Elements\Particles\Initializers</Filter>
-    </ClInclude>
-    <ClInclude Include="LifetimeRandom.h">
-      <Filter>Elements\Particles\Initializers</Filter>
-    </ClInclude>
-    <ClInclude Include="LifetimeDecay.h">
-      <Filter>Elements\Particles\Operators</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>Elements\Entities</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>Elements\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="RotationMatchingSpeed.h">
-      <Filter>Elements\Particles\Operators</Filter>
-    </ClInclude>
-    <ClInclude Include="ColorRandom.h">
-      <Filter>Elements\Particles\Initializers</Filter>
-    </ClInclude>
-    <ClInclude Include="AlphaFadeInOut.h">
-      <Filter>Elements\Particles\Operators</Filter>
     </ClInclude>
     <ClInclude Include="ModuleAnimation.h">
       <Filter>Modules</Filter>
@@ -146,6 +122,36 @@
     </ClInclude>
     <ClInclude Include="SpriteParticleRenderer.h">
       <Filter>Elements\Particles\Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="AlphaFadeInOutOperator.h">
+      <Filter>Elements\Particles\Operators</Filter>
+    </ClInclude>
+    <ClInclude Include="LifetimeDecayOperator.h">
+      <Filter>Elements\Particles\Operators</Filter>
+    </ClInclude>
+    <ClInclude Include="MovementBasicOperator.h">
+      <Filter>Elements\Particles\Operators</Filter>
+    </ClInclude>
+    <ClInclude Include="RotationMatchingSpeedOperator.h">
+      <Filter>Elements\Particles\Operators</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorRandomInitializer.h">
+      <Filter>Elements\Particles\Initializers</Filter>
+    </ClInclude>
+    <ClInclude Include="LifetimeRandomInitializer.h">
+      <Filter>Elements\Particles\Initializers</Filter>
+    </ClInclude>
+    <ClInclude Include="SpeedRandomInitializer.h">
+      <Filter>Elements\Particles\Initializers</Filter>
+    </ClInclude>
+    <ClInclude Include="EmitContinuouslyEmitter.h">
+      <Filter>Elements\Particles\Emitters</Filter>
+    </ClInclude>
+    <ClInclude Include="ScaleRandomInitializer.h">
+      <Filter>Elements\Particles\Initializers</Filter>
+    </ClInclude>
+    <ClInclude Include="ScaleBasicOperator.h">
+      <Filter>Elements\Particles\Operators</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

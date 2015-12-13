@@ -1,15 +1,15 @@
-#ifndef __COLORRANDOM_H__
-#define __COLORRANDOM_H__
+#ifndef __COLORRANDOMINITIALIZER_H__
+#define __COLORRANDOMINITIALIZER_H__
 
 #include "ParticleInitializer.h"
 #include "Particle.h"
 #include "Random.h"
 #include "Color.h"
 
-class ColorRandom : public ParticleInitializer
+class ColorRandomInitializer : public ParticleInitializer
 {
 public:
-	ColorRandom(const Color& colorMin, const Color& colorMax) {
+	ColorRandomInitializer(const Color& colorMin, const Color& colorMax) {
 		this->colorMin = colorMin;
 		this->colorMax = colorMax;
 	}
@@ -29,4 +29,4 @@ private:
 	Color colorMin, colorMax;
 };
 
-#endif //  __COLORRANDOM_H__
+#endif //  __COLORRANDOMINITIALIZER_H__

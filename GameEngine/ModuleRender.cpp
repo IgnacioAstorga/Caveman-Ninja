@@ -100,8 +100,8 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, double angle, SDL_Po
 	{
 		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
 	}
-	rect.w *= (int)(scale.x * SCREEN_SIZE);
-	rect.h *= (int)(scale.y * SCREEN_SIZE);
+	rect.w = (int)(rect.w * scale.x * SCREEN_SIZE);
+	rect.h = (int)(rect.h * scale.y * SCREEN_SIZE);
 	
 	// Determina el color de la textura
 	if (color != NULL && SDL_SetTextureColorMod(texture, color->r, color->g, color->b))

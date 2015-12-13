@@ -1,21 +1,19 @@
-#ifndef __ALPHAFADEINOUT_H__
-#define __ALPHAFADEINOUT_H__
+#ifndef __ALPHAFADEINOUTOPERATOR_H__
+#define __ALPHAFADEINOUTOPERATOR_H__
 
 #include "ParticleOperator.h"
 #include "Particle.h"
-#include "Application.h"
-#include "ModuleTime.h"
 
-class AlphaFadeInOut : public ParticleOperator
+class AlphaFadeInOutOperator : public ParticleOperator
 {
 public:
-	AlphaFadeInOut(float endFadeIn, float startFadeOut)
-		: AlphaFadeInOut(0.0f, endFadeIn, startFadeOut, 1.0f) {}
+	AlphaFadeInOutOperator(float endFadeIn, float startFadeOut)
+		: AlphaFadeInOutOperator(0.0f, endFadeIn, startFadeOut, 1.0f) {}
 
-	AlphaFadeInOut(float startFadeIn, float endFadeIn, float startFadeOut, float endFadeOut)
-		: AlphaFadeInOut(startFadeIn, endFadeIn, startFadeOut, endFadeOut, 0.0f, 1.0f, 0.0f) {}
+	AlphaFadeInOutOperator(float startFadeIn, float endFadeIn, float startFadeOut, float endFadeOut)
+		: AlphaFadeInOutOperator(startFadeIn, endFadeIn, startFadeOut, endFadeOut, 0.0f, 1.0f, 0.0f) {}
 
-	AlphaFadeInOut(float startFadeIn, float endFadeIn, float startFadeOut, float endFadeOut, float startAlpha, float middleAlpha, float endAlpha)
+	AlphaFadeInOutOperator(float startFadeIn, float endFadeIn, float startFadeOut, float endFadeOut, float startAlpha, float middleAlpha, float endAlpha)
 	{
 		this->startFadeIn = startFadeIn;
 		this->endFadeIn = endFadeIn;
@@ -62,4 +60,4 @@ private:
 	float startAlpha, middleAlpha, endAlpha;
 };
 
-#endif //  __ALPHAFADEINOUT_H__
+#endif //  __ALPHAFADEINOUTOPERATOR_H__

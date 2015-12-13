@@ -1,14 +1,14 @@
-#ifndef __LIFETIMERANDOM_H__
-#define __LIFETIMERANDOM_H__
+#ifndef __LIFETIMERANDOMINITIALIZER_H__
+#define __LIFETIMERANDOMINITIALIZER_H__
 
 #include "ParticleInitializer.h"
 #include "Particle.h"
 #include "Random.h"
 
-class LifetimeRandom : public ParticleInitializer
+class LifetimeRandomInitializer : public ParticleInitializer
 {
 public:
-	LifetimeRandom(float lifetimeMin, float lifetimeMax) {
+	LifetimeRandomInitializer(float lifetimeMin, float lifetimeMax) {
 		this->lifetimeMin = lifetimeMin;
 		this->lifetimeMax = lifetimeMax;
 	}
@@ -26,4 +26,4 @@ private:
 	float lifetimeMin, lifetimeMax;
 };
 
-#endif //  __RANDOMSPEED_H__
+#endif //  __LIFETIMERANDOMINITIALIZER_H__

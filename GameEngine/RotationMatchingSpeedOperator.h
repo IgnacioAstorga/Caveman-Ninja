@@ -1,14 +1,14 @@
-#ifndef __ROTATIONMATCHINGSPEED_H__
-#define __ROTATIONMATCHINGSPEED_H__
+#ifndef __ROTATIONMATCHINGSPEEDOPERATOR_H__
+#define __ROTATIONMATCHINGSPEEDOPERATOR_H__
 
 #include "ParticleOperator.h"
 #include "Particle.h"
 #include "Globals.h"
 
-class RotationMatchingSpeed : public ParticleOperator
+class RotationMatchingSpeedOperator : public ParticleOperator
 {
 public:
-	RotationMatchingSpeed() {}
+	RotationMatchingSpeedOperator() {}
 
 	update_status Modify(Particle& particle)
 	{
@@ -18,4 +18,4 @@ public:
 	}
 };
 
-#endif //  __ROTATIONMATCHINGSPEED_H__
+#endif //  __ROTATIONMATCHINGSPEEDOPERATOR_H__

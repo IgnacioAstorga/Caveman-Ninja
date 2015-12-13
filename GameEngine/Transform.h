@@ -11,6 +11,12 @@ public:
 	Transform(Entity* entity);
 	virtual ~Transform();
 
+	void SetPosition(float xPosition, float yPosition);
+	void SetSpeed(float xSpeed, float ySpeed);
+	void SetRotation(float rotation);
+	void SetScale(float scale);
+	void SetScale(float xScale, float yScale);
+
 	fPoint GetLocalPosition();
 	fPoint GetGlobalPosition();
 	fPoint GetLocalSpeed();
@@ -25,7 +31,7 @@ public:
 	fPoint GetRightVector();
 	fPoint GetLeftVector();
 
-public:
+private:
 	fPoint position;
 	fPoint speed;
 	float rotation;

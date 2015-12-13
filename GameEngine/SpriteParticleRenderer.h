@@ -94,8 +94,8 @@ public:
 		{
 			SDL_QueryTexture(texture, NULL, NULL, &width, &height);
 		}
-		width *= renderScale.x;
-		height *= renderScale.y;
+		width = (int)(width * renderScale.x);
+		height = (int)(height * renderScale.y);
 
 		App->renderer->Blit(texture, (int)(renderPosition.x - (width / 2)), (int)(renderPosition.y - (height / 2)), renderRotation, NULL, &renderColor, renderArea, renderScale);
 

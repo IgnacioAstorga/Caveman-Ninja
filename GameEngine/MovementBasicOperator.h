@@ -1,15 +1,17 @@
-#ifndef __MOVEMENTBASIC_H__
-#define __MOVEMENTBASIC_H__
+#ifndef __MOVEMENTBASICOPERATOR_H__
+#define __MOVEMENTBASICOPERATOR_H__
 
 #include "ParticleOperator.h"
 #include "Particle.h"
 #include "Application.h"
 #include "ModuleTime.h"
+#include "ParticleSystem.h"
+#include "Transform.h"
 
-class MovementBasic : public ParticleOperator
+class MovementBasicOperator : public ParticleOperator
 {
 public:
-	MovementBasic() {}
+	MovementBasicOperator() {}
 
 	update_status Modify(Particle& particle)
 	{
@@ -20,4 +22,4 @@ public:
 	}
 };
 
-#endif //  __MOVEMENTBASIC_H__
+#endif //  __MOVEMENTBASICOPERATOR_H__

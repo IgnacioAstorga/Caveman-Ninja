@@ -1,15 +1,15 @@
-#ifndef __LIFETIMEDECAY_H__
-#define __LIFETIMEDECAY_H__
+#ifndef __LIFETIMEDECAYOPERATOR_H__
+#define __LIFETIMEDECAYOPERATOR_H__
 
 #include "ParticleOperator.h"
 #include "Particle.h"
 #include "Application.h"
 #include "ModuleTime.h"
 
-class LifetimeDecay : public ParticleOperator
+class LifetimeDecayOperator : public ParticleOperator
 {
 public:
-	LifetimeDecay() {}
+	LifetimeDecayOperator() {}
 
 	update_status Modify(Particle& particle)
 	{
@@ -21,4 +21,4 @@ public:
 	}
 };
 
-#endif //  __LIFETIMEDECAY_H__
+#endif //  __LIFETIMEDECAYOPERATOR_H__

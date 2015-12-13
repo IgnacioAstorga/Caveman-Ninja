@@ -3,14 +3,16 @@
 #include "ModuleParticles.h"
 #include "Scene.h"
 #include "ParticleSystem.h"
-#include "EmitContinuously.h"
-#include "SpeedRandom.h"
-#include "LifetimeRandom.h"
-#include "ColorRandom.h"
-#include "MovementBasic.h"
-#include "RotationMatchingSpeed.h"
-#include "LifetimeDecay.h"
-#include "AlphaFadeInOut.h"
+#include "EmitContinuouslyEmitter.h"
+#include "SpeedRandomInitializer.h"
+#include "LifetimeRandomInitializer.h"
+#include "ColorRandomInitializer.h"
+#include "ScaleRandomInitializer.h"
+#include "MovementBasicOperator.h"
+#include "RotationMatchingSpeedOperator.h"
+#include "LifetimeDecayOperator.h"
+#include "AlphaFadeInOutOperator.h"
+#include "ScaleBasicOperator.h"
 #include "SpriteParticleRenderer.h"
 #include "Color.h"
 #include "SpriteRendererComponent.h"
@@ -47,26 +49,26 @@ protected:
 
 		Entity* en1 = new Entity();
 		en1->Instantiate("character", 100, 200, scene);
+		en1->transform->SetScale(0.667f);
 
 		Component* cp1 = new SpriteRendererComponent("try_character_animated.png", a1, -46, -77);
 		cp1->Create(en1);
 
 		Entity* en2 = new Entity();
 		en2->Instantiate("particles", 67, -56, en1);
-		en2->transform->rotation = -90.0f;
-
-		Component* cpX = new SpriteRendererComponent("try_character_animated.png", a1, -46, -77);
-		cpX->Create(en2);
+		en2->transform->SetRotation(-90.0f);
 
 		ParticleSystem* ps = new ParticleSystem();
-		ps->Add(new EmitContinuously(20));
-		ps->Add(new SpeedRandom(-100, 100, 300, 500));
-		ps->Add(new LifetimeRandom(0.5, 2));
-		ps->Add(new ColorRandom(Color(0.9f, 0.9f, 1.0f), Color(1.0f, 1.0f, 1.0f)));
-		ps->Add(new MovementBasic());
-		ps->Add(new RotationMatchingSpeed());
-		ps->Add(new LifetimeDecay());
-		ps->Add(new AlphaFadeInOut(0.1f, 0.75f));
+		ps->Add(new EmitContinuouslyEmitter(20));
+		ps->Add(new SpeedRandomInitializer(-100, 100, 300, 500));
+		ps->Add(new LifetimeRandomInitializer(0.5, 2));
+		ps->Add(new ColorRandomInitializer(Color(0.8f, 0.8f, 1.0f), Color(1.0f, 1.0f, 1.0f)));
+		ps->Add(new ScaleRandomInitializer(0.75, 1.25));
+		ps->Add(new MovementBasicOperator());
+		ps->Add(new RotationMatchingSpeedOperator());
+		ps->Add(new LifetimeDecayOperator());
+		ps->Add(new AlphaFadeInOutOperator(0.1f, 0.75f));
+		ps->Add(new ScaleBasicOperator(1.0f, 5.0f));
 		ps->Add(new SpriteParticleRenderer("try_particles_animated.png", a2));
 
 		Component* cp2 = new ParticleSystemComponent(ps);

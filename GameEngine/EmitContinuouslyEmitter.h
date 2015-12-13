@@ -1,14 +1,14 @@
-#ifndef __EMITCONTINUOUSLY_H__
-#define __EMITCONTINUOUSLY_H__
+#ifndef __EMITCONTINUOUSLYEMITTER_H__
+#define __EMITCONTINUOUSLYEMITTER_H__
 
 #include "ParticleEmitter.h"
 #include "Application.h"
 #include "ModuleTime.h"
 
-class EmitContinuously : public ParticleEmitter
+class EmitContinuouslyEmitter : public ParticleEmitter
 {
 public:
-	EmitContinuously(float rate) : rate(rate) {}
+	EmitContinuouslyEmitter(float rate) : rate(rate) {}
 
 	bool Start() {
 		timeAlive = 0.0f;
@@ -33,4 +33,4 @@ private:
 	unsigned int particleCount;
 };
 
-#endif //  __EMITCONTINUOUSLY_H__
+#endif //  __EMITCONTINUOUSLYEMITTER_H__

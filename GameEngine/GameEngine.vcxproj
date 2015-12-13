@@ -19,17 +19,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AlphaFadeInOut.h" />
+    <ClInclude Include="AlphaFadeInOutOperator.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Color.h" />
-    <ClInclude Include="ColorRandom.h" />
+    <ClInclude Include="ColorRandomInitializer.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="EmitContinuously.h" />
+    <ClInclude Include="EmitContinuouslyEmitter.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Globals.h" />
-    <ClInclude Include="LifetimeDecay.h" />
-    <ClInclude Include="LifetimeRandom.h" />
+    <ClInclude Include="LifetimeDecayOperator.h" />
+    <ClInclude Include="LifetimeRandomInitializer.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleAnimation.h" />
     <ClInclude Include="ModuleAudio.h" />
@@ -40,7 +40,7 @@
     <ClInclude Include="ModuleTextures.h" />
     <ClInclude Include="ModuleTime.h" />
     <ClInclude Include="ModuleWindow.h" />
-    <ClInclude Include="MovementBasic.h" />
+    <ClInclude Include="MovementBasicOperator.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleEmitter.h" />
     <ClInclude Include="ParticleInitializer.h" />
@@ -50,8 +50,10 @@
     <ClInclude Include="ParticleSystemComponent.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Random.h" />
-    <ClInclude Include="RotationMatchingSpeed.h" />
-    <ClInclude Include="SpeedRandom.h" />
+    <ClInclude Include="RotationMatchingSpeedOperator.h" />
+    <ClInclude Include="ScaleBasicOperator.h" />
+    <ClInclude Include="ScaleRandomInitializer.h" />
+    <ClInclude Include="SpeedRandomInitializer.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SpriteParticleRenderer.h" />
     <ClInclude Include="SpriteRendererComponent.h" />

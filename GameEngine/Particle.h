@@ -9,7 +9,8 @@ class Particle
 public:
 	fPoint position;
 	fPoint speed;
-	fPoint scale = fPoint(1.0f, 1.0f);
+	fPoint originalScale = fPoint(1.0f, 1.0f);
+	fPoint scale = originalScale;
 	float rotation;
 	float duration;
 	float lifetime;
