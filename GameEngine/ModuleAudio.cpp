@@ -9,11 +9,19 @@
 using namespace std;
 
 ModuleAudio::ModuleAudio( bool start_enabled) : Module( start_enabled)
-{}
+{
+	// No hace nada en particular
+}
 
 // Destructor
 ModuleAudio::~ModuleAudio()
-{}
+{
+	LOG("Destroying Audio Mixer");
+
+	Mix_CloseAudio();
+	Mix_Quit();
+	SDL_QuitSubSystem(SDL_INIT_AUDIO);
+}
 
 // Called before render is available
 bool ModuleAudio::Init()
@@ -62,9 +70,7 @@ bool ModuleAudio::CleanUp()
 		Mix_FreeChunk(*it);
 
 	fx.clear();
-	Mix_CloseAudio();
-	Mix_Quit();
-	SDL_QuitSubSystem(SDL_INIT_AUDIO);
+
 	return true;
 }
 

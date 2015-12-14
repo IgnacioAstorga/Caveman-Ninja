@@ -14,7 +14,13 @@ ModuleRender::ModuleRender()
 
 // Destructor
 ModuleRender::~ModuleRender()
-{}
+{
+	LOG("Destroying renderer");
+
+	// Destroy window
+	if (renderer != nullptr)
+		SDL_DestroyRenderer(renderer);
+}
 
 // Called before render is available
 bool ModuleRender::Init()
@@ -56,20 +62,6 @@ update_status ModuleRender::PostUpdate()
 {
 	SDL_RenderPresent(renderer);
 	return UPDATE_CONTINUE;
-}
-
-// Called before quitting
-bool ModuleRender::CleanUp()
-{
-	LOG("Destroying renderer");
-
-	//Destroy window
-	if(renderer != nullptr)
-	{
-		SDL_DestroyRenderer(renderer);
-	}
-
-	return true;
 }
 
 // Blit to screen

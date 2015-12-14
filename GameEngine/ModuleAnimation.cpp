@@ -12,9 +12,7 @@ ModuleAnimation::ModuleAnimation(bool start_enabled) : Module(start_enabled)
 
 ModuleAnimation::~ModuleAnimation()
 {
-	for (list<Animation*>::iterator it = animations.begin(); it != animations.end(); ++it)
-		RELEASE(*it);
-	animations.clear();
+	// No hace nada
 }
 
 bool ModuleAnimation::Start()
@@ -45,12 +43,13 @@ bool ModuleAnimation::CleanUp()
 {
 	LOG("Cleaning up Animation Module");
 
-	// Limpia la lista de partículas
+	// Limpia la lista de animaciones
 	bool ret = true;
 
 	for (list<Animation*>::iterator it = animations.begin(); it != animations.end() && ret; ++it)
 		if ((*it)->IsEnabled())
 			ret = (*it)->CleanUp();
+	animations.clear();
 
 	return ret;
 }

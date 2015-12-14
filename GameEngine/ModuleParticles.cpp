@@ -3,14 +3,12 @@
 
 ModuleParticles::ModuleParticles(bool start_enabled) : Module(start_enabled)
 {
-	// No hace nada
+	// No hace nada en particular
 }
 
 ModuleParticles::~ModuleParticles()
 {
-	for (list<ParticleSystem*>::iterator it = particleSystems.begin(); it != particleSystems.end(); ++it)
-		RELEASE(*it);
-	particleSystems.clear();
+	// No hace nada en particular
 }
 
 bool ModuleParticles::Start()
@@ -63,13 +61,15 @@ bool ModuleParticles::CleanUp()
 {
 	LOG("Cleaning up Particles Module");
 
-	// Limpia la lista de partículas
 	bool ret = true;
 
+	// Limpia la lista de partículas
 	for (list<ParticleSystem*>::iterator it = particleSystems.begin(); it != particleSystems.end() && ret; ++it)
-		ret = (*it)->CleanUp();
+		if ((*it)->IsEnabled())
+			ret = (*it)->CleanUp();
+	particleSystems.clear();
 
-	return ret;
+	return true;
 }
 
 void ModuleParticles::RegisterParticleSystem(ParticleSystem* particleSystem)

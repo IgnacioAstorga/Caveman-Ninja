@@ -17,6 +17,11 @@ public:
 		this->system = system;
 	}
 
+	~ParticleSystemComponent()
+	{
+		RELEASE(system);
+	}
+
 	bool OnStart()
 	{
 		if (system == nullptr || entity == nullptr)

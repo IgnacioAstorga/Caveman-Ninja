@@ -26,66 +26,6 @@ enum application_states
 
 Application* App = NULL;
 
-int Application::Run()
-{
-	int application_return = EXIT_FAILURE;
-	application_states state = APPLICATION_CREATION;
-
-	while (state != APPLICATION_EXIT)
-	{
-		switch (state)
-		{
-		case APPLICATION_CREATION:
-			LOG("Application Creation --------------");
-			App = this;
-			Create();
-			state = APPLICATION_START;
-			break;
-
-		case APPLICATION_START:
-			LOG("Application Init --------------");
-			if (Init() == false)
-			{
-				LOG("Application Init exits with error -----");
-				state = APPLICATION_EXIT;
-			}
-			else
-			{
-				state = APPLICATION_UPDATE;
-				LOG("Application Update --------------");
-			}
-			break;
-
-		case APPLICATION_UPDATE:
-		{
-			int update_return = Update();
-			if (update_return == UPDATE_ERROR)
-			{
-				LOG("Application Update exits with error -----");
-				state = APPLICATION_EXIT;
-			}
-			if (update_return == UPDATE_STOP)
-				state = APPLICATION_FINISH;
-		}
-		break;
-
-		case APPLICATION_FINISH:
-			LOG("Application CleanUp --------------");
-			if (CleanUp() == false)
-			{
-				LOG("Application CleanUp exits with error -----");
-			}
-			else
-				application_return = EXIT_SUCCESS;
-			state = APPLICATION_EXIT;
-			break;
-		}
-	}
-
-	LOG("Bye :)\n");
-	return application_return;
-}
-
 Application::Application()
 {
 	// La creación ha sido delegada al método Create()
@@ -95,6 +35,7 @@ Application::~Application()
 {
 	for (list<Module*>::iterator it = modules.begin(); it != modules.end(); ++it)
 		RELEASE(*it);
+	modules.clear();
 
 	// Llamada al delegado
 	OnDestroyApplication();
@@ -192,3 +133,62 @@ bool Application::CleanUp()
 	return ret;
 }
 
+int Application::Run()
+{
+	int application_return = EXIT_FAILURE;
+	application_states state = APPLICATION_CREATION;
+
+	while (state != APPLICATION_EXIT)
+	{
+		switch (state)
+		{
+		case APPLICATION_CREATION:
+			LOG("Application Creation --------------");
+			App = this;
+			Create();
+			state = APPLICATION_START;
+			break;
+
+		case APPLICATION_START:
+			LOG("Application Init --------------");
+			if (Init() == false)
+			{
+				LOG("Application Init exits with error -----");
+				state = APPLICATION_EXIT;
+			}
+			else
+			{
+				state = APPLICATION_UPDATE;
+				LOG("Application Update --------------");
+			}
+			break;
+
+		case APPLICATION_UPDATE:
+		{
+			int update_return = Update();
+			if (update_return == UPDATE_ERROR)
+			{
+				LOG("Application Update exits with error -----");
+				state = APPLICATION_EXIT;
+			}
+			if (update_return == UPDATE_STOP)
+				state = APPLICATION_FINISH;
+		}
+		break;
+
+		case APPLICATION_FINISH:
+			LOG("Application CleanUp --------------");
+			if (CleanUp() == false)
+			{
+				LOG("Application CleanUp exits with error -----");
+			}
+			else
+				application_return = EXIT_SUCCESS;
+			state = APPLICATION_EXIT;
+			break;
+		}
+	}
+
+	LOG("Bye :)\n");
+	return application_return;
+}

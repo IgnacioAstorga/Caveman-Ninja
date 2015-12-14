@@ -15,6 +15,9 @@ ModuleInput::ModuleInput() : Module(), mouse({0, 0}), mouse_motion({0,0})
 // Destructor
 ModuleInput::~ModuleInput()
 {
+	LOG("Quitting SDL event subsystem");
+
+	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	RELEASE_ARRAY(keyboard);
 }
 
@@ -32,12 +35,6 @@ bool ModuleInput::Init()
 	}
 
 	return ret;
-}
-
-// Called before the first frame
-bool ModuleInput::Start()
-{
-	return true;
 }
 
 // Called each loop iteration
@@ -128,15 +125,6 @@ update_status ModuleInput::PreUpdate()
 	return UPDATE_CONTINUE;
 }
 
-// Called before quitting
-bool ModuleInput::CleanUp()
-{
-	LOG("Quitting SDL event subsystem");
-	SDL_QuitSubSystem(SDL_INIT_EVENTS);
-	return true;
-}
-
-// ---------
 bool ModuleInput::GetWindowEvent(EventWindow ev) const
 {
 	return windowEvents[ev];

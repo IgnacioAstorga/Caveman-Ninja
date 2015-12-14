@@ -32,6 +32,11 @@ public:
 		this->rotation = rotation;
 	}
 
+	~SpriteRendererComponent()
+	{
+		RELEASE(animation);
+	}
+
 	bool OnStart()
 	{
 		texture = App->textures->Load(textureName.c_str());
@@ -44,7 +49,7 @@ public:
 		return true;
 	}
 
-	bool OnleanUp()
+	bool OnCleanUp()
 	{
 		if (texture == nullptr)
 			return false;
@@ -70,9 +75,9 @@ public:
 
 		// Determina la rotación de la imagen en pantalla
 		float renderRotation = entity->transform->GetGlobalRotation() + rotation;
-		SDL_Point* pivot = new SDL_Point();
-		pivot->x = 0;
-		pivot->y = 0;
+		SDL_Point pivot;
+		pivot.x = 0;
+		pivot.y = 0;
 
 		// Determina la escala de la imagen en pantalla
 		fPoint renderScale = entity->transform->GetGlobalScale();
@@ -83,7 +88,7 @@ public:
 		if (animation != nullptr)
 			renderArea = &(animation->GetCurrentFrame());
 
-		App->renderer->Blit(texture, (int)renderPosition.x, (int)renderPosition.y, renderRotation, pivot, renderArea, renderScale);
+		App->renderer->Blit(texture, (int)renderPosition.x, (int)renderPosition.y, renderRotation, &pivot, renderArea, renderScale);
 
 		return true;
 	}

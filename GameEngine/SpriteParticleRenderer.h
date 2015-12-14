@@ -29,6 +29,11 @@ public:
 		this->animation = animation;
 	}
 
+	~SpriteParticleRenderer()
+	{
+		RELEASE(animation);
+	}
+
 	bool Start()
 	{
 		texture = App->textures->Load(textureName.c_str());

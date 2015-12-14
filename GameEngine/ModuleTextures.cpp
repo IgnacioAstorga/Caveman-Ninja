@@ -45,8 +45,8 @@ bool ModuleTextures::CleanUp()
 
 	for(list<SDL_Texture*>::iterator it = textures.begin(); it != textures.end(); ++it)
 		SDL_DestroyTexture(*it);
-
 	textures.clear();
+
 	return true;
 }
 
@@ -87,7 +87,7 @@ void ModuleTextures::Unload(SDL_Texture* texture)
 		if(*it == texture)
 		{
 			SDL_DestroyTexture(*it);
-			textures.erase(it);
+			textures.remove(*it);
 			break;
 		}
 	}

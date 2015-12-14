@@ -18,9 +18,6 @@ public:
 	// Called before quitting
 	bool Init();
 
-	// Called before quitting
-	bool CleanUp();
-
 public:
 	//The window we'll be rendering to
 	SDL_Window* window = nullptr;
