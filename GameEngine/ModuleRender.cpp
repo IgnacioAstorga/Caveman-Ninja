@@ -4,12 +4,12 @@
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "SDL.h"
+#include "Camera.h"
+#include "Transform.h"
 
 ModuleRender::ModuleRender()
 {
-	camera.x = camera.y = 0;
-	camera.w = SCREEN_WIDTH * SCREEN_SIZE;
-	camera.h = SCREEN_HEIGHT* SCREEN_SIZE;
+	// En principio no hace nada
 }
 
 // Destructor
@@ -52,16 +52,26 @@ update_status ModuleRender::PreUpdate()
 	return UPDATE_CONTINUE;
 }
 
-// Called every draw update
-update_status ModuleRender::Update()
-{
-	return UPDATE_CONTINUE;
-}
-
 update_status ModuleRender::PostUpdate()
 {
 	SDL_RenderPresent(renderer);
 	return UPDATE_CONTINUE;
+}
+
+void ModuleRender::SetActiveCamera(Camera* camera)
+{
+	if (activeCamera != nullptr)
+		activeCamera->active = false;
+
+	if (camera != nullptr)
+		camera->active = true;
+
+	activeCamera = camera;
+}
+
+Camera* ModuleRender::GetActiveCamera()
+{
+	return activeCamera;
 }
 
 // Blit to screen
@@ -77,10 +87,14 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, double angle, SDL_Po
 
 bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, double angle, SDL_Point* pivot, SDL_Color* color, SDL_Rect* section, fPoint scale, float speed)
 {
+	if (activeCamera == nullptr)
+		return false;
+
 	bool ret = true;
+	SDL_Rect cameraView = activeCamera->GetViewArea();
 	SDL_Rect rect;
-	rect.x = (int)(camera.x * speed) + x * SCREEN_SIZE;
-	rect.y = (int)(camera.y * speed) + y * SCREEN_SIZE;
+	rect.x = (int)((-cameraView.x * speed + x * SCREEN_SIZE) * (float)App->window->screen_surface->w / (float)cameraView.w);	// La posición de la cámara debe ser negativa
+	rect.y = (int)((-cameraView.y * speed + y * SCREEN_SIZE) * (float)App->window->screen_surface->h / (float)cameraView.h);	// El desplazamiento se realiza en proporción a la camara
 
 	// Determina el área donde pintar en función de la escala
 	if (section != NULL)
@@ -94,6 +108,10 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, double angle, SDL_Po
 	}
 	rect.w = (int)(rect.w * scale.x * SCREEN_SIZE);
 	rect.h = (int)(rect.h * scale.y * SCREEN_SIZE);
+
+	// Reescala el área la imagen para ajustarse a la cámara
+	rect.w = (int)((float)rect.w * (float)App->window->screen_surface->w / (float)cameraView.w);
+	rect.h = (int)((float)rect.h * (float)App->window->screen_surface->h / (float)cameraView.h);
 	
 	// Determina el color de la textura
 	if (color != NULL && SDL_SetTextureColorMod(texture, color->r, color->g, color->b))

@@ -8,6 +8,7 @@
 struct SDL_Texture;
 struct SDL_Renderer;
 struct SDL_Rect;
+class Camera;
 
 class ModuleRender : public Module
 {
@@ -17,8 +18,10 @@ public:
 
 	bool Init();
 	update_status PreUpdate();
-	update_status Update();
 	update_status PostUpdate();
+
+	void SetActiveCamera(Camera* camera);
+	Camera* GetActiveCamera();
 
 	bool Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section = NULL, fPoint scale = fPoint(1.0f, 1.0f), float speed = 1.0f);
 	bool Blit(SDL_Texture* texture, int x, int y, double angle, SDL_Point* pivot, SDL_Rect* section = NULL, fPoint scale = fPoint(1.0f, 1.0f), float speed = 1.0f);
@@ -26,7 +29,7 @@ public:
 
 public:
 	SDL_Renderer* renderer = nullptr;
-	SDL_Rect camera;
+	Camera* activeCamera;
 };
 
 #endif // __MODULERENDER_H__

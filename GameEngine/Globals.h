@@ -1,9 +1,6 @@
 #ifndef __GLOBALS_H__
 #define __GLOBALS_H__
 
-#define _USE_MATH_DEFINES
-#include <math.h>
-
 #include "SDL_rect.h"
 
 #define LOG(format, ...) log(__FILE__, __LINE__, format, __VA_ARGS__);

@@ -17,6 +17,7 @@
 #include "Color.h"
 #include "SpriteRendererComponent.h"
 #include "ParticleSystemComponent.h"
+#include "CameraComponent.h"
 
 #include <sstream>
 
@@ -33,6 +34,13 @@ protected:
 
 	bool OnPopulateScene(Scene* scene)
 	{
+		Entity* camera = new Entity("camera", 0, 0);
+
+		CameraComponent* cameraComponent = new CameraComponent(SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * SCREEN_SIZE, true);
+		camera->AddComponent(cameraComponent);
+
+		camera->Instantiate(scene);
+
 		Animation* a1 = new Animation();
 		a1->speed = 24.0f;
 		a1->frames.push_back({ 0, 0, 126, 77 });

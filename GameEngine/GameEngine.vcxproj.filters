@@ -153,6 +153,12 @@
     <ClInclude Include="Scene.h">
       <Filter>Elements\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="CameraComponent.h">
+      <Filter>Elements\Entities\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Elements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -207,6 +213,9 @@
     </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>Elements\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Elements</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
