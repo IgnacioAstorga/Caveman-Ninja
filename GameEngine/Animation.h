@@ -1,32 +1,40 @@
 #ifndef __ANIMATION_H__
 #define __ANIMATION_H__
 
-#include <vector>
-
 struct SDL_Rect;
 
 class Animation
 {
 public:
-	Animation(float speed = 1.0f, bool start_enabled = true);
+	Animation(bool start_enabled = true) : enabled(start_enabled) {};
 
-	bool IsEnabled();
-	bool Enable();
-	bool Disable();
+	bool Animation::IsEnabled()
+	{
+		return enabled;
+	}
 
-	bool Start();
-	bool CleanUp();
+	bool Enable()
+	{
+		if (enabled == false)
+			return enabled = Start();
+		return true;
+	};
+
+	bool Disable()
+	{
+		if (enabled == true)
+			return enabled = !CleanUp();
+		return true;
+	};
+
+	virtual bool Start() { return true; };
+	virtual bool CleanUp() { return true; };
 
 public:
-	SDL_Rect& GetCurrentFrame();
-	void Increment(float amount);
+	virtual SDL_Rect& GetCurrentFrame() = 0;
+	virtual void Increment(float amount) = 0;
 
-	float speed;
-	std::vector<SDL_Rect> frames;
-
-private:
+protected:
 	bool enabled;
-	float current_frame;
 };
-
 #endif //__ANIMATION_H__

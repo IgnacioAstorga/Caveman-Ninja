@@ -40,6 +40,15 @@
     <Filter Include="Elements\Collisions\Colliders">
       <UniqueIdentifier>{6813bfa4-a666-4d4a-a067-0632030576c8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Elements\States">
+      <UniqueIdentifier>{abb4012f-b2d4-4d1d-94b6-ecd53de45c45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Elements\States\Conditions">
+      <UniqueIdentifier>{19f10bda-df0b-4e1c-8312-1f690f72028c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Elements\Animations">
+      <UniqueIdentifier>{10ac65ec-07ca-4712-bc6c-f1fbbd4f04cf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.h">
@@ -71,9 +80,6 @@
     </ClInclude>
     <ClInclude Include="ModuleScene.h">
       <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>Elements</Filter>
     </ClInclude>
     <ClInclude Include="ModuleParticles.h">
       <Filter>Modules</Filter>
@@ -186,6 +192,36 @@
     <ClInclude Include="MovementSimpleComponent.h">
       <Filter>Elements\Entities\Components</Filter>
     </ClInclude>
+    <ClInclude Include="StateMachine.h">
+      <Filter>Elements\States</Filter>
+    </ClInclude>
+    <ClInclude Include="StateSwitcher.h">
+      <Filter>Elements\States</Filter>
+    </ClInclude>
+    <ClInclude Include="StateTransition.h">
+      <Filter>Elements\States</Filter>
+    </ClInclude>
+    <ClInclude Include="FlagCondition.h">
+      <Filter>Elements\States</Filter>
+    </ClInclude>
+    <ClInclude Include="FlagEqualsCondition.h">
+      <Filter>Elements\States\Conditions</Filter>
+    </ClInclude>
+    <ClInclude Include="FlagLessThanCondition.h">
+      <Filter>Elements\States\Conditions</Filter>
+    </ClInclude>
+    <ClInclude Include="FlagGreaterThanCondition.h">
+      <Filter>Elements\States\Conditions</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Elements\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>Elements\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicAnimation.h">
+      <Filter>Elements\Animations</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -211,9 +247,6 @@
     </ClCompile>
     <ClCompile Include="ModuleScene.cpp">
       <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="Animation.cpp">
-      <Filter>Elements</Filter>
     </ClCompile>
     <ClCompile Include="ModuleParticles.cpp">
       <Filter>Modules</Filter>
@@ -249,6 +282,12 @@
     </ClCompile>
     <ClCompile Include="ModuleCollisions.cpp">
       <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicAnimation.cpp">
+      <Filter>Elements\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>Elements\Animations</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

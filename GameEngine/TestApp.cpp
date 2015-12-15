@@ -21,10 +21,25 @@
 #include "DestroyOnCollisionComponent.h"
 #include "MovementSimpleComponent.h"
 #include "CameraComponent.h"
+#include "BasicAnimation.h"
+#include "Animator.h"
+#include "FlagGreaterThanCondition.h"
 
 #include <sstream>
 
 class TestScene : public Scene {};
+
+class TestComponent : public Component {
+public:
+	TestComponent(Animator* animator, string flag) : animator(animator), flag(flag) {}
+	bool OnUpdate()
+	{ 
+		animator->SetFlagValue(flag, entity->transform->GetGlobalPosition().y);
+		return true;
+	}
+	string flag;
+	Animator* animator;
+};
 
 class TestApp : public Application
 {
@@ -44,12 +59,12 @@ protected:
 
 		camera->Instantiate(scene);
 
-		Animation* a1 = new Animation();
+		BasicAnimation* a1 = new BasicAnimation();
 		a1->speed = 24.0f;
 		a1->frames.push_back({ 0, 0, 126, 77 });
 		a1->frames.push_back({ 126, 0, 126, 77 });
 
-		Animation* a2 = new Animation();
+		BasicAnimation* a2 = new BasicAnimation();
 		a2->speed = 12.0f;
 		a2->frames.push_back({ 0, 0, 60, 60 });
 		a2->frames.push_back({ 60, 0, 60, 60 });
@@ -58,7 +73,14 @@ protected:
 		a2->frames.push_back({ 60, 60, 60, 60 });
 		a2->frames.push_back({ 120, 60, 60, 60 });
 
-		Animation* a3 = new Animation(*a2);
+		BasicAnimation* a3 = new BasicAnimation(*a2);
+		a3->speed = 12.0f;
+		BasicAnimation* a4 = new BasicAnimation(*a2);
+		a4->speed = -6.0f;
+		StateSwitcher<Animation>* ss1 = new StateSwitcher<Animation>(a3);
+		StateSwitcher<Animation>* ss2 = new StateSwitcher<Animation>(a4);
+		ss1->AddStateTransition(new StateTransition<Animation>(ss2, new FlagGreaterThanCondition("positionY", 50)));
+		Animator* animator = new Animator(ss1);
 
 		ParticleSystem* ps = new ParticleSystem();
 		ps->Add(new EmitContinuouslyEmitter(20));
@@ -96,7 +118,7 @@ protected:
 		en3->transform->SetRotation(90.0f);
 		en3->transform->SetSpeed(0.0f, 20.0f);
 
-		Component* cp5 = new SpriteRendererComponent("try_particles_animated.png", a3, -30, -30);
+		Component* cp5 = new SpriteRendererComponent("try_particles_animated.png", animator, -30, -30);
 		en3->AddComponent(cp5);
 
 		Component* cp6 = new CircleColliderComponent(30, 0, 0);
@@ -107,6 +129,9 @@ protected:
 
 		Component* cp8 = new MovementSimpleComponent();
 		en3->AddComponent(cp8);
+
+		Component* cp9 = new TestComponent(animator, "positionY");
+		en3->AddComponent(cp9);
 
 		en1->Instantiate(scene);
 		en3->Instantiate(scene);

@@ -31,7 +31,7 @@ public:
 	fPoint GetRightVector();
 	fPoint GetLeftVector();
 
-private:
+public:
 	fPoint position;
 	fPoint speed;
 	float rotation;
