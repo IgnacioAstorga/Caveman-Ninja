@@ -34,6 +34,12 @@
     <Filter Include="Elements\Entities\Components">
       <UniqueIdentifier>{142f3005-5c49-4593-977a-db78d3db0cd2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Elements\Collisions">
+      <UniqueIdentifier>{0e9ed4fb-d8fc-4c7c-9c54-1dc607af5a96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Elements\Collisions\Colliders">
+      <UniqueIdentifier>{6813bfa4-a666-4d4a-a067-0632030576c8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.h">
@@ -159,6 +165,27 @@
     <ClInclude Include="Camera.h">
       <Filter>Elements</Filter>
     </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Elements\Collisions</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleCollisions.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleCollider.h">
+      <Filter>Elements\Collisions\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleColliderComponent.h">
+      <Filter>Elements\Entities\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionListener.h">
+      <Filter>Elements\Collisions</Filter>
+    </ClInclude>
+    <ClInclude Include="DestroyOnCollisionComponent.h">
+      <Filter>Elements\Entities\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MovementSimpleComponent.h">
+      <Filter>Elements\Entities\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -216,6 +243,12 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Elements\Collisions</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleCollisions.cpp">
+      <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

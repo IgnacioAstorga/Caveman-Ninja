@@ -79,6 +79,42 @@ bool Entity::Disable()
 	return true;
 }
 
+bool Entity::OnCollisionEnter(Collider* self, Collider* other)
+{
+	bool ret = true;
+
+	// Llama al OnCollisionEnter de todos sus componentes activos
+	for (list<Component*>::iterator it = components.begin(); it != components.end() && ret; ++it)
+		if ((*it)->IsEnabled() == true)
+			ret = (*it)->OnCollisionEnter(self, other);
+
+	return ret;
+}
+
+bool Entity::OnCollisionStay(Collider * self, Collider * other)
+{
+	bool ret = true;
+
+	// Llama al OnCollisionStay de todos sus componentes activos
+	for (list<Component*>::iterator it = components.begin(); it != components.end() && ret; ++it)
+		if ((*it)->IsEnabled() == true)
+			ret = (*it)->OnCollisionStay(self, other);
+
+	return ret;
+}
+
+bool Entity::OnCollisionExit(Collider * self, Collider * other)
+{
+	bool ret = true;
+
+	// Llama al OnCollisionExit de todos sus componentes activos
+	for (list<Component*>::iterator it = components.begin(); it != components.end() && ret; ++it)
+		if ((*it)->IsEnabled() == true)
+			ret = (*it)->OnCollisionExit(self, other);
+
+	return ret;
+}
+
 bool Entity::Start()
 {
 	// Comprobación por si acaso de que no se ha iniciado
@@ -158,6 +194,7 @@ update_status Entity::PostUpdate()
 	// Forma segura de destruir elementos mientras se recorre la lista
 	for (list<Entity*>::iterator it = toDestroy.begin(); it != toDestroy.end() && ret == UPDATE_CONTINUE; ++it) {
 		(*it)->CleanUp();
+		RemoveChild(*it, false);	// Lo deshereda
 		RELEASE(*it);
 	}
 	toDestroy.clear();
@@ -217,13 +254,14 @@ void Entity::AddChild(Entity* child)
 	children.push_back(child);
 }
 
-void Entity::RemoveChild(Entity* child)
+void Entity::RemoveChild(Entity* child, bool attachRoot)
 {
 	if (child->parent == this)
 	{
-		child->parent = nullptr;
 		children.remove(child);
-		child->scene->AddChild(child);	// Al quedarse sin padre, la entidad pasará a ser hija de su escena
+		child->parent = nullptr;
+		if (attachRoot)
+			child->scene->AddChild(child);	// Al quedarse sin padre, la entidad pasará a ser hija de su escena
 	}
 }
 

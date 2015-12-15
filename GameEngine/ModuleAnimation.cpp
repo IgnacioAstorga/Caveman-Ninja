@@ -58,7 +58,7 @@ void ModuleAnimation::RegisterAnimation(Animation* animation)
 {
 	LOG("Animation registration");
 
-	if (std::find(animations.begin(), animations.end(), animation) == animations.end())
+	if (find(animations.begin(), animations.end(), animation) == animations.end())
 	{
 		animations.push_back(animation);
 		animation->Start();
@@ -69,7 +69,7 @@ void ModuleAnimation::UnregisterAnimation(Animation* animation)
 {
 	LOG("Animation unregistration");
 
-	if (std::find(animations.begin(), animations.end(), animation) == animations.end())
+	if (find(animations.begin(), animations.end(), animation) != animations.end())
 	{
 		animations.remove(animation);
 		animation->CleanUp();

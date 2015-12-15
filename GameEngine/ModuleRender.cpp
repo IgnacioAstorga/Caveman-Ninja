@@ -90,13 +90,12 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, double angle, SDL_Po
 	if (activeCamera == nullptr)
 		return false;
 
-	bool ret = true;
-	SDL_Rect cameraView = activeCamera->GetViewArea();
-	SDL_Rect rect;
-	rect.x = (int)((-cameraView.x * speed + x * SCREEN_SIZE) * (float)App->window->screen_surface->w / (float)cameraView.w);	// La posición de la cámara debe ser negativa
-	rect.y = (int)((-cameraView.y * speed + y * SCREEN_SIZE) * (float)App->window->screen_surface->h / (float)cameraView.h);	// El desplazamiento se realiza en proporción a la camara
-
 	// Determina el área donde pintar en función de la escala
+	SDL_Rect cameraView = activeCamera->GetViewArea();
+	float windowProportion = (float)App->window->screen_surface->w / (float)cameraView.w;
+	SDL_Rect rect;
+	rect.x = (int)((-cameraView.x * speed + x * SCREEN_SIZE) * windowProportion);	// La posición de la cámara debe ser negativa
+	rect.y = (int)((-cameraView.y * speed + y * SCREEN_SIZE) * windowProportion);	// El desplazamiento se realiza en proporción a la camara
 	if (section != NULL)
 	{
 		rect.w = section->w;
@@ -106,14 +105,12 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, double angle, SDL_Po
 	{
 		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
 	}
-	rect.w = (int)(rect.w * scale.x * SCREEN_SIZE);
-	rect.h = (int)(rect.h * scale.y * SCREEN_SIZE);
-
 	// Reescala el área la imagen para ajustarse a la cámara
-	rect.w = (int)((float)rect.w * (float)App->window->screen_surface->w / (float)cameraView.w);
-	rect.h = (int)((float)rect.h * (float)App->window->screen_surface->h / (float)cameraView.h);
+	rect.w = (int)(rect.w * scale.x * SCREEN_SIZE * windowProportion);
+	rect.h = (int)(rect.h * scale.y * SCREEN_SIZE * windowProportion);
 	
 	// Determina el color de la textura
+	bool ret = true;
 	if (color != NULL && SDL_SetTextureColorMod(texture, color->r, color->g, color->b))
 	{
 		LOG("Cannot tint texture. SDL_SetTextureColorMod error: %s", SDL_GetError());

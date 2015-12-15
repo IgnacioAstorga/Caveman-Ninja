@@ -61,7 +61,7 @@ update_status Component::PreUpdate()
 
 update_status Component::Update()
 {
-	if (!OnPreUpdate())
+	if (!OnUpdate())
 		LOG("Error al hacer Update en el componente: ", typeid(this).name());
 
 	return UPDATE_CONTINUE;

@@ -1,6 +1,7 @@
 #ifndef __ENTITY_H__
 #define __ENTITY_H__
 
+#include "CollisionListener.h"
 #include "Globals.h"
 
 #include <list>
@@ -11,8 +12,10 @@ class Scene;
 
 using namespace std;
 
-class Entity
+class Entity : public CollisionListener
 {
+	friend class Scene;
+
 public:
 	Entity(string name, float x = 0.0f, float y = 0.0f, bool start_enabled = true);
 	virtual ~Entity();
@@ -32,7 +35,7 @@ public:
 	void SetParent(Scene* scene);
 
 	void AddChild(Entity* child);
-	void RemoveChild(Entity* child);
+	void RemoveChild(Entity* child, bool attachRoot = true);
 	const list<Entity*>& GetChildren();
 	Entity* FindChild(string name);
 	Entity* FindChild(string name, int deepness);
@@ -48,6 +51,10 @@ public:
 	const list<Component*>& GetComponents();
 	template <class T> T* FindComponent();
 	template <class T> list<T*> FindAllComponents();
+
+	bool OnCollisionEnter(Collider* self, Collider* other);
+	bool OnCollisionStay(Collider* self, Collider* other);
+	bool OnCollisionExit(Collider* self, Collider* other);
 
 public:
 	bool Start();

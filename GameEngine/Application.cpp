@@ -8,6 +8,7 @@
 #include "ModuleAnimation.h"
 #include "ModuleParticles.h"
 #include "ModuleScene.h"
+#include "ModuleCollisions.h"
 #include "Globals.h"
 #include "Scene.h"
 
@@ -50,6 +51,7 @@ void Application::Create() {
 	modules.push_back(animation = new ModuleAnimation());
 	modules.push_back(particles = new ModuleParticles());
 	modules.push_back(scene = new ModuleScene());
+	modules.push_back(collisions = new ModuleCollisions());
 
 	// El renderer siempre es el último módulo
 	modules.push_back(renderer = new ModuleRender());

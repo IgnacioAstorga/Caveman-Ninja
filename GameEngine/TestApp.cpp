@@ -17,6 +17,9 @@
 #include "Color.h"
 #include "SpriteRendererComponent.h"
 #include "ParticleSystemComponent.h"
+#include "CircleColliderComponent.h"
+#include "DestroyOnCollisionComponent.h"
+#include "MovementSimpleComponent.h"
 #include "CameraComponent.h"
 
 #include <sstream>
@@ -55,6 +58,8 @@ protected:
 		a2->frames.push_back({ 60, 60, 60, 60 });
 		a2->frames.push_back({ 120, 60, 60, 60 });
 
+		Animation* a3 = new Animation(*a2);
+
 		ParticleSystem* ps = new ParticleSystem();
 		ps->Add(new EmitContinuouslyEmitter(20));
 		ps->Add(new SpeedRandomInitializer(-100, 100, 300, 500));
@@ -71,17 +76,40 @@ protected:
 		Entity* en1 = new Entity("character", 100, 200);
 		en1->transform->SetScale(0.667f);
 
+		Component* cp1 = new SpriteRendererComponent("try_character_animated.png", a1, -46, -77);
+		en1->AddComponent(cp1);
+
+		Component* cp2 = new CircleColliderComponent(32, 20, -45);
+		en1->AddComponent(cp2);
+
+		Component* cp3 = new DestroyOnCollisionComponent();
+		en1->AddComponent(cp3);
+
 		Entity* en2 = new Entity("particles", 67, -56);
 		en1->AddChild(en2);
 		en2->transform->SetRotation(-90.0f);
 
-		Component* cp1 = new SpriteRendererComponent("try_character_animated.png", a1, -46, -77);
-		en1->AddComponent(cp1);
+		Component* cp4 = new ParticleSystemComponent(ps);
+		en2->AddComponent(cp4);
 
-		Component* cp2 = new ParticleSystemComponent(ps);
-		en2->AddComponent(cp2);
+		Entity* en3 = new Entity("killer", 100, 0);
+		en3->transform->SetRotation(90.0f);
+		en3->transform->SetSpeed(0.0f, 20.0f);
+
+		Component* cp5 = new SpriteRendererComponent("try_particles_animated.png", a3, -30, -30);
+		en3->AddComponent(cp5);
+
+		Component* cp6 = new CircleColliderComponent(30, 0, 0);
+		en3->AddComponent(cp6);
+
+		Component* cp7 = new DestroyOnCollisionComponent();
+		en3->AddComponent(cp7);
+
+		Component* cp8 = new MovementSimpleComponent();
+		en3->AddComponent(cp8);
 
 		en1->Instantiate(scene);
+		en3->Instantiate(scene);
 
 		return true;
 	}

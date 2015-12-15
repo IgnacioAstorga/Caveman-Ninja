@@ -1,6 +1,8 @@
 #include "ModuleParticles.h"
 #include "ParticleSystem.h"
 
+#include <algorithm>
+
 ModuleParticles::ModuleParticles(bool start_enabled) : Module(start_enabled)
 {
 	// No hace nada en particular
@@ -76,7 +78,7 @@ void ModuleParticles::RegisterParticleSystem(ParticleSystem* particleSystem)
 {
 	LOG("Particle System registration");
 
-	if (std::find(particleSystems.begin(), particleSystems.end(), particleSystem) == particleSystems.end())
+	if (find(particleSystems.begin(), particleSystems.end(), particleSystem) == particleSystems.end())
 	{
 		particleSystems.push_back(particleSystem);
 		particleSystem->Start();
@@ -87,7 +89,7 @@ void ModuleParticles::UnregisterParticleSystem(ParticleSystem* particleSystem)
 {
 	LOG("Particle System unregistration");
 
-	if (std::find(particleSystems.begin(), particleSystems.end(), particleSystem) == particleSystems.end())
+	if (find(particleSystems.begin(), particleSystems.end(), particleSystem) != particleSystems.end())
 	{
 		particleSystems.remove(particleSystem);
 		particleSystem->CleanUp();
