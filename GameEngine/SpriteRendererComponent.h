@@ -23,13 +23,14 @@ public:
 	SpriteRendererComponent(string textureName, Animation* animation, float rotation = 0.0f)
 		: SpriteRendererComponent(textureName, animation, 0.0f, 0.0f, rotation) {}
 
-	SpriteRendererComponent(string textureName, Animation* animation, float offsetX, float offsetY, float rotation = 0.0f, bool start_enabled = true) : Component(start_enabled)
+	SpriteRendererComponent(string textureName, Animation* animation, float offsetX, float offsetY, float rotation = 0.0f, float speed = 1.0f, bool start_enabled = true) : Component(start_enabled)
 	{
 		this->textureName = textureName;
 		this->animation = animation;
 		offset.x = offsetX;
 		offset.y = offsetY;
 		this->rotation = rotation;
+		this->speed = speed;
 	}
 
 	~SpriteRendererComponent()
@@ -88,7 +89,7 @@ public:
 		if (animation != nullptr)
 			renderArea = &(animation->GetCurrentFrame());
 
-		App->renderer->Blit(texture, (int)renderPosition.x, (int)renderPosition.y, renderRotation, &pivot, renderArea, renderScale);
+		App->renderer->Blit(texture, (int)renderPosition.x, (int)renderPosition.y, renderRotation, &pivot, renderArea, renderScale, speed);
 
 		return true;
 	}
@@ -99,6 +100,7 @@ private:
 	Animation* animation = nullptr;
 	fPoint offset;
 	float rotation;
+	float speed;
 };
 
 #endif //  __SPRITERENDERERCOMPONENT_H__

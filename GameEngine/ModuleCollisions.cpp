@@ -66,7 +66,7 @@ bool ModuleCollisions::CleanUp()
 
 void ModuleCollisions::RegisterCollider(Collider* collider)
 {
-	LOG("Animation registration");
+	LOG("Collider registration");
 
 	if (std::find(colliders.begin(), colliders.end(), collider) == colliders.end())
 		colliders.push_back(collider);
@@ -74,7 +74,7 @@ void ModuleCollisions::RegisterCollider(Collider* collider)
 
 void ModuleCollisions::UnregisterCollider(Collider* collider)
 {
-	LOG("Animation unregistration");
+	LOG("Collider unregistration");
 
 	if (std::find(colliders.begin(), colliders.end(), collider) != colliders.end())
 		colliders.remove(collider);

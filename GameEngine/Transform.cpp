@@ -4,6 +4,9 @@
 Transform::Transform(Entity* entity)
 {
 	this->entity = entity;
+	position = fPoint(0.0f, 0.0f);
+	speed = fPoint(0.0f, 0.0f);
+	rotation = 0.0f;
 	scale = fPoint(1.0f, 1.0f);
 }
 

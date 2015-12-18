@@ -53,10 +53,7 @@ protected:
 	bool OnPopulateScene(Scene* scene)
 	{
 		Entity* camera = new Entity("camera", 0, 0);
-
-		CameraComponent* cameraComponent = new CameraComponent(SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * SCREEN_SIZE, true);
-		camera->AddComponent(cameraComponent);
-
+		camera->AddComponent(new CameraComponent(SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * SCREEN_SIZE, true));
 		camera->Instantiate(scene);
 
 		BasicAnimation* a1 = new BasicAnimation();
@@ -77,10 +74,9 @@ protected:
 		a3->speed = 12.0f;
 		BasicAnimation* a4 = new BasicAnimation(*a2);
 		a4->speed = -6.0f;
-		StateSwitcher<Animation>* ss1 = new StateSwitcher<Animation>(a3);
-		StateSwitcher<Animation>* ss2 = new StateSwitcher<Animation>(a4);
-		ss1->AddStateTransition(new StateTransition<Animation>(ss2, new FlagGreaterThanCondition("positionY", 50)));
-		Animator* animator = new Animator(ss1);
+		StateSwitcher<Animation>* ss = new StateSwitcher<Animation>(a3);
+		ss->AddStateTransition(new StateTransition<Animation>(new StateSwitcher<Animation>(a4), new FlagGreaterThanCondition("positionY", 50)));
+		Animator* animator = new Animator(ss);
 
 		ParticleSystem* ps = new ParticleSystem();
 		ps->Add(new EmitContinuouslyEmitter(20));
@@ -97,41 +93,23 @@ protected:
 
 		Entity* en1 = new Entity("character", 100, 200);
 		en1->transform->SetScale(0.667f);
-
-		Component* cp1 = new SpriteRendererComponent("try_character_animated.png", a1, -46, -77);
-		en1->AddComponent(cp1);
-
-		Component* cp2 = new CircleColliderComponent(32, 20, -45);
-		en1->AddComponent(cp2);
-
-		Component* cp3 = new DestroyOnCollisionComponent();
-		en1->AddComponent(cp3);
+		en1->AddComponent(new SpriteRendererComponent("try_character_animated.png", a1, -46, -77));
+		en1->AddComponent(new CircleColliderComponent(32, 20, -45));
+		en1->AddComponent(new DestroyOnCollisionComponent());
 
 		Entity* en2 = new Entity("particles", 67, -56);
 		en1->AddChild(en2);
 		en2->transform->SetRotation(-90.0f);
-
-		Component* cp4 = new ParticleSystemComponent(ps);
-		en2->AddComponent(cp4);
+		en2->AddComponent(new ParticleSystemComponent(ps));
 
 		Entity* en3 = new Entity("killer", 100, 0);
 		en3->transform->SetRotation(90.0f);
 		en3->transform->SetSpeed(0.0f, 20.0f);
-
-		Component* cp5 = new SpriteRendererComponent("try_particles_animated.png", animator, -30, -30);
-		en3->AddComponent(cp5);
-
-		Component* cp6 = new CircleColliderComponent(30, 0, 0);
-		en3->AddComponent(cp6);
-
-		Component* cp7 = new DestroyOnCollisionComponent();
-		en3->AddComponent(cp7);
-
-		Component* cp8 = new MovementSimpleComponent();
-		en3->AddComponent(cp8);
-
-		Component* cp9 = new TestComponent(animator, "positionY");
-		en3->AddComponent(cp9);
+		en3->AddComponent(new SpriteRendererComponent("try_particles_animated.png", animator, -30, -30));
+		en3->AddComponent(new CircleColliderComponent(30, 0, 0));
+		en3->AddComponent(new DestroyOnCollisionComponent());
+		en3->AddComponent(new MovementSimpleComponent());
+		en3->AddComponent(new TestComponent(animator, "positionY"));
 
 		en1->Instantiate(scene);
 		en3->Instantiate(scene);

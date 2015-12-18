@@ -67,21 +67,16 @@ void Collider::NotifyCollision(Collider* other)
 	if (find(lastFrameCollisions->begin(), lastFrameCollisions->end(), other) != lastFrameCollisions->end())
 		listener->OnCollisionStay(this, other);
 	else
-	{
 		listener->OnCollisionEnter(this, other);
-		thisFrameCollisions->push_back(other);
-	}
+	thisFrameCollisions->push_back(other);
 }
 
 void Collider::CheckExitCollisions()
 {
 	// Comprueba con qué colliders ya no se está colisionando
 	for (list<Collider*>::iterator it = lastFrameCollisions->begin(); it != lastFrameCollisions->end(); ++it)
-	{
-		list<Collider*>::iterator other = find(lastFrameCollisions->begin(), lastFrameCollisions->end(), *it);
-		if (other != lastFrameCollisions->end())
-			listener->OnCollisionExit(this, *other);
-	}
+		if (find(thisFrameCollisions->begin(), thisFrameCollisions->end(), *it) == thisFrameCollisions->end())
+			listener->OnCollisionExit(this, *it);
 }
 
 void Collider::ClearFrameCollisions()
