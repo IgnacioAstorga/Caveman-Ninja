@@ -20,7 +20,8 @@ public:
 
 	bool OnCollisionExit(Collider* self, Collider* other)
 	{
-		entity->Destroy();
+		if (self->GetType() != other->GetType())
+			entity->Destroy();
 		return true;
 	}
 };

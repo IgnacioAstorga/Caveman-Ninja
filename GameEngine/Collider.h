@@ -14,7 +14,7 @@ using namespace std;
 class Collider
 {
 public:
-	Collider(CollisionListener* listener, Transform* transform, bool enabled = true);
+	Collider(CollisionListener* listener, Transform* transform, int type = -1, bool enabled = true);
 	virtual ~Collider();
 
 public:
@@ -34,6 +34,7 @@ public:
 	void NotifyCollision(Collider* other);
 	void CheckExitCollisions();
 	void ClearFrameCollisions();
+	int GetType();
 
 public:
 	virtual bool CallMe(Collider* self) = 0;
@@ -45,5 +46,6 @@ protected:
 	Transform* transform;
 	list<Collider*>* lastFrameCollisions;
 	list<Collider*>* thisFrameCollisions;
+	int type;
 };
 #endif // __COLLIDER_H__

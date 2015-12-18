@@ -4,10 +4,11 @@
 
 #include <algorithm>
 
-Collider::Collider(CollisionListener* listener, Transform* transform, bool enabled) : enabled(enabled)
+Collider::Collider(CollisionListener* listener, Transform* transform, int type, bool enabled) : enabled(enabled)
 {
 	this->listener = listener;
 	this->transform = transform;
+	this->type = type;
 }
 
 Collider::~Collider()
@@ -88,4 +89,9 @@ void Collider::ClearFrameCollisions()
 
 	// Vacía la lista de colisiones actuales
 	thisFrameCollisions->clear();
+}
+
+int Collider::GetType()
+{
+	return type;
 }

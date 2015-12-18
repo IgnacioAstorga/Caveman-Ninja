@@ -94,7 +94,7 @@ protected:
 		Entity* en1 = new Entity("character", 100, 200);
 		en1->transform->SetScale(0.667f);
 		en1->AddComponent(new SpriteRendererComponent("try_character_animated.png", a1, -46, -77));
-		en1->AddComponent(new CircleColliderComponent(32, 20, -45));
+		en1->AddComponent(new CircleColliderComponent(32, 20, -45, 0));
 		en1->AddComponent(new DestroyOnCollisionComponent());
 
 		Entity* en2 = new Entity("particles", 67, -56);
@@ -106,7 +106,7 @@ protected:
 		en3->transform->SetRotation(90.0f);
 		en3->transform->SetSpeed(0.0f, 20.0f);
 		en3->AddComponent(new SpriteRendererComponent("try_particles_animated.png", animator, -30, -30));
-		en3->AddComponent(new CircleColliderComponent(30, 0, 0));
+		en3->AddComponent(new CircleColliderComponent(30, 0, 0, 1));
 		en3->AddComponent(new DestroyOnCollisionComponent());
 		en3->AddComponent(new MovementSimpleComponent());
 		en3->AddComponent(new TestComponent(animator, "positionY"));

@@ -8,7 +8,7 @@
 class CircleCollider : public Collider
 {
 public:
-	CircleCollider(CollisionListener* listener, Transform* trasnform, float radius, float offsetX = 0.0f, float offsetY = 0.0f, bool start_enabled = true) : Collider(listener, trasnform, start_enabled)
+	CircleCollider(CollisionListener* listener, Transform* trasnform, float radius, float offsetX = 0.0f, float offsetY = 0.0f, int type = -1, bool start_enabled = true) : Collider(listener, trasnform, type, start_enabled)
 	{
 		this->radius = radius;
 		this->offsetX = offsetX;

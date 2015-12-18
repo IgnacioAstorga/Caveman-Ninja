@@ -10,11 +10,12 @@
 class CircleColliderComponent : public Component
 {
 public:
-	CircleColliderComponent(float radius, float offsetX = 0.0f, float offsetY = 0.0f, bool start_enabled = true) : Component(start_enabled)
+	CircleColliderComponent(float radius, float offsetX = 0.0f, float offsetY = 0.0f, int type = -1, bool start_enabled = true) : Component(start_enabled)
 	{
 		this->radius = radius;
 		this->offsetX = offsetX;
 		this->offsetY = offsetY;
+		this->type = type;
 	}
 
 	~CircleColliderComponent()
@@ -28,7 +29,7 @@ public:
 			return false;
 
 		// Crea un collider y lo registra
-		collider = new CircleCollider(entity, entity->transform, radius, offsetX, offsetY);
+		collider = new CircleCollider(entity, entity->transform, radius, offsetX, offsetY, type);
 		collider->Start();
 		App->collisions->RegisterCollider(collider);
 
@@ -66,6 +67,7 @@ private:
 	float radius;
 	float offsetX, offsetY;
 	CircleCollider* collider;
+	int type;
 };
 
 #endif // __CIRCLECOLLIDERCOMPONENT_H__
