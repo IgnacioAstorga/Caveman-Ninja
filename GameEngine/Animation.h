@@ -7,6 +7,7 @@ class Animation
 {
 public:
 	Animation(bool start_enabled = true) : enabled(start_enabled) {};
+	virtual ~Animation() {};
 
 	bool Animation::IsEnabled()
 	{
