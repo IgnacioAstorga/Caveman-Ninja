@@ -18,7 +18,7 @@ public:
 		// En principio no hace nada
 	}
 
-	bool OnCollisionExit(Collider* self, Collider* other)
+	bool OnCollisionEnter(Collider* self, Collider* other)
 	{
 		if (self->GetType() != other->GetType())
 			entity->Destroy();

@@ -65,6 +65,7 @@
     <ClInclude Include="ParticleSystemComponent.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Random.h" />
+    <ClInclude Include="RectangleColliderComponent.h" />
     <ClInclude Include="RotationMatchingSpeedOperator.h" />
     <ClInclude Include="ScaleBasicOperator.h" />
     <ClInclude Include="ScaleRandomInitializer.h" />

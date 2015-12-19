@@ -27,7 +27,7 @@ bool RectangleCollider::CallMe(Collider* self)
 
 bool RectangleCollider::CheckCollision(CircleCollider* other)
 {
-	float angle = (float)(GetRotation() * M_PI / 180.0f);
+	float angle = -(float)(GetRotation() * M_PI / 180.0f);
 	fPoint thisCenter = GetCenter();
 	fPoint thisScale = transform->GetGlobalScale();
 	fPoint circleCenter = other->GetCenter();
@@ -65,6 +65,12 @@ bool RectangleCollider::CheckCollision(CircleCollider* other)
 
 bool RectangleCollider::CheckCollision(RectangleCollider* other)
 {
+	// Primero comprueba que estén cerca
+	CircleCollider thisBound = this->GetBoundingCircle();
+	CircleCollider otherBound = other->GetBoundingCircle();
+	if (!thisBound.CheckCollision(&otherBound))
+		return false;
+
 	// Obtiene los puntos de los rectángulos
 	fPoint* thisPoints = this->GetPoints();
 	fPoint* otherPoints = other->GetPoints();
@@ -72,11 +78,12 @@ bool RectangleCollider::CheckCollision(RectangleCollider* other)
 	// Calcula los ejes de proyección
 	fPoint* axis = new fPoint[4];
 	axis[0] = thisPoints[1] - thisPoints[0];
-	axis[1] = thisPoints[1] - thisPoints[2];
-	axis[2] = otherPoints[0] - otherPoints[3];
-	axis[3] = otherPoints[0] - otherPoints[1];
+	axis[1] = thisPoints[3] - thisPoints[0];
+	axis[2] = otherPoints[1] - otherPoints[0];
+	axis[3] = otherPoints[1] - otherPoints[3];
 
 	// Recorre los ejes
+	bool collides = false;
 	for (unsigned int i = 0; i < 4; ++i)
 	{
 		// Calcula la proyección de todos los puntos de cada rectángulo sobre el eje
@@ -89,12 +96,12 @@ bool RectangleCollider::CheckCollision(RectangleCollider* other)
 			fPoint proyection;
 
 			factor = thisPoints[j].x * axis[i].x + thisPoints[j].y * axis[i].y;
-			factor /= pow(axis[j].x, 2) + pow(axis[j].y, 2);
+			factor /= pow(axis[i].x, 2) + pow(axis[i].y, 2);
 			proyection = axis[i] * factor;
 			thisProyections[j] = proyection.x * axis[i].x + proyection.y * axis[i].y;
 
 			factor = otherPoints[j].x * axis[i].x + otherPoints[j].y * axis[i].y;
-			factor /= pow(axis[j].x, 2) + pow(axis[j].y, 2);
+			factor /= pow(axis[i].x, 2) + pow(axis[i].y, 2);
 			proyection = axis[i] * factor;
 			otherProyections[j] = proyection.x * axis[i].x + proyection.y * axis[i].y;
 		}
@@ -117,13 +124,20 @@ bool RectangleCollider::CheckCollision(RectangleCollider* other)
 				otherMax = otherProyections[j];
 		}
 
-		// Comprueba si hay solapamiento en el eje
-		if (!((otherMin <= thisMax) || (otherMax >= thisMin)))
-			return false;	// Se ha encontrado un eje que separa a ambos rectángulos
-
-							// Libera la memoria utilizada
+		// Libera la memoria utilizada
 		RELEASE_ARRAY(otherProyections);
 		RELEASE_ARRAY(thisProyections);
+
+		// Comprueba si hay solapamiento en el eje
+		if (thisMin <= otherMax && otherMax <= thisMax)
+			collides = true;
+		else if (otherMin <= thisMax && thisMax <= otherMax)
+			collides = true;
+		else
+		{
+			collides = false;
+			break;
+		}
 	}
 
 	// Libera la memoria utilizada
@@ -131,13 +145,31 @@ bool RectangleCollider::CheckCollision(RectangleCollider* other)
 	RELEASE_ARRAY(otherPoints);
 	RELEASE_ARRAY(thisPoints);
 
-	// No se ha encontrado un eje que separa a ambos rectángulos. Hay solapamiento
-	return true;
+	return collides;
 }
 
 void RectangleCollider::DrawCollider()
 {
-	// TODO
+	// Determina la posición del dibujo en pantalla
+	fPoint renderPosition = transform->GetGlobalPosition();
+	fPoint offset = fPoint(offsetX, offsetY);
+	offset.x *= transform->GetGlobalScale().x;
+	offset.y *= transform->GetGlobalScale().y;
+	renderPosition += offset.Rotate(transform->GetGlobalRotation());
+
+	// Determina la escala del dibujo
+	float renderWidth = width * transform->GetGlobalScale().x;
+	float renderHeight = height * transform->GetGlobalScale().y;
+	fPoint renderScale = fPoint(renderWidth / 64, renderHeight / 64);
+
+	// Determina el color y opacidad del dibujo
+	SDL_Color renderColor;
+	renderColor.r = 0;
+	renderColor.g = 0;
+	renderColor.b = 179;
+	renderColor.a = 128;
+
+	App->renderer->Blit(App->collisions->square, (int)(renderPosition.x - renderWidth / 2), (int)(renderPosition.y - renderHeight / 2), GetRotation(), NULL, &renderColor, NULL, renderScale);
 }
 
 fPoint RectangleCollider::GetCenter()
@@ -159,10 +191,18 @@ fPoint* RectangleCollider::GetPoints()
 	fPoint scale = transform->GetGlobalScale();
 	float pointOffsetX = width * scale.x / 2;
 	float pointOffsetY = height * scale.y / 2;
+	float totalRotation = GetRotation();
 	fPoint* points = new fPoint[4];
-	points[0] = fPoint(center.x - pointOffsetX, center.y - pointOffsetY);
-	points[1] = fPoint(center.x + pointOffsetX, center.y - pointOffsetY);
-	points[2] = fPoint(center.x + pointOffsetX, center.y + pointOffsetY);
-	points[3] = fPoint(center.x - pointOffsetX, center.y + pointOffsetY);
+	points[0] = center + fPoint(-pointOffsetX, -pointOffsetY).Rotate(totalRotation);
+	points[1] = center + fPoint(+pointOffsetX, -pointOffsetY).Rotate(totalRotation);
+	points[2] = center + fPoint(+pointOffsetX, +pointOffsetY).Rotate(totalRotation);
+	points[3] = center + fPoint(-pointOffsetX, +pointOffsetY).Rotate(totalRotation);
 	return points;
+}
+
+CircleCollider RectangleCollider::GetBoundingCircle()
+{
+	fPoint center = GetCenter();
+	float radius = center.DistanceTo(fPoint(center.x + width / 2, center.y + height / 2));
+	return CircleCollider(NULL, transform, radius, offsetX, offsetY);
 }

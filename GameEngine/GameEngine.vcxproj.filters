@@ -225,6 +225,9 @@
     <ClInclude Include="RectangleCollider.h">
       <Filter>Elements\Collisions\Colliders</Filter>
     </ClInclude>
+    <ClInclude Include="RectangleColliderComponent.h">
+      <Filter>Elements\Entities\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">

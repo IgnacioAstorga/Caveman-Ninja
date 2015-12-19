@@ -19,6 +19,7 @@ public:
 	fPoint GetCenter();
 	float GetRotation();
 	fPoint* GetPoints();
+	CircleCollider GetBoundingCircle();
 
 public:
 	float width, height;
