@@ -8,6 +8,7 @@ class Transform;
 struct SDL_Rect;
 
 class CircleCollider;
+class RectangleCollider;
 
 using namespace std;
 
@@ -37,8 +38,10 @@ public:
 	int GetType();
 
 public:
+	virtual void DrawCollider() = 0;
 	virtual bool CallMe(Collider* self) = 0;
 	virtual bool CheckCollision(CircleCollider* other) = 0;
+	virtual bool CheckCollision(RectangleCollider* other) = 0;
 
 protected:
 	bool enabled;

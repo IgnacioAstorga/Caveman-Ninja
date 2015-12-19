@@ -39,6 +39,7 @@ enum update_status
 #define SCREEN_SIZE 2
 #define FULLSCREEN false
 #define VSYNC true
-#define TITLE "My game"
+#define TITLE "IAC's Game Engine"
+#define DEBUG true
 
 #endif //__GLOBALS_H__

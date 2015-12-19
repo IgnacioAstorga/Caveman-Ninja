@@ -1,5 +1,8 @@
 #include "ModuleCollisions.h"
 #include "Collider.h"
+#include "SDL.h"
+#include "Application.h"
+#include "ModuleTextures.h"
 
 ModuleCollisions::ModuleCollisions(bool start_enabled) : Module(start_enabled)
 {
@@ -19,6 +22,10 @@ bool ModuleCollisions::Start()
 	for (list<Collider*>::iterator it = colliders.begin(); it != colliders.end(); ++it)
 		if ((*it)->IsEnabled())
 			(*it)->Start();
+
+	// Carga las texturas de los colliders
+	circle = App->textures->Load("circle_64.png");
+	square = App->textures->Load("square_64.png");
 
 	return true;
 }
@@ -48,6 +55,12 @@ update_status ModuleCollisions::PostUpdate()
 		if ((*it)->IsEnabled())
 			(*it)->ClearFrameCollisions();
 
+	// Si está en modo DEBUG, pinta los colliders
+	if (DEBUG == true)
+		for (list<Collider*>::iterator it = colliders.begin(); it != colliders.end(); ++it)
+			if ((*it)->IsEnabled())
+				(*it)->DrawCollider();
+
 	return UPDATE_CONTINUE;
 }
 
@@ -60,6 +73,10 @@ bool ModuleCollisions::CleanUp()
 		if ((*it)->IsEnabled())
 			(*it)->CleanUp();
 	colliders.clear();
+
+	// Descarga las texturas de los colliders
+	App->textures->Unload(circle);
+	App->textures->Unload(square);
 
 	return true;
 }

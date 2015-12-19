@@ -72,6 +72,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SpriteParticleRenderer.h" />
     <ClInclude Include="SpriteRendererComponent.h" />
+    <ClInclude Include="RectangleCollider.h" />
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="StateSwitcher.h" />
     <ClInclude Include="StateTransition.h" />
@@ -82,6 +83,7 @@
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CircleCollider.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -98,6 +100,7 @@
     <ClCompile Include="ModuleTime.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
+    <ClCompile Include="RectangleCollider.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="TestApp.cpp" />
     <ClCompile Include="Transform.cpp" />

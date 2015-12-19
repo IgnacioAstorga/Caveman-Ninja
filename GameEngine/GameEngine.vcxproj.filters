@@ -222,6 +222,9 @@
     <ClInclude Include="BasicAnimation.h">
       <Filter>Elements\Animations</Filter>
     </ClInclude>
+    <ClInclude Include="RectangleCollider.h">
+      <Filter>Elements\Collisions\Colliders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -288,6 +291,12 @@
     </ClCompile>
     <ClCompile Include="Animator.cpp">
       <Filter>Elements\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleCollider.cpp">
+      <Filter>Elements\Collisions\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="RectangleCollider.cpp">
+      <Filter>Elements\Collisions\Colliders</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

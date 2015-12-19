@@ -6,6 +6,7 @@
 #include <list>
 
 class Collider;
+struct SDL_Texture;
 
 using namespace std;
 
@@ -27,5 +28,9 @@ public:
 
 private:
 	list<Collider*> colliders;
+
+public:
+	SDL_Texture* circle;
+	SDL_Texture* square;
 };
 #endif // __MODULECOLLISIONS_H__
