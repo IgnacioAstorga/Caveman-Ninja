@@ -9,6 +9,7 @@
 #include "ModuleParticles.h"
 #include "ModuleScene.h"
 #include "ModuleCollisions.h"
+#include "ModuleGUI.h"
 #include "Globals.h"
 #include "Scene.h"
 
@@ -52,8 +53,9 @@ void Application::Create() {
 	modules.push_back(particles = new ModuleParticles());
 	modules.push_back(scene = new ModuleScene());
 	modules.push_back(collisions = new ModuleCollisions());
+	modules.push_back(gui = new ModuleGUI());	// El GUI va después del Scene
 
-	// El renderer siempre es el último módulo
+	// El Renderer siempre es el último módulo
 	modules.push_back(renderer = new ModuleRender());
 
 	// Llamada al delegado

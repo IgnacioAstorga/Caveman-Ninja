@@ -49,6 +49,9 @@
     <Filter Include="Elements\Animations">
       <UniqueIdentifier>{10ac65ec-07ca-4712-bc6c-f1fbbd4f04cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Elements\Entities\GUIComponents">
+      <UniqueIdentifier>{155c68e6-4b91-4d29-8a9e-1c1008d58cad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.h">
@@ -228,6 +231,15 @@
     <ClInclude Include="RectangleColliderComponent.h">
       <Filter>Elements\Entities\Components</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleGUI.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIComponent.h">
+      <Filter>Elements\Entities\GUIComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="GUISpriteRendererComponent.h">
+      <Filter>Elements\Entities\GUIComponents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -300,6 +312,9 @@
     </ClCompile>
     <ClCompile Include="RectangleCollider.cpp">
       <Filter>Elements\Collisions\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleGUI.cpp">
+      <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

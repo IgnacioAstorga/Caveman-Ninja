@@ -41,12 +41,15 @@
     <ClInclude Include="FlagGreaterThanCondition.h" />
     <ClInclude Include="FlagLessThanCondition.h" />
     <ClInclude Include="Globals.h" />
+    <ClInclude Include="GUIComponent.h" />
+    <ClInclude Include="GUISpriteRendererComponent.h" />
     <ClInclude Include="LifetimeDecayOperator.h" />
     <ClInclude Include="LifetimeRandomInitializer.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleAnimation.h" />
     <ClInclude Include="ModuleAudio.h" />
     <ClInclude Include="ModuleCollisions.h" />
+    <ClInclude Include="ModuleGUI.h" />
     <ClInclude Include="ModuleParticles.h" />
     <ClInclude Include="ModuleScene.h" />
     <ClInclude Include="ModuleInput.h" />
@@ -93,6 +96,7 @@
     <ClCompile Include="ModuleAnimation.cpp" />
     <ClCompile Include="ModuleAudio.cpp" />
     <ClCompile Include="ModuleCollisions.cpp" />
+    <ClCompile Include="ModuleGUI.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
     <ClCompile Include="ModuleParticles.cpp" />
     <ClCompile Include="ModuleRender.cpp" />

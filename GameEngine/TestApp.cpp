@@ -25,6 +25,7 @@
 #include "BasicAnimation.h"
 #include "Animator.h"
 #include "FlagGreaterThanCondition.h"
+#include "GUISpriteRendererComponent.h"
 
 #include <sstream>
 
@@ -112,8 +113,16 @@ protected:
 		en3->AddComponent(new MovementSimpleComponent());
 		en3->AddComponent(new TestComponent(animator, "positionY"));
 
+		BasicAnimation* a5 = new BasicAnimation(*a2);
+
+		Entity* en4 = new Entity("gui", 0, 0);
+		en4->transform->SetRotation(30.0f);
+		en4->transform->SetPosition(30.0f, 30.0f);
+		en4->AddComponent(new GUISpriteRendererComponent("try_particles_animated.png", a5, -30, -30, CENTER));
+
 		en1->Instantiate(scene);
 		en3->Instantiate(scene);
+		en4->Instantiate(scene);
 
 		return true;
 	}
