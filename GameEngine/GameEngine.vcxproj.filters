@@ -272,8 +272,6 @@
     <ClCompile Include="ParticleSystem.cpp">
       <Filter>Elements\Particles</Filter>
     </ClCompile>
-    <ClCompile Include="TestApp.cpp" />
-    <ClCompile Include="Main.cpp" />
     <ClCompile Include="ModuleTime.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
