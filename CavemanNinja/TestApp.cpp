@@ -19,6 +19,7 @@
 #include "ParticleSystemComponent.h"
 #include "CircleColliderComponent.h"
 #include "RectangleColliderComponent.h"
+#include "LineColliderComponent.h"
 #include "DestroyOnCollisionComponent.h"
 #include "MovementSimpleComponent.h"
 #include "CameraComponent.h"
@@ -96,7 +97,7 @@ protected:
 		Entity* en1 = new Entity("character", 100, 200);
 		en1->transform->SetScale(0.667f);
 		en1->AddComponent(new SpriteRendererComponent("try_character_animated.png", a1, -46, -77));
-		en1->AddComponent(new RectangleColliderComponent(60, 60, 0, 0, 30, 0));
+		en1->AddComponent(new RectangleColliderComponent(60, 60, 0, -20, 30, 0));
 		en1->AddComponent(new DestroyOnCollisionComponent());
 
 		Entity* en2 = new Entity("particles", 67, -56);
@@ -120,9 +121,19 @@ protected:
 		en4->transform->SetPosition(30.0f, 30.0f);
 		en4->AddComponent(new GUISpriteRendererComponent("try_particles_animated.png", a5, -30, -30, CENTER));
 
+		vector<fPoint> points;
+		points.push_back(fPoint(0.0f, 200.0f));
+		points.push_back(fPoint(100.0f, 150.0f));
+		points.push_back(fPoint(200.0f, 120.0f));
+		points.push_back(fPoint(300.0f, 200.0f));
+
+		Entity* en5 = new Entity("line");
+		en5->AddComponent(new LineColliderComponent(points, 10, 5));
+
 		en1->Instantiate(scene);
 		en3->Instantiate(scene);
 		en4->Instantiate(scene);
+		en5->Instantiate(scene);
 
 		return true;
 	}

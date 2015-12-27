@@ -2,11 +2,12 @@
 #include "Transform.h"
 #include "CollisionListener.h"
 #include "RectangleCollider.h"
+#include "LineCollider.h"
 #include "Application.h"
 #include "ModuleCollisions.h"
 #include "ModuleRender.h"
 
-CircleCollider::CircleCollider(CollisionListener* listener, Transform* trasnform, float radius, float offsetX, float offsetY, int type, bool start_enabled) : Collider(listener, trasnform, type, start_enabled)
+CircleCollider::CircleCollider(CollisionListener* listener, Transform* transform, float radius, float offsetX, float offsetY, int type, bool start_enabled) : Collider(listener, transform, type, start_enabled)
 {
 	this->radius = radius;
 	this->offsetX = offsetX;
@@ -30,6 +31,12 @@ bool CircleCollider::CheckCollision(CircleCollider* other)
 }
 
 bool CircleCollider::CheckCollision(RectangleCollider* other)
+{
+	// Delega la responsabilidad en el otro collider
+	return other->CheckCollision(this);
+}
+
+bool CircleCollider::CheckCollision(LineCollider* other)
 {
 	// Delega la responsabilidad en el otro collider
 	return other->CheckCollision(this);

@@ -9,6 +9,7 @@ struct SDL_Rect;
 
 class CircleCollider;
 class RectangleCollider;
+class LineCollider;
 
 using namespace std;
 
@@ -42,6 +43,7 @@ public:
 	virtual bool CallMe(Collider* self) = 0;
 	virtual bool CheckCollision(CircleCollider* other) = 0;
 	virtual bool CheckCollision(RectangleCollider* other) = 0;
+	virtual bool CheckCollision(LineCollider* other) = 0;
 
 protected:
 	bool enabled;

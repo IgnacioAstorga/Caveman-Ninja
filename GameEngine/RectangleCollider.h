@@ -7,13 +7,15 @@
 class RectangleCollider : public Collider
 {
 public:
-	RectangleCollider(CollisionListener* listener, Transform* trasnform, float width, float height, float offsetX = 0.0f, float offsetY = 0.0f, float rotation = 0.0f, int type = -1, bool start_enabled = true);
+	RectangleCollider(CollisionListener* listener, Transform* transform, float width, float height, float offsetX = 0.0f, float offsetY = 0.0f, float rotation = 0.0f, int type = -1, bool start_enabled = true);
 	~RectangleCollider();
 
 	bool CallMe(Collider* self);
 	bool CheckCollision(CircleCollider* other);
 	bool CheckCollision(RectangleCollider* other);
+	bool CheckCollision(LineCollider* other);
 	void DrawCollider();
+	void DrawCollider(SDL_Color color);
 
 public:
 	fPoint GetCenter();

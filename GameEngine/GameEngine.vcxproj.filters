@@ -240,6 +240,12 @@
     <ClInclude Include="GUISpriteRendererComponent.h">
       <Filter>Elements\Entities\GUIComponents</Filter>
     </ClInclude>
+    <ClInclude Include="LineCollider.h">
+      <Filter>Elements\Collisions\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="LineColliderComponent.h">
+      <Filter>Elements\Entities\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -313,6 +319,9 @@
     </ClCompile>
     <ClCompile Include="ModuleGUI.cpp">
       <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="LineCollider.cpp">
+      <Filter>Elements\Collisions\Colliders</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
