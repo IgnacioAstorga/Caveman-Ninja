@@ -4,6 +4,8 @@
 #include "Component.h"
 #include "Entity.h"
 #include "Transform.h"
+#include "Application.h"
+#include "ModuleTime.h"
 
 class MovementSimpleComponent : public Component
 {

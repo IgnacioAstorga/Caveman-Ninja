@@ -28,6 +28,8 @@
 #include "FlagGreaterThanCondition.h"
 #include "GUISpriteRendererComponent.h"
 
+#include "Scene_Level1.h"
+
 #include <sstream>
 
 class TestScene : public Scene {};
@@ -50,10 +52,10 @@ protected:
 
 	Scene* OnCreateScene()
 	{
-		return new TestScene();
+		return new Scene_Level1();
 	}
 
-	bool OnPopulateScene(Scene* scene)
+	/*bool OnPopulateScene(Scene* scene)
 	{
 		Entity* camera = new Entity("camera", 0, 0);
 		camera->AddComponent(new CameraComponent(SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * SCREEN_SIZE, true));
@@ -136,5 +138,5 @@ protected:
 		en5->Instantiate(scene);
 
 		return true;
-	}
+	}*/
 };

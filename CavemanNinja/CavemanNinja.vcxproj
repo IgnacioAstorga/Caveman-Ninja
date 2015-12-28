@@ -117,12 +117,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerInputComponent.cpp" />
+    <ClCompile Include="Scene_Level1.cpp" />
     <ClCompile Include="TestApp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameEngine\GameEngine.vcxproj">
       <Project>{6f126a32-4fe7-4692-8a64-654124b216e0}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ColliderTypes.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerInputComponent.h" />
+    <ClInclude Include="Scene_Level1.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
