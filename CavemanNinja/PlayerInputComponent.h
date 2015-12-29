@@ -5,8 +5,6 @@
 
 class PlayerInputComponent : public Component
 {
-	friend class Scene;
-
 public:
 	PlayerInputComponent(float speed);
 	virtual ~PlayerInputComponent();

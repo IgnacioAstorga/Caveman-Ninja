@@ -3,6 +3,7 @@
 
 enum ColliderType
 {
-	GROUND
+	GROUND,
+	PLAYER
 };
 #endif	// __COLLIDERTYPES_H__

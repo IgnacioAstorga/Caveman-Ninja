@@ -29,6 +29,7 @@
     <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="CircleColliderComponent.h" />
     <ClInclude Include="Collider.h" />
+    <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="CollisionListener.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="ColorRandomInitializer.h" />

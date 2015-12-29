@@ -1,16 +1,16 @@
 #ifndef __CIRCLECOLLIDERCOMPONENT_H__
 #define __CIRCLECOLLIDERCOMPONENT_H__
 
-#include "Component.h"
+#include "ColliderComponent.h"
 #include "CircleCollider.h"
 #include "Application.h"
 #include "ModuleCollisions.h"
 #include "Entity.h"
 
-class CircleColliderComponent : public Component
+class CircleColliderComponent : public ColliderComponent
 {
 public:
-	CircleColliderComponent(float radius, float offsetX = 0.0f, float offsetY = 0.0f, int type = -1, bool start_enabled = true) : Component(start_enabled)
+	CircleColliderComponent(float radius, float offsetX = 0.0f, float offsetY = 0.0f, int type = -1, bool start_enabled = true) : ColliderComponent(start_enabled)
 	{
 		this->radius = radius;
 		this->offsetX = offsetX;
@@ -61,6 +61,11 @@ public:
 		this->offsetY = offsetY;
 		collider->offsetX = offsetX;
 		collider->offsetY = offsetY;
+	}
+
+	Collider* GetCollider()
+	{
+		return collider;
 	}
 
 private:

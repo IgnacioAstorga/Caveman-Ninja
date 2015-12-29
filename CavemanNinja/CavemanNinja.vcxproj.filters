@@ -14,6 +14,9 @@
     <ClCompile Include="PlayerInputComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="GravityAndCollisionWithGroundComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scenes">
@@ -43,6 +46,9 @@
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="PlayerInputComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GravityAndCollisionWithGroundComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>

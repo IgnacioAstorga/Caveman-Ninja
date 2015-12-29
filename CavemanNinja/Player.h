@@ -12,5 +12,8 @@ public:
 protected:
 	void OnCreate();
 	void OnDestroy();
+
+private:
+	bool* falling;
 };
 #endif	// __PLAYER_H__

@@ -12,10 +12,15 @@ public:
 	virtual ~Transform();
 
 	void SetPosition(float xPosition, float yPosition);
+	void SetGlobalPosition(float xPosition, float yPosition);
 	void SetSpeed(float xSpeed, float ySpeed);
+	void SetGlobalSpeed(float xSpeed, float ySpeed);
 	void SetRotation(float rotation);
+	void SetGlobalRotation(float rotation);
 	void SetScale(float scale);
 	void SetScale(float xScale, float yScale);
+	void SetGlobalScale(float scale);
+	void SetGlobalScale(float xScale, float yScale);
 
 	fPoint GetLocalPosition();
 	fPoint GetGlobalPosition();
