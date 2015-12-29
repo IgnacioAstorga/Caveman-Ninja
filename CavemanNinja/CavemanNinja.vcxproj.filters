@@ -17,6 +17,9 @@
     <ClCompile Include="GravityAndCollisionWithGroundComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerJumpComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scenes">
@@ -49,6 +52,9 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="GravityAndCollisionWithGroundComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerJumpComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>

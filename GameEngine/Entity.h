@@ -83,4 +83,80 @@ private:
 	list<Entity*> children;
 	list<Component*> components;
 };
+
+template<class T>
+T* Entity::FindChild()
+{
+	return FindChild<T>(-1);
+}
+
+template<class T>
+T* Entity::FindChild(int deepness)
+{
+	for (list<Entity*>::iterator it = children.begin(); it != children.end(); ++it)
+	{
+		T* casted = dynamic_cast<T*>(*it);
+		if (casted != NULL)
+			return casted;
+		else if (deepness != 0)
+		{
+			Entity* ret = (*it)->FindChild<T>(deepness - 1);
+			if (ret != nullptr)
+				return ret;
+		}
+	}
+	return nullptr;
+}
+
+template<class T>
+list<T*> Entity::FindAllChildren()
+{
+	return FindAllChildren<T>(-1);
+}
+
+template<class T>
+list<T*> Entity::FindAllChildren(int deepness)
+{
+	list<Entity*> allChildren;
+	for (list<Entity*>::iterator it = children.begin(); it != children.end(); ++it)
+	{
+		T* casted = dynamic_cast<T*>(*it)
+		if (casted != NULL)
+			allChildren.push_back(casted);
+		if (deepness != 0)
+		{
+			list<Entity*> ret = (*it)->FindAllChildren<T>(deepness - 1);
+			if (!ret.empty())
+				allChildren.insert(allChildren.end(), ret.begin(), ret.end());
+		}
+	}
+	return allChildren;
+}
+
+template<class T>
+T* Entity::FindComponent()
+{
+	for (list<Component*>::iterator it = components.begin(); it != components.end(); ++it)
+	{
+		T* casted = dynamic_cast<T*>(*it);
+		if (casted != NULL)
+			return casted;
+	}
+
+	return nullptr;
+}
+
+template<class T>
+list<T*> Entity::FindAllComponents()
+{
+	list<Component*> allComponents;
+	for (list<Component*>::iterator it = components.begin(); it != components.end(); ++it)
+	{
+		T* casted = dynamic_cast<T*>(*it);
+		if (casted != NULL)
+			allComponents.push_back(casted);
+	}
+
+	return allComponents;
+}
 #endif //__ENTITY_H__

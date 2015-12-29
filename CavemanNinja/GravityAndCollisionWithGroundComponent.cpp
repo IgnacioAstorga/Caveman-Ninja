@@ -5,11 +5,11 @@
 #include "ColliderComponent.h"
 #include "Application.h"
 #include "ModuleTime.h"
+#include "PlayerJumpComponent.h"
 
-GravityAndCollisionWithGroundComponent::GravityAndCollisionWithGroundComponent(float gravity, bool* falling, ColliderType groundColliderType, ColliderComponent* colliderComponent, float step_size)
+GravityAndCollisionWithGroundComponent::GravityAndCollisionWithGroundComponent(float gravity, ColliderType groundColliderType, ColliderComponent* colliderComponent, float step_size)
 {
 	this->gravity = gravity;
-	this->falling = falling;
 	this->groundColliderType = groundColliderType;
 	this->colliderComponent = colliderComponent;
 	this->step_size = step_size;
@@ -22,7 +22,11 @@ GravityAndCollisionWithGroundComponent::~GravityAndCollisionWithGroundComponent(
 
 bool GravityAndCollisionWithGroundComponent::OnStart()
 {
-	return colliderComponent != NULL && falling != NULL;	// Si no ha especificado collider o flag de caída, da error
+	// Intenta encontrar el componente de salto de la entidad
+	jumpComponent = entity->FindComponent<PlayerJumpComponent>();
+
+	falling = true;	// Empieza "callendo", en el primer frame se comprobará si está posado o no
+	return colliderComponent != NULL;	// Si no ha especificado collider o flag de caída, da error
 }
 
 bool GravityAndCollisionWithGroundComponent::OnUpdate()
@@ -30,7 +34,7 @@ bool GravityAndCollisionWithGroundComponent::OnUpdate()
 	// Lo primero, comprueba si la caida se frenó en la frame anterior.
 	// Se utiliza para determinar si la entidad está callendo o no
 	if (entity->transform->GetGlobalSpeed().y > 0)
-		*falling = true;
+		falling = true;
 
 	// Mueve a la entidad según la gravedad (coordenadas globales)
 	// Suma la gravedad a la velocidad de la entidad
@@ -56,6 +60,8 @@ bool GravityAndCollisionWithGroundComponent::OnCollisionEnter(Collider* self, Co
 
 	// Frena la caida de la entidad
 	entity->transform->SetGlobalSpeed(entity->transform->GetGlobalSpeed().x, 0.0f);
+	falling = false;
+	jumpComponent->jumping = false;
 
 	// Desplaza la entidad hacia arriba hasta que se encuentre fuera del collider
 	do
