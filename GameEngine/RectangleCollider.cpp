@@ -2,6 +2,7 @@
 #include "Transform.h"
 #include "CollisionListener.h"
 #include "CircleCollider.h"
+#include "CircleTraceCollider.h"
 #include "LineCollider.h"
 #include "Application.h"
 #include "ModuleCollisions.h"
@@ -64,8 +65,18 @@ bool RectangleCollider::CheckCollision(CircleCollider* other)
 	return fPoint(closestX, closestY).DistanceTo(newCirclePosition) <= other->GetRadius();
 }
 
+bool RectangleCollider::CheckCollision(CircleTraceCollider* other)
+{
+	// Delega la responsabilidad en el otro collider
+	return other->CheckCollision(this);
+}
+
 bool RectangleCollider::CheckCollision(RectangleCollider* other)
 {
+	// Si el rectángulo no tiene altura ni anchura, es un punto
+	if (height == 0.0f && width == 0.0f)
+		return other->CheckCollision(new CircleCollider(NULL, transform, 0.0f, offsetX, offsetY, type));
+
 	// Primero comprueba que estén cerca
 	CircleCollider thisBound = this->GetBoundingCircle();
 	CircleCollider otherBound = other->GetBoundingCircle();
@@ -78,10 +89,20 @@ bool RectangleCollider::CheckCollision(RectangleCollider* other)
 
 	// Calcula los ejes de proyección
 	fPoint* axis = new fPoint[4];
-	axis[0] = thisPoints[1] - thisPoints[0];
+	axis[1] = thisPoints[1] - thisPoints[0];
 	axis[1] = thisPoints[3] - thisPoints[0];
 	axis[2] = otherPoints[1] - otherPoints[0];
-	axis[3] = otherPoints[1] - otherPoints[3];
+	axis[3] = otherPoints[3] - otherPoints[0];
+
+	// Comprueba los casos especiales, utilizando perpendiculares
+	if (this->width == 0.0f)
+		axis[0] = fPoint(-axis[1].y, axis[1].x);
+	if (this->height == 0.0f)
+		axis[1] = fPoint(axis[0].y, -axis[0].x);
+	if (other->width == 0.0f)
+		axis[2] = fPoint(-axis[3].y, axis[3].x);
+	if (other->height == 0.0f)
+		axis[3] = fPoint(axis[2].y, -axis[2].x);
 
 	// Recorre los ejes
 	bool collides = false;

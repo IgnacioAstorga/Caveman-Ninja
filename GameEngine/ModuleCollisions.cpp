@@ -30,8 +30,23 @@ bool ModuleCollisions::Start()
 	return true;
 }
 
+update_status ModuleCollisions::PreUpdate()
+{
+	// Hace preupdate a los colliders que tengan que realizar alguna operación previa
+	for (list<Collider*>::iterator it = colliders.begin(); it != colliders.end(); ++it)
+		if ((*it)->IsEnabled())
+			(*it)->PreUpdate();
+
+	return UPDATE_CONTINUE;
+}
+
 update_status ModuleCollisions::Update()
 {
+	// Hace update a los colliders que tengan que realizar alguna operación
+	for (list<Collider*>::iterator it = colliders.begin(); it != colliders.end(); ++it)
+		if ((*it)->IsEnabled())
+			(*it)->Update();
+
 	// Para cada collider, comprueba si ha habido collisiones con los demás (lo comprueba sin reflexividad)
 	for (list<Collider*>::iterator it = colliders.begin(); it != colliders.end(); ++it)
 		if ((*it)->IsEnabled())
@@ -50,6 +65,11 @@ update_status ModuleCollisions::Update()
 
 update_status ModuleCollisions::PostUpdate()
 {
+	// Hace postupdate a los colliders que tengan que realizar alguna operación posterior
+	for (list<Collider*>::iterator it = colliders.begin(); it != colliders.end(); ++it)
+		if ((*it)->IsEnabled())
+			(*it)->PostUpdate();
+
 	// Hace PostUpdate a los colliders para que registren el fin de la frame actual y borren las colisiones registradas
 	for (list<Collider*>::iterator it = colliders.begin(); it != colliders.end(); ++it)
 		if ((*it)->IsEnabled())

@@ -1,8 +1,9 @@
 #include "LineCollider.h"
 #include "Transform.h"
 #include "CollisionListener.h"
-#include "RectangleCollider.h"
 #include "CircleCollider.h"
+#include "CircleTraceCollider.h"
+#include "RectangleCollider.h"
 #include "Application.h"
 #include "ModuleCollisions.h"
 #include "ModuleRender.h"
@@ -46,6 +47,12 @@ bool LineCollider::CheckCollision(CircleCollider* other)
 	// Crea el rectángulo del segmento adecuado y comprueba la colision
 	RectangleCollider rc = CreateSegmentCollider(leftBoundIndex);
 	return rc.CollidesWith(other);
+}
+
+bool LineCollider::CheckCollision(CircleTraceCollider* other)
+{
+	// Delega la responsabilidad en el otro collider
+	return other->CheckCollision(this);
 }
 
 bool LineCollider::CheckCollision(RectangleCollider* other)

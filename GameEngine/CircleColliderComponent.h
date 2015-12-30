@@ -3,6 +3,7 @@
 
 #include "ColliderComponent.h"
 #include "CircleCollider.h"
+#include "CircleTraceCollider.h"
 #include "Application.h"
 #include "ModuleCollisions.h"
 #include "Entity.h"
@@ -10,12 +11,13 @@
 class CircleColliderComponent : public ColliderComponent
 {
 public:
-	CircleColliderComponent(float radius, float offsetX = 0.0f, float offsetY = 0.0f, int type = -1, bool start_enabled = true) : ColliderComponent(start_enabled)
+	CircleColliderComponent(float radius, float offsetX = 0.0f, float offsetY = 0.0f, int type = -1, bool trace = false, bool start_enabled = true) : ColliderComponent(start_enabled)
 	{
 		this->radius = radius;
 		this->offsetX = offsetX;
 		this->offsetY = offsetY;
 		this->type = type;
+		this->trace = trace;
 	}
 
 	~CircleColliderComponent()
@@ -29,7 +31,10 @@ public:
 			return false;
 
 		// Crea un collider y lo registra
-		collider = new CircleCollider(entity, entity->transform, radius, offsetX, offsetY, type);
+		if (trace)
+			collider = new CircleTraceCollider(entity, entity->transform, radius, offsetX, offsetY, type);
+		else
+			collider = new CircleCollider(entity, entity->transform, radius, offsetX, offsetY, type);
 		collider->Start();
 		App->collisions->RegisterCollider(collider);
 
@@ -73,6 +78,7 @@ private:
 	float offsetX, offsetY;
 	CircleCollider* collider;
 	int type;
+	bool trace;
 };
 
 #endif // __CIRCLECOLLIDERCOMPONENT_H__

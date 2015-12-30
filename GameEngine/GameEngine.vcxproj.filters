@@ -252,6 +252,9 @@
     <ClInclude Include="ColliderComponent.h">
       <Filter>Elements\Entities\ColliderComponents</Filter>
     </ClInclude>
+    <ClInclude Include="CircleTraceCollider.h">
+      <Filter>Elements\Collisions\Colliders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -327,6 +330,9 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="LineCollider.cpp">
+      <Filter>Elements\Collisions\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleTraceCollider.cpp">
       <Filter>Elements\Collisions\Colliders</Filter>
     </ClCompile>
   </ItemGroup>

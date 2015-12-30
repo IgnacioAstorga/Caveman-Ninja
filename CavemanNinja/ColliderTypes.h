@@ -3,6 +3,7 @@
 
 enum ColliderType
 {
+	NONE,
 	GROUND,
 	PLAYER
 };

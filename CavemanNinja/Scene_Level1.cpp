@@ -13,7 +13,7 @@ void Scene_Level1::OnCreateScene()
 
 	ground = new Entity("ground");
 	ground->AddComponent(new SpriteRendererComponent("assets/images/world_1_background.png"));
-	ground->AddComponent(new RectangleColliderComponent(100, 5, 0, 220, 0, GROUND));
+	ground->AddComponent(new RectangleColliderComponent(100, 0, 0, 220, 0, GROUND));
 	AddChild(ground);
 
 	player = new Player("player_1", 20, 190);
