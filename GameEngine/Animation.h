@@ -1,6 +1,8 @@
 #ifndef __ANIMATION_H__
 #define __ANIMATION_H__
 
+#include "SDL_render.h"
+
 struct SDL_Rect;
 
 class Animation
@@ -33,6 +35,7 @@ public:
 
 public:
 	virtual SDL_Rect& GetCurrentFrame() = 0;
+	virtual SDL_RendererFlip GetFlip() = 0;
 	virtual void Increment(float amount) = 0;
 
 protected:

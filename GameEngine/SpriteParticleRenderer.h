@@ -89,20 +89,23 @@ public:
 		// Determina el frame que pintar
 		SDL_Rect* renderArea = NULL;
 		int width, height;
+		SDL_RendererFlip flip;
 		if (animation != nullptr)
 		{
 			renderArea = &(animation->GetCurrentFrame());
 			width = renderArea->w;
 			height = renderArea->h;
+			flip = animation->GetFlip();
 		}
 		else
 		{
 			SDL_QueryTexture(texture, NULL, NULL, &width, &height);
+			flip = SDL_FLIP_NONE;
 		}
 		width = (int)(width * renderScale.x);
 		height = (int)(height * renderScale.y);
 
-		App->renderer->Blit(texture, (int)(renderPosition.x - (width / 2)), (int)(renderPosition.y - (height / 2)), renderRotation, NULL, &renderColor, renderArea, renderScale);
+		App->renderer->Blit(texture, (int)(renderPosition.x - (width / 2)), (int)(renderPosition.y - (height / 2)), renderRotation, NULL, &renderColor, renderArea, renderScale, flip);
 
 		return UPDATE_CONTINUE;
 	}

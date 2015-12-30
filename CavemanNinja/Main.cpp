@@ -1,8 +1,9 @@
-#include "TestApp.cpp"
+#include "CavemanNinjaApp.cpp"
+#include "SDL.h"
 
 int main(int argc, char ** argv)
 {
-	TestApp* app = new TestApp();
+	CavemanNinjaApp* app = new CavemanNinjaApp();
 
 	int return_value = app->Run();
 

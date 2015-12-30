@@ -86,12 +86,20 @@ public:
 		
 		// Determina el frame que pintar
 		SDL_Rect* renderArea = NULL;
+		SDL_RendererFlip flip = SDL_FLIP_NONE;
 		if (animation != nullptr)
+		{
+			flip = animation->GetFlip();
 			renderArea = &(animation->GetCurrentFrame());
+		}
 
-		App->renderer->Blit(texture, (int)renderPosition.x, (int)renderPosition.y, renderRotation, &pivot, renderArea, renderScale, speed);
+		App->renderer->Blit(texture, (int)renderPosition.x, (int)renderPosition.y, renderRotation, &pivot, renderArea, renderScale, flip, speed);
 
 		return true;
+	}
+
+	Animation* GetAnimation() {
+		return animation;
 	}
 
 private:
