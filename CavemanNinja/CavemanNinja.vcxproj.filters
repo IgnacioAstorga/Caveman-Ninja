@@ -20,6 +20,12 @@
     <ClCompile Include="PlayerJumpComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerCamera.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraMovementComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scenes">
@@ -55,6 +61,12 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="PlayerJumpComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerCamera.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraMovementComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>

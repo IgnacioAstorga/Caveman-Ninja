@@ -1,7 +1,7 @@
 #ifndef __PLAYER_H__
 #define __PLAYER_H__
 
-#include "Scene.h"
+#include "Entity.h"
 
 class Player : public Entity
 {

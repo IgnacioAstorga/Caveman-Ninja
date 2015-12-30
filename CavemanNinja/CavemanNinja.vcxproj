@@ -116,9 +116,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CameraMovementComponent.cpp" />
     <ClCompile Include="GravityAndCollisionWithGroundComponent.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerCamera.cpp" />
     <ClCompile Include="PlayerInputComponent.cpp" />
     <ClCompile Include="PlayerJumpComponent.cpp" />
     <ClCompile Include="Scene_Level1.cpp" />
@@ -130,9 +132,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CameraMovementComponent.h" />
     <ClInclude Include="ColliderTypes.h" />
     <ClInclude Include="GravityAndCollisionWithGroundComponent.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerCamera.h" />
     <ClInclude Include="PlayerInputComponent.h" />
     <ClInclude Include="PlayerJumpComponent.h" />
     <ClInclude Include="Scene_Level1.h" />

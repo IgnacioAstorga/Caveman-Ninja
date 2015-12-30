@@ -57,7 +57,7 @@ public:
 	virtual bool CheckCollision(RectangleCollider* other) = 0;
 	virtual bool CheckCollision(LineCollider* other) = 0;
 
-protected:
+public:
 	bool enabled;
 	CollisionListener* listener;
 	Transform* transform;

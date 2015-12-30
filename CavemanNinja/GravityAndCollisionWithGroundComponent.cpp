@@ -53,7 +53,7 @@ bool GravityAndCollisionWithGroundComponent::OnCollisionEnter(Collider* self, Co
 	if (self != colliderComponent->GetCollider())
 		return true;
 
-	// Ahora etecta si está cayendo o posado. Si no, ignora la colisión
+	// Ahora detecta si está cayendo o posado. Si no, ignora la colisión
 	if (entity->transform->GetLocalSpeed().y < 0.0f)	// Abajo es positivo, arriba es negativo
 		return true;
 
@@ -63,10 +63,11 @@ bool GravityAndCollisionWithGroundComponent::OnCollisionEnter(Collider* self, Co
 	jumpComponent->jumping = false;
 
 	// Recoloca la entidad
+	int count = 0;
 	do
 	{
 		entity->transform->SetGlobalPosition(entity->transform->GetGlobalPosition().x, entity->transform->GetGlobalPosition().y - step_size);
-	} while (self->CollidesWith(other));
+	} while (self->CollidesWith(other) && count++ < 100);
 	
 	return true;
 }
