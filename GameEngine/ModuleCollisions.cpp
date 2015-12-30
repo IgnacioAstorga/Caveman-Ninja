@@ -116,3 +116,13 @@ void ModuleCollisions::UnregisterCollider(Collider* collider)
 	if (std::find(colliders.begin(), colliders.end(), collider) != colliders.end())
 		colliders.remove(collider);
 }
+
+list<Collider*> ModuleCollisions::CheckCollisions(Collider* collider)
+{
+	// Devuelve los colliders que colisionan con el collider especificado (ignora al propio collider)
+	list<Collider*> ret;
+	for (list<Collider*>::iterator it = colliders.begin(); it != colliders.end(); ++it)
+		if ((*it)->IsEnabled() && *it != collider && collider->CollidesWith(*it))
+			ret.push_back(*it);
+	return ret;
+}

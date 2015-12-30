@@ -94,8 +94,8 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, double angle, SDL_Po
 	SDL_Rect cameraView = activeCamera->GetViewArea();
 	float windowProportion = (float)App->window->screen_surface->w / (float)cameraView.w;
 	SDL_Rect rect;
-	rect.x = (int)((-cameraView.x * speed + x * SCREEN_SIZE) * windowProportion);	// La posición de la cámara debe ser negativa
-	rect.y = (int)((-cameraView.y * speed + y * SCREEN_SIZE) * windowProportion);	// El desplazamiento se realiza en proporción a la camara
+	rect.x = (int)((-cameraView.x * speed + x) * SCREEN_SIZE * windowProportion);	// La posición de la cámara debe ser negativa
+	rect.y = (int)((-cameraView.y * speed + y) * SCREEN_SIZE * windowProportion);	// El desplazamiento se realiza en proporción a la camara
 	if (section != NULL)
 	{
 		rect.w = section->w;

@@ -5,7 +5,9 @@
 #include "ColliderComponent.h"
 #include "Application.h"
 #include "ModuleTime.h"
+#include "ModuleCollisions.h"
 #include "PlayerJumpComponent.h"
+#include "RectangleCollider.h"
 
 GravityAndCollisionWithGroundComponent::GravityAndCollisionWithGroundComponent(float gravity, ColliderType groundColliderType, ColliderComponent* colliderComponent, float step_size)
 {
@@ -31,15 +33,12 @@ bool GravityAndCollisionWithGroundComponent::OnStart()
 
 bool GravityAndCollisionWithGroundComponent::OnUpdate()
 {
-	// Lo primero, comprueba si la caida se frenó en la frame anterior.
-	// Se utiliza para determinar si la entidad está callendo o no
-	if (entity->transform->GetGlobalSpeed().y > 0)
-		falling = true;
-
 	// Mueve a la entidad según la gravedad (coordenadas globales)
 	// Suma la gravedad a la velocidad de la entidad
 	float newYSpeed = entity->transform->GetGlobalSpeed().y + gravity * App->time->DeltaTime();
 	entity->transform->SetGlobalSpeed(entity->transform->GetGlobalSpeed().x, newYSpeed);
+	if (entity->transform->GetGlobalSpeed().y > 0)
+		falling = true;
 
 	return true;
 }
@@ -54,20 +53,25 @@ bool GravityAndCollisionWithGroundComponent::OnCollisionEnter(Collider* self, Co
 	if (self != colliderComponent->GetCollider())
 		return true;
 
-	// Detecta si está cayendo. Si no, ignora la colisión
-	if (entity->transform->GetGlobalSpeed().y <= 0.0f)	// Abajo es positivo, arriba es negativo
+	// Ahora etecta si está cayendo o posado. Si no, ignora la colisión
+	if (entity->transform->GetLocalSpeed().y < 0.0f)	// Abajo es positivo, arriba es negativo
 		return true;
 
 	// Frena la caida de la entidad
-	entity->transform->SetGlobalSpeed(entity->transform->GetGlobalSpeed().x, 0.0f);
+	entity->transform->SetSpeed(entity->transform->GetLocalSpeed().x, 0.0f);
 	falling = false;
 	jumpComponent->jumping = false;
 
-	// Desplaza la entidad hacia arriba hasta que se encuentre fuera del collider
+	// Recoloca la entidad
 	do
 	{
 		entity->transform->SetGlobalPosition(entity->transform->GetGlobalPosition().x, entity->transform->GetGlobalPosition().y - step_size);
 	} while (self->CollidesWith(other));
-
+	
 	return true;
+}
+
+bool GravityAndCollisionWithGroundComponent::OnCollisionStay(Collider * self, Collider * other)
+{
+	return OnCollisionEnter(self, other);
 }

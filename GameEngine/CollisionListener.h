@@ -1,6 +1,8 @@
 #ifndef __COLLISIONLISTENER_H__
 #define __COLLISIONLISTENER_H__
 
+#include "Point.h"
+
 class Collider;
 
 class CollisionListener

@@ -62,7 +62,7 @@ bool RectangleCollider::CheckCollision(CircleCollider* other)
 		return true;
 
 	// Determina si la distancia al punto más cercano es inferior al radio
-	return fPoint(closestX, closestY).DistanceTo(newCirclePosition) <= other->GetRadius();
+	return fPoint(closestX, closestY).DistanceTo(newCirclePosition) < other->GetRadius();
 }
 
 bool RectangleCollider::CheckCollision(CircleTraceCollider* other)
@@ -89,7 +89,7 @@ bool RectangleCollider::CheckCollision(RectangleCollider* other)
 
 	// Calcula los ejes de proyección
 	fPoint* axis = new fPoint[4];
-	axis[1] = thisPoints[1] - thisPoints[0];
+	axis[0] = thisPoints[1] - thisPoints[0];
 	axis[1] = thisPoints[3] - thisPoints[0];
 	axis[2] = otherPoints[1] - otherPoints[0];
 	axis[3] = otherPoints[3] - otherPoints[0];
@@ -151,9 +151,9 @@ bool RectangleCollider::CheckCollision(RectangleCollider* other)
 		RELEASE_ARRAY(thisProyections);
 
 		// Comprueba si hay solapamiento en el eje
-		if (thisMin <= otherMax && otherMax <= thisMax)
+		if (thisMin < otherMax && otherMax < thisMax)
 			collides = true;
-		else if (otherMin <= thisMax && thisMax <= otherMax)
+		else if (otherMin < thisMax && thisMax < otherMax)
 			collides = true;
 		else
 		{
@@ -199,6 +199,10 @@ void RectangleCollider::DrawCollider(SDL_Color color)
 	// Determina la escala del dibujo
 	float renderWidth = width * transform->GetGlobalScale().x;
 	float renderHeight = height * transform->GetGlobalScale().y;
+	if (renderWidth <= 0)
+		renderWidth = 1;	// Le da una anchura mínima para que se vea dibujado
+	if (renderHeight <= 0)
+		renderHeight = 1;	// Le da una altura mínima para que se vea dibujado
 	fPoint renderScale = fPoint(renderWidth / 64, renderHeight / 64);
 
 	App->renderer->Blit(App->collisions->square, (int)(renderPosition.x - renderWidth / 2), (int)(renderPosition.y - renderHeight / 2), GetRotation(), NULL, &color, NULL, renderScale);

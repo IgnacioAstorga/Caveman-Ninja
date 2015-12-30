@@ -20,9 +20,9 @@ bool CircleTraceCollider::CallMe(Collider * self)
 bool CircleTraceCollider::CheckCollision(CircleCollider * other)
 {
 	// Comprueba si colisionan el círculo o su trazo
-	if (GetCircleCollider().CollidesWith(other))
+	if (other->CollidesWith(&GetCircleCollider()))
 		return true;
-	if (GetTraceCollider().CollidesWith(other))
+	if (other->CollidesWith(&GetTraceCollider()))
 		return true;
 	return false;
 }
@@ -30,9 +30,9 @@ bool CircleTraceCollider::CheckCollision(CircleCollider * other)
 bool CircleTraceCollider::CheckCollision(CircleTraceCollider * other)
 {
 	// Comprueba si colisionan el círculo o su trazo
-	if (GetCircleCollider().CollidesWith(other))
+	if (other->CollidesWith(&GetCircleCollider()))
 		return true;
-	if (GetTraceCollider().CollidesWith(other))
+	if (other->CollidesWith(&GetTraceCollider()))
 		return true;
 	return false;
 }
@@ -40,9 +40,9 @@ bool CircleTraceCollider::CheckCollision(CircleTraceCollider * other)
 bool CircleTraceCollider::CheckCollision(RectangleCollider * other)
 {
 	// Comprueba si colisionan el círculo o su trazo
-	if (GetCircleCollider().CollidesWith(other))
+	if (other->CollidesWith(&GetCircleCollider()))
 		return true;
-	if (GetTraceCollider().CollidesWith(other))
+	if (other->CollidesWith(&GetTraceCollider()))
 		return true;
 	return false;
 }
@@ -50,9 +50,9 @@ bool CircleTraceCollider::CheckCollision(RectangleCollider * other)
 bool CircleTraceCollider::CheckCollision(LineCollider * other)
 {
 	// Comprueba si colisionan el círculo o su trazo
-	if (GetCircleCollider().CollidesWith(other))
+	if (other->CollidesWith(&GetCircleCollider()))
 		return true;
-	if (GetTraceCollider().CollidesWith(other))
+	if (other->CollidesWith(&GetTraceCollider()))
 		return true;
 	return false;
 }
