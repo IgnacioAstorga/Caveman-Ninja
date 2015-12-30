@@ -8,17 +8,18 @@ class CircleCollider : public Collider
 {
 public:
 	CircleCollider(CollisionListener* listener, Transform* transform, float radius, float offsetX = 0.0f, float offsetY = 0.0f, int type = -1, bool start_enabled = true);
-	~CircleCollider();
+	virtual ~CircleCollider();
 
-	bool CallMe(Collider* self);
-	bool CheckCollision(CircleCollider* other);
-	bool CheckCollision(RectangleCollider* other);
-	bool CheckCollision(LineCollider* other);
-	void DrawCollider();
+	virtual bool CallMe(Collider* self);
+	virtual bool CheckCollision(CircleCollider* other);
+	virtual bool CheckCollision(CircleTraceCollider* other);
+	virtual bool CheckCollision(RectangleCollider* other);
+	virtual bool CheckCollision(LineCollider* other);
+	virtual void DrawCollider();
 
 public:
-	fPoint GetCenter();
-	float GetRadius();
+	virtual fPoint GetCenter();
+	virtual float GetRadius();
 
 public:
 	float radius;

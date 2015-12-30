@@ -1,8 +1,9 @@
 #include "LineCollider.h"
 #include "Transform.h"
 #include "CollisionListener.h"
-#include "RectangleCollider.h"
 #include "CircleCollider.h"
+#include "CircleTraceCollider.h"
+#include "RectangleCollider.h"
 #include "Application.h"
 #include "ModuleCollisions.h"
 #include "ModuleRender.h"
@@ -33,19 +34,29 @@ bool LineCollider::CallMe(Collider* self)
 bool LineCollider::CheckCollision(CircleCollider* other)
 {
 	// Por las propiedades del círculo, solo comprueba en el segmento que contiene la X del centro del círculo
-	int leftBoundIndex = -1;
+	int leftBoundIndex = 0;
+	bool found = false;
 	fPoint center = other->GetCenter();
 
-	for (unsigned int i = 0; i < points.size() - 1 && leftBoundIndex == -1; ++i)	// Empieza desde el primero y acaba en el penúltimo
-		if (center.x <= GetPointGlobalCoordinates(leftBoundIndex).x)
+	for (unsigned int i = 0; i < points.size() - 1 && !found; ++i)	// Empieza desde el primero y acaba en el penúltimo
+		if (center.x <= GetPointGlobalCoordinates(i + 1).x)
+		{
 			leftBoundIndex = i;
+			found = true;
+		}
 
-	if (leftBoundIndex == -1)	// Está más a la derecha que el último punto, comprueba la colision con el último segmento
+	if (!found)	// Está más a la derecha que el último punto, comprueba la colision con el último segmento
 		leftBoundIndex = points.size() - 2;	// size - 2 es el índice del penúltimo elemento
 
 	// Crea el rectángulo del segmento adecuado y comprueba la colision
 	RectangleCollider rc = CreateSegmentCollider(leftBoundIndex);
 	return rc.CollidesWith(other);
+}
+
+bool LineCollider::CheckCollision(CircleTraceCollider* other)
+{
+	// Delega la responsabilidad en el otro collider
+	return other->CheckCollision(this);
 }
 
 bool LineCollider::CheckCollision(RectangleCollider* other)

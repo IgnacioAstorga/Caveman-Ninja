@@ -2,6 +2,7 @@
 #include "Transform.h"
 #include "CollisionListener.h"
 #include "CircleCollider.h"
+#include "CircleTraceCollider.h"
 #include "LineCollider.h"
 #include "Application.h"
 #include "ModuleCollisions.h"
@@ -61,11 +62,21 @@ bool RectangleCollider::CheckCollision(CircleCollider* other)
 		return true;
 
 	// Determina si la distancia al punto más cercano es inferior al radio
-	return fPoint(closestX, closestY).DistanceTo(newCirclePosition) <= other->GetRadius();
+	return fPoint(closestX, closestY).DistanceTo(newCirclePosition) < other->GetRadius();
+}
+
+bool RectangleCollider::CheckCollision(CircleTraceCollider* other)
+{
+	// Delega la responsabilidad en el otro collider
+	return other->CheckCollision(this);
 }
 
 bool RectangleCollider::CheckCollision(RectangleCollider* other)
 {
+	// Si el rectángulo no tiene altura ni anchura, es un punto
+	if (height == 0.0f && width == 0.0f)
+		return other->CheckCollision(new CircleCollider(NULL, transform, 0.0f, offsetX, offsetY, type));
+
 	// Primero comprueba que estén cerca
 	CircleCollider thisBound = this->GetBoundingCircle();
 	CircleCollider otherBound = other->GetBoundingCircle();
@@ -81,7 +92,17 @@ bool RectangleCollider::CheckCollision(RectangleCollider* other)
 	axis[0] = thisPoints[1] - thisPoints[0];
 	axis[1] = thisPoints[3] - thisPoints[0];
 	axis[2] = otherPoints[1] - otherPoints[0];
-	axis[3] = otherPoints[1] - otherPoints[3];
+	axis[3] = otherPoints[3] - otherPoints[0];
+
+	// Comprueba los casos especiales, utilizando perpendiculares
+	if (this->width == 0.0f)
+		axis[0] = fPoint(-axis[1].y, axis[1].x);
+	if (this->height == 0.0f)
+		axis[1] = fPoint(axis[0].y, -axis[0].x);
+	if (other->width == 0.0f)
+		axis[2] = fPoint(-axis[3].y, axis[3].x);
+	if (other->height == 0.0f)
+		axis[3] = fPoint(axis[2].y, -axis[2].x);
 
 	// Recorre los ejes
 	bool collides = false;
@@ -130,9 +151,9 @@ bool RectangleCollider::CheckCollision(RectangleCollider* other)
 		RELEASE_ARRAY(thisProyections);
 
 		// Comprueba si hay solapamiento en el eje
-		if (thisMin <= otherMax && otherMax <= thisMax)
+		if (thisMin < otherMax && otherMax < thisMax)
 			collides = true;
-		else if (otherMin <= thisMax && thisMax <= otherMax)
+		else if (otherMin < thisMax && thisMax < otherMax)
 			collides = true;
 		else
 		{
@@ -178,6 +199,10 @@ void RectangleCollider::DrawCollider(SDL_Color color)
 	// Determina la escala del dibujo
 	float renderWidth = width * transform->GetGlobalScale().x;
 	float renderHeight = height * transform->GetGlobalScale().y;
+	if (renderWidth <= 0)
+		renderWidth = 1;	// Le da una anchura mínima para que se vea dibujado
+	if (renderHeight <= 0)
+		renderHeight = 1;	// Le da una altura mínima para que se vea dibujado
 	fPoint renderScale = fPoint(renderWidth / 64, renderHeight / 64);
 
 	App->renderer->Blit(App->collisions->square, (int)(renderPosition.x - renderWidth / 2), (int)(renderPosition.y - renderHeight / 2), GetRotation(), NULL, &color, NULL, renderScale);

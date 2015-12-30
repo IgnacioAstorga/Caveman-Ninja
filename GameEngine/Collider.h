@@ -1,6 +1,8 @@
 #ifndef __COLLIDER_H__
 #define __COLLIDER_H__
 
+#include "Point.h"
+
 #include <list>
 
 class CollisionListener;
@@ -8,6 +10,7 @@ class Transform;
 struct SDL_Rect;
 
 class CircleCollider;
+class CircleTraceCollider;
 class RectangleCollider;
 class LineCollider;
 
@@ -27,9 +30,17 @@ public:
 	bool Start();
 	bool CleanUp();
 
+	void PreUpdate();
+	void Update();
+	void PostUpdate();
+
 protected:
 	virtual bool OnStartCollider() { return true; };
 	virtual bool OnCleanUpCollider() { return true; }
+
+	virtual void OnPreUpdate() {};
+	virtual void OnUpdate() {};
+	virtual void OnPostUpdate() {};
 
 public:
 	bool CollidesWith(Collider* other);
@@ -42,10 +53,11 @@ public:
 	virtual void DrawCollider() = 0;
 	virtual bool CallMe(Collider* self) = 0;
 	virtual bool CheckCollision(CircleCollider* other) = 0;
+	virtual bool CheckCollision(CircleTraceCollider* other) = 0;
 	virtual bool CheckCollision(RectangleCollider* other) = 0;
 	virtual bool CheckCollision(LineCollider* other) = 0;
 
-protected:
+public:
 	bool enabled;
 	CollisionListener* listener;
 	Transform* transform;

@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "Point.h"
+#include "SDL_render.h"
 
 struct SDL_Texture;
 struct SDL_Renderer;
@@ -24,8 +25,8 @@ public:
 	Camera* GetActiveCamera();
 
 	bool Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section = NULL, fPoint scale = fPoint(1.0f, 1.0f), float speed = 1.0f);
-	bool Blit(SDL_Texture* texture, int x, int y, double angle, SDL_Point* pivot, SDL_Rect* section = NULL, fPoint scale = fPoint(1.0f, 1.0f), float speed = 1.0f);
-	bool Blit(SDL_Texture* texture, int x, int y, double angle, SDL_Point* pivot, SDL_Color* color, SDL_Rect* section = NULL, fPoint scale = fPoint(1.0f, 1.0f), float speed = 1.0f);
+	bool Blit(SDL_Texture* texture, int x, int y, double angle, SDL_Point* pivot, SDL_Rect* section = NULL, fPoint scale = fPoint(1.0f, 1.0f), SDL_RendererFlip flip = SDL_FLIP_NONE, float speed = 1.0f);
+	bool Blit(SDL_Texture* texture, int x, int y, double angle, SDL_Point* pivot, SDL_Color* color, SDL_Rect* section = NULL, fPoint scale = fPoint(1.0f, 1.0f), SDL_RendererFlip flip = SDL_FLIP_NONE, float speed = 1.0f);
 
 public:
 	SDL_Renderer* renderer = nullptr;

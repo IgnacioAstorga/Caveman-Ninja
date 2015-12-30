@@ -28,7 +28,9 @@
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="CircleColliderComponent.h" />
+    <ClInclude Include="CircleTraceCollider.h" />
     <ClInclude Include="Collider.h" />
+    <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="CollisionListener.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="ColorRandomInitializer.h" />
@@ -90,6 +92,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CircleCollider.cpp" />
+    <ClCompile Include="CircleTraceCollider.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Entity.cpp" />

@@ -8,12 +8,14 @@ class Animator : public Animation, public StateMachine<Animation>
 {
 public:
 	Animator(StateSwitcher<Animation>* initialStateSwitcher);
+	virtual ~Animator();
 
 	bool Start();
 	bool CleanUp();
 
 public:
 	SDL_Rect& GetCurrentFrame();
+	SDL_RendererFlip GetFlip();
 	void Increment(float amount);
 
 protected:

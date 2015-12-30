@@ -57,6 +57,24 @@ bool Collider::CleanUp()
 	return OnCleanUpCollider();
 }
 
+void Collider::PreUpdate()
+{
+	// Llamada al delegado
+	OnPreUpdate();
+}
+
+void Collider::Update()
+{
+	// Llamada al delegado
+	OnUpdate();
+}
+
+void Collider::PostUpdate()
+{
+	// Llamada al delegado
+	OnPostUpdate();
+}
+
 bool Collider::CollidesWith(Collider* other)
 {
 	// Pide al otro collider que le llame para aprovecharse del polimorfismo

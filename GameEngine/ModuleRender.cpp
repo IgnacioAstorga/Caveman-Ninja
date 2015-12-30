@@ -77,15 +77,15 @@ Camera* ModuleRender::GetActiveCamera()
 // Blit to screen
 bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, fPoint scale, float speed)
 {
-	return Blit(texture, x, y, 0.0, NULL, NULL, section, scale, speed);
+	return Blit(texture, x, y, 0.0, NULL, NULL, section, scale, SDL_FLIP_NONE, speed);
 }
 
-bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, double angle, SDL_Point* pivot, SDL_Rect* section, fPoint scale, float speed)
+bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, double angle, SDL_Point* pivot, SDL_Rect* section, fPoint scale, SDL_RendererFlip flip, float speed)
 {
-	return Blit(texture, x, y, angle, pivot, NULL, section, scale, speed);
+	return Blit(texture, x, y, angle, pivot, NULL, section, scale, flip, speed);
 }
 
-bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, double angle, SDL_Point* pivot, SDL_Color* color, SDL_Rect* section, fPoint scale, float speed)
+bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, double angle, SDL_Point* pivot, SDL_Color* color, SDL_Rect* section, fPoint scale, SDL_RendererFlip flip, float speed)
 {
 	if (activeCamera == nullptr)
 		return false;
@@ -94,8 +94,8 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, double angle, SDL_Po
 	SDL_Rect cameraView = activeCamera->GetViewArea();
 	float windowProportion = (float)App->window->screen_surface->w / (float)cameraView.w;
 	SDL_Rect rect;
-	rect.x = (int)((-cameraView.x * speed + x * SCREEN_SIZE) * windowProportion);	// La posición de la cámara debe ser negativa
-	rect.y = (int)((-cameraView.y * speed + y * SCREEN_SIZE) * windowProportion);	// El desplazamiento se realiza en proporción a la camara
+	rect.x = (int)((-cameraView.x * speed + x) * SCREEN_SIZE * windowProportion);	// La posición de la cámara debe ser negativa
+	rect.y = (int)((-cameraView.y * speed + y) * SCREEN_SIZE * windowProportion);	// El desplazamiento se realiza en proporción a la camara
 	if (section != NULL)
 	{
 		rect.w = section->w;
@@ -125,7 +125,7 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, double angle, SDL_Po
 	}
 
 	// Renderiza la textura
-	if (SDL_RenderCopyEx(renderer, texture, section, &rect, angle, pivot, SDL_RendererFlip()) != 0)
+	if (SDL_RenderCopyEx(renderer, texture, section, &rect, angle, pivot, flip) != 0)
 	{
 		LOG("Cannot blit to screen. SDL_RenderCopyEx error: %s", SDL_GetError());
 		ret = false;

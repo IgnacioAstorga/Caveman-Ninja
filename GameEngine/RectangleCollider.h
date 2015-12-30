@@ -12,6 +12,7 @@ public:
 
 	bool CallMe(Collider* self);
 	bool CheckCollision(CircleCollider* other);
+	bool CheckCollision(CircleTraceCollider* other);
 	bool CheckCollision(RectangleCollider* other);
 	bool CheckCollision(LineCollider* other);
 	void DrawCollider();

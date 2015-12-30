@@ -52,6 +52,9 @@
     <Filter Include="Elements\Entities\GUIComponents">
       <UniqueIdentifier>{155c68e6-4b91-4d29-8a9e-1c1008d58cad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Elements\Entities\ColliderComponents">
+      <UniqueIdentifier>{6f74d29a-0c9a-4fde-ab99-1f30a9342b62}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.h">
@@ -183,9 +186,6 @@
     <ClInclude Include="CircleCollider.h">
       <Filter>Elements\Collisions\Colliders</Filter>
     </ClInclude>
-    <ClInclude Include="CircleColliderComponent.h">
-      <Filter>Elements\Entities\Components</Filter>
-    </ClInclude>
     <ClInclude Include="CollisionListener.h">
       <Filter>Elements\Collisions</Filter>
     </ClInclude>
@@ -228,9 +228,6 @@
     <ClInclude Include="RectangleCollider.h">
       <Filter>Elements\Collisions\Colliders</Filter>
     </ClInclude>
-    <ClInclude Include="RectangleColliderComponent.h">
-      <Filter>Elements\Entities\Components</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleGUI.h">
       <Filter>Modules</Filter>
     </ClInclude>
@@ -243,8 +240,20 @@
     <ClInclude Include="LineCollider.h">
       <Filter>Elements\Collisions\Colliders</Filter>
     </ClInclude>
+    <ClInclude Include="CircleColliderComponent.h">
+      <Filter>Elements\Entities\ColliderComponents</Filter>
+    </ClInclude>
     <ClInclude Include="LineColliderComponent.h">
-      <Filter>Elements\Entities\Components</Filter>
+      <Filter>Elements\Entities\ColliderComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="RectangleColliderComponent.h">
+      <Filter>Elements\Entities\ColliderComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderComponent.h">
+      <Filter>Elements\Entities\ColliderComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleTraceCollider.h">
+      <Filter>Elements\Collisions\Colliders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -321,6 +330,9 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="LineCollider.cpp">
+      <Filter>Elements\Collisions\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleTraceCollider.cpp">
       <Filter>Elements\Collisions\Colliders</Filter>
     </ClCompile>
   </ItemGroup>

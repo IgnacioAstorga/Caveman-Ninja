@@ -2,6 +2,7 @@
 #define __MODULECOLLISIONS_H__
 
 #include "Module.h"
+#include "Point.h"
 
 #include <list>
 
@@ -18,6 +19,7 @@ public:
 
 public:
 	bool Start();
+	update_status PreUpdate();
 	update_status Update();
 	update_status PostUpdate();
 	bool CleanUp();
@@ -25,6 +27,7 @@ public:
 public:
 	void RegisterCollider(Collider* collider);
 	void UnregisterCollider(Collider* collider);
+	list<Collider*> CheckCollisions(Collider* collider);
 
 private:
 	list<Collider*> colliders;

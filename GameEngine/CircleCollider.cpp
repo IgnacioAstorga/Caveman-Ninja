@@ -1,6 +1,7 @@
 #include "CircleCollider.h"
 #include "Transform.h"
 #include "CollisionListener.h"
+#include "CircleTraceCollider.h"
 #include "RectangleCollider.h"
 #include "LineCollider.h"
 #include "Application.h"
@@ -27,7 +28,13 @@ bool CircleCollider::CallMe(Collider* self)
 bool CircleCollider::CheckCollision(CircleCollider* other)
 {
 	// Comprueba si la distancia entre ambos centros es menor que la suma de sus radios
-	return this->GetCenter().DistanceTo(other->GetCenter()) <= (this->GetRadius() + other->GetRadius());
+	return this->GetCenter().DistanceTo(other->GetCenter()) < (this->GetRadius() + other->GetRadius());
+}
+
+bool CircleCollider::CheckCollision(CircleTraceCollider* other)
+{
+	// Delega la responsabilidad en el otro collider
+	return other->CheckCollision(this);
 }
 
 bool CircleCollider::CheckCollision(RectangleCollider* other)
@@ -53,6 +60,8 @@ void CircleCollider::DrawCollider()
 
 	// Determina la escala del dibujo
 	float radius = GetRadius();
+	if (radius <= 0)
+		radius = 1;	// Le da un radio mínimo para que se vea dibujado
 	float renderScale = radius / 32;
 
 	// Determina el color y opacidad del dibujo

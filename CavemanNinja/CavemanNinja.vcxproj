@@ -116,13 +116,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimatorMappingComponent.cpp" />
+    <ClCompile Include="CameraMovementComponent.cpp" />
+    <ClCompile Include="GravityAndCollisionWithGroundComponent.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="TestApp.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerAnimator.cpp" />
+    <ClCompile Include="PlayerCamera.cpp" />
+    <ClCompile Include="PlayerInputComponent.cpp" />
+    <ClCompile Include="PlayerJumpComponent.cpp" />
+    <ClCompile Include="Scene_Level1.cpp" />
+    <ClCompile Include="CavemanNinjaApp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameEngine\GameEngine.vcxproj">
       <Project>{6f126a32-4fe7-4692-8a64-654124b216e0}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AnimatorMappingComponent.h" />
+    <ClInclude Include="CameraMovementComponent.h" />
+    <ClInclude Include="ColliderTypes.h" />
+    <ClInclude Include="GravityAndCollisionWithGroundComponent.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerAnimator.h" />
+    <ClInclude Include="PlayerCamera.h" />
+    <ClInclude Include="PlayerInputComponent.h" />
+    <ClInclude Include="PlayerJumpComponent.h" />
+    <ClInclude Include="Scene_Level1.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

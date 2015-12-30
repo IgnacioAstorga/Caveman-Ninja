@@ -1,17 +1,17 @@
 #ifndef __LINECOLLIDERCOMPONENT_H__
 #define __LINECOLLIDERCOMPONENT_H__
 
-#include "Component.h"
+#include "ColliderComponent.h"
 #include "LineCollider.h"
 #include "Application.h"
 #include "ModuleCollisions.h"
 #include "Entity.h"
 #include "Point.h"
 
-class LineColliderComponent : public Component
+class LineColliderComponent : public ColliderComponent
 {
 public:
-	LineColliderComponent(vector<fPoint> points, float thickness, int type = -1, bool start_enabled = true) : Component(start_enabled)
+	LineColliderComponent(vector<fPoint> points, float thickness, int type = -1, bool start_enabled = true) : ColliderComponent(start_enabled)
 	{
 		this->points = points;
 		this->thickness = thickness;
@@ -77,6 +77,11 @@ public:
 	{
 		points.erase(points.begin() + index);
 		collider->points.erase(points.begin() + index);
+	}
+
+	Collider* GetCollider()
+	{
+		return collider;
 	}
 
 private:

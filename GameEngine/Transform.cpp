@@ -20,14 +20,38 @@ void Transform::SetPosition(float xPosition, float yPosition)
 	position = fPoint(xPosition, yPosition);
 }
 
+void Transform::SetGlobalPosition(float xPosition, float yPosition)
+{
+	if (entity->GetParent() == nullptr)
+		return SetPosition(xPosition, yPosition);
+	// Se transforma una posición global en local
+	this->position = fPoint(xPosition, yPosition) - entity->GetParent()->transform->GetGlobalPosition();
+}
+
 void Transform::SetSpeed(float xSpeed, float ySpeed)
 {
 	speed = fPoint(xSpeed, ySpeed);
 }
 
+void Transform::SetGlobalSpeed(float xSpeed, float ySpeed)
+{
+	if (entity->GetParent() == nullptr)
+		return SetSpeed(xSpeed, xSpeed);
+	// Se transforma una velocidad global en local
+	this->speed = fPoint(xSpeed, ySpeed) - entity->GetParent()->transform->GetGlobalSpeed();
+}
+
 void Transform::SetRotation(float rotation)
 {
 	this->rotation = rotation;
+}
+
+void Transform::SetGlobalRotation(float rotation)
+{
+	if (entity->GetParent() == nullptr)
+		return SetRotation(rotation);
+	// Se transforma una rotación global en local
+	this->rotation = rotation - entity->GetParent()->transform->GetGlobalRotation();
 }
 
 void Transform::SetScale(float scale)
@@ -38,6 +62,19 @@ void Transform::SetScale(float scale)
 void Transform::SetScale(float xScale, float yScale)
 {
 	scale = fPoint(xScale, yScale);
+}
+
+void Transform::SetGlobalScale(float scale)
+{
+	SetGlobalScale(scale, scale);
+}
+
+void Transform::SetGlobalScale(float xScale, float yScale)
+{
+	if (entity->GetParent() == nullptr)
+		return SetScale(xScale, yScale);
+	// Se transforma una velocidad global en local
+	this->scale = fPoint(xScale, yScale) - entity->GetParent()->transform->GetGlobalScale();
 }
 
 fPoint Transform::GetLocalPosition()

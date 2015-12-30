@@ -6,6 +6,8 @@
 
 Animator::Animator(StateSwitcher<Animation>* initialStateSwitcher) : StateMachine(initialStateSwitcher) {}
 
+Animator::~Animator() {}
+
 bool Animator::Start()
 {
 	// Llama al delegado
@@ -22,6 +24,12 @@ SDL_Rect& Animator::GetCurrentFrame()
 {
 	// Devuelve la frame actual de la animación actual
 	return GetActualState()->GetCurrentFrame();
+}
+
+SDL_RendererFlip Animator::GetFlip()
+{
+	// Devuelve el flip de la animación actual
+	return GetActualState()->GetFlip();
 }
 
 void Animator::Increment(float amount)

@@ -1,16 +1,16 @@
 #ifndef __RECTANGLECOLLIDERCOMPONENT_H__
 #define __RECTANGLECOLLIDERCOMPONENT_H__
 
-#include "Component.h"
+#include "ColliderComponent.h"
 #include "RectangleCollider.h"
 #include "Application.h"
 #include "ModuleCollisions.h"
 #include "Entity.h"
 
-class RectangleColliderComponent : public Component
+class RectangleColliderComponent : public ColliderComponent
 {
 public:
-	RectangleColliderComponent(float width, float height, float offsetX = 0.0f, float offsetY = 0.0f, float rotation = 0.0f, int type = -1, bool start_enabled = true) : Component(start_enabled)
+	RectangleColliderComponent(float width, float height, float offsetX = 0.0f, float offsetY = 0.0f, float rotation = 0.0f, int type = -1, bool start_enabled = true) : ColliderComponent(start_enabled)
 	{
 		this->width = width;
 		this->height = height;
@@ -75,6 +75,11 @@ public:
 	{
 		this->rotation = rotation;
 		collider->rotation = rotation;
+	}
+
+	Collider* GetCollider()
+	{
+		return collider;
 	}
 
 private:
