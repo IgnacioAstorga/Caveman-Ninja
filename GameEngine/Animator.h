@@ -16,6 +16,7 @@ public:
 public:
 	SDL_Rect& GetCurrentFrame();
 	SDL_RendererFlip GetFlip();
+	void SetFlip(SDL_RendererFlip flip);
 	void Increment(float amount);
 
 protected:
@@ -23,6 +24,9 @@ protected:
 
 	virtual bool OnStart() { return true; }
 	virtual bool OnCleanUp() { return true; }
+
+private:
+	SDL_RendererFlip storedFlip;
 };
 
 #endif // __ANIMATOR_H__

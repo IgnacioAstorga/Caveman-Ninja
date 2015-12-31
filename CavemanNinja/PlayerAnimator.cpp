@@ -12,73 +12,77 @@ PlayerAnimator::PlayerAnimator(StateSwitcher<Animation>* initialState)
 PlayerAnimator* PlayerAnimator::Create()
 {
 	// Crea las animaciones del personaje
-	BasicAnimation* idleRight = new BasicAnimation(0.0f);
-	idleRight->frames.push_back({ 0, 0, 64, 64 });
-	BasicAnimation* idleLeft = new BasicAnimation(*idleRight);
-	idleLeft->flip = SDL_FLIP_HORIZONTAL;
+	BasicAnimation* idle = new BasicAnimation(0.0f);
+	idle->frames.push_back({ 0, 0, 64, 64 });
 
-	BasicAnimation* runRight = new BasicAnimation(8.0f);
-	runRight->frames.push_back({ 64, 0, 64, 64 });
-	runRight->frames.push_back({ 128, 0, 64, 64 });
-	runRight->frames.push_back({ 192, 0, 64, 64 });
-	runRight->frames.push_back({ 0, 64, 64, 64 });
-	BasicAnimation* runLeft = new BasicAnimation(*runRight);
-	runLeft->flip = SDL_FLIP_HORIZONTAL;
+	BasicAnimation* run = new BasicAnimation(8.0f);
+	run->frames.push_back({ 64, 0, 64, 64 });
+	run->frames.push_back({ 128, 0, 64, 64 });
+	run->frames.push_back({ 192, 0, 64, 64 });
+	run->frames.push_back({ 0, 64, 64, 64 });
 
-	BasicAnimation* jumpRight = new BasicAnimation(3.0f, SDL_FLIP_NONE, false);
-	jumpRight->frames.push_back({ 64, 64, 64, 64 });
-	jumpRight->frames.push_back({ 128, 64, 64, 64 });
-	BasicAnimation* jumpLeft = new BasicAnimation(*jumpRight);
-	jumpLeft->flip = SDL_FLIP_HORIZONTAL;
+	BasicAnimation* jump = new BasicAnimation(3.0f, SDL_FLIP_NONE, false);
+	jump->frames.push_back({ 64, 64, 64, 64 });
+	jump->frames.push_back({ 128, 64, 64, 64 });
 
-	BasicAnimation* fallRight = new BasicAnimation(0.0f);
-	fallRight->frames.push_back({ 192, 64, 64, 64 });
-	BasicAnimation* fallLeft = new BasicAnimation(*fallRight);
-	fallLeft->flip = SDL_FLIP_HORIZONTAL;
+	BasicAnimation* longJump = new BasicAnimation(16.0f, SDL_FLIP_NONE, false);
+	longJump->frames.push_back({ 64, 64, 64, 64 });
+	longJump->frames.push_back({ 64, 64, 64, 64 });
+	longJump->frames.push_back({ 64, 64, 64, 64 });
+	longJump->frames.push_back({ 0, 128, 64, 64 });
+	longJump->frames.push_back({ 64, 128, 64, 64 });
+	longJump->frames.push_back({ 128, 128, 64, 64 });
+	longJump->frames.push_back({ 192, 128, 64, 64 });
+	longJump->frames.push_back({ 0, 192, 64, 64 });
+	longJump->frames.push_back({ 64, 192, 64, 64 });
+	longJump->frames.push_back({ 128, 192, 64, 64 });
+	longJump->frames.push_back({ 192, 192, 64, 64 });
+	longJump->frames.push_back({ 0, 128, 64, 64 });
+	longJump->frames.push_back({ 64, 128, 64, 64 });
+	longJump->frames.push_back({ 128, 128, 64, 64 });
+	longJump->frames.push_back({ 192, 128, 64, 64 });
+	longJump->frames.push_back({ 0, 192, 64, 64 });
+	longJump->frames.push_back({ 64, 192, 64, 64 });
+	longJump->frames.push_back({ 128, 192, 64, 64 });
+	longJump->frames.push_back({ 192, 192, 64, 64 });
+	longJump->frames.push_back({ 0, 128, 64, 64 });
+	longJump->frames.push_back({ 64, 128, 64, 64 });
+	longJump->frames.push_back({ 128, 128, 64, 64 });
+	longJump->frames.push_back({ 192, 128, 64, 64 });
+	longJump->frames.push_back({ 0, 192, 64, 64 });
+	longJump->frames.push_back({ 64, 192, 64, 64 });
+	longJump->frames.push_back({ 128, 192, 64, 64 });
+	longJump->frames.push_back({ 192, 192, 64, 64 });
+
+	BasicAnimation* fall = new BasicAnimation(0.0f);
+	fall->frames.push_back({ 192, 64, 64, 64 });
 
 	// Crea los estados del personaje
-	StateSwitcher<Animation>* idleStateRight = new StateSwitcher<Animation>(idleRight);
-	StateSwitcher<Animation>* idleStateLeft = new StateSwitcher<Animation>(idleLeft);
-	StateSwitcher<Animation>* runStateRight = new StateSwitcher<Animation>(runRight);
-	StateSwitcher<Animation>* runStateLeft = new StateSwitcher<Animation>(runLeft);
-	StateSwitcher<Animation>* jumpStateRight = new StateSwitcher<Animation>(jumpRight);
-	StateSwitcher<Animation>* jumpStateLeft = new StateSwitcher<Animation>(jumpLeft);
-	StateSwitcher<Animation>* fallStateRight = new StateSwitcher<Animation>(fallRight);
-	StateSwitcher<Animation>* fallStateLeft = new StateSwitcher<Animation>(fallLeft);
+	StateSwitcher<Animation>* idleState = new StateSwitcher<Animation>(idle);
+	StateSwitcher<Animation>* runState = new StateSwitcher<Animation>(run);
+	StateSwitcher<Animation>* jumpState = new StateSwitcher<Animation>(jump);
+	StateSwitcher<Animation>* longJumpState = new StateSwitcher<Animation>(longJump);
+	StateSwitcher<Animation>* fallState = new StateSwitcher<Animation>(fall);
 
 	// Crea las transiciones entre los estados
-	idleStateRight->AddStateTransition(new StateTransition<Animation>(runStateRight, new FlagGreaterThanCondition("speedX", 0.0f)));
-	idleStateRight->AddStateTransition(new StateTransition<Animation>(runStateLeft, new FlagLessThanCondition("speedX", 0.0f)));
-	idleStateRight->AddStateTransition(new StateTransition<Animation>(jumpStateRight, new FlagEqualsCondition("jumping", true)));
-	idleStateRight->AddStateTransition(new StateTransition<Animation>(fallStateRight, new FlagEqualsCondition("falling", true)));
+	idleState->AddStateTransition(new StateTransition<Animation>(runState, new FlagGreaterThanCondition("speedX_absolute", 0.0f)));
+	idleState->AddStateTransition(new StateTransition<Animation>(jumpState, new FlagEqualsCondition("jumping", true)));
+	idleState->AddStateTransition(new StateTransition<Animation>(longJumpState, new FlagEqualsCondition("jumping_long", true)));
+	idleState->AddStateTransition(new StateTransition<Animation>(fallState, new FlagEqualsCondition("falling", true)));
 
-	idleStateLeft->AddStateTransition(new StateTransition<Animation>(runStateRight, new FlagGreaterThanCondition("speedX", 0.0f)));
-	idleStateLeft->AddStateTransition(new StateTransition<Animation>(runStateLeft, new FlagLessThanCondition("speedX", 0.0f)));
-	idleStateLeft->AddStateTransition(new StateTransition<Animation>(jumpStateLeft, new FlagEqualsCondition("jumping", true)));
-	idleStateLeft->AddStateTransition(new StateTransition<Animation>(fallStateLeft, new FlagEqualsCondition("falling", true)));
+	runState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("speedX_absolute", 0.0f)));
+	runState->AddStateTransition(new StateTransition<Animation>(jumpState, new FlagEqualsCondition("jumping", true)));
+	runState->AddStateTransition(new StateTransition<Animation>(longJumpState, new FlagEqualsCondition("jumping_long", true)));
+	runState->AddStateTransition(new StateTransition<Animation>(fallState, new FlagEqualsCondition("falling", true)));
 
-	runStateRight->AddStateTransition(new StateTransition<Animation>(idleStateRight, new FlagEqualsCondition("speedX", 0.0f)));
-	runStateRight->AddStateTransition(new StateTransition<Animation>(runStateLeft, new FlagLessThanCondition("speedX", 0.0f)));
-	runStateRight->AddStateTransition(new StateTransition<Animation>(jumpStateRight, new FlagEqualsCondition("jumping", true)));
-	runStateRight->AddStateTransition(new StateTransition<Animation>(fallStateRight, new FlagEqualsCondition("falling", true)));
+	jumpState->AddStateTransition(new StateTransition<Animation>(fallState, new FlagEqualsCondition("falling", true)));
+	jumpState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("jumping", false)));
 
-	runStateLeft->AddStateTransition(new StateTransition<Animation>(idleStateLeft, new FlagEqualsCondition("speedX", 0.0f)));
-	runStateLeft->AddStateTransition(new StateTransition<Animation>(runStateRight, new FlagGreaterThanCondition("speedX", 0.0f)));
-	runStateLeft->AddStateTransition(new StateTransition<Animation>(jumpStateLeft, new FlagEqualsCondition("jumping", true)));
-	runStateLeft->AddStateTransition(new StateTransition<Animation>(fallStateLeft, new FlagEqualsCondition("falling", true)));
+	longJumpState->AddStateTransition(new StateTransition<Animation>(fallState, new FlagEqualsCondition("falling", true)));
+	longJumpState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("long_jumping", false)));
 
-	jumpStateRight->AddStateTransition(new StateTransition<Animation>(jumpStateLeft, new FlagLessThanCondition("speedX", 0.0f)));
-	jumpStateRight->AddStateTransition(new StateTransition<Animation>(fallStateRight, new FlagEqualsCondition("falling", true)));
-
-	jumpStateLeft->AddStateTransition(new StateTransition<Animation>(jumpStateRight, new FlagGreaterThanCondition("speedX", 0.0f)));
-	jumpStateLeft->AddStateTransition(new StateTransition<Animation>(fallStateLeft, new FlagEqualsCondition("falling", true)));
-
-	fallStateRight->AddStateTransition(new StateTransition<Animation>(fallStateLeft, new FlagLessThanCondition("speedX", 0.0f)));
-	fallStateRight->AddStateTransition(new StateTransition<Animation>(idleStateRight, new FlagEqualsCondition("falling", false)));
-
-	fallStateLeft->AddStateTransition(new StateTransition<Animation>(fallStateRight, new FlagGreaterThanCondition("speedX", 0.0f)));
-	fallStateLeft->AddStateTransition(new StateTransition<Animation>(idleStateLeft, new FlagEqualsCondition("falling", false)));
+	fallState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("falling", false)));
 
 	// Crea y devuelve el animator
-	return new PlayerAnimator(idleStateRight);
+	return new PlayerAnimator(idleState);
 }

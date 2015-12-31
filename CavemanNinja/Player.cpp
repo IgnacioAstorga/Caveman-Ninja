@@ -19,7 +19,7 @@ void Player::OnCreate()
 	AddComponent(new PlayerInputComponent(100.0f, WALL, colliderComponent, 0.1f));
 	AddComponent(colliderComponent = new CircleColliderComponent(0.0f, 0.0f, 0.0f, PLAYER, true));
 	AddComponent(new GravityAndCollisionWithGroundComponent(500.0f, GROUND, colliderComponent, 0.1f));
-	AddComponent(new PlayerJumpComponent(300.0f));
+	AddComponent(new PlayerJumpComponent(300.0f, 1.25f));
 	AddComponent(new MovementSimpleComponent());
 	AddComponent(new AnimatorMappingComponent());
 }

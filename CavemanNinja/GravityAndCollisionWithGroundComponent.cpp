@@ -61,6 +61,7 @@ bool GravityAndCollisionWithGroundComponent::OnCollisionEnter(Collider* self, Co
 	entity->transform->SetSpeed(entity->transform->GetLocalSpeed().x, 0.0f);
 	falling = false;
 	jumpComponent->jumping = false;
+	jumpComponent->longJumping = false;
 
 	// Recoloca la entidad
 	int count = 0;

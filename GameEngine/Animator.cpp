@@ -4,7 +4,10 @@
 #include "Application.h"
 #include "ModuleAnimation.h"
 
-Animator::Animator(StateSwitcher<Animation>* initialStateSwitcher) : StateMachine(initialStateSwitcher) {}
+Animator::Animator(StateSwitcher<Animation>* initialStateSwitcher) : StateMachine(initialStateSwitcher)
+{
+	this->storedFlip = SDL_FLIP_NONE;
+}
 
 Animator::~Animator() {}
 
@@ -32,6 +35,13 @@ SDL_RendererFlip Animator::GetFlip()
 	return GetActualState()->GetFlip();
 }
 
+void Animator::SetFlip(SDL_RendererFlip flip)
+{
+	// Cambia el flip en la animación actual
+	this->storedFlip = flip;
+	GetActualState()->SetFlip(flip);
+}
+
 void Animator::Increment(float amount)
 {
 	// Incrementa la frame de la animación actual
@@ -43,4 +53,6 @@ void Animator::OnStateTransition(Animation* lastState, Animation* newState)
 	// Hace CleanUp de la animaciópn anterior y Start de la siguiente
 	lastState->CleanUp();
 	newState->Start();
+	// Cambia el flip de la nueva animación
+	newState->SetFlip(storedFlip);
 }

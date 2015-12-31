@@ -25,6 +25,11 @@ SDL_RendererFlip BasicAnimation::GetFlip()
 	return flip;
 }
 
+void BasicAnimation::SetFlip(SDL_RendererFlip flip)
+{
+	this->flip = flip;
+}
+
 void BasicAnimation::Increment(float amount)
 {
 	current_frame += speed * amount;

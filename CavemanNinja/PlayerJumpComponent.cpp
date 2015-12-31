@@ -5,9 +5,10 @@
 #include "Application.h"
 #include "ModuleInput.h"
 
-PlayerJumpComponent::PlayerJumpComponent(float jumpSpeed)
+PlayerJumpComponent::PlayerJumpComponent(float jumpSpeed, float longJumpMultiplier)
 {
 	this->jumpSpeed = jumpSpeed;
+	this->longJumpMultiplier = longJumpMultiplier;
 }
 
 PlayerJumpComponent::~PlayerJumpComponent()
@@ -35,10 +36,16 @@ bool PlayerJumpComponent::OnPreUpdate()
 	if (keyState != KEY_DOWN && keyState != KEY_REPEAT)
 		return true;
 
+	// Comprueba si el salto es alto o no
+	keyState = App->input->GetKey(SDL_SCANCODE_W);
+	bool longJump = keyState == KEY_DOWN || keyState == KEY_REPEAT;
+
 	// Modifica la velocidad vertical de la entidad para hacerla saltar
 	fPoint currentSpeed = entity->transform->GetGlobalSpeed();
-	entity->transform->SetGlobalSpeed(currentSpeed.x, -jumpSpeed);	// Arriba es negativo
+	float totalJumpSpeed = jumpSpeed * (longJump ? longJumpMultiplier : 1.0f);
+	entity->transform->SetGlobalSpeed(currentSpeed.x, -totalJumpSpeed);	// Arriba es negativo
 	jumping = true;
+	longJumping = longJump;
 
 	return true;
 }
