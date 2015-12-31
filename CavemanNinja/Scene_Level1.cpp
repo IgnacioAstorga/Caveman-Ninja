@@ -9,6 +9,21 @@
 
 void Scene_Level1::OnCreateScene()
 {
+	backgroundSky = new Entity("background_sky");
+	backgroundSky->AddComponent(new SpriteRendererComponent("assets/images/world_1_background_sky.png",
+		NULL, 0.0f, 0.0f, 0.0f, 0.4f, true, true));
+	AddChild(backgroundSky);
+
+	backgroundMountains = new Entity("background_mountains");
+	backgroundMountains->AddComponent(new SpriteRendererComponent("assets/images/world_1_background_mountains.png",
+		NULL, 0.0f, 0.0f, 0.0f, 0.6f, true, true));
+	AddChild(backgroundMountains);
+
+	backgroundTrees = new Entity("background_trees");
+	backgroundTrees->AddComponent(new SpriteRendererComponent("assets/images/world_1_background_trees.png",
+		NULL, 0.0f, 114.0f, 0.0f, 0.8f, true, false));
+	AddChild(backgroundTrees);
+
 	ground = new Entity("ground");
 	ground->AddComponent(new SpriteRendererComponent("assets/images/world_1_background.png"));
 	ground->AddComponent(new RectangleColliderComponent(2000, 0, 0, 220, 0, GROUND));
