@@ -70,14 +70,14 @@ public:
 		if (texture == nullptr || entity == nullptr)
 			return false;
 
-		// Determina la posición de la imagen en pantalla
+		// Determina la posiciÃ³n de la imagen en pantalla
 		fPoint temp = offset;
 		temp.x *= entity->transform->GetGlobalScale().x;
 		temp.y *= entity->transform->GetGlobalScale().y;
 		fPoint renderPosition = entity->transform->GetGlobalPosition();
 		renderPosition += temp.Rotate(entity->transform->GetGlobalRotation());
 
-		// Determina la rotación de la imagen en pantalla
+		// Determina la rotaciÃ³n de la imagen en pantalla
 		float renderRotation = entity->transform->GetGlobalRotation() + rotation;
 		SDL_Point pivot;
 		pivot.x = 0;
@@ -119,7 +119,7 @@ public:
 			iPoint offsetFactor = iPoint((int)(viewArea.x * speed / renderArea->w), (int)(viewArea.y * speed / renderArea->h));
 			iPoint offsetVector = iPoint(renderArea->w * offsetFactor.x, renderArea->h * offsetFactor.y);
 
-			// Renderiza la imagen así como suficientes para llenar la pantalla
+			// Renderiza la imagen asÃ­ como suficientes para llenar la pantalla
 			iPoint finalPosition;
 			int i = 0;
 			bool completedHorizontal = false;
@@ -130,7 +130,7 @@ public:
 				do
 				{
 
-					// Calcula la posición y pinta (barrido en horizontal)
+					// Calcula la posiciÃ³n y pinta (barrido en horizontal)
 					finalPosition = iPoint((int)renderPosition.x, (int)renderPosition.y);
 					if (tiledHorizontal)
 					{
@@ -151,10 +151,10 @@ public:
 						if (finalPosition.y < (viewArea.y + viewArea.h))
 							j++; // Pinta hacia abajo
 						else
-							j = -1;	// Empieza a pintar hacia la arriba
+							j = -1;	// Empieza a pintar hacia arriba
 					else
 						if ((finalPosition.y + renderArea->h) > viewArea.y)
-							j--; // Pinta hacia la arriba
+							j--; // Pinta hacia arriba
 						else
 							completedVertical = true;	// Finaliza el pintado vertical
 				} while (!completedVertical);
@@ -171,7 +171,7 @@ public:
 					if ((finalPosition.x + renderArea->w) > viewArea.x)
 						i--; // Pinta hacia la izquierda
 					else
-						completedHorizontal = true;	// Finaliza el pintado
+						completedHorizontal = true;	// Finaliza el pintado horizontal
 			} while (!completedHorizontal);
 		}
 	}
