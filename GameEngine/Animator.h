@@ -4,6 +4,8 @@
 #include "Animation.h"
 #include "StateMachine.h"
 
+#define ANIMATION_END "_animation_finished"
+
 class Animator : public Animation, public StateMachine<Animation>
 {
 public:
@@ -18,6 +20,7 @@ public:
 	SDL_RendererFlip GetFlip();
 	void SetFlip(SDL_RendererFlip flip);
 	void Increment(float amount);
+	bool IsFinished();
 
 protected:
 	void OnStateTransition(Animation* lastState, Animation* newState);

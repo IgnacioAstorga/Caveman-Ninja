@@ -255,6 +255,9 @@
     <ClInclude Include="CircleTraceCollider.h">
       <Filter>Elements\Collisions\Colliders</Filter>
     </ClInclude>
+    <ClInclude Include="AnimationEndCondition.h">
+      <Filter>Elements\States\Conditions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">

@@ -13,6 +13,5 @@ public:
 	virtual ~FlagCondition() {};
 
 	virtual bool IsTrue(unordered_map<string, float>& flags) { return false; };
-	virtual bool IsTriggered(unordered_map<string, float>& flags, string trigger) { return false; };
 };
 #endif // __FLAGCONDITION_H__

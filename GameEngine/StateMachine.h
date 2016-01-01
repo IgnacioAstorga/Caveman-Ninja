@@ -23,7 +23,6 @@ public:
 	StateSwitcher<T>* SetFlagValue(string flag, bool value);
 	StateSwitcher<T>* SetFlagValue(string flag, int value);
 	StateSwitcher<T>* SetFlagValue(string flag, float value);
-	StateSwitcher<T>* TriggerFlag(string flag);
 
 protected:
 	virtual void OnStateTransition(T* lastState, T* newState) {};
@@ -98,18 +97,6 @@ StateSwitcher<T>* StateMachine<T>::SetFlagValue(string flag, float value)
 {
 	flags[flag] = value;
 	StateSwitcher<T>* newStateSwitcher = currentStateSwitcher->Process(flags);
-	if (newStateSwitcher != currentStateSwitcher)
-	{
-		OnStateTransition(currentStateSwitcher->GetActualState(), newStateSwitcher->GetActualState());
-		currentStateSwitcher = newStateSwitcher;
-	}
-	return currentStateSwitcher;
-}
-
-template<class T>
-StateSwitcher<T>* StateMachine<T>::TriggerFlag(string flag)
-{
-	StateSwitcher<T>* newStateSwitcher = currentStateSwitcher->Trigger(flags, flag);
 	if (newStateSwitcher != currentStateSwitcher)
 	{
 		OnStateTransition(currentStateSwitcher->GetActualState(), newStateSwitcher->GetActualState());

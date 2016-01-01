@@ -46,6 +46,18 @@ void Animator::Increment(float amount)
 {
 	// Incrementa la frame de la animación actual
 	GetActualState()->Increment(amount);
+
+	// Comprueba si la animación actual terminó
+	if (IsFinished())	// La animación se ha reiniciado
+	{
+		SetFlagValue(ANIMATION_END, true);	// Dispara el flag
+		SetFlagValue(ANIMATION_END, false);
+	}
+}
+
+bool Animator::IsFinished()
+{
+	return GetActualState()->IsFinished();
 }
 
 void Animator::OnStateTransition(Animation* lastState, Animation* newState)

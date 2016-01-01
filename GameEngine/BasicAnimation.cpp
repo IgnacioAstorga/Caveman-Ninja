@@ -12,6 +12,7 @@ BasicAnimation::BasicAnimation(float speed, SDL_RendererFlip flip, bool loop, bo
 bool BasicAnimation::Start()
 {
 	current_frame = 0.0f;
+	finished = false;
 	return true;
 }
 
@@ -35,12 +36,23 @@ void BasicAnimation::Increment(float amount)
 	current_frame += speed * amount;
 	if (speed >= 0 && current_frame >= frames.size())
 		if (loop)
-			current_frame = 0.0f;
+			current_frame = 0.0f;	// En loop la animación no termina
 		else
-			current_frame = (float) (frames.size() - 1);
+		{
+			current_frame = (float)(frames.size() - 1);
+			finished = true;
+		}
 	if (speed < 0 && current_frame < 0)
 		if (loop)
-			current_frame = (float)(frames.size() - 1);
+			current_frame = (float)(frames.size() - 1);	// En loop la animación no termina
 		else
+		{
 			current_frame = 0.0f;
+			finished = true;
+		}
+}
+
+bool BasicAnimation::IsFinished()
+{
+	return finished;
 }

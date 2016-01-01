@@ -38,6 +38,7 @@ public:
 	virtual SDL_RendererFlip GetFlip() = 0;
 	virtual void SetFlip(SDL_RendererFlip flip) = 0;
 	virtual void Increment(float amount) = 0;
+	virtual bool IsFinished() = 0;
 
 protected:
 	bool enabled;

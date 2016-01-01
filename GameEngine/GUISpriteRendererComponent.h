@@ -31,7 +31,7 @@ public:
 		RELEASE(animation);
 	}
 
-	bool GUIStart()
+	virtual bool GUIStart()
 	{
 		texture = App->textures->Load(textureName.c_str());
 		if (texture == nullptr)

@@ -23,7 +23,6 @@ public:
 
 	T* GetActualState();
 	StateSwitcher<T>* Process(unordered_map<string, float>& flags);
-	StateSwitcher<T>* Trigger(unordered_map<string, float>& flags, string trigger);
 
 protected:
 	T* state;
@@ -75,19 +74,6 @@ StateSwitcher<T>* StateSwitcher<T>::Process(unordered_map<string, float>& flags)
 	StateSwitcher<T>* newStateSwitcher = nullptr;
 	for (list<StateTransition<T>*>::iterator it = stateTransitions.begin(); it != stateTransitions.end() && newStateSwitcher == nullptr; ++it)
 		newStateSwitcher = (*it)->Process(flags);
-
-	if (newStateSwitcher != nullptr)
-		return newStateSwitcher;
-	else
-		return this;
-}
-
-template<class T>
-StateSwitcher<T>* StateSwitcher<T>::Trigger(unordered_map<string, float>& flags, string trigger)
-{
-	StateSwitcher<T>* newStateSwitcher = nullptr;
-	for (list<StateTransition<T>*>::iterator it = stateTransitions.begin(); it != stateTransitions.end() && newStateSwitcher == nullptr; ++it)
-		newStateSwitcher = (*it)->Trigger(flags, trigger);
 
 	if (newStateSwitcher != nullptr)
 		return newStateSwitcher;

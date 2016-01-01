@@ -5,6 +5,7 @@
 #include "FlagGreaterThanCondition.h"
 #include "FlagLessThanCondition.h"
 #include "FlagEqualsCondition.h"
+#include "AnimationEndCondition.h"
 
 PlayerAnimator::PlayerAnimator(StateSwitcher<Animation>* initialState)
 	: Animator(initialState) {}
@@ -25,26 +26,10 @@ PlayerAnimator* PlayerAnimator::Create()
 	jump->frames.push_back({ 64, 64, 64, 64 });
 	jump->frames.push_back({ 128, 64, 64, 64 });
 
-	BasicAnimation* longJump = new BasicAnimation(16.0f, SDL_FLIP_NONE, false);
-	longJump->frames.push_back({ 64, 64, 64, 64 });
-	longJump->frames.push_back({ 64, 64, 64, 64 });
-	longJump->frames.push_back({ 64, 64, 64, 64 });
-	longJump->frames.push_back({ 0, 128, 64, 64 });
-	longJump->frames.push_back({ 64, 128, 64, 64 });
-	longJump->frames.push_back({ 128, 128, 64, 64 });
-	longJump->frames.push_back({ 192, 128, 64, 64 });
-	longJump->frames.push_back({ 0, 192, 64, 64 });
-	longJump->frames.push_back({ 64, 192, 64, 64 });
-	longJump->frames.push_back({ 128, 192, 64, 64 });
-	longJump->frames.push_back({ 192, 192, 64, 64 });
-	longJump->frames.push_back({ 0, 128, 64, 64 });
-	longJump->frames.push_back({ 64, 128, 64, 64 });
-	longJump->frames.push_back({ 128, 128, 64, 64 });
-	longJump->frames.push_back({ 192, 128, 64, 64 });
-	longJump->frames.push_back({ 0, 192, 64, 64 });
-	longJump->frames.push_back({ 64, 192, 64, 64 });
-	longJump->frames.push_back({ 128, 192, 64, 64 });
-	longJump->frames.push_back({ 192, 192, 64, 64 });
+	BasicAnimation* longJumpStart = new BasicAnimation(8.0f, SDL_FLIP_NONE, false);
+	longJumpStart->frames.push_back({ 64, 64, 64, 64 });
+
+	BasicAnimation* longJump = new BasicAnimation(16.0f);
 	longJump->frames.push_back({ 0, 128, 64, 64 });
 	longJump->frames.push_back({ 64, 128, 64, 64 });
 	longJump->frames.push_back({ 128, 128, 64, 64 });
@@ -61,25 +46,30 @@ PlayerAnimator* PlayerAnimator::Create()
 	StateSwitcher<Animation>* idleState = new StateSwitcher<Animation>(idle);
 	StateSwitcher<Animation>* runState = new StateSwitcher<Animation>(run);
 	StateSwitcher<Animation>* jumpState = new StateSwitcher<Animation>(jump);
+	StateSwitcher<Animation>* longJumpStartState = new StateSwitcher<Animation>(longJumpStart);
 	StateSwitcher<Animation>* longJumpState = new StateSwitcher<Animation>(longJump);
 	StateSwitcher<Animation>* fallState = new StateSwitcher<Animation>(fall);
 
 	// Crea las transiciones entre los estados
 	idleState->AddStateTransition(new StateTransition<Animation>(runState, new FlagGreaterThanCondition("speedX_absolute", 0.0f)));
 	idleState->AddStateTransition(new StateTransition<Animation>(jumpState, new FlagEqualsCondition("jumping", true)));
-	idleState->AddStateTransition(new StateTransition<Animation>(longJumpState, new FlagEqualsCondition("jumping_long", true)));
+	idleState->AddStateTransition(new StateTransition<Animation>(longJumpStartState, new FlagEqualsCondition("jumping_long", true)));
 	idleState->AddStateTransition(new StateTransition<Animation>(fallState, new FlagEqualsCondition("falling", true)));
 
 	runState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("speedX_absolute", 0.0f)));
 	runState->AddStateTransition(new StateTransition<Animation>(jumpState, new FlagEqualsCondition("jumping", true)));
-	runState->AddStateTransition(new StateTransition<Animation>(longJumpState, new FlagEqualsCondition("jumping_long", true)));
+	runState->AddStateTransition(new StateTransition<Animation>(longJumpStartState, new FlagEqualsCondition("jumping_long", true)));
 	runState->AddStateTransition(new StateTransition<Animation>(fallState, new FlagEqualsCondition("falling", true)));
 
 	jumpState->AddStateTransition(new StateTransition<Animation>(fallState, new FlagEqualsCondition("falling", true)));
 	jumpState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("jumping", false)));
 
+	longJumpStartState->AddStateTransition(new StateTransition<Animation>(longJumpState, new AnimationEndCondition()));
+	longJumpStartState->AddStateTransition(new StateTransition<Animation>(fallState, new FlagEqualsCondition("falling", true)));
+	longJumpStartState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("jumping_long", false)));
+
 	longJumpState->AddStateTransition(new StateTransition<Animation>(fallState, new FlagEqualsCondition("falling", true)));
-	longJumpState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("long_jumping", false)));
+	longJumpState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("jumping_long", false)));
 
 	fallState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("falling", false)));
 
