@@ -79,12 +79,7 @@ public:
 		float renderRotation = system->transform->GetGlobalRotation() + particle.rotation;
 
 		// Determina el color y opacidad de la partícula
-		SDL_Color renderColor;
-		renderColor.r = (unsigned int)(particle.tint.red * 255);
-		renderColor.g = (unsigned int)(particle.tint.green * 255);
-		renderColor.b = (unsigned int)(particle.tint.blue * 255);
-		renderColor.a = (unsigned int)(particle.tint.alpha * 255);
-
+		SDL_Color renderColor = particle.tint.ToSDLColor();
 
 		// Determina el frame que pintar
 		SDL_Rect* renderArea = NULL;

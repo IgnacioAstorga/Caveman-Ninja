@@ -10,6 +10,7 @@
 #include "ModuleScene.h"
 #include "ModuleCollisions.h"
 #include "ModuleGUI.h"
+#include "ModuleFonts.h"
 #include "Globals.h"
 #include "Scene.h"
 
@@ -47,6 +48,7 @@ void Application::Create() {
 	modules.push_back(input = new ModuleInput());
 	modules.push_back(window = new ModuleWindow());
 	modules.push_back(textures = new ModuleTextures());
+	modules.push_back(fonts = new ModuleFonts());
 	modules.push_back(audio = new ModuleAudio());
 	modules.push_back(time = new ModuleTime());
 	modules.push_back(animation = new ModuleAnimation());

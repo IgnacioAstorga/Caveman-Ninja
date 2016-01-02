@@ -17,6 +17,7 @@ class ModuleParticles;
 class ModuleScene;
 class ModuleCollisions;
 class ModuleGUI;
+class ModuleFonts;
 
 class Scene;
 
@@ -54,6 +55,7 @@ public:
 	ModuleScene* scene;
 	ModuleCollisions* collisions;
 	ModuleGUI* gui;
+	ModuleFonts* fonts;
 
 private:
 	std::list<Module*> modules;

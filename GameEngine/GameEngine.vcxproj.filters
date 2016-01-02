@@ -234,9 +234,6 @@
     <ClInclude Include="GUIComponent.h">
       <Filter>Elements\Entities\GUIComponents</Filter>
     </ClInclude>
-    <ClInclude Include="GUISpriteRendererComponent.h">
-      <Filter>Elements\Entities\GUIComponents</Filter>
-    </ClInclude>
     <ClInclude Include="LineCollider.h">
       <Filter>Elements\Collisions\Colliders</Filter>
     </ClInclude>
@@ -257,6 +254,18 @@
     </ClInclude>
     <ClInclude Include="AnimationEndCondition.h">
       <Filter>Elements\States\Conditions</Filter>
+    </ClInclude>
+    <ClInclude Include="GUITextureRendererComponent.h">
+      <Filter>Elements\Entities\GUIComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="GUISpriteRendererComponent.h">
+      <Filter>Elements\Entities\GUIComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="GUITextRendererComponent.h">
+      <Filter>Elements\Entities\GUIComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleFonts.h">
+      <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -337,6 +346,24 @@
     </ClCompile>
     <ClCompile Include="CircleTraceCollider.cpp">
       <Filter>Elements\Collisions\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="GUITextureRendererComponent.cpp">
+      <Filter>Elements\Entities\GUIComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="GUISpriteRendererComponent.cpp">
+      <Filter>Elements\Entities\GUIComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIComponent.cpp">
+      <Filter>Elements\Entities\GUIComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="GUITextRendererComponent.cpp">
+      <Filter>Elements\Entities\GUIComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Color.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleFonts.cpp">
+      <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

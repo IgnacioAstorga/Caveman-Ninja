@@ -46,6 +46,8 @@
     <ClInclude Include="Globals.h" />
     <ClInclude Include="GUIComponent.h" />
     <ClInclude Include="GUISpriteRendererComponent.h" />
+    <ClInclude Include="GUITextRendererComponent.h" />
+    <ClInclude Include="GUITextureRendererComponent.h" />
     <ClInclude Include="LifetimeDecayOperator.h" />
     <ClInclude Include="LifetimeRandomInitializer.h" />
     <ClInclude Include="LineCollider.h" />
@@ -54,6 +56,7 @@
     <ClInclude Include="ModuleAnimation.h" />
     <ClInclude Include="ModuleAudio.h" />
     <ClInclude Include="ModuleCollisions.h" />
+    <ClInclude Include="ModuleFonts.h" />
     <ClInclude Include="ModuleGUI.h" />
     <ClInclude Include="ModuleParticles.h" />
     <ClInclude Include="ModuleScene.h" />
@@ -95,13 +98,19 @@
     <ClCompile Include="CircleCollider.cpp" />
     <ClCompile Include="CircleTraceCollider.cpp" />
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="Color.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="GUIComponent.cpp" />
+    <ClCompile Include="GUISpriteRendererComponent.cpp" />
+    <ClCompile Include="GUITextRendererComponent.cpp" />
+    <ClCompile Include="GUITextureRendererComponent.cpp" />
     <ClCompile Include="LineCollider.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="ModuleAnimation.cpp" />
     <ClCompile Include="ModuleAudio.cpp" />
     <ClCompile Include="ModuleCollisions.cpp" />
+    <ClCompile Include="ModuleFonts.cpp" />
     <ClCompile Include="ModuleGUI.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
     <ClCompile Include="ModuleParticles.cpp" />
@@ -171,7 +180,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)\SDL2_image\include;$(SolutionDir)\SDL2_mixer\include;$(SolutionDir)\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\SDL2_ttf\include;$(SolutionDir)\SDL2_image\include;$(SolutionDir)\SDL2_mixer\include;$(SolutionDir)\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
