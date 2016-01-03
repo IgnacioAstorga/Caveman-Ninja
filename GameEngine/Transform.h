@@ -36,6 +36,15 @@ public:
 	fPoint GetRightVector();
 	fPoint GetLeftVector();
 
+	void Move(float x, float y);
+	void Move(fPoint distance);
+	void Rotate(float angle);
+	void Accelerate(float x, float y);
+	void Accelerate(fPoint acceleration);
+	void Resize(float scale);
+	void Resize(float x, float y);
+	void Resize(fPoint scale);
+
 public:
 	fPoint position;
 	fPoint speed;

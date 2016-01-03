@@ -4,6 +4,7 @@
 #include "Transform.h"
 #include "Application.h"
 #include "ModuleInput.h"
+#include "ModuleAudio.h"
 
 PlayerJumpComponent::PlayerJumpComponent(float jumpSpeed, float longJumpMultiplier)
 {
@@ -22,7 +23,14 @@ bool PlayerJumpComponent::OnStart()
 
 	// Intenta recuperar el componente donde comprobar si se está callendo
 	fallingComponent = entity->FindComponent<GravityAndCollisionWithGroundComponent>();
-	return fallingComponent != NULL;
+	if (fallingComponent == NULL)
+		return false;
+
+	// Carga los efectos de sonido
+	jumpSound = App->audio->LoadFx("assets/sounds/player_jump.wav");
+	jumpLongSound = App->audio->LoadFx("assets/sounds/player_jump_long.wav");
+
+	return true;
 }
 
 bool PlayerJumpComponent::OnPreUpdate()
@@ -46,6 +54,13 @@ bool PlayerJumpComponent::OnPreUpdate()
 	entity->transform->SetGlobalSpeed(currentSpeed.x, -totalJumpSpeed);	// Arriba es negativo
 	jumping = true;
 	longJumping = longJump;
+
+	// Reproduce un sonido
+	if (jumping)
+		if (longJumping)
+			App->audio->PlayFx(jumpLongSound);
+		else
+			App->audio->PlayFx(jumpSound);
 
 	return true;
 }

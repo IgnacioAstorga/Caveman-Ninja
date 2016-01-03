@@ -34,6 +34,9 @@
     <ClCompile Include="AnimatorMappingComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="GameControllerComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scenes">
@@ -84,6 +87,9 @@
       <Filter>Animations</Filter>
     </ClInclude>
     <ClInclude Include="AnimatorMappingComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GameControllerComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>

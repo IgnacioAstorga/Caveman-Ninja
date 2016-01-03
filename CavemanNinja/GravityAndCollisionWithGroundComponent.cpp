@@ -9,11 +9,12 @@
 #include "PlayerJumpComponent.h"
 #include "RectangleCollider.h"
 
-GravityAndCollisionWithGroundComponent::GravityAndCollisionWithGroundComponent(float gravity, ColliderType groundColliderType, ColliderComponent* colliderComponent, float step_size)
+GravityAndCollisionWithGroundComponent::GravityAndCollisionWithGroundComponent(float gravity, ColliderType groundColliderType, ColliderComponent* colliderComponent, float verticalTolerance, float step_size)
 {
 	this->gravity = gravity;
 	this->groundColliderType = groundColliderType;
 	this->colliderComponent = colliderComponent;
+	this->verticalTolerance = verticalTolerance;
 	this->step_size = step_size;
 }
 
@@ -33,6 +34,14 @@ bool GravityAndCollisionWithGroundComponent::OnStart()
 
 bool GravityAndCollisionWithGroundComponent::OnUpdate()
 {
+	if (!falling && !jumpComponent->jumping)
+	{
+		Collider* check = new RectangleCollider(NULL, entity->transform, 0, verticalTolerance);
+		list<Collider*> colls = App->collisions->CheckCollisions(check);
+		if (!colls.empty())
+			entity->transform->Move(0, verticalTolerance);
+	}
+
 	// Mueve a la entidad según la gravedad (coordenadas globales)
 	// Suma la gravedad a la velocidad de la entidad
 	float newYSpeed = entity->transform->GetGlobalSpeed().y + gravity * App->time->DeltaTime();

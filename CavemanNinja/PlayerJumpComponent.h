@@ -21,5 +21,8 @@ public:
 	GravityAndCollisionWithGroundComponent* fallingComponent;
 	bool jumping;
 	bool longJumping;
+
+	unsigned int jumpSound;
+	unsigned int jumpLongSound;
 };
 #endif //__PLAYERJUMPCOMPONENT_H__

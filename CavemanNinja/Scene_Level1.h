@@ -18,6 +18,7 @@ protected:
 private:
 	Entity* camera;
 	Entity* ground;
+	Entity* gameController;
 	Entity* backgroundSky;
 	Entity* backgroundMountains;
 	Entity* backgroundTrees;

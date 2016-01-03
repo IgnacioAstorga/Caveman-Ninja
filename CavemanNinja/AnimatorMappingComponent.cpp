@@ -52,7 +52,7 @@ bool AnimatorMappingComponent::OnPostUpdate()
 	animator->SetFlagValue("jumping_long", jumpComponent->jumping && jumpComponent->longJumping);
 
 	// Mapea si el personaje está callendo o no
-	animator->SetFlagValue("falling", gravityComponent->falling && entity->transform->GetLocalSpeed().y > 200.0f);
+	animator->SetFlagValue("falling", gravityComponent->falling);
 
 	// Flipea el animator según la velocidad
 	if (speed > 0)
