@@ -27,7 +27,7 @@ public:
 public:
 	void RegisterCollider(Collider* collider);
 	void UnregisterCollider(Collider* collider);
-	list<Collider*> CheckCollisions(Collider* collider);
+	list<Collider*> CheckCollisions(Collider* collider, int type = -1);
 
 private:
 	list<Collider*> colliders;

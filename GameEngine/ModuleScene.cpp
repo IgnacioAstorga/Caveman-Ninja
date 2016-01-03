@@ -83,6 +83,11 @@ void ModuleScene::DestroyScene(Scene* scene)
 	toDestroy.push_back(scene);
 }
 
+Scene * ModuleScene::GetCurrentScene()
+{
+	return currentScene;
+}
+
 void ModuleScene::DoChangeScene()
 {
 	LOG("Changing current scene");

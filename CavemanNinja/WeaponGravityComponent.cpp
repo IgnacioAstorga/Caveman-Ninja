@@ -1,48 +1,41 @@
-#include "GravityAndCollisionWithGroundComponent.h"
+#include "WeaponGravityComponent.h"
 #include "Entity.h"
 #include "Transform.h"
 #include "Collider.h"
 #include "ColliderComponent.h"
+#include "WeaponLifespanComponent.h"
 #include "Application.h"
 #include "ModuleTime.h"
 #include "ModuleCollisions.h"
-#include "PlayerJumpComponent.h"
-#include "RectangleCollider.h"
 
-GravityAndCollisionWithGroundComponent::GravityAndCollisionWithGroundComponent(float gravity, ColliderType groundColliderType, ColliderComponent* colliderComponent, float verticalTolerance, float step_size)
+WeaponGravityComponent::WeaponGravityComponent(float gravity, ColliderType groundColliderType, ColliderComponent* colliderComponent, float step_size)
 {
 	this->gravity = gravity;
 	this->groundColliderType = groundColliderType;
 	this->colliderComponent = colliderComponent;
-	this->verticalTolerance = verticalTolerance;
 	this->step_size = step_size;
 }
 
-GravityAndCollisionWithGroundComponent::~GravityAndCollisionWithGroundComponent()
+WeaponGravityComponent::~WeaponGravityComponent()
 {
 	// En principio no hace nada
 }
 
-bool GravityAndCollisionWithGroundComponent::OnStart()
+bool WeaponGravityComponent::OnStart()
 {
-	// Intenta encontrar el componente de salto de la entidad
-	jumpComponent = entity->FindComponent<PlayerJumpComponent>();
-
 	falling = true;	// Empieza "callendo", en el primer frame se comprobará si está posado o no
-	return colliderComponent != NULL;	// Si no ha especificado collider o flag de caída, da error
+	onGround = false;
+
+	// Recupera el componente de tiempo de vida
+	lifespanComponent = entity->FindComponent<WeaponLifespanComponent>();
+	if (lifespanComponent == NULL)
+		return false;
+
+	return colliderComponent != NULL;	// Si no ha especificado collider
 }
 
-bool GravityAndCollisionWithGroundComponent::OnUpdate()
+bool WeaponGravityComponent::OnUpdate()
 {
-	if (!falling && !jumpComponent->jumping)
-	{
-		Collider* collisionChecker = new RectangleCollider(NULL, entity->transform, 0, verticalTolerance);
-		list<Collider*> collisions = App->collisions->CheckCollisions(collisionChecker, GROUND);
-		if (!collisions.empty())
-			entity->transform->Move(0, verticalTolerance);
-		RELEASE(collisionChecker);
-	}
-
 	// Mueve a la entidad según la gravedad (coordenadas globales)
 	// Suma la gravedad a la velocidad de la entidad
 	float newYSpeed = entity->transform->GetGlobalSpeed().y + gravity * App->time->DeltaTime();
@@ -53,10 +46,10 @@ bool GravityAndCollisionWithGroundComponent::OnUpdate()
 	return true;
 }
 
-bool GravityAndCollisionWithGroundComponent::OnCollisionEnter(Collider* self, Collider* other)
+bool WeaponGravityComponent::OnCollisionEnter(Collider* self, Collider* other)
 {
 	// Primero, detecta si la colisión es con el suelo
-	if (other->GetType() != groundColliderType && other->GetType() != FLOOR)
+	if (other->GetType() != groundColliderType)
 		return true;
 
 	// Segundo, detecta si el collider que ha realizado la colisión es el correcto
@@ -68,10 +61,11 @@ bool GravityAndCollisionWithGroundComponent::OnCollisionEnter(Collider* self, Co
 		return true;
 
 	// Frena la caida de la entidad
-	entity->transform->SetSpeed(entity->transform->GetLocalSpeed().x, 0.0f);
+	if (!onGround)
+		lifespanComponent->Reset(0.2f);
+	entity->transform->SetSpeed(0.0f, 0.0f);
 	falling = false;
-	jumpComponent->jumping = false;
-	jumpComponent->longJumping = false;
+	onGround = true;
 
 	// Recoloca la entidad
 	int count = 0;
@@ -79,11 +73,11 @@ bool GravityAndCollisionWithGroundComponent::OnCollisionEnter(Collider* self, Co
 	{
 		entity->transform->SetGlobalPosition(entity->transform->GetGlobalPosition().x, entity->transform->GetGlobalPosition().y - step_size);
 	} while (self->CollidesWith(other) && count++ < 100);
-	
+
 	return true;
 }
 
-bool GravityAndCollisionWithGroundComponent::OnCollisionStay(Collider * self, Collider * other)
+bool WeaponGravityComponent::OnCollisionStay(Collider * self, Collider * other)
 {
 	return OnCollisionEnter(self, other);
 }

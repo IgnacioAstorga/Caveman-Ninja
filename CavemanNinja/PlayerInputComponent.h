@@ -4,6 +4,11 @@
 #include "Component.h"
 #include "ColliderTypes.h"
 
+enum Orientation {
+	FORWARD,
+	BACKWARD
+};
+
 class ColliderComponent;
 class Collider;
 
@@ -19,7 +24,15 @@ protected:
 	bool OnCollisionStay(Collider* self, Collider* other);
 
 public:
+	void Stop(float duration);
+	bool IsStopped();
+
+public:
 	float speed;
+	bool stopped;
+	float stoppedDuration;
+	float stoppedTime;
+	Orientation orientation;
 	ColliderType wallColliderType;
 	ColliderComponent* colliderComponent;
 	float step_size;

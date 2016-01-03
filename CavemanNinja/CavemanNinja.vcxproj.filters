@@ -7,35 +7,56 @@
     <ClCompile Include="Main.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerInputComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="GravityAndCollisionWithGroundComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerJumpComponent.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerCamera.cpp">
-      <Filter>Entities</Filter>
-    </ClCompile>
     <ClCompile Include="CameraMovementComponent.cpp">
-      <Filter>Components</Filter>
+      <Filter>GameController</Filter>
     </ClCompile>
     <ClCompile Include="CavemanNinjaApp.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerAnimator.cpp">
-      <Filter>Animations</Filter>
+    <ClCompile Include="GameControllerComponent.cpp">
+      <Filter>GameController</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerCamera.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="GravityAndCollisionWithGroundComponent.cpp">
+      <Filter>Player\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerInputComponent.cpp">
+      <Filter>Player\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerJumpComponent.cpp">
+      <Filter>Player\Components</Filter>
     </ClCompile>
     <ClCompile Include="AnimatorMappingComponent.cpp">
-      <Filter>Components</Filter>
+      <Filter>Player\Components</Filter>
     </ClCompile>
-    <ClCompile Include="GameControllerComponent.cpp">
-      <Filter>Components</Filter>
+    <ClCompile Include="TomahawkProjectile.cpp">
+      <Filter>Weapons\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAnimator.cpp">
+      <Filter>Player\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="TomahawkAnimator.cpp">
+      <Filter>Weapons\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponAnimatorMappingComponent.cpp">
+      <Filter>Weapons\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponLifespanComponent.cpp">
+      <Filter>Weapons\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponComponent.cpp">
+      <Filter>Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponTomahawk.cpp">
+      <Filter>Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponGravityComponent.cpp">
+      <Filter>Weapons\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -48,14 +69,29 @@
     <Filter Include="Util">
       <UniqueIdentifier>{d9c665db-f322-4d08-bc43-bf75a9e6de42}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Entities">
-      <UniqueIdentifier>{937fec25-b7c2-4c0e-89b4-463e7808aeb2}</UniqueIdentifier>
+    <Filter Include="Player">
+      <UniqueIdentifier>{81b7fee0-1d20-4eab-bd20-303acfee1eb9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Components">
+    <Filter Include="Player\Components">
+      <UniqueIdentifier>{cab61078-e85b-4499-a166-4d5823c9a10b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameController">
       <UniqueIdentifier>{5b01c77a-164d-434d-9ac4-5cc4f398084b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Animations">
+    <Filter Include="Weapons">
+      <UniqueIdentifier>{93adb4e5-8074-43f9-936a-5f88f772a2a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\Animations">
+      <UniqueIdentifier>{4f1d7700-7422-4e54-8226-64d09d68fad4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Weapons\Animations">
       <UniqueIdentifier>{4ff74e49-7da5-43d6-be21-9aef5ef38ec2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Weapons\Projectiles">
+      <UniqueIdentifier>{a7c04aaf-d123-44e6-9b72-81d834b2c5e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Weapons\Components">
+      <UniqueIdentifier>{192825d0-8117-4bc6-a96f-d684b1b14bff}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -65,32 +101,53 @@
     <ClInclude Include="ColliderTypes.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerInputComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="GravityAndCollisionWithGroundComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerJumpComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerCamera.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
     <ClInclude Include="CameraMovementComponent.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerAnimator.h">
-      <Filter>Animations</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimatorMappingComponent.h">
-      <Filter>Components</Filter>
+      <Filter>GameController</Filter>
     </ClInclude>
     <ClInclude Include="GameControllerComponent.h">
-      <Filter>Components</Filter>
+      <Filter>GameController</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerCamera.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="GravityAndCollisionWithGroundComponent.h">
+      <Filter>Player\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerInputComponent.h">
+      <Filter>Player\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerJumpComponent.h">
+      <Filter>Player\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatorMappingComponent.h">
+      <Filter>Player\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="TomahawkProjectile.h">
+      <Filter>Weapons\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerAnimator.h">
+      <Filter>Player\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="TomahawkAnimator.h">
+      <Filter>Weapons\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponAnimatorMappingComponent.h">
+      <Filter>Weapons\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponLifespanComponent.h">
+      <Filter>Weapons\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponComponent.h">
+      <Filter>Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponTomahawk.h">
+      <Filter>Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponGravityComponent.h">
+      <Filter>Weapons\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

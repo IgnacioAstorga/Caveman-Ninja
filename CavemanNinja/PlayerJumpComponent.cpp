@@ -39,21 +39,21 @@ bool PlayerJumpComponent::OnPreUpdate()
 	if (fallingComponent->falling || jumping)
 		return true;	// No se puede saltar mientras se cae
 
+	// Comprueba si el personaje esta miarando hacia arriba
+	KeyState keyState = App->input->GetKey(SDL_SCANCODE_W);
+	lookingUp = keyState == KEY_DOWN || keyState == KEY_REPEAT;
+
 	// Comprueba si la tecla de saltar (barra espaciadora) fue pulsada
-	KeyState keyState = App->input->GetKey(SDL_SCANCODE_SPACE);
+	keyState = App->input->GetKey(SDL_SCANCODE_SPACE);
 	if (keyState != KEY_DOWN && keyState != KEY_REPEAT)
 		return true;
 
-	// Comprueba si el salto es alto o no
-	keyState = App->input->GetKey(SDL_SCANCODE_W);
-	bool longJump = keyState == KEY_DOWN || keyState == KEY_REPEAT;
-
 	// Modifica la velocidad vertical de la entidad para hacerla saltar
 	fPoint currentSpeed = entity->transform->GetGlobalSpeed();
-	float totalJumpSpeed = jumpSpeed * (longJump ? longJumpMultiplier : 1.0f);
+	float totalJumpSpeed = jumpSpeed * (lookingUp ? longJumpMultiplier : 1.0f);
 	entity->transform->SetGlobalSpeed(currentSpeed.x, -totalJumpSpeed);	// Arriba es negativo
 	jumping = true;
-	longJumping = longJump;
+	longJumping = lookingUp;
 
 	// Reproduce un sonido
 	if (jumping)
