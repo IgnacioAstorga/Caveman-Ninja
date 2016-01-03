@@ -19,7 +19,6 @@ public:
 	StateSwitcher<T>* GetTargetStateSwitcher();
 
 	StateSwitcher<T>* Process(unordered_map<string, float>& flags);
-	StateSwitcher<T>* Trigger(unordered_map<string, float>& flags, string trigger);
 
 protected:
 	FlagCondition* flagCondition;
@@ -49,14 +48,6 @@ template<class T>
 StateSwitcher<T>* StateTransition<T>::Process(unordered_map<string, float>& flags)
 {
 	if (flagCondition->IsTrue(flags))
-		return targetStateSwitcher;
-	return nullptr;
-}
-
-template<class T>
-StateSwitcher<T>* StateTransition<T>::Trigger(unordered_map<string, float>& flags, string trigger)
-{
-	if (flagCondition->IsTriggered(flags, trigger))
 		return targetStateSwitcher;
 	return nullptr;
 }

@@ -4,10 +4,12 @@
 #include "Transform.h"
 #include "Application.h"
 #include "ModuleInput.h"
+#include "ModuleAudio.h"
 
-PlayerJumpComponent::PlayerJumpComponent(float jumpSpeed)
+PlayerJumpComponent::PlayerJumpComponent(float jumpSpeed, float longJumpMultiplier)
 {
 	this->jumpSpeed = jumpSpeed;
+	this->longJumpMultiplier = longJumpMultiplier;
 }
 
 PlayerJumpComponent::~PlayerJumpComponent()
@@ -21,7 +23,14 @@ bool PlayerJumpComponent::OnStart()
 
 	// Intenta recuperar el componente donde comprobar si se está callendo
 	fallingComponent = entity->FindComponent<GravityAndCollisionWithGroundComponent>();
-	return fallingComponent != NULL;
+	if (fallingComponent == NULL)
+		return false;
+
+	// Carga los efectos de sonido
+	jumpSound = App->audio->LoadFx("assets/sounds/player_jump.wav");
+	jumpLongSound = App->audio->LoadFx("assets/sounds/player_jump_long.wav");
+
+	return true;
 }
 
 bool PlayerJumpComponent::OnPreUpdate()
@@ -35,10 +44,23 @@ bool PlayerJumpComponent::OnPreUpdate()
 	if (keyState != KEY_DOWN && keyState != KEY_REPEAT)
 		return true;
 
+	// Comprueba si el salto es alto o no
+	keyState = App->input->GetKey(SDL_SCANCODE_W);
+	bool longJump = keyState == KEY_DOWN || keyState == KEY_REPEAT;
+
 	// Modifica la velocidad vertical de la entidad para hacerla saltar
 	fPoint currentSpeed = entity->transform->GetGlobalSpeed();
-	entity->transform->SetGlobalSpeed(currentSpeed.x, -jumpSpeed);	// Arriba es negativo
+	float totalJumpSpeed = jumpSpeed * (longJump ? longJumpMultiplier : 1.0f);
+	entity->transform->SetGlobalSpeed(currentSpeed.x, -totalJumpSpeed);	// Arriba es negativo
 	jumping = true;
+	longJumping = longJump;
+
+	// Reproduce un sonido
+	if (jumping)
+		if (longJumping)
+			App->audio->PlayFx(jumpLongSound);
+		else
+			App->audio->PlayFx(jumpSound);
 
 	return true;
 }

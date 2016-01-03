@@ -44,13 +44,21 @@ bool AnimatorMappingComponent::OnPostUpdate()
 		return false;
 
 	// Mapea la velocidad horizontal del personaje al animator
-	animator->SetFlagValue("speedX", entity->transform->GetLocalSpeed().x);
+	float speed = entity->transform->GetLocalSpeed().x;
+	animator->SetFlagValue("speedX_absolute", abs(speed));
 
 	// Mapea si el personaje está saltando o no
-	animator->SetFlagValue("jumping", jumpComponent->jumping);
+	animator->SetFlagValue("jumping", jumpComponent->jumping && !jumpComponent->longJumping);
+	animator->SetFlagValue("jumping_long", jumpComponent->jumping && jumpComponent->longJumping);
 
 	// Mapea si el personaje está callendo o no
-	animator->SetFlagValue("falling", gravityComponent->falling && entity->transform->GetLocalSpeed().y > 200.0f);
+	animator->SetFlagValue("falling", gravityComponent->falling);
+
+	// Flipea el animator según la velocidad
+	if (speed > 0)
+		animator->SetFlip(SDL_FLIP_NONE);
+	else if (speed < 0 )
+		animator->SetFlip(SDL_FLIP_HORIZONTAL);
 
 	return true;
 }

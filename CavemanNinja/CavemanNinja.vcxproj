@@ -74,11 +74,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)\GameEngine;$(SolutionDir)\SDL2_image\include;$(SolutionDir)\SDL2_mixer\include;$(SolutionDir)\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\GameEngine;$(SolutionDir)\SDL2_ttf\include;$(SolutionDir)\SDL2_image\include;$(SolutionDir)\SDL2_mixer\include;$(SolutionDir)\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_mixer.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\SDL2_image\lib\x86;$(SolutionDir)\SDL2_mixer\lib\x86;$(SolutionDir)\SDL2\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_mixer.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\SDL2_ttf\lib\x86;$(SolutionDir)\SDL2_image\lib\x86;$(SolutionDir)\SDL2_mixer\lib\x86;$(SolutionDir)\SDL2\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -118,6 +118,7 @@
   <ItemGroup>
     <ClCompile Include="AnimatorMappingComponent.cpp" />
     <ClCompile Include="CameraMovementComponent.cpp" />
+    <ClCompile Include="GameControllerComponent.cpp" />
     <ClCompile Include="GravityAndCollisionWithGroundComponent.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="AnimatorMappingComponent.h" />
     <ClInclude Include="CameraMovementComponent.h" />
     <ClInclude Include="ColliderTypes.h" />
+    <ClInclude Include="GameControllerComponent.h" />
     <ClInclude Include="GravityAndCollisionWithGroundComponent.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerAnimator.h" />

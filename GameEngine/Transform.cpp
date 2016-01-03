@@ -165,3 +165,46 @@ fPoint Transform::GetLeftVector()
 {
 	return GetRightVector().Negate();
 }
+
+void Transform::Move(float x, float y)
+{
+	position.x += x;
+	position.y += y;
+}
+
+void Transform::Move(fPoint distance)
+{
+	Move(distance.x, distance.y);
+}
+
+void Transform::Rotate(float angle)
+{
+	rotation += angle;
+}
+
+void Transform::Accelerate(float x, float y)
+{
+	speed.x += x;
+	speed.y += y;
+}
+
+void Transform::Accelerate(fPoint acceleration)
+{
+	Accelerate(acceleration.x, acceleration.y);
+}
+
+void Transform::Resize(float scale)
+{
+	Resize(scale, scale);
+}
+
+void Transform::Resize(float x, float y)
+{
+	scale.x *= x;
+	scale.y *= y;
+}
+
+void Transform::Resize(fPoint scale)
+{
+	Resize(scale.x, scale.y);
+}

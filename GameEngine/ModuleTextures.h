@@ -1,7 +1,7 @@
 #ifndef __MODULETEXTURES_H__
 #define __MODULETEXTURES_H__
 
-#include<list>
+#include <list>
 #include "Module.h"
 #include "Globals.h"
 

@@ -8,7 +8,7 @@ class GravityAndCollisionWithGroundComponent;
 class PlayerJumpComponent : public Component
 {
 public:
-	PlayerJumpComponent(float jumpSpeed);
+	PlayerJumpComponent(float jumpSpeed, float longJumpMultiplier = 1.0f);
 	virtual ~PlayerJumpComponent();
 
 protected:
@@ -17,7 +17,12 @@ protected:
 
 public:
 	float jumpSpeed;
+	float longJumpMultiplier;
 	GravityAndCollisionWithGroundComponent* fallingComponent;
 	bool jumping;
+	bool longJumping;
+
+	unsigned int jumpSound;
+	unsigned int jumpLongSound;
 };
 #endif //__PLAYERJUMPCOMPONENT_H__

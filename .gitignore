@@ -4,6 +4,7 @@
 SDL2/
 SDL2_mixer/
 SDL2_image/
+SDL2_ttf/
 
 ## --------------------------------------------------------
 ## Ignore Visual Studio temporary files, build results, and

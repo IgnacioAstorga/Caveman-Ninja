@@ -13,7 +13,7 @@ class GravityAndCollisionWithGroundComponent : public Component
 	friend class Scene;
 
 public:
-	GravityAndCollisionWithGroundComponent(float gravity, ColliderType groundColliderType, ColliderComponent* colliderComponent, float step_size = 0.5f);
+	GravityAndCollisionWithGroundComponent(float gravity, ColliderType groundColliderType, ColliderComponent* colliderComponent, float verticalTolerance = 5.0f, float step_size = 0.5f);
 	virtual ~GravityAndCollisionWithGroundComponent();
 
 protected:
@@ -28,6 +28,7 @@ public:
 	ColliderType groundColliderType;
 	ColliderComponent* colliderComponent;
 	PlayerJumpComponent* jumpComponent;
+	float verticalTolerance;
 	float step_size;
 };
 #endif //__GRAVITYANDCOLLISIONWITHGROUNDCOMPONENT_H__

@@ -2,10 +2,6 @@
 #define __GUICOMPONENT_H__
 
 #include "Component.h"
-#include "Application.h"
-#include "ModuleGUI.h"
-#include "Entity.h"
-#include "Transform.h"
 
 enum GUILocation {
 	ABSOLUTE,
@@ -20,42 +16,24 @@ enum GUILocation {
 	BOTTOM_RIGHT
 };
 
-using namespace std;
-
 class GUIComponent : public Component
 {
 public:
-	GUIComponent(GUILocation location, bool start_enabled = true) : Component(start_enabled)
-	{
-		this->location = location;
-	}
+	GUIComponent(GUILocation location, bool start_enabled = true);
+	virtual ~GUIComponent();
 
-	virtual ~GUIComponent()
-	{
-		// En principio no hace nada
-	}
-
-	bool OnStart()
-	{
-		App->gui->RegisterGUIComponent(this);
-		return GUIStart();
-	}
-
-	bool OnCleanUp()
-	{
-		App->gui->UnregisterGUIComponent(this);
-		return GUICleanUp();
-	}
+	bool OnStart();
+	bool OnCleanUp();
 
 public:
 	// Los métodos convencionales no hacen nada en componentes de GUI
 	// Estos son los métodos que serán llamados por el ModuleGUI
 	// Las clases hijas redefinirán estos métodos para implementar su funcionalidad
-	virtual bool GUIStart() { return true; };
-	virtual bool GUIPreUpdate() { return true; };
-	virtual bool GUIUpdate() { return true; };
-	virtual bool GUIPostUpdate() { return true; };
-	virtual bool GUICleanUp() { return true; };
+	virtual bool GUIStart();
+	virtual bool GUIPreUpdate();
+	virtual bool GUIUpdate();
+	virtual bool GUIPostUpdate();
+	virtual bool GUICleanUp();
 
 protected:
 	GUILocation location;

@@ -18,6 +18,10 @@ protected:
 private:
 	Entity* camera;
 	Entity* ground;
+	Entity* gameController;
+	Entity* backgroundSky;
+	Entity* backgroundMountains;
+	Entity* backgroundTrees;
 	Player* player;
 };
 #endif	// __SCENE_LEVEL1_H__

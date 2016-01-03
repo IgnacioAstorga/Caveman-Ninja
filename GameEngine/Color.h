@@ -1,20 +1,23 @@
 #ifndef __COLOR_H__
 #define __COLOR_H__
 
+#define WHITE Color()
+#define RED Color(1.0f, 0.0f, 0.0f);
+#define GREEN Color(0.0f, 1.0f, 0.0f);
+#define BLUE Color(0.0f, 0.0f, 1.0f);
+
+struct SDL_Color;
+
 class Color
 {
 public:
-	Color() : Color(1.0f, 1.0f, 1.0f, 1.0f) {}
+	Color();
+	Color(float red, float green, float blue, float alpha = 1.0f);
 
-	Color(float red, float green, float blue) : Color(red, green, blue, 1.0f) {}
+public:
+	SDL_Color ToSDLColor() const;
 
-	Color(float red, float green, float blue, float alpha) {
-		this->red = red;
-		this->green = green;
-		this->blue = blue;
-		this->alpha = alpha;
-	}
-
+public:
 	float red;
 	float green;
 	float blue;

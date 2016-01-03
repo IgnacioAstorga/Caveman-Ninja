@@ -15,7 +15,9 @@ public:
 public:
 	SDL_Rect& GetCurrentFrame();
 	SDL_RendererFlip GetFlip();
+	void SetFlip(SDL_RendererFlip flip);
 	void Increment(float amount);
+	bool IsFinished();
 
 	float speed;
 	SDL_RendererFlip flip;
@@ -25,6 +27,7 @@ public:
 private:
 	bool enabled;
 	float current_frame;
+	bool finished;
 };
 
 #endif // __BASICANIMATION_H__
