@@ -36,7 +36,7 @@ void Transform::SetSpeed(float xSpeed, float ySpeed)
 void Transform::SetGlobalSpeed(float xSpeed, float ySpeed)
 {
 	if (entity->GetParent() == nullptr)
-		return SetSpeed(xSpeed, xSpeed);
+		return SetSpeed(xSpeed, ySpeed);
 	// Se transforma una velocidad global en local
 	this->speed = fPoint(xSpeed, ySpeed) - entity->GetParent()->transform->GetGlobalSpeed();
 }

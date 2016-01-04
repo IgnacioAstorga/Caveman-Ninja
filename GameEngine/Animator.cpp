@@ -49,10 +49,7 @@ void Animator::Increment(float amount)
 
 	// Comprueba si la animación actual terminó
 	if (IsFinished())	// La animación se ha reiniciado
-	{
-		SetFlagValue(ANIMATION_END, true);	// Dispara el flag
-		SetFlagValue(ANIMATION_END, false);
-	}
+		Trigger(ANIMATION_END);
 }
 
 bool Animator::IsFinished()

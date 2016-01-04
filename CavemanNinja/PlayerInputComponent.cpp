@@ -1,6 +1,7 @@
 #include "PlayerInputComponent.h"
 #include "Application.h"
 #include "ModuleInput.h"
+#include "ModuleTime.h"
 #include "Entity.h"
 #include "Transform.h"
 #include "ColliderComponent.h"
@@ -13,12 +14,28 @@ PlayerInputComponent::PlayerInputComponent(float speed, ColliderType colliderTyp
 	this->wallColliderType = colliderType;
 	this->colliderComponent = colliderComponent;
 	this->step_size = step_size;
+
+	this->orientation = FORWARD;	// Por defecto mira de frente
+	this->stopped = false;
+	this->stoppedDuration = 0.0f;
 }
 
 PlayerInputComponent::~PlayerInputComponent() {}
 
 bool PlayerInputComponent::OnPreUpdate()
 {
+	// Comprueba si deja de estar parado
+	stoppedTime += App->time->DeltaTime();
+	if (stopped && stoppedTime >= stoppedDuration)
+		stopped = false;
+
+	// Comprueba si está parado
+	if (stopped)
+	{
+		entity->transform->speed.x = 0.0f;
+		return true;
+	}
+
 	// Lee las pulsaciones de las teclas A y D y las mapea a la velocidad
 	KeyState left = App->input->GetKey(SDL_SCANCODE_A);
 	KeyState right = App->input->GetKey(SDL_SCANCODE_D);
@@ -26,9 +43,15 @@ bool PlayerInputComponent::OnPreUpdate()
 	bool rightPressed = right == KEY_DOWN || right == KEY_REPEAT;
 
 	if (leftPressed && !rightPressed)
+	{
 		entity->transform->speed.x = -speed;
+		orientation = BACKWARD;
+	}
 	else if (!leftPressed && rightPressed)
+	{
 		entity->transform->speed.x = speed;
+		orientation = FORWARD;
+	}
 	else
 		entity->transform->speed.x = 0.0f;
 
@@ -71,4 +94,16 @@ bool PlayerInputComponent::OnCollisionEnter(Collider * self, Collider * other)
 bool PlayerInputComponent::OnCollisionStay(Collider * self, Collider * other)
 {
 	return OnCollisionEnter(self, other);
+}
+
+void PlayerInputComponent::Stop(float duration)
+{
+	stopped = true;
+	stoppedDuration = duration;
+	stoppedTime = 0.0f;
+}
+
+bool PlayerInputComponent::IsStopped()
+{
+	return stopped;
 }

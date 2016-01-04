@@ -2,6 +2,8 @@
 #include "Transform.h"
 #include "Scene.h"
 #include "Component.h"
+#include "Application.h"
+#include "ModuleScene.h"
 
 Entity::Entity(string name, float x, float y, bool start_enabled) : enabled(start_enabled)
 {
@@ -34,6 +36,11 @@ Entity::~Entity()
 
 	// Destruye el transform
 	RELEASE(transform);
+}
+
+Entity * Entity::Instantiate()
+{
+	return Instantiate(App->scene->GetCurrentScene());
 }
 
 Entity* Entity::Instantiate(Scene* scene)

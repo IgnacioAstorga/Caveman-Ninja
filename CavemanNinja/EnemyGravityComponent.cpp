@@ -1,4 +1,4 @@
-#include "GravityAndCollisionWithGroundComponent.h"
+#include "EnemyGravityComponent.h"
 #include "Entity.h"
 #include "Transform.h"
 #include "Collider.h"
@@ -6,10 +6,10 @@
 #include "Application.h"
 #include "ModuleTime.h"
 #include "ModuleCollisions.h"
-#include "PlayerJumpComponent.h"
 #include "RectangleCollider.h"
+#include "DieOnPlayerAttackComponent.h"
 
-GravityAndCollisionWithGroundComponent::GravityAndCollisionWithGroundComponent(float gravity, ColliderType groundColliderType, ColliderComponent* colliderComponent, float verticalTolerance, float step_size)
+EnemyGravityComponent::EnemyGravityComponent(float gravity, ColliderType groundColliderType, ColliderComponent* colliderComponent, float verticalTolerance, float step_size)
 {
 	this->gravity = gravity;
 	this->groundColliderType = groundColliderType;
@@ -18,23 +18,23 @@ GravityAndCollisionWithGroundComponent::GravityAndCollisionWithGroundComponent(f
 	this->step_size = step_size;
 }
 
-GravityAndCollisionWithGroundComponent::~GravityAndCollisionWithGroundComponent()
+EnemyGravityComponent::~EnemyGravityComponent()
 {
 	// En principio no hace nada
 }
 
-bool GravityAndCollisionWithGroundComponent::OnStart()
+bool EnemyGravityComponent::OnStart()
 {
-	// Intenta encontrar el componente de salto de la entidad
-	jumpComponent = entity->FindComponent<PlayerJumpComponent>();
+	// Intenta encontrar el componente de vida de la entidad
+	lifeComponent = entity->FindComponent<DieOnPlayerAttackComponent>();
 
 	falling = true;	// Empieza "callendo", en el primer frame se comprobará si está posado o no
 	return colliderComponent != NULL;	// Si no ha especificado collider o flag de caída, da error
 }
 
-bool GravityAndCollisionWithGroundComponent::OnUpdate()
+bool EnemyGravityComponent::OnUpdate()
 {
-	if (!falling && (jumpComponent == NULL || !jumpComponent->jumping))
+	if (!falling)
 	{
 		Collider* collisionChecker = new RectangleCollider(NULL, entity->transform, 0, verticalTolerance);
 		list<Collider*> collisions = App->collisions->CheckCollisions(collisionChecker, GROUND);
@@ -53,7 +53,7 @@ bool GravityAndCollisionWithGroundComponent::OnUpdate()
 	return true;
 }
 
-bool GravityAndCollisionWithGroundComponent::OnCollisionEnter(Collider* self, Collider* other)
+bool EnemyGravityComponent::OnCollisionEnter(Collider* self, Collider* other)
 {
 	// Primero, detecta si la colisión es con el suelo
 	if (other->GetType() != groundColliderType && other->GetType() != FLOOR)
@@ -68,13 +68,15 @@ bool GravityAndCollisionWithGroundComponent::OnCollisionEnter(Collider* self, Co
 		return true;
 
 	// Frena la caida de la entidad
-	entity->transform->SetSpeed(entity->transform->GetLocalSpeed().x, 0.0f);
-	falling = false;
-	if (jumpComponent != NULL)
+	if (!lifeComponent->dead)
+		entity->transform->SetSpeed(entity->transform->GetLocalSpeed().x, 0.0f);
+	else
 	{
-		jumpComponent->jumping = false;
-		jumpComponent->longJumping = false;
+		entity->transform->SetSpeed(0.0f, 0.0f);	// Si está muerto lo frena completamente
+		lifeComponent->Decay();
+		this->Disable();	// Desactiva el componente de gravedad
 	}
+	falling = false;
 
 	// Recoloca la entidad
 	int count = 0;
@@ -82,11 +84,11 @@ bool GravityAndCollisionWithGroundComponent::OnCollisionEnter(Collider* self, Co
 	{
 		entity->transform->SetGlobalPosition(entity->transform->GetGlobalPosition().x, entity->transform->GetGlobalPosition().y - step_size);
 	} while (self->CollidesWith(other) && count++ < 100);
-	
+
 	return true;
 }
 
-bool GravityAndCollisionWithGroundComponent::OnCollisionStay(Collider * self, Collider * other)
+bool EnemyGravityComponent::OnCollisionStay(Collider * self, Collider * other)
 {
 	return OnCollisionEnter(self, other);
 }

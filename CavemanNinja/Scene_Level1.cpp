@@ -7,6 +7,7 @@
 #include "ColliderTypes.h"
 #include "Player.h"
 #include "PlayerCamera.h"
+#include "EnemyCaveman.h"
 
 void Scene_Level1::OnCreateScene()
 {
@@ -27,10 +28,10 @@ void Scene_Level1::OnCreateScene()
 
 	ground = new Entity("ground");
 	ground->AddComponent(new SpriteRendererComponent("assets/images/world_1_background.png"));
-	ground->AddComponent(new RectangleColliderComponent(2000, 0, 1, 220 - 14, 0, GROUND));
+	ground->AddComponent(new RectangleColliderComponent(2000, 0, 1, 220, 0, FLOOR));
 	ground->AddComponent(new LineColliderComponent(	// El lomo
 	{ 
-		fPoint(328, 200),
+		fPoint(290, 211),
 		fPoint(340, 195),
 		fPoint(443, 149),
 		fPoint(487, 113),
@@ -48,17 +49,17 @@ void Scene_Level1::OnCreateScene()
 	}, 1, GROUND));
 	ground->AddComponent(new LineColliderComponent(	// La pata trasera
 	{
-		fPoint(520, 119),
-		fPoint(550, 105),
-		fPoint(562, 105),
-		fPoint(576, 114),
-		fPoint(587, 135)
+		fPoint(520, 129),
+		fPoint(550, 115),
+		fPoint(562, 115),
+		fPoint(576, 124),
+		fPoint(587, 145)
 	}, 1, GROUND));
 	ground->AddComponent(new LineColliderComponent(	// La pata delantera
 	{
-		fPoint(640, 166),
-		fPoint(648, 163),
-		fPoint(656, 171)
+		fPoint(640, 176),
+		fPoint(648, 173),
+		fPoint(656, 181)
 	}, 1, GROUND));
 	AddChild(ground);
 
@@ -67,6 +68,9 @@ void Scene_Level1::OnCreateScene()
 
 	camera = new PlayerCamera("camera");
 	AddChild(camera);
+
+	EnemyCaveman* enemy = new EnemyCaveman("caveman_1", 400, 0);
+	AddChild(enemy);
 
 	gameController = new Entity("game_controller");
 	gameController->AddComponent(new GameControllerComponent());

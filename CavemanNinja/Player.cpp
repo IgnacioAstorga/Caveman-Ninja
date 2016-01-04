@@ -9,19 +9,21 @@
 #include "PlayerJumpComponent.h"
 #include "PlayerAnimator.h"
 #include "AnimatorMappingComponent.h"
+#include "WeaponTomahawk.h"
 
 void Player::OnCreate()
 {
 	// Añade las componentes de la entidad
 	ColliderComponent* colliderComponent;
-	AddComponent(new SpriteRendererComponent("assets/images/player_green.png", PlayerAnimator::Create(), -32, -64 + 14));
-	AddComponent(colliderComponent = new RectangleColliderComponent(28, 47, 0, -24 + 14, 0, NONE));
+	AddComponent(new SpriteRendererComponent("assets/images/player_green.png", PlayerAnimator::Create(), -32, -64));
+	AddComponent(colliderComponent = new RectangleColliderComponent(28, 47, 0, -24, 0, NONE));
 	AddComponent(new PlayerInputComponent(100.0f, WALL, colliderComponent, 0.1f));
 	AddComponent(colliderComponent = new CircleColliderComponent(1.0f, 0.0f, 0.0f, PLAYER, true));
 	AddComponent(new GravityAndCollisionWithGroundComponent(500.0f, GROUND, colliderComponent, 5.0f, 0.1f));
 	AddComponent(new PlayerJumpComponent(300.0f, 1.25f));
 	AddComponent(new MovementSimpleComponent());
 	AddComponent(new AnimatorMappingComponent());
+	AddComponent(new WeaponTomahawk());
 }
 
 void Player::OnDestroy()

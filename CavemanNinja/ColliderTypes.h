@@ -5,7 +5,10 @@ enum ColliderType
 {
 	NONE,
 	GROUND,
+	FLOOR,
 	WALL,
-	PLAYER
+	PLAYER,
+	ENEMY,
+	PLAYER_PROJECTILE
 };
 #endif	// __COLLIDERTYPES_H__

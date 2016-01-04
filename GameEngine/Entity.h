@@ -21,6 +21,7 @@ public:
 	virtual ~Entity();
 
 public:
+	Entity* Instantiate();
 	Entity* Instantiate(Scene* scene);		// Instantiate se debe llamar solo cuando se crea una entidad durante el juego
 	Entity* Instantiate(Entity* parent);	// En la preparación de la escena o para cambiar el padre de la entidad, utilizar los métodos AddChild/SetParent de la escena/entidad padre
 	void Destroy();

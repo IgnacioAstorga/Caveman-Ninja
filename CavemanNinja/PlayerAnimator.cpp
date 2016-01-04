@@ -16,13 +16,24 @@ PlayerAnimator* PlayerAnimator::Create()
 	BasicAnimation* idle = new BasicAnimation(0.0f);
 	idle->frames.push_back({ 0, 0, 64, 64 });
 
+	BasicAnimation* idleUp = new BasicAnimation(0.0f);
+	idleUp->frames.push_back({ 0, 256, 64, 64 });
+
+	BasicAnimation* attack = new BasicAnimation(16.0f, SDL_FLIP_NONE, false);
+	attack->frames.push_back({ 256, 0, 64, 64 });
+	attack->frames.push_back({ 320, 0, 64, 64 });
+
+	BasicAnimation* attackJump = new BasicAnimation(16.0f, SDL_FLIP_NONE, false);
+	attackJump->frames.push_back({ 384, 0, 64, 64 });
+	attackJump->frames.push_back({ 448, 0, 64, 64 });
+
 	BasicAnimation* run = new BasicAnimation(8.0f);
 	run->frames.push_back({ 64, 0, 64, 64 });
 	run->frames.push_back({ 128, 0, 64, 64 });
 	run->frames.push_back({ 192, 0, 64, 64 });
 	run->frames.push_back({ 0, 64, 64, 64 });
 
-	BasicAnimation* jump = new BasicAnimation(3.0f, SDL_FLIP_NONE, false);
+	BasicAnimation* jump = new BasicAnimation(6.0f, SDL_FLIP_NONE, false);
 	jump->frames.push_back({ 64, 64, 64, 64 });
 	jump->frames.push_back({ 128, 64, 64, 64 });
 
@@ -44,6 +55,9 @@ PlayerAnimator* PlayerAnimator::Create()
 
 	// Crea los estados del personaje
 	StateSwitcher<Animation>* idleState = new StateSwitcher<Animation>(idle);
+	StateSwitcher<Animation>* idleUpState = new StateSwitcher<Animation>(idleUp);
+	StateSwitcher<Animation>* attackState = new StateSwitcher<Animation>(attack);
+	StateSwitcher<Animation>* attackJumpState = new StateSwitcher<Animation>(attackJump);
 	StateSwitcher<Animation>* runState = new StateSwitcher<Animation>(run);
 	StateSwitcher<Animation>* jumpState = new StateSwitcher<Animation>(jump);
 	StateSwitcher<Animation>* longJumpStartState = new StateSwitcher<Animation>(longJumpStart);
@@ -55,14 +69,29 @@ PlayerAnimator* PlayerAnimator::Create()
 	idleState->AddStateTransition(new StateTransition<Animation>(jumpState, new FlagEqualsCondition("jumping", true)));
 	idleState->AddStateTransition(new StateTransition<Animation>(longJumpStartState, new FlagEqualsCondition("jumping_long", true)));
 	idleState->AddStateTransition(new StateTransition<Animation>(fallState, new FlagEqualsCondition("falling", true)));
+	idleState->AddStateTransition(new StateTransition<Animation>(idleUpState, new FlagEqualsCondition("looking_up", true)));
+	idleState->AddStateTransition(new StateTransition<Animation>(attackState, new FlagEqualsCondition("weapon_attack", true)));
+
+	idleUpState->AddStateTransition(new StateTransition<Animation>(runState, new FlagGreaterThanCondition("speedX_absolute", 0.0f)));
+	idleUpState->AddStateTransition(new StateTransition<Animation>(jumpState, new FlagEqualsCondition("jumping", true)));
+	idleUpState->AddStateTransition(new StateTransition<Animation>(longJumpStartState, new FlagEqualsCondition("jumping_long", true)));
+	idleUpState->AddStateTransition(new StateTransition<Animation>(fallState, new FlagEqualsCondition("falling", true)));
+	idleUpState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("looking_up", false)));
+	idleUpState->AddStateTransition(new StateTransition<Animation>(attackState, new FlagEqualsCondition("weapon_attack", true)));
+
+	attackState->AddStateTransition(new StateTransition<Animation>(idleState, new AnimationEndCondition()));
+
+	attackJumpState->AddStateTransition(new StateTransition<Animation>(jumpState, new AnimationEndCondition()));
 
 	runState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("speedX_absolute", 0.0f)));
 	runState->AddStateTransition(new StateTransition<Animation>(jumpState, new FlagEqualsCondition("jumping", true)));
 	runState->AddStateTransition(new StateTransition<Animation>(longJumpStartState, new FlagEqualsCondition("jumping_long", true)));
 	runState->AddStateTransition(new StateTransition<Animation>(fallState, new FlagEqualsCondition("falling", true)));
+	runState->AddStateTransition(new StateTransition<Animation>(attackState, new FlagEqualsCondition("weapon_attack", true)));
 
 	jumpState->AddStateTransition(new StateTransition<Animation>(fallState, new FlagEqualsCondition("falling", true)));
 	jumpState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("jumping", false)));
+	jumpState->AddStateTransition(new StateTransition<Animation>(attackJumpState, new FlagEqualsCondition("weapon_attack", true)));
 
 	longJumpStartState->AddStateTransition(new StateTransition<Animation>(longJumpState, new AnimationEndCondition()));
 	longJumpStartState->AddStateTransition(new StateTransition<Animation>(fallState, new FlagEqualsCondition("falling", true)));
@@ -72,6 +101,7 @@ PlayerAnimator* PlayerAnimator::Create()
 	longJumpState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("jumping_long", false)));
 
 	fallState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("falling", false)));
+	fallState->AddStateTransition(new StateTransition<Animation>(attackJumpState, new FlagEqualsCondition("weapon_attack", true)));
 
 	// Crea y devuelve el animator
 	return new PlayerAnimator(idleState);

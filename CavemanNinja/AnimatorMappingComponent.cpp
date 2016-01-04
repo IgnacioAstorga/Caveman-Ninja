@@ -47,6 +47,9 @@ bool AnimatorMappingComponent::OnPostUpdate()
 	float speed = entity->transform->GetLocalSpeed().x;
 	animator->SetFlagValue("speedX_absolute", abs(speed));
 
+	// Mapea si el personaje está mirando hacia arriba o no
+	animator->SetFlagValue("looking_up", jumpComponent->lookingUp);
+
 	// Mapea si el personaje está saltando o no
 	animator->SetFlagValue("jumping", jumpComponent->jumping && !jumpComponent->longJumping);
 	animator->SetFlagValue("jumping_long", jumpComponent->jumping && jumpComponent->longJumping);

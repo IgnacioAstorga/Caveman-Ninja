@@ -27,6 +27,8 @@ public:
 	void ChangeScene(Scene* scene);
 	void DestroyScene(Scene* scene);
 
+	Scene* GetCurrentScene();
+
 private:
 	Scene* currentScene;
 	Scene* nextScene;
