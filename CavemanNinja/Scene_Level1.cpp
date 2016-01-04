@@ -7,6 +7,7 @@
 #include "ColliderTypes.h"
 #include "Player.h"
 #include "PlayerCamera.h"
+#include "EnemyCaveman.h"
 
 void Scene_Level1::OnCreateScene()
 {
@@ -67,6 +68,9 @@ void Scene_Level1::OnCreateScene()
 
 	camera = new PlayerCamera("camera");
 	AddChild(camera);
+
+	EnemyCaveman* enemy = new EnemyCaveman("caveman_1", 400, 0);
+	AddChild(enemy);
 
 	gameController = new Entity("game_controller");
 	gameController->AddComponent(new GameControllerComponent());

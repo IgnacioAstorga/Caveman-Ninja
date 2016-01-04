@@ -58,6 +58,21 @@
     <ClCompile Include="WeaponGravityComponent.cpp">
       <Filter>Weapons\Components</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyCavemanAnimator.cpp">
+      <Filter>Enemies\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyCaveman.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="DieOnPlayerAttackComponent.cpp">
+      <Filter>Enemies\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyGravityComponent.cpp">
+      <Filter>Enemies\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyAnimatorMappingComponent.cpp">
+      <Filter>Enemies\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scenes">
@@ -92,6 +107,15 @@
     </Filter>
     <Filter Include="Weapons\Components">
       <UniqueIdentifier>{192825d0-8117-4bc6-a96f-d684b1b14bff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemies">
+      <UniqueIdentifier>{ee67c9d6-5b92-4bf1-80e9-21dfa9e056ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemies\Animations">
+      <UniqueIdentifier>{ca084787-0583-4b8e-b383-176378d540f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemies\Components">
+      <UniqueIdentifier>{881771b8-8434-44b8-a95e-76d31dac876a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +172,21 @@
     </ClInclude>
     <ClInclude Include="WeaponGravityComponent.h">
       <Filter>Weapons\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyCavemanAnimator.h">
+      <Filter>Enemies\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyCaveman.h">
+      <Filter>Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="DieOnPlayerAttackComponent.h">
+      <Filter>Enemies\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyGravityComponent.h">
+      <Filter>Enemies\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyAnimatorMappingComponent.h">
+      <Filter>Enemies\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
