@@ -27,7 +27,6 @@ bool PlayerJumpComponent::OnStart()
 		return false;
 
 	// Carga los efectos de sonido
-	jumpSound = App->audio->LoadFx("assets/sounds/player_jump.wav");
 	jumpLongSound = App->audio->LoadFx("assets/sounds/player_jump_long.wav");
 
 	return true;
@@ -56,11 +55,8 @@ bool PlayerJumpComponent::OnPreUpdate()
 	longJumping = lookingUp;
 
 	// Reproduce un sonido
-	if (jumping)
-		if (longJumping)
-			App->audio->PlayFx(jumpLongSound);
-		else
-			App->audio->PlayFx(jumpSound);
+	if (jumping && longJumping)
+		App->audio->PlayFx(jumpLongSound);
 
 	return true;
 }

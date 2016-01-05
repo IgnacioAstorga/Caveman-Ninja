@@ -119,10 +119,12 @@
     <ClCompile Include="AnimatorMappingComponent.cpp" />
     <ClCompile Include="CameraMovementComponent.cpp" />
     <ClCompile Include="DieOnPlayerAttackComponent.cpp" />
+    <ClCompile Include="EffectLifespanComponent.cpp" />
     <ClCompile Include="EnemyAnimatorMappingComponent.cpp" />
     <ClCompile Include="EnemyGravityComponent.cpp" />
     <ClCompile Include="EnemyCaveman.cpp" />
     <ClCompile Include="EnemyCavemanAnimator.cpp" />
+    <ClCompile Include="EnemyHitEffect.cpp" />
     <ClCompile Include="GameControllerComponent.cpp" />
     <ClCompile Include="GravityAndCollisionWithGroundComponent.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -134,6 +136,7 @@
     <ClCompile Include="Scene_Level1.cpp" />
     <ClCompile Include="CavemanNinjaApp.cpp" />
     <ClCompile Include="TomahawkAnimator.cpp" />
+    <ClCompile Include="WeaponDestroyOnCollisionComponent.cpp" />
     <ClCompile Include="WeaponGravityComponent.cpp" />
     <ClCompile Include="TomahawkProjectile.cpp" />
     <ClCompile Include="WeaponAnimatorMappingComponent.cpp" />
@@ -151,10 +154,12 @@
     <ClInclude Include="CameraMovementComponent.h" />
     <ClInclude Include="ColliderTypes.h" />
     <ClInclude Include="DieOnPlayerAttackComponent.h" />
+    <ClInclude Include="EffectLifespanComponent.h" />
     <ClInclude Include="EnemyAnimatorMappingComponent.h" />
     <ClInclude Include="EnemyCaveman.h" />
     <ClInclude Include="EnemyCavemanAnimator.h" />
     <ClInclude Include="EnemyGravityComponent.h" />
+    <ClInclude Include="EnemyHitEffect.h" />
     <ClInclude Include="GameControllerComponent.h" />
     <ClInclude Include="GravityAndCollisionWithGroundComponent.h" />
     <ClInclude Include="Player.h" />
@@ -164,6 +169,7 @@
     <ClInclude Include="PlayerJumpComponent.h" />
     <ClInclude Include="Scene_Level1.h" />
     <ClInclude Include="TomahawkAnimator.h" />
+    <ClInclude Include="WeaponDestroyOnCollisionComponent.h" />
     <ClInclude Include="WeaponGravityComponent.h" />
     <ClInclude Include="TomahawkProjectile.h" />
     <ClInclude Include="WeaponComponent.h" />

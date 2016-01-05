@@ -61,11 +61,14 @@ bool WeaponGravityComponent::OnCollisionEnter(Collider* self, Collider* other)
 		return true;
 
 	// Frena la caida de la entidad
-	if (!onGround)
-		lifespanComponent->Reset(0.2f);
 	entity->transform->SetSpeed(0.0f, 0.0f);
 	falling = false;
 	onGround = true;
+
+	// Desactiva este componente y el collider
+	this->Disable();
+	colliderComponent->GetCollider()->Disable();
+	lifespanComponent->Reset(0.2f);
 
 	// Recoloca la entidad
 	int count = 0;

@@ -28,5 +28,7 @@ public:
 	PlayerJumpComponent* jumpComponent;
 	float verticalTolerance;
 	float step_size;
+
+	unsigned int landSound;
 };
 #endif //__GRAVITYANDCOLLISIONWITHGROUNDCOMPONENT_H__

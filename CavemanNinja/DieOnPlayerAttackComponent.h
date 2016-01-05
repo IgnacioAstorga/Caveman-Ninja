@@ -12,6 +12,7 @@ public:
 	~DieOnPlayerAttackComponent();
 
 protected:
+	bool OnStart();
 	bool OnUpdate();
 
 	bool OnCollisionEnter(Collider* self, Collider* other);
@@ -25,5 +26,8 @@ public:
 	bool dead;
 	bool decaying;
 	ColliderComponent* colliderComponent;
+
+	unsigned int hitSound;
+	unsigned int dieSound;
 };
 #endif	// __DIEONPLAYERATTACKCOMPONENT_H__

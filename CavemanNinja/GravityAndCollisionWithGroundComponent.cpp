@@ -5,6 +5,7 @@
 #include "ColliderComponent.h"
 #include "Application.h"
 #include "ModuleTime.h"
+#include "ModuleAudio.h"
 #include "ModuleCollisions.h"
 #include "PlayerJumpComponent.h"
 #include "RectangleCollider.h"
@@ -27,6 +28,9 @@ bool GravityAndCollisionWithGroundComponent::OnStart()
 {
 	// Intenta encontrar el componente de salto de la entidad
 	jumpComponent = entity->FindComponent<PlayerJumpComponent>();
+
+	// Carga los efectos de sonido
+	landSound = App->audio->LoadFx("assets/sounds/player_jump_land.wav");
 
 	falling = true;	// Empieza "callendo", en el primer frame se comprobará si está posado o no
 	return colliderComponent != NULL;	// Si no ha especificado collider o flag de caída, da error
@@ -72,6 +76,8 @@ bool GravityAndCollisionWithGroundComponent::OnCollisionEnter(Collider* self, Co
 	falling = false;
 	if (jumpComponent != NULL)
 	{
+		if (jumpComponent->jumping)
+			App->audio->PlayFx(landSound);
 		jumpComponent->jumping = false;
 		jumpComponent->longJumping = false;
 	}

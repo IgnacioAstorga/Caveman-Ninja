@@ -73,6 +73,15 @@
     <ClCompile Include="EnemyAnimatorMappingComponent.cpp">
       <Filter>Enemies\Components</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyHitEffect.cpp">
+      <Filter>Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectLifespanComponent.cpp">
+      <Filter>Effects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponDestroyOnCollisionComponent.cpp">
+      <Filter>Weapons\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scenes">
@@ -116,6 +125,12 @@
     </Filter>
     <Filter Include="Enemies\Components">
       <UniqueIdentifier>{881771b8-8434-44b8-a95e-76d31dac876a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effects">
+      <UniqueIdentifier>{943a5d97-6e9d-407f-acfe-59076d179f0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effects\Components">
+      <UniqueIdentifier>{5bc1ae8a-7886-4a34-bcc4-71ca35a5ee25}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -187,6 +202,15 @@
     </ClInclude>
     <ClInclude Include="EnemyAnimatorMappingComponent.h">
       <Filter>Enemies\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyHitEffect.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectLifespanComponent.h">
+      <Filter>Effects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponDestroyOnCollisionComponent.h">
+      <Filter>Weapons\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

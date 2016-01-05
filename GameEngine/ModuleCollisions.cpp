@@ -47,13 +47,16 @@ update_status ModuleCollisions::Update()
 		if ((*it)->IsEnabled())
 			(*it)->Update();
 
-	// Para cada collider, comprueba si ha habido collisiones con los demás (lo comprueba sin reflexividad)
+	// Para cada collider, comprueba si ha habido collisiones con los demás (lo comprueba con reflexividad)
 	for (list<Collider*>::iterator it = colliders.begin(); it != colliders.end(); ++it)
 		if ((*it)->IsEnabled())
-			for (list<Collider*>::iterator other = colliders.begin(); other != colliders.end(); ++other)
+			for (list<Collider*>::iterator other = it; other != colliders.end(); ++other)
 				if (*other != *it && (*other)->IsEnabled())
 					if ((*it)->CollidesWith(*other))
+					{
 						(*it)->NotifyCollision(*other);
+						(*other)->NotifyCollision(*it);
+					}
 
 	// Hace Update a los colliders para que comprueben si alguna colisión ha dejado de producirse
 	for (list<Collider*>::iterator it = colliders.begin(); it != colliders.end(); ++it)

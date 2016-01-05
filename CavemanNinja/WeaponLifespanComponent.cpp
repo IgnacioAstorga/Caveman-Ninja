@@ -32,7 +32,7 @@ bool WeaponLifespanComponent::OnPostUpdate()
 
 void WeaponLifespanComponent::Reset()
 {
-	Reset(duration);
+	Reset(lifeTime);
 }
 
 void WeaponLifespanComponent::Reset(float lifeTime)

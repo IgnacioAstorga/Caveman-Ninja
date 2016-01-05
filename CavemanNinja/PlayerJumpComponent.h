@@ -22,7 +22,7 @@ public:
 	bool jumping;
 	bool longJumping;
 	bool lookingUp;
-	unsigned int jumpSound;
+
 	unsigned int jumpLongSound;
 };
 #endif //__PLAYERJUMPCOMPONENT_H__

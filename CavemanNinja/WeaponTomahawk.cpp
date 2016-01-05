@@ -13,5 +13,5 @@ Entity* WeaponTomahawk::GetWeaponProjectile(fPoint position, int projectileNumbe
 
 unsigned int WeaponTomahawk::GetFireSound()
 {
-	return App->audio->LoadFx("assets/sounds/player_fire_tomahawk.wav");
+	return App->audio->LoadFx("assets/sounds/player_attack.wav");
 }
