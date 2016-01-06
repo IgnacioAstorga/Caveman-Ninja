@@ -44,7 +44,7 @@ bool DieOnPlayerAttackComponent::OnUpdate()
 bool DieOnPlayerAttackComponent::OnCollisionEnter(Collider * self, Collider * other)
 {
 	// Comprueba si es el collider adecuado y si es un ataque del jugador
-	if (self != colliderComponent->GetCollider() || other->GetType() != PLAYER_PROJECTILE)
+	if (self != colliderComponent->GetCollider() || other->GetType() != PLAYER_ATTACK)
 		return true;
 
 	// Desactiva el collider y mata al personaje

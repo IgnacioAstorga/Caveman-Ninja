@@ -22,9 +22,6 @@
     <ClCompile Include="PlayerCamera.cpp">
       <Filter>Player</Filter>
     </ClCompile>
-    <ClCompile Include="GravityAndCollisionWithGroundComponent.cpp">
-      <Filter>Player\Components</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerInputComponent.cpp">
       <Filter>Player\Components</Filter>
     </ClCompile>
@@ -81,6 +78,18 @@
     </ClCompile>
     <ClCompile Include="WeaponDestroyOnCollisionComponent.cpp">
       <Filter>Weapons\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerGravityComponent.cpp">
+      <Filter>Player\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerHitEffect.cpp">
+      <Filter>Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerLifeComponent.cpp">
+      <Filter>Player\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerHarvestEffect.cpp">
+      <Filter>Effects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -152,9 +161,6 @@
     <ClInclude Include="PlayerCamera.h">
       <Filter>Player</Filter>
     </ClInclude>
-    <ClInclude Include="GravityAndCollisionWithGroundComponent.h">
-      <Filter>Player\Components</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerInputComponent.h">
       <Filter>Player\Components</Filter>
     </ClInclude>
@@ -211,6 +217,18 @@
     </ClInclude>
     <ClInclude Include="WeaponDestroyOnCollisionComponent.h">
       <Filter>Weapons\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerLifeComponent.h">
+      <Filter>Player\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerGravityComponent.h">
+      <Filter>Player\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHitEffect.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHarvestEffect.h">
+      <Filter>Effects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

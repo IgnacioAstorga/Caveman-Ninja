@@ -31,10 +31,7 @@ bool PlayerInputComponent::OnPreUpdate()
 
 	// Comprueba si está parado
 	if (stopped)
-	{
-		entity->transform->speed.x = 0.0f;
 		return true;
-	}
 
 	// Lee las pulsaciones de las teclas A y D y las mapea a la velocidad
 	KeyState left = App->input->GetKey(SDL_SCANCODE_A);

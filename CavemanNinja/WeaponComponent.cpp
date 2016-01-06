@@ -2,7 +2,7 @@
 #include "Entity.h"
 #include "PlayerInputComponent.h"
 #include "PlayerJumpComponent.h"
-#include "GravityAndCollisionWithGroundComponent.h"
+#include "PlayerGravityComponent.h"
 #include "SpriteRendererComponent.h"
 #include "Application.h"
 #include "ModuleTime.h"
@@ -51,6 +51,10 @@ bool WeaponComponent::OnPreUpdate()
 {
 	currentDelay += App->time->DeltaTime();
 
+	// Si el personaje esta detenido, no puede disparar
+	if (inputComponent->stopped)
+		return true;
+
 	// Comprueba si se ha pulsado el botón
 	KeyState keyState = App->input->GetMouseButtonDown(SDL_BUTTON_LEFT);
 	if (keyState != KEY_UP)
@@ -62,7 +66,10 @@ bool WeaponComponent::OnPreUpdate()
 
 	// Frena al personaje
 	if (!jumpComponent->jumping && !jumpComponent->fallingComponent->falling)
+	{
+		entity->transform->speed.x = 0.0f;
 		inputComponent->Stop(delay);
+	}
 
 	// Determina la posición del disparo
 	fPoint position = entity->transform->GetGlobalPosition();

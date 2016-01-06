@@ -1,8 +1,10 @@
 #include "AnimatorMappingComponent.h"
 #include "SpriteRendererComponent.h"
 #include "Animator.h"
-#include "GravityAndCollisionWithGroundComponent.h"
+#include "PlayerGravityComponent.h"
 #include "PlayerJumpComponent.h"
+#include "PlayerInputComponent.h"
+#include "PlayerLifeComponent.h"
 
 AnimatorMappingComponent::AnimatorMappingComponent()
 {
@@ -26,13 +28,23 @@ bool AnimatorMappingComponent::OnStart()
 		return false;
 
 	// Recupera el componente de gravedad de la entidad
-	gravityComponent = entity->FindComponent<GravityAndCollisionWithGroundComponent>();
+	gravityComponent = entity->FindComponent<PlayerGravityComponent>();
 	if (gravityComponent == NULL)
 		return false;
 
 	// Recupera el componente de salto de la entidad
 	jumpComponent = entity->FindComponent<PlayerJumpComponent>();
 	if (jumpComponent == NULL)
+		return false;
+
+	// Recupera el componente de movimiento de la entidad
+	inputComponent = entity->FindComponent<PlayerInputComponent>();
+	if (inputComponent == NULL)
+		return false;
+
+	// Recupera el componente de vida de la entidad
+	lifeComponent = entity->FindComponent<PlayerLifeComponent>();
+	if (lifeComponent == NULL)
 		return false;
 
 	return true;
@@ -57,11 +69,39 @@ bool AnimatorMappingComponent::OnPostUpdate()
 	// Mapea si el personaje está callendo o no
 	animator->SetFlagValue("falling", gravityComponent->falling);
 
-	// Flipea el animator según la velocidad
+	// Mapea si el personaje está detenido o no
+	animator->SetFlagValue("stopped", inputComponent->IsStopped());
+
+	// Mapea si el personaje está muerto o no
+	animator->SetFlagValue("dead", lifeComponent->dead);
+
+	// Mapea si el personaje se ha muerto de hambre o no
+	animator->SetFlagValue("dead_harvest", lifeComponent->dead && lifeComponent->deathCause == HARVEST);
+
+	// Mapea si el personaje está muriendo o no
+	animator->SetFlagValue("decaying", lifeComponent->decaying && lifeComponent->deathCause == DAMAGE);
+
+	// Mapea si el personaje está en el suelo o no
+	animator->SetFlagValue("on_ground", gravityComponent->onGround);
+
+	// Mapea si el personaje ha sido herido o no
+	bool hitted = lifeComponent->hit && inputComponent->IsStopped();
+	bool hitDirection;
 	if (speed > 0)
-		animator->SetFlip(SDL_FLIP_NONE);
-	else if (speed < 0 )
-		animator->SetFlip(SDL_FLIP_HORIZONTAL);
+		hitDirection = inputComponent->orientation == FORWARD;
+	else
+		hitDirection = inputComponent->orientation == BACKWARD;
+	animator->SetFlagValue("hit_back", hitted && hitDirection);
+	animator->SetFlagValue("hit_front", hitted && !hitDirection);
+
+	// Flipea el animator según la velocidad
+	if (!hitted)
+	{
+		if (speed > 0)
+			animator->SetFlip(SDL_FLIP_NONE);
+		else if (speed < 0)
+			animator->SetFlip(SDL_FLIP_HORIZONTAL);
+	}
 
 	return true;
 }

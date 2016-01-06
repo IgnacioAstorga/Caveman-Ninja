@@ -24,6 +24,7 @@ public:
 public:
 	fPoint GetPointGlobalCoordinates(unsigned int index);
 	RectangleCollider CreateSegmentCollider(int leftBoundIndex);
+	fPoint GetCenter();
 
 public:
 	float thickness;

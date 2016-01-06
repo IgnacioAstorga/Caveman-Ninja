@@ -4,8 +4,10 @@
 #include "Component.h"
 
 class Animator;
-class GravityAndCollisionWithGroundComponent;
+class PlayerGravityComponent;
 class PlayerJumpComponent;
+class PlayerInputComponent;
+class PlayerLifeComponent;
 
 class AnimatorMappingComponent : public Component
 {
@@ -19,7 +21,9 @@ protected:
 
 public:
 	Animator* animator;
-	GravityAndCollisionWithGroundComponent* gravityComponent;
+	PlayerGravityComponent* gravityComponent;
 	PlayerJumpComponent* jumpComponent;
+	PlayerInputComponent* inputComponent;
+	PlayerLifeComponent* lifeComponent;
 };
 #endif // __ANIMATORMAPPINGCOMPONENT_H__

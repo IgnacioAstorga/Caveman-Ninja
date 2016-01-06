@@ -3,7 +3,8 @@
 
 #include "Component.h"
 
-class GravityAndCollisionWithGroundComponent;
+class PlayerGravityComponent;
+class PlayerInputComponent;
 
 class PlayerJumpComponent : public Component
 {
@@ -18,10 +19,12 @@ protected:
 public:
 	float jumpSpeed;
 	float longJumpMultiplier;
-	GravityAndCollisionWithGroundComponent* fallingComponent;
 	bool jumping;
 	bool longJumping;
 	bool lookingUp;
+
+	PlayerGravityComponent* fallingComponent;
+	PlayerInputComponent* inputComponent;
 
 	unsigned int jumpLongSound;
 };
