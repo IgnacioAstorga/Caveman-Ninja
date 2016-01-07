@@ -56,6 +56,7 @@ public:
 	virtual bool CheckCollision(CircleTraceCollider* other) = 0;
 	virtual bool CheckCollision(RectangleCollider* other) = 0;
 	virtual bool CheckCollision(LineCollider* other) = 0;
+	virtual fPoint GetCenter() = 0;
 
 public:
 	bool enabled;

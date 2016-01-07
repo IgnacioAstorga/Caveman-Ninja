@@ -10,18 +10,18 @@ TomahawkAnimator::TomahawkAnimator(StateSwitcher<Animation>* initialState)
 TomahawkAnimator* TomahawkAnimator::Create()
 {
 	// Crea las animaciones del arma
-	BasicAnimation* spin = new BasicAnimation(8.0f);
-	spin->frames.push_back({ 0, 0, 32, 32 });
-	spin->frames.push_back({ 32, 0, 32, 32 });
-	spin->frames.push_back({ 64, 0, 32, 32 });
-	spin->frames.push_back({ 96, 0, 32, 32 });
-	spin->frames.push_back({ 0, 32, 32, 32 });
-	spin->frames.push_back({ 32, 32, 32, 32 });
-	spin->frames.push_back({ 64, 32, 32, 32 });
-	spin->frames.push_back({ 96, 32, 32, 32 });
+	BasicAnimation* spin = new BasicAnimation(128, 64, 4, 2, 8.0f);
+	spin->frames.push_back({ 0, 0 });
+	spin->frames.push_back({ 1, 0 });
+	spin->frames.push_back({ 2, 0 });
+	spin->frames.push_back({ 3, 0 });
+	spin->frames.push_back({ 0, 1 });
+	spin->frames.push_back({ 1, 1 });
+	spin->frames.push_back({ 2, 1 });
+	spin->frames.push_back({ 3, 1 });
 
-	BasicAnimation* idle = new BasicAnimation(0.0f);
-	idle->frames.push_back({ 32, 32, 32, 32 });
+	BasicAnimation* idle = new BasicAnimation(128, 64, 4, 2, 0.0f, false);
+	idle->frames.push_back({ 1, 1 });
 
 	// Crea los estados del personaje
 	StateSwitcher<Animation>* spinState = new StateSwitcher<Animation>(spin);

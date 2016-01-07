@@ -1,5 +1,6 @@
 #include "PlayerJumpComponent.h"
-#include "GravityAndCollisionWithGroundComponent.h"
+#include "PlayerGravityComponent.h"
+#include "PlayerInputComponent.h"
 #include "Entity.h"
 #include "Transform.h"
 #include "Application.h"
@@ -22,12 +23,16 @@ bool PlayerJumpComponent::OnStart()
 	jumping = false;
 
 	// Intenta recuperar el componente donde comprobar si se está callendo
-	fallingComponent = entity->FindComponent<GravityAndCollisionWithGroundComponent>();
+	fallingComponent = entity->FindComponent<PlayerGravityComponent>();
 	if (fallingComponent == NULL)
 		return false;
 
+	// Intenta recuperar el componente donde comprobar si está detenido
+	inputComponent = entity->FindComponent<PlayerInputComponent>();
+	if (inputComponent == NULL)
+		return false;
+
 	// Carga los efectos de sonido
-	jumpSound = App->audio->LoadFx("assets/sounds/player_jump.wav");
 	jumpLongSound = App->audio->LoadFx("assets/sounds/player_jump_long.wav");
 
 	return true;
@@ -38,6 +43,9 @@ bool PlayerJumpComponent::OnPreUpdate()
 	// Primero comprueba si ela entidad está callendo o saltando
 	if (fallingComponent->falling || jumping)
 		return true;	// No se puede saltar mientras se cae
+
+	if (inputComponent->IsStopped())
+		return true;	// No se puede saltar si el personaje está detenido
 
 	// Comprueba si el personaje esta miarando hacia arriba
 	KeyState keyState = App->input->GetKey(SDL_SCANCODE_W);
@@ -56,11 +64,8 @@ bool PlayerJumpComponent::OnPreUpdate()
 	longJumping = lookingUp;
 
 	// Reproduce un sonido
-	if (jumping)
-		if (longJumping)
-			App->audio->PlayFx(jumpLongSound);
-		else
-			App->audio->PlayFx(jumpSound);
+	if (jumping && longJumping)
+		App->audio->PlayFx(jumpLongSound);
 
 	return true;
 }

@@ -83,14 +83,14 @@ StateSwitcher<T>* StateMachine<T>::SetFlagValue(string flag, bool value)
 template<class T>
 StateSwitcher<T>* StateMachine<T>::SetFlagValue(string flag, int value)
 {
-	flags[flag] = value;
+	flags[flag] = (float) value;
 	StateSwitcher<T>* newStateSwitcher = currentStateSwitcher->Process(flags);
 	if (newStateSwitcher != currentStateSwitcher)
 	{
 		OnStateTransition(currentStateSwitcher->GetActualState(), newStateSwitcher->GetActualState());
 		currentStateSwitcher = newStateSwitcher;
 	}
-	return currentStateSwitcher
+	return currentStateSwitcher;
 }
 
 template<class T>

@@ -118,3 +118,9 @@ RectangleCollider LineCollider::CreateSegmentCollider(int leftBoundIndex)
 	// Crea y devuelve el rectángulo adecuado
 	return RectangleCollider(NULL, transform, width, height, center.x, center.y, rotation, type);
 }
+
+fPoint LineCollider::GetCenter()
+{
+	// Se limita a devolver la posición de transform
+	return transform->GetGlobalPosition();
+}

@@ -1,4 +1,5 @@
 #include "GUISpriteRendererComponent.h"
+#include "GUISpriteRendererComponent.h"
 #include "Application.h"
 #include "ModuleTextures.h"
 
@@ -17,4 +18,9 @@ SDL_Texture * GUISpriteRendererComponent::OnLoadTexture()
 {
 	// Carga la textura adecuada
 	return App->textures->Load(fileName.c_str());
+}
+
+Animation * GUISpriteRendererComponent::GetAnimation()
+{
+	return animation;
 }

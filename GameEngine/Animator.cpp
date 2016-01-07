@@ -13,17 +13,23 @@ Animator::~Animator() {}
 
 bool Animator::Start()
 {
+	// Inicializa la animación actual
+	bool ret = GetActualState()->Start();
+
 	// Llama al delegado
-	return OnStart();
+	return OnStart() && ret;
 }
 
 bool Animator::CleanUp()
 {
+	// Limpia la animación actual
+	bool ret = GetActualState()->CleanUp();
+
 	// Llama al delegado
-	return OnCleanUp();
+	return OnCleanUp() && ret;
 }
 
-SDL_Rect& Animator::GetCurrentFrame()
+SDL_Rect Animator::GetCurrentFrame()
 {
 	// Devuelve la frame actual de la animación actual
 	return GetActualState()->GetCurrentFrame();

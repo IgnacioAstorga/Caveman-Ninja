@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "PlayerCamera.h"
 #include "EnemyCaveman.h"
+#include "UserInterfaceComponent.h"
 
 void Scene_Level1::OnCreateScene()
 {
@@ -72,7 +73,11 @@ void Scene_Level1::OnCreateScene()
 	EnemyCaveman* enemy = new EnemyCaveman("caveman_1", 400, 0);
 	AddChild(enemy);
 
-	gameController = new Entity("game_controller");
+	gui = new Entity("gui", 0, 0);
+	gui->AddComponent(new UserInterfaceComponent());
+	AddChild(gui);
+
+	gameController = new Entity("game_controller", 100, 100);
 	gameController->AddComponent(new GameControllerComponent());
 	AddChild(gameController);
 }

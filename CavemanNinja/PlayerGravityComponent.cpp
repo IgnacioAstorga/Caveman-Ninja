@@ -1,15 +1,16 @@
-#include "GravityAndCollisionWithGroundComponent.h"
+#include "PlayerGravityComponent.h"
 #include "Entity.h"
 #include "Transform.h"
 #include "Collider.h"
 #include "ColliderComponent.h"
 #include "Application.h"
 #include "ModuleTime.h"
+#include "ModuleAudio.h"
 #include "ModuleCollisions.h"
 #include "PlayerJumpComponent.h"
 #include "RectangleCollider.h"
 
-GravityAndCollisionWithGroundComponent::GravityAndCollisionWithGroundComponent(float gravity, ColliderType groundColliderType, ColliderComponent* colliderComponent, float verticalTolerance, float step_size)
+PlayerGravityComponent::PlayerGravityComponent(float gravity, ColliderType groundColliderType, ColliderComponent* colliderComponent, float verticalTolerance, float step_size)
 {
 	this->gravity = gravity;
 	this->groundColliderType = groundColliderType;
@@ -18,28 +19,36 @@ GravityAndCollisionWithGroundComponent::GravityAndCollisionWithGroundComponent(f
 	this->step_size = step_size;
 }
 
-GravityAndCollisionWithGroundComponent::~GravityAndCollisionWithGroundComponent()
+PlayerGravityComponent::~PlayerGravityComponent()
 {
 	// En principio no hace nada
 }
 
-bool GravityAndCollisionWithGroundComponent::OnStart()
+bool PlayerGravityComponent::OnStart()
 {
 	// Intenta encontrar el componente de salto de la entidad
 	jumpComponent = entity->FindComponent<PlayerJumpComponent>();
 
+	// Carga los efectos de sonido
+	landSound = App->audio->LoadFx("assets/sounds/player_jump_land.wav");
+
 	falling = true;	// Empieza "callendo", en el primer frame se comprobará si está posado o no
+	onGround = false;
 	return colliderComponent != NULL;	// Si no ha especificado collider o flag de caída, da error
 }
 
-bool GravityAndCollisionWithGroundComponent::OnUpdate()
+bool PlayerGravityComponent::OnUpdate()
 {
+	onGround = false;
 	if (!falling && (jumpComponent == NULL || !jumpComponent->jumping))
 	{
 		Collider* collisionChecker = new RectangleCollider(NULL, entity->transform, 0, verticalTolerance);
 		list<Collider*> collisions = App->collisions->CheckCollisions(collisionChecker, GROUND);
 		if (!collisions.empty())
+		{
 			entity->transform->Move(0, verticalTolerance);
+			onGround = true;
+		}
 		RELEASE(collisionChecker);
 	}
 
@@ -53,7 +62,7 @@ bool GravityAndCollisionWithGroundComponent::OnUpdate()
 	return true;
 }
 
-bool GravityAndCollisionWithGroundComponent::OnCollisionEnter(Collider* self, Collider* other)
+bool PlayerGravityComponent::OnCollisionEnter(Collider* self, Collider* other)
 {
 	// Primero, detecta si la colisión es con el suelo
 	if (other->GetType() != groundColliderType && other->GetType() != FLOOR)
@@ -70,8 +79,11 @@ bool GravityAndCollisionWithGroundComponent::OnCollisionEnter(Collider* self, Co
 	// Frena la caida de la entidad
 	entity->transform->SetSpeed(entity->transform->GetLocalSpeed().x, 0.0f);
 	falling = false;
+	onGround = true;
 	if (jumpComponent != NULL)
 	{
+		if (jumpComponent->jumping)
+			App->audio->PlayFx(landSound);
 		jumpComponent->jumping = false;
 		jumpComponent->longJumping = false;
 	}
@@ -86,7 +98,7 @@ bool GravityAndCollisionWithGroundComponent::OnCollisionEnter(Collider* self, Co
 	return true;
 }
 
-bool GravityAndCollisionWithGroundComponent::OnCollisionStay(Collider * self, Collider * other)
+bool PlayerGravityComponent::OnCollisionStay(Collider * self, Collider * other)
 {
 	return OnCollisionEnter(self, other);
 }

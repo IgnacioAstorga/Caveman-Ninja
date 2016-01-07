@@ -36,4 +36,6 @@ public:
 	SDL_Texture* circle;
 	SDL_Texture* square;
 };
+
+extern bool DEBUG;
 #endif // __MODULECOLLISIONS_H__
