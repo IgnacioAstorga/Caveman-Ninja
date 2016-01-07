@@ -100,6 +100,12 @@
     <ClCompile Include="UserInterfaceComponent.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="GUIPortraitComponent.cpp">
+      <Filter>GUI\Portrait</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIPortrait.cpp">
+      <Filter>GUI\Portrait</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scenes">
@@ -155,6 +161,9 @@
     </Filter>
     <Filter Include="GUI\Lifebar">
       <UniqueIdentifier>{82e28d43-14c2-4011-85f1-437d7fafc0da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Portrait">
+      <UniqueIdentifier>{595410ac-86ef-4c60-a8a6-9d88ab257223}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -253,6 +262,12 @@
     </ClInclude>
     <ClInclude Include="UserInterfaceComponent.h">
       <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIPortraitComponent.h">
+      <Filter>GUI\Portrait</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIPortrait.h">
+      <Filter>GUI\Portrait</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

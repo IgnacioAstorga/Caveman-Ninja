@@ -16,5 +16,6 @@ protected:
 
 public:
 	Entity* lifebar;
+	Entity* portrait;
 };
 #endif	// __USERINTERFACECOMPONENT_H__
