@@ -21,7 +21,7 @@ enum LifebarPointColor
 class GUILifebarComponent : public Component
 {
 public:
-	GUILifebarComponent();
+	GUILifebarComponent(float representedIncreaseSpeed);
 	virtual ~GUILifebarComponent();
 
 protected:
@@ -32,5 +32,9 @@ protected:
 public:
 	PlayerLifeComponent* lifeComponent;
 	vector<GUILifebarPoint*> lifebarPoints;
+
+private:
+	float representedLifePoints;
+	float representedIncreaseSpeed;
 };
 #endif //__ENEMYGRAVITYCOMPONENT_H__

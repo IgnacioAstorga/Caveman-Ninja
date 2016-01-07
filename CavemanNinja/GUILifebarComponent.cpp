@@ -6,10 +6,12 @@
 #include "GUILifebarPoint.h"
 #include "GUISpriteRendererComponent.h"
 #include "Animator.h"
+#include "Application.h"
+#include "ModuleTime.h"
 
-GUILifebarComponent::GUILifebarComponent()
+GUILifebarComponent::GUILifebarComponent(float representedIncreaseSpeed)
 {
-	// En principio no hace nada
+	this->representedIncreaseSpeed = representedIncreaseSpeed;
 }
 
 GUILifebarComponent::~GUILifebarComponent()
@@ -30,6 +32,9 @@ bool GUILifebarComponent::OnStart()
 		lifebarPoints.push_back(point);
 	}
 
+	// Establece los puntos de vida representados
+	representedLifePoints = lifeComponent->currentLifePoints;
+
 	return true;
 }
 
@@ -47,6 +52,20 @@ bool GUILifebarComponent::OnCleanUp()
 
 bool GUILifebarComponent::OnPostUpdate()
 {
+	// Actualiza los puntos de vida representados
+	if (representedLifePoints < lifeComponent->currentLifePoints)
+	{
+		representedLifePoints += representedIncreaseSpeed * App->time->DeltaTime();
+		if (representedLifePoints > lifeComponent->currentLifePoints)
+			representedLifePoints = (float) lifeComponent->currentLifePoints;
+	}
+	else if (representedLifePoints > lifeComponent->currentLifePoints)
+	{
+		representedLifePoints -= representedIncreaseSpeed * App->time->DeltaTime();
+		if (representedLifePoints < lifeComponent->currentLifePoints)
+			representedLifePoints = (float)lifeComponent->currentLifePoints;
+	}
+
 	// Determina el color de la barra de vida
 	LifebarPointColor color;
 	if(lifeComponent->currentLifePoints <= lifeComponent->maxLifePoints / 3)
@@ -65,7 +84,7 @@ bool GUILifebarComponent::OnPostUpdate()
 			return false;
 
 		// Lo colorea de forma adecuada
-		if (i < lifeComponent->currentLifePoints)
+		if (i < representedLifePoints)
 			animator->SetFlagValue("color", color);
 		else
 			animator->SetFlagValue("color", EMPTY);
