@@ -91,6 +91,15 @@
     <ClCompile Include="PlayerHarvestEffect.cpp">
       <Filter>Effects</Filter>
     </ClCompile>
+    <ClCompile Include="GUILifebarComponent.cpp">
+      <Filter>GUI\Lifebar</Filter>
+    </ClCompile>
+    <ClCompile Include="GUILifebarPoint.cpp">
+      <Filter>GUI\Lifebar</Filter>
+    </ClCompile>
+    <ClCompile Include="UserInterfaceComponent.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scenes">
@@ -140,6 +149,12 @@
     </Filter>
     <Filter Include="Effects\Components">
       <UniqueIdentifier>{5bc1ae8a-7886-4a34-bcc4-71ca35a5ee25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{7ab74bea-3f29-4a19-8118-9fde2222999b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Lifebar">
+      <UniqueIdentifier>{82e28d43-14c2-4011-85f1-437d7fafc0da}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -229,6 +244,15 @@
     </ClInclude>
     <ClInclude Include="PlayerHarvestEffect.h">
       <Filter>Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="GUILifebarComponent.h">
+      <Filter>GUI\Lifebar</Filter>
+    </ClInclude>
+    <ClInclude Include="GUILifebarPoint.h">
+      <Filter>GUI\Lifebar</Filter>
+    </ClInclude>
+    <ClInclude Include="UserInterfaceComponent.h">
+      <Filter>GUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

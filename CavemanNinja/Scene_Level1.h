@@ -3,8 +3,6 @@
 
 #include "Scene.h"
 
-class Player;
-
 class Scene_Level1 : public Scene
 {
 public:
@@ -22,6 +20,7 @@ private:
 	Entity* backgroundSky;
 	Entity* backgroundMountains;
 	Entity* backgroundTrees;
-	Player* player;
+	Entity* gui;
+	Entity* player;
 };
 #endif	// __SCENE_LEVEL1_H__

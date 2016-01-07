@@ -10,7 +10,7 @@ class GUITextureRendererComponent : public GUIComponent
 {
 public:
 	GUITextureRendererComponent(Animation* animation = nullptr, float offsetX = 0.0f, float offsetY = 0.0f, GUILocation location = ABSOLUTE, bool start_enabled = true);
-	~GUITextureRendererComponent();
+	virtual ~GUITextureRendererComponent();
 
 	bool GUIStart();
 	bool GUICleanUp();

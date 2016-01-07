@@ -14,7 +14,7 @@ class GUITextRendererComponent : public GUITextureRendererComponent
 {
 public:
 	GUITextRendererComponent(string text, string fontName, unsigned int size, Color color = WHITE, float offsetX = 0.0f, float offsetY = 0.0f, GUILocation location = ABSOLUTE, bool start_enabled = true);
-	~GUITextRendererComponent();
+	virtual ~GUITextRendererComponent();
 
 protected:
 	SDL_Texture* OnLoadTexture();

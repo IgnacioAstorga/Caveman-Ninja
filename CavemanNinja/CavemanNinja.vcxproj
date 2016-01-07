@@ -126,6 +126,9 @@
     <ClCompile Include="EnemyCavemanAnimator.cpp" />
     <ClCompile Include="EnemyHitEffect.cpp" />
     <ClCompile Include="GameControllerComponent.cpp" />
+    <ClCompile Include="UserInterfaceComponent.cpp" />
+    <ClCompile Include="GUILifebarComponent.cpp" />
+    <ClCompile Include="GUILifebarPoint.cpp" />
     <ClCompile Include="PlayerGravityComponent.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -164,6 +167,9 @@
     <ClInclude Include="EnemyGravityComponent.h" />
     <ClInclude Include="EnemyHitEffect.h" />
     <ClInclude Include="GameControllerComponent.h" />
+    <ClInclude Include="UserInterfaceComponent.h" />
+    <ClInclude Include="GUILifebarComponent.h" />
+    <ClInclude Include="GUILifebarPoint.h" />
     <ClInclude Include="PlayerGravityComponent.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerAnimator.h" />
