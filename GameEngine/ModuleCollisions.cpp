@@ -4,6 +4,8 @@
 #include "Application.h"
 #include "ModuleTextures.h"
 
+bool DEBUG = false;
+
 ModuleCollisions::ModuleCollisions(bool start_enabled) : Module(start_enabled)
 {
 	// No hace nada

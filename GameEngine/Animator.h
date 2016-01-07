@@ -16,7 +16,7 @@ public:
 	bool CleanUp();
 
 public:
-	SDL_Rect& GetCurrentFrame();
+	SDL_Rect GetCurrentFrame();
 	SDL_RendererFlip GetFlip();
 	void SetFlip(SDL_RendererFlip flip);
 	void Increment(float amount);

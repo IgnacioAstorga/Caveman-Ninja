@@ -2,8 +2,12 @@
 
 #include "SDL.h"
 
-BasicAnimation::BasicAnimation(float speed, SDL_RendererFlip flip, bool loop, bool start_enabled) : enabled(start_enabled)
+BasicAnimation::BasicAnimation(int width, int height, int columns, int rows, float speed, bool loop, SDL_RendererFlip flip, bool start_enabled) : enabled(start_enabled)
 {
+	this->width = width;
+	this->height = height;
+	this->rows = rows;
+	this->columns = columns;
 	this->speed = speed;
 	this->flip = flip;
 	this->loop = loop;
@@ -13,12 +17,16 @@ bool BasicAnimation::Start()
 {
 	current_frame = 0.0f;
 	finished = false;
+	frameWidth = width / columns;
+	frameHeight = height / rows;
 	return true;
 }
 
-SDL_Rect& BasicAnimation::GetCurrentFrame()
+SDL_Rect BasicAnimation::GetCurrentFrame()
 {
-	return frames[(int)current_frame];
+	iPoint frame = frames[(int)current_frame];
+	SDL_Rect rect { frame.x * frameWidth, frame.y * frameHeight, frameWidth, frameHeight };
+	return rect;
 }
 
 SDL_RendererFlip BasicAnimation::GetFlip()

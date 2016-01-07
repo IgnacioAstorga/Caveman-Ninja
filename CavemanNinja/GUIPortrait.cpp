@@ -10,14 +10,14 @@
 void GUIPortrait::OnCreate()
 {
 	// Crea las animaciones
-	BasicAnimation* idle = new BasicAnimation(0.0f, SDL_FLIP_NONE, false);
-	idle->frames.push_back({ 0, 0, 24, 28 });
+	BasicAnimation* idle = new BasicAnimation(72, 84, 3, 3, 0.0f, false);
+	idle->frames.push_back({ 0, 0 });
 
-	BasicAnimation* hit = new BasicAnimation(0.0f, SDL_FLIP_NONE, false);
-	hit->frames.push_back({ 0, 28, 24, 28 });
+	BasicAnimation* hit = new BasicAnimation(72, 84, 3, 3, 0.0f, false);
+	hit->frames.push_back({ 0, 1 });
 
-	BasicAnimation* dead = new BasicAnimation(0.0f, SDL_FLIP_NONE, false);
-	dead->frames.push_back({ 24, 28, 24, 28 });
+	BasicAnimation* dead = new BasicAnimation(72, 84, 3, 3, 0.0f, false);
+	dead->frames.push_back({ 1, 1 });
 
 	// Crea los estados
 	StateSwitcher<Animation>* idleState = new StateSwitcher<Animation>(idle);

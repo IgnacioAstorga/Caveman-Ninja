@@ -86,13 +86,13 @@ bool AnimatorMappingComponent::OnPostUpdate()
 
 	// Mapea si el personaje ha sido herido o no
 	bool hitted = lifeComponent->hit && inputComponent->IsStopped();
-	bool hitDirection;
+	bool hitFromBack;
 	if (speed > 0)
-		hitDirection = inputComponent->orientation == FORWARD;
+		hitFromBack = inputComponent->orientation == FORWARD;
 	else
-		hitDirection = inputComponent->orientation == BACKWARD;
-	animator->SetFlagValue("hit_back", hitted && hitDirection);
-	animator->SetFlagValue("hit_front", hitted && !hitDirection);
+		hitFromBack = inputComponent->orientation == BACKWARD;
+	animator->SetFlagValue("hit_back", hitted && hitFromBack);
+	animator->SetFlagValue("hit_front", hitted && !hitFromBack);
 
 	// Flipea el animator según la velocidad
 	if (!hitted)

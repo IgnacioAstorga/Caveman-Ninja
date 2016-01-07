@@ -38,8 +38,13 @@ bool EnemyAnimatorMappingComponent::OnPostUpdate()
 	// Mapea los atributos adecuados al animator
 	if (lifeComponent != NULL)
 	{
-		animator->SetFlagValue("dead", lifeComponent->dead);
+		// Mapea si el personaje está muriendo o no
 		animator->SetFlagValue("decaying", lifeComponent->decaying);
+
+		// Mapea si el personaje ha sido herido o no
+		float speed = entity->transform->GetLocalSpeed().x;
+		animator->SetFlagValue("hit_back", lifeComponent->dead && speed < 0);
+		animator->SetFlagValue("hit_front", lifeComponent->dead && speed >= 0);
 	}
 
 	return true;

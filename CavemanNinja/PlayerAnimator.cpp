@@ -13,69 +13,69 @@ PlayerAnimator::PlayerAnimator(StateSwitcher<Animation>* initialState)
 PlayerAnimator* PlayerAnimator::Create()
 {
 	// Crea las animaciones del personaje
-	BasicAnimation* idle = new BasicAnimation(0.0f);
-	idle->frames.push_back({ 0, 0, 128, 64 });
+	BasicAnimation* idle = new BasicAnimation(1024, 512, 8, 8, 0.0f);
+	idle->frames.push_back({ 0, 0 });
 
-	BasicAnimation* idleUp = new BasicAnimation(0.0f);
-	idleUp->frames.push_back({ 0, 256, 128, 64 });
+	BasicAnimation* idleUp = new BasicAnimation(1024, 512, 8, 8, 0.0f);
+	idleUp->frames.push_back({ 0, 4 });
 
-	BasicAnimation* attack = new BasicAnimation(16.0f, SDL_FLIP_NONE, false);
-	attack->frames.push_back({ 512, 0, 128, 64 });
-	attack->frames.push_back({ 640, 0, 128, 64 });
+	BasicAnimation* attack = new BasicAnimation(1024, 512, 8, 8, 16.0f, false);
+	attack->frames.push_back({ 4, 0 });
+	attack->frames.push_back({ 5, 0 });
 
-	BasicAnimation* attackJump = new BasicAnimation(16.0f, SDL_FLIP_NONE, false);
-	attackJump->frames.push_back({ 768, 0, 128, 64 });
-	attackJump->frames.push_back({ 896, 0, 128, 64 });
+	BasicAnimation* attackJump = new BasicAnimation(1024, 512, 8, 8, 16.0f, false);
+	attackJump->frames.push_back({ 6, 0 });
+	attackJump->frames.push_back({ 7, 0 });
 
-	BasicAnimation* run = new BasicAnimation(8.0f);
-	run->frames.push_back({ 128, 0, 128, 64 });
-	run->frames.push_back({ 256, 0, 128, 64 });
-	run->frames.push_back({ 384, 0, 128, 64 });
-	run->frames.push_back({ 0, 64, 128, 64 });
+	BasicAnimation* run = new BasicAnimation(1024, 512, 8, 8, 8.0f);
+	run->frames.push_back({ 1, 0 });
+	run->frames.push_back({ 2, 0 });
+	run->frames.push_back({ 3, 0 });
+	run->frames.push_back({ 0, 1 });
 
-	BasicAnimation* jump = new BasicAnimation(6.0f, SDL_FLIP_NONE, false);
-	jump->frames.push_back({ 128, 64, 128, 64 });
-	jump->frames.push_back({ 256, 64, 128, 64 });
+	BasicAnimation* jump = new BasicAnimation(1024, 512, 8, 8, 6.0f, false);
+	jump->frames.push_back({ 1, 1 });
+	jump->frames.push_back({ 2, 1 });
 
-	BasicAnimation* longJumpStart = new BasicAnimation(8.0f, SDL_FLIP_NONE, false);
-	longJumpStart->frames.push_back({ 128, 64, 128, 64 });
+	BasicAnimation* longJumpStart = new BasicAnimation(1024, 512, 8, 8, 8.0f, false);
+	longJumpStart->frames.push_back({ 1, 1 });
 
-	BasicAnimation* longJump = new BasicAnimation(16.0f);
-	longJump->frames.push_back({ 0, 128, 128, 64 });
-	longJump->frames.push_back({ 128, 128, 128, 64 });
-	longJump->frames.push_back({ 256, 128, 128, 64 });
-	longJump->frames.push_back({ 384, 128, 128, 64 });
-	longJump->frames.push_back({ 0, 192, 128, 64 });
-	longJump->frames.push_back({ 128, 192, 128, 64 });
-	longJump->frames.push_back({ 256, 192, 128, 64 });
-	longJump->frames.push_back({ 384, 192, 128, 64 });
+	BasicAnimation* longJump = new BasicAnimation(1024, 512, 8, 8, 16.0f);
+	longJump->frames.push_back({ 0, 2 });
+	longJump->frames.push_back({ 1, 2 });
+	longJump->frames.push_back({ 2, 2 });
+	longJump->frames.push_back({ 3, 2 });
+	longJump->frames.push_back({ 0, 3 });
+	longJump->frames.push_back({ 1, 3 });
+	longJump->frames.push_back({ 2, 3 });
+	longJump->frames.push_back({ 3, 3 });
 
-	BasicAnimation* fall = new BasicAnimation(0.0f);
-	fall->frames.push_back({ 384, 64, 128, 64 });
+	BasicAnimation* fall = new BasicAnimation(1024, 512, 8, 8, 0.0f);
+	fall->frames.push_back({ 3, 1 });
 
-	BasicAnimation* hitBack = new BasicAnimation(0.0f, SDL_FLIP_NONE, false);
-	hitBack->frames.push_back({ 512, 64, 128, 64 });
+	BasicAnimation* hitBack = new BasicAnimation(1024, 512, 8, 8, 0.0f, false);
+	hitBack->frames.push_back({ 4, 1 });
 
-	BasicAnimation* dieBack = new BasicAnimation(4.0f, SDL_FLIP_NONE, false);
-	dieBack->frames.push_back({ 512, 64, 128, 64 });
-	dieBack->frames.push_back({ 640, 64, 128, 64 });
-	dieBack->frames.push_back({ 768, 64, 128, 64 });
-	dieBack->frames.push_back({ 896, 64, 128, 64 });
+	BasicAnimation* dieBack = new BasicAnimation(1024, 512, 8, 8, 4.0f, false);
+	dieBack->frames.push_back({ 4, 1 });
+	dieBack->frames.push_back({ 5, 1 });
+	dieBack->frames.push_back({ 6, 1 });
+	dieBack->frames.push_back({ 7, 1 });
 
-	BasicAnimation* hitFront = new BasicAnimation(0.0f, SDL_FLIP_NONE, false);
-	hitFront->frames.push_back({ 512, 128, 128, 64 });
+	BasicAnimation* hitFront = new BasicAnimation(1024, 512, 8, 8, 0.0f, false);
+	hitFront->frames.push_back({ 4, 2 });
 
-	BasicAnimation* dieFront = new BasicAnimation(4.0f, SDL_FLIP_NONE, false);
-	dieFront->frames.push_back({ 512, 128, 128, 64 });
-	dieFront->frames.push_back({ 640, 128, 128, 64 });
-	dieFront->frames.push_back({ 768, 128, 128, 64 });
-	dieFront->frames.push_back({ 896, 128, 128, 64 });
+	BasicAnimation* dieFront = new BasicAnimation(1024, 512, 8, 8, 4.0f, false);
+	dieFront->frames.push_back({ 4, 2 });
+	dieFront->frames.push_back({ 5, 2 });
+	dieFront->frames.push_back({ 6, 2 });
+	dieFront->frames.push_back({ 7, 2 });
 
-	BasicAnimation* dieHarvest = new BasicAnimation(4.0f, SDL_FLIP_NONE, false);
-	dieHarvest->frames.push_back({ 512, 192, 128, 64 });
-	dieHarvest->frames.push_back({ 640, 192, 128, 64 });
-	dieHarvest->frames.push_back({ 768, 192, 128, 64 });
-	dieHarvest->frames.push_back({ 896, 192, 128, 64 });
+	BasicAnimation* dieHarvest = new BasicAnimation(1024, 512, 8, 8, 4.0f, false);
+	dieHarvest->frames.push_back({ 4, 3 });
+	dieHarvest->frames.push_back({ 5, 3 });
+	dieHarvest->frames.push_back({ 6, 3 });
+	dieHarvest->frames.push_back({ 7, 3 });
 
 	// Crea los estados del personaje
 	StateSwitcher<Animation>* idleState = new StateSwitcher<Animation>(idle);

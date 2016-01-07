@@ -267,6 +267,9 @@
     <ClInclude Include="ModuleFonts.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="PreciseAnimation.h">
+      <Filter>Elements\Animations</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -364,6 +367,9 @@
     </ClCompile>
     <ClCompile Include="ModuleFonts.cpp">
       <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="PreciseAnimation.cpp">
+      <Filter>Elements\Animations</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

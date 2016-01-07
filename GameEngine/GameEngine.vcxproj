@@ -75,6 +75,7 @@
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="ParticleSystemComponent.h" />
     <ClInclude Include="Point.h" />
+    <ClInclude Include="PreciseAnimation.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="RectangleColliderComponent.h" />
     <ClInclude Include="RotationMatchingSpeedOperator.h" />
@@ -120,6 +121,7 @@
     <ClCompile Include="ModuleTime.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
+    <ClCompile Include="PreciseAnimation.cpp" />
     <ClCompile Include="RectangleCollider.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Transform.cpp" />

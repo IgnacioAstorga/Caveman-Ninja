@@ -47,6 +47,16 @@ public:
 		return(r);
 	}
 
+	Point operator / (float f) const
+	{
+		Point r;
+
+		r.x = f / x;
+		r.y = f / y;
+
+		return(r);
+	}
+
 	const Point& operator -=(const Point &v)
 	{
 		x -= v.x;
@@ -67,6 +77,14 @@ public:
 	{
 		x *= f;
 		y *= f;
+
+		return(*this);
+	}
+
+	const Point& operator /= (float f)
+	{
+		x /= f;
+		y /= f;
 
 		return(*this);
 	}

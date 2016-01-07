@@ -10,17 +10,17 @@
 void GUILifebarPoint::OnCreate()
 {
 	// Crea las animaciones
-	BasicAnimation* green = new BasicAnimation(0.0f, SDL_FLIP_NONE, false);
-	green->frames.push_back({0, 0, 5, 12});
+	BasicAnimation* green = new BasicAnimation(20, 12, 4, 1, 0.0f, false);
+	green->frames.push_back({0, 0});
 
-	BasicAnimation* yellow = new BasicAnimation(0.0f, SDL_FLIP_NONE, false);
-	yellow->frames.push_back({ 4, 0, 5, 12 });
+	BasicAnimation* yellow = new BasicAnimation(20, 12, 4, 1, 0.0f, false);
+	yellow->frames.push_back({ 1, 0 });
 
-	BasicAnimation* red = new BasicAnimation(0.0f, SDL_FLIP_NONE, false);
-	red->frames.push_back({ 8, 0, 5, 12 });
+	BasicAnimation* red = new BasicAnimation(20, 12, 4, 1, 0.0f, false);
+	red->frames.push_back({ 2, 0 });
 
-	BasicAnimation* empty = new BasicAnimation(0.0f, SDL_FLIP_NONE, false);
-	empty->frames.push_back({ 12, 0, 5, 12 });
+	BasicAnimation* empty = new BasicAnimation(20, 12, 4, 1, 0.0f, false);
+	empty->frames.push_back({ 3, 0 });
 
 	// Crea los estados
 	StateSwitcher<Animation>* greenState = new StateSwitcher<Animation>(green);

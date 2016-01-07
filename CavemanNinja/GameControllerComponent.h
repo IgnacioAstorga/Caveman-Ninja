@@ -13,6 +13,7 @@ public:
 
 protected:
 	bool OnStart();
+	bool OnPreUpdate();
 
 public:
 	void GameOver();
