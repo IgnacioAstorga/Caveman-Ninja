@@ -126,6 +126,14 @@ bool PlayerLifeComponent::OnCollisionEnter(Collider * self, Collider * other)
 	return true;
 }
 
+void PlayerLifeComponent::Heal(int amount)
+{
+	// Restaura la vida del personaje
+	currentLifePoints += amount;
+	if (currentLifePoints > maxLifePoints)
+		currentLifePoints = maxLifePoints;
+}
+
 void PlayerLifeComponent::TakeDamage(int amount, fPoint damagePosition)
 {
 	// Le garantiza inmunidad

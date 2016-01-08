@@ -10,6 +10,7 @@ enum ColliderType
 	PLAYER,
 	PLAYER_ATTACK,
 	ENEMY,
-	ENEMY_ATTACK
+	ENEMY_ATTACK,
+	PICKUP
 };
 #endif	// __COLLIDERTYPES_H__

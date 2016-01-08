@@ -33,7 +33,7 @@ bool GUILifebarComponent::OnStart()
 	}
 
 	// Establece los puntos de vida representados
-	representedLifePoints = lifeComponent->currentLifePoints;
+	representedLifePoints = (float) lifeComponent->currentLifePoints;
 
 	return true;
 }

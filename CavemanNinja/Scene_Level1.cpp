@@ -9,6 +9,7 @@
 #include "PlayerCamera.h"
 #include "EnemyCaveman.h"
 #include "UserInterfaceComponent.h"
+#include "DinosaurEye.h"
 
 void Scene_Level1::OnCreateScene()
 {
@@ -29,7 +30,7 @@ void Scene_Level1::OnCreateScene()
 
 	ground = new Entity("ground");
 	ground->AddComponent(new SpriteRendererComponent("assets/images/world_1_background.png"));
-	ground->AddComponent(new RectangleColliderComponent(2000, 0, 1, 220, 0, FLOOR));
+	ground->AddComponent(new RectangleColliderComponent(4000, 1, 0, 220, 0, FLOOR));
 	ground->AddComponent(new LineColliderComponent(	// El lomo
 	{ 
 		fPoint(290, 211),
@@ -64,14 +65,15 @@ void Scene_Level1::OnCreateScene()
 	}, 1, GROUND));
 	AddChild(ground);
 
+	dinosaurEye = new DinosaurEye("dinosaur_eye", 720, 141);
+	ground->AddChild(dinosaurEye);
+
+
 	player = new Player("player_1", 20, 190);
 	AddChild(player);
 
 	camera = new PlayerCamera("camera");
 	AddChild(camera);
-
-	EnemyCaveman* enemy = new EnemyCaveman("caveman_1", 400, 0);
-	AddChild(enemy);
 
 	gui = new Entity("gui", 0, 0);
 	gui->AddComponent(new UserInterfaceComponent());
@@ -80,6 +82,12 @@ void Scene_Level1::OnCreateScene()
 	gameController = new Entity("game_controller", 100, 100);
 	gameController->AddComponent(new GameControllerComponent());
 	AddChild(gameController);
+
+	for (int i = 0; i < 10; ++i)
+	{
+		EnemyCaveman* enemy = new EnemyCaveman("caveman_" + i, 300 + 100 * i, 0);
+		AddChild(enemy);
+	}
 }
 
 void Scene_Level1::OnDestroyScene()

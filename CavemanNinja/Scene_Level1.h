@@ -22,5 +22,6 @@ private:
 	Entity* backgroundTrees;
 	Entity* gui;
 	Entity* player;
+	Entity* dinosaurEye;
 };
 #endif	// __SCENE_LEVEL1_H__

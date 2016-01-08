@@ -25,6 +25,7 @@ protected:
 	bool OnCollisionEnter(Collider* self, Collider* other);
 
 public:
+	void Heal(int amount);
 	void TakeDamage(int amount, fPoint damagePosition);
 	void Die(DeathType deathType, bool stop = true);
 	void Decay();

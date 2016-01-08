@@ -106,6 +106,27 @@
     <ClCompile Include="GUIPortrait.cpp">
       <Filter>GUI\Portrait</Filter>
     </ClCompile>
+    <ClCompile Include="Pickup.cpp">
+      <Filter>Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="OnFoodPickUpComponent.cpp">
+      <Filter>Pickups\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreTextEffect.cpp">
+      <Filter>Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnPickupOnDeathComponent.cpp">
+      <Filter>Enemies\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIScoreTextComponent.cpp">
+      <Filter>GUI\Score</Filter>
+    </ClCompile>
+    <ClCompile Include="DinosaurEye.cpp">
+      <Filter>Other</Filter>
+    </ClCompile>
+    <ClCompile Include="DinosaurEyeComponent.cpp">
+      <Filter>Other\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scenes">
@@ -164,6 +185,21 @@
     </Filter>
     <Filter Include="GUI\Portrait">
       <UniqueIdentifier>{595410ac-86ef-4c60-a8a6-9d88ab257223}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pickups">
+      <UniqueIdentifier>{f1f79900-f9e9-40e6-a8d2-560c9ea44ab9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pickups\Components">
+      <UniqueIdentifier>{a23ea756-898b-46f4-88ce-21dd9d049e99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\Score">
+      <UniqueIdentifier>{671e29bb-b890-4497-9fe3-a9942e65f72e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other">
+      <UniqueIdentifier>{8d5e00d4-6277-43c7-a87b-261d95b5f4b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Other\Components">
+      <UniqueIdentifier>{b26a3b5a-c8d2-463b-9d33-6bfeaf0f546e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -268,6 +304,27 @@
     </ClInclude>
     <ClInclude Include="GUIPortrait.h">
       <Filter>GUI\Portrait</Filter>
+    </ClInclude>
+    <ClInclude Include="Pickup.h">
+      <Filter>Pickups</Filter>
+    </ClInclude>
+    <ClInclude Include="OnFoodPickUpComponent.h">
+      <Filter>Pickups\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreTextEffect.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnPickupOnDeathComponent.h">
+      <Filter>Enemies\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIScoreTextComponent.h">
+      <Filter>GUI\Score</Filter>
+    </ClInclude>
+    <ClInclude Include="DinosaurEye.h">
+      <Filter>Other</Filter>
+    </ClInclude>
+    <ClInclude Include="DinosaurEyeComponent.h">
+      <Filter>Other\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

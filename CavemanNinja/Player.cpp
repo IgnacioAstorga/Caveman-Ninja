@@ -17,7 +17,7 @@ void Player::OnCreate()
 	// Añade las componentes de la entidad
 	ColliderComponent* colliderComponent;
 	AddComponent(new SpriteRendererComponent("assets/images/player_green.png", PlayerAnimator::Create(), -64, -64));
-	AddComponent(colliderComponent = new RectangleColliderComponent(28, 47, 0, -24, 0, NONE));
+	AddComponent(colliderComponent = new RectangleColliderComponent(28, 47, 0, -24, 0, PLAYER));
 	AddComponent(new PlayerLifeComponent(colliderComponent, 18, 1.0f, 5.0f, 2.0f));
 	AddComponent(new PlayerInputComponent(100.0f, WALL, colliderComponent, 0.1f));
 	AddComponent(colliderComponent = new CircleColliderComponent(1.0f, 0.0f, 0.0f, PLAYER, true));

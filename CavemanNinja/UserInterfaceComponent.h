@@ -17,5 +17,7 @@ protected:
 public:
 	Entity* lifebar;
 	Entity* portrait;
+	Entity* score;
+	Entity* playerLabel;
 };
 #endif	// __USERINTERFACECOMPONENT_H__

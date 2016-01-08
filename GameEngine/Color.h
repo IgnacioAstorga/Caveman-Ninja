@@ -2,9 +2,10 @@
 #define __COLOR_H__
 
 #define WHITE Color()
-#define RED Color(1.0f, 0.0f, 0.0f);
-#define GREEN Color(0.0f, 1.0f, 0.0f);
-#define BLUE Color(0.0f, 0.0f, 1.0f);
+#define RED Color(1.0f, 0.0f, 0.0f)
+#define GREEN Color(0.0f, 1.0f, 0.0f)
+#define BLUE Color(0.0f, 0.0f, 1.0f)
+#define BLACK Color(0.0f, 0.0f, 0.0f)
 
 struct SDL_Color;
 

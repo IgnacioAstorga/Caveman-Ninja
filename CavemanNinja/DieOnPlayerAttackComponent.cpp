@@ -8,6 +8,7 @@
 #include "ModuleTime.h"
 #include "ModuleAudio.h"
 #include "EnemyHitEffect.h"
+#include "SpawnPickupOnDeathComponent.h"
 
 DieOnPlayerAttackComponent::DieOnPlayerAttackComponent(float decayTime, ColliderComponent* colliderComponent, bool start_enabled)
 	: Component(start_enabled)
@@ -68,6 +69,11 @@ bool DieOnPlayerAttackComponent::OnCollisionEnter(Collider * self, Collider * ot
 	// Reproduce los efectos de sonido
 	App->audio->PlayFx(hitSound);
 	App->audio->PlayFx(dieSound);
+
+	// Da la señal a los componentes que hagan aparecer pickups
+	list<SpawnPickupOnDeathComponent*> spawners = entity->FindAllComponents<SpawnPickupOnDeathComponent>();
+	for (list<SpawnPickupOnDeathComponent*>::iterator it = spawners.begin(); it != spawners.end(); ++it)
+		(*it)->Spawn();
 
 	return true;
 }

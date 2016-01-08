@@ -119,6 +119,8 @@
     <ClCompile Include="AnimatorMappingComponent.cpp" />
     <ClCompile Include="CameraMovementComponent.cpp" />
     <ClCompile Include="DieOnPlayerAttackComponent.cpp" />
+    <ClCompile Include="DinosaurEye.cpp" />
+    <ClCompile Include="DinosaurEyeComponent.cpp" />
     <ClCompile Include="EffectLifespanComponent.cpp" />
     <ClCompile Include="EnemyAnimatorMappingComponent.cpp" />
     <ClCompile Include="EnemyGravityComponent.cpp" />
@@ -128,6 +130,11 @@
     <ClCompile Include="GameControllerComponent.cpp" />
     <ClCompile Include="GUIPortrait.cpp" />
     <ClCompile Include="GUIPortraitComponent.cpp" />
+    <ClCompile Include="OnFoodPickUpComponent.cpp" />
+    <ClCompile Include="Pickup.cpp" />
+    <ClCompile Include="GUIScoreTextComponent.cpp" />
+    <ClCompile Include="ScoreTextEffect.cpp" />
+    <ClCompile Include="SpawnPickupOnDeathComponent.cpp" />
     <ClCompile Include="UserInterfaceComponent.cpp" />
     <ClCompile Include="GUILifebarComponent.cpp" />
     <ClCompile Include="GUILifebarPoint.cpp" />
@@ -162,6 +169,8 @@
     <ClInclude Include="CameraMovementComponent.h" />
     <ClInclude Include="ColliderTypes.h" />
     <ClInclude Include="DieOnPlayerAttackComponent.h" />
+    <ClInclude Include="DinosaurEye.h" />
+    <ClInclude Include="DinosaurEyeComponent.h" />
     <ClInclude Include="EffectLifespanComponent.h" />
     <ClInclude Include="EnemyAnimatorMappingComponent.h" />
     <ClInclude Include="EnemyCaveman.h" />
@@ -171,6 +180,11 @@
     <ClInclude Include="GameControllerComponent.h" />
     <ClInclude Include="GUIPortrait.h" />
     <ClInclude Include="GUIPortraitComponent.h" />
+    <ClInclude Include="GUIScoreTextComponent.h" />
+    <ClInclude Include="SpawnPickupOnDeathComponent.h" />
+    <ClInclude Include="OnFoodPickUpComponent.h" />
+    <ClInclude Include="Pickup.h" />
+    <ClInclude Include="ScoreTextEffect.h" />
     <ClInclude Include="UserInterfaceComponent.h" />
     <ClInclude Include="GUILifebarComponent.h" />
     <ClInclude Include="GUILifebarPoint.h" />
