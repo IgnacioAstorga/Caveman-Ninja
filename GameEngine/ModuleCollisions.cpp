@@ -70,6 +70,12 @@ update_status ModuleCollisions::Update()
 
 update_status ModuleCollisions::PostUpdate()
 {
+	// Si está en modo DEBUG, pinta los colliders
+	if (DEBUG == true)
+		for (list<Collider*>::iterator it = colliders.begin(); it != colliders.end(); ++it)
+			if ((*it)->IsEnabled())
+				(*it)->DrawCollider();
+
 	// Hace postupdate a los colliders que tengan que realizar alguna operación posterior
 	for (list<Collider*>::iterator it = colliders.begin(); it != colliders.end(); ++it)
 		if ((*it)->IsEnabled())
@@ -79,12 +85,6 @@ update_status ModuleCollisions::PostUpdate()
 	for (list<Collider*>::iterator it = colliders.begin(); it != colliders.end(); ++it)
 		if ((*it)->IsEnabled())
 			(*it)->ClearFrameCollisions();
-
-	// Si está en modo DEBUG, pinta los colliders
-	if (DEBUG == true)
-		for (list<Collider*>::iterator it = colliders.begin(); it != colliders.end(); ++it)
-			if ((*it)->IsEnabled())
-				(*it)->DrawCollider();
 
 	return UPDATE_CONTINUE;
 }

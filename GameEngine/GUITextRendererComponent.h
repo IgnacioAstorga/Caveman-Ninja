@@ -13,7 +13,7 @@ using namespace std;
 class GUITextRendererComponent : public GUITextureRendererComponent
 {
 public:
-	GUITextRendererComponent(string text, string fontName, unsigned int size, Color color = WHITE, float offsetX = 0.0f, float offsetY = 0.0f, GUILocation location = ABSOLUTE, bool start_enabled = true);
+	GUITextRendererComponent(string text, string fontName, unsigned int size, Color color = WHITE, GUILocation align = TOP_LEFT, float offsetX = 0.0f, float offsetY = 0.0f, GUILocation location = TOP_LEFT, bool start_enabled = true);
 	virtual ~GUITextRendererComponent();
 
 protected:
@@ -38,7 +38,10 @@ private:
 	string fontName;
 	unsigned int size;
 	Color color;
+	GUILocation align;
 	TTF_Font* font;
+
+	fPoint storedOffset;
 };
 
 #endif //  __GUITTEXTRENDERERCOMPONENT_H__

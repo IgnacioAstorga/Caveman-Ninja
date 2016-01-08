@@ -24,6 +24,9 @@ bool GameControllerComponent::OnStart()
 	// Carga y reproduce la música
 	music = App->audio->PlayMusic("assets/sounds/world_1_music.mp3");
 
+	// Establece la puntuación a cero
+	score = 0;
+
 	return true;
 }
 
@@ -34,6 +37,11 @@ bool GameControllerComponent::OnPreUpdate()
 		DEBUG = !DEBUG;
 
 	return true;
+}
+
+void GameControllerComponent::AddScore(int amount)
+{
+	score += amount;
 }
 
 void GameControllerComponent::GameOver()

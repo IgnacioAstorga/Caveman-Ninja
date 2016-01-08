@@ -132,13 +132,13 @@ bool Entity::Start()
 	// Llamada al delegado
 	bool ret = OnStart();
 
-	// Llamada al Start de los hijos de la entidad
-	for (list<Entity*>::iterator it = children.begin(); it != children.end() && ret; ++it)
+	// Llamada al Start de los componentes de la entidad
+	for (list<Component*>::iterator it = components.begin(); it != components.end() && ret; ++it)
 		if ((*it)->IsEnabled() == true)
 			ret = (*it)->Start();
 
-	// Llamada al Start de los componentes de la entidad
-	for (list<Component*>::iterator it = components.begin(); it != components.end() && ret; ++it)
+	// Llamada al Start de los hijos de la entidad
+	for (list<Entity*>::iterator it = children.begin(); it != children.end() && ret; ++it)
 		if ((*it)->IsEnabled() == true)
 			ret = (*it)->Start();
 
@@ -149,13 +149,13 @@ update_status Entity::PreUpdate()
 {
 	update_status ret = UPDATE_CONTINUE;
 
-	// Llamada al PreUpdate de los hijos de la entidad
-	for (list<Entity*>::iterator it = children.begin(); it != children.end() && ret == UPDATE_CONTINUE; ++it)
+	// Llamada al PreUpdate de los componentes de la entidad
+	for (list<Component*>::iterator it = components.begin(); it != components.end() && ret == UPDATE_CONTINUE; ++it)
 		if ((*it)->IsEnabled() == true)
 			ret = (*it)->PreUpdate();
 
-	// Llamada al PreUpdate de los componentes de la entidad
-	for (list<Component*>::iterator it = components.begin(); it != components.end() && ret == UPDATE_CONTINUE; ++it)
+	// Llamada al PreUpdate de los hijos de la entidad
+	for (list<Entity*>::iterator it = children.begin(); it != children.end() && ret == UPDATE_CONTINUE; ++it)
 		if ((*it)->IsEnabled() == true)
 			ret = (*it)->PreUpdate();
 
@@ -166,13 +166,13 @@ update_status Entity::Update()
 {
 	update_status ret = UPDATE_CONTINUE;
 
-	// Llamada al Update de los hijos de la entidad
-	for (list<Entity*>::iterator it = children.begin(); it != children.end() && ret == UPDATE_CONTINUE; ++it)
+	// Llamada al Update de los componentes de la entidad
+	for (list<Component*>::iterator it = components.begin(); it != components.end() && ret == UPDATE_CONTINUE; ++it)
 		if ((*it)->IsEnabled() == true)
 			ret = (*it)->Update();
 
-	// Llamada al Update de los componentes de la entidad
-	for (list<Component*>::iterator it = components.begin(); it != components.end() && ret == UPDATE_CONTINUE; ++it)
+	// Llamada al Update de los hijos de la entidad
+	for (list<Entity*>::iterator it = children.begin(); it != children.end() && ret == UPDATE_CONTINUE; ++it)
 		if ((*it)->IsEnabled() == true)
 			ret = (*it)->Update();
 
@@ -183,13 +183,13 @@ update_status Entity::PostUpdate()
 {
 	update_status ret = UPDATE_CONTINUE;
 
-	// Llamada al PostUpdate de los hijos de la entidad
-	for (list<Entity*>::iterator it = children.begin(); it != children.end() && ret == UPDATE_CONTINUE; ++it)
+	// Llamada al PostUpdate de los componentes de la entidad
+	for (list<Component*>::iterator it = components.begin(); it != components.end() && ret == UPDATE_CONTINUE; ++it)
 		if ((*it)->IsEnabled() == true)
 			ret = (*it)->PostUpdate();
 
-	// Llamada al PostUpdate de los componentes de la entidad
-	for (list<Component*>::iterator it = components.begin(); it != components.end() && ret == UPDATE_CONTINUE; ++it)
+	// Llamada al PostUpdate de los hijos de la entidad
+	for (list<Entity*>::iterator it = children.begin(); it != children.end() && ret == UPDATE_CONTINUE; ++it)
 		if ((*it)->IsEnabled() == true)
 			ret = (*it)->PostUpdate();
 
@@ -219,13 +219,13 @@ bool Entity::CleanUp()
 	// Llamada al delegado
 	bool ret = OnCleanUp();
 
-	// Llamada al CleanUp de los hijos de la entidad
-	for (list<Entity*>::iterator it = children.begin(); it != children.end() && ret; ++it)
+	// Llamada al CleanUp de los componentes de la entidad
+	for (list<Component*>::iterator it = components.begin(); it != components.end() && ret; ++it)
 		if ((*it)->IsEnabled() == true)
 			ret = (*it)->CleanUp();
 
-	// Llamada al CleanUp de los componentes de la entidad
-	for (list<Component*>::iterator it = components.begin(); it != components.end() && ret; ++it)
+	// Llamada al CleanUp de los hijos de la entidad
+	for (list<Entity*>::iterator it = children.begin(); it != children.end() && ret; ++it)
 		if ((*it)->IsEnabled() == true)
 			ret = (*it)->CleanUp();
 

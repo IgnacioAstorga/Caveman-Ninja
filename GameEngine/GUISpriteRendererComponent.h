@@ -10,7 +10,7 @@ using namespace std;
 class GUISpriteRendererComponent : public GUITextureRendererComponent
 {
 public:
-	GUISpriteRendererComponent(string fileName, Animation* animation = nullptr, float offsetX = 0.0f, float offsetY = 0.0f, GUILocation location = ABSOLUTE, bool start_enabled = true);
+	GUISpriteRendererComponent(string fileName, Animation* animation = nullptr, float offsetX = 0.0f, float offsetY = 0.0f, GUILocation location = TOP_LEFT, bool start_enabled = true);
 	virtual ~GUISpriteRendererComponent();
 
 protected:

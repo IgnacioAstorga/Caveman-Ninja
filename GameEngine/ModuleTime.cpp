@@ -2,6 +2,9 @@
 
 #include "SDL.h"
 
+#include <stdlib.h>
+#include <time.h>
+
 ModuleTime::ModuleTime(bool start_enabled) : Module(start_enabled)
 {
 	// Por ahora no hace nada
@@ -16,6 +19,10 @@ bool ModuleTime::Start()
 {
 	// Establece el tiempo de la frame inicial (en milisegundos)
 	lastFrameTime = SDL_GetTicks();
+
+	// Establece una semilla para los números aleatorios
+	srand(time(NULL));
+
 	return true;
 }
 

@@ -16,10 +16,14 @@ protected:
 	bool OnPreUpdate();
 
 public:
+	void AddScore(int amount);
 	void GameOver();
 
 public:
+	int score;
+
 	Player* player;
+
 	unsigned int music;
 };
 
