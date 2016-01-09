@@ -9,12 +9,11 @@
 #include "RectangleBasicCollider.h"
 #include "DieOnPlayerAttackComponent.h"
 
-EnemyGravityComponent::EnemyGravityComponent(float gravity, ColliderComponent* colliderComponent, float verticalTolerance, float step_size)
+EnemyGravityComponent::EnemyGravityComponent(float gravity, ColliderComponent* colliderComponent, float verticalTolerance)
 {
 	this->gravity = gravity;
 	this->colliderComponent = colliderComponent;
 	this->verticalTolerance = verticalTolerance;
-	this->step_size = step_size;
 }
 
 EnemyGravityComponent::~EnemyGravityComponent()
@@ -33,15 +32,6 @@ bool EnemyGravityComponent::OnStart()
 
 bool EnemyGravityComponent::OnUpdate()
 {
-	if (!falling)
-	{
-		Collider* collisionChecker = new RectangleBasicCollider(NULL, entity->transform, 0, verticalTolerance);
-		list<Collider*> collisions = App->collisions->CheckCollisions(collisionChecker, GROUND);
-		if (!collisions.empty())
-			entity->transform->Move(0, verticalTolerance);
-		RELEASE(collisionChecker);
-	}
-
 	// Mueve a la entidad según la gravedad (coordenadas globales)
 	// Suma la gravedad a la velocidad de la entidad
 	float newYSpeed = entity->transform->GetGlobalSpeed().y + gravity * App->time->DeltaTime();
@@ -74,11 +64,8 @@ bool EnemyGravityComponent::OnCollisionEnter(Collider* self, Collider* other)
 	falling = false;
 
 	// Recoloca la entidad
-	int count = 0;
-	do
-	{
-		entity->transform->SetGlobalPosition(entity->transform->GetGlobalPosition().x, entity->transform->GetGlobalPosition().y - step_size);
-	} while (self->CollidesWith(other) && count++ < 100);
+	fPoint newPosition = other->GetExternalPositionFromCoordinates(entity->transform->GetGlobalPosition());
+	entity->transform->SetGlobalPosition(newPosition.x, newPosition.y);
 
 	return true;
 }

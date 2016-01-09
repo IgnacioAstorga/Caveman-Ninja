@@ -112,6 +112,26 @@ void LineCollider::DrawCollider()
 		CreateSegmentCollider(i).DrawCollider(color);
 }
 
+fPoint LineCollider::GetExternalPositionFromCoordinates(fPoint coordinates)
+{
+	// Busca el segmento adecuado
+	int leftBoundIndex = 0;
+	bool found = false;
+
+	for (unsigned int i = 0; i < points.size() - 1 && !found; ++i)	// Empieza desde el primero y acaba en el penúltimo
+		if (coordinates.x <= GetPointGlobalCoordinates(i + 1).x)
+		{
+			leftBoundIndex = i;
+			found = true;
+		}
+
+	if (!found)	// Está más a la derecha que el último punto, utiliza el último segmento
+		leftBoundIndex = points.size() - 2;	// size - 2 es el índice del penúltimo elemento
+
+	// Crea el rectángulo del segmento adecuado y le delega la responsabilidad
+	return CreateSegmentCollider(leftBoundIndex).GetExternalPositionFromCoordinates(coordinates);
+}
+
 fPoint LineCollider::GetPointGlobalCoordinates(unsigned int index)
 {
 	fPoint coordinates = points[index];

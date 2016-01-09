@@ -54,14 +54,18 @@ public:
 	int GetType();
 
 public:
-	virtual void DrawCollider() = 0;
 	virtual bool CallMe(Collider* self) = 0;
+
 	virtual bool CheckCollision(CircleCollider* other) = 0;
 	virtual bool CheckCollision(CircleTraceCollider* other) = 0;
 	virtual bool CheckCollision(RectangleCollider* other) = 0;
 	virtual bool CheckCollision(RectangleBasicCollider* other) = 0;
 	virtual bool CheckCollision(LineCollider* other) = 0;
+
+	virtual void DrawCollider() = 0;
+
 	virtual fPoint GetCenter() = 0;
+	virtual fPoint GetExternalPositionFromCoordinates(fPoint coordinates) = 0;
 
 public:
 	bool enabled;

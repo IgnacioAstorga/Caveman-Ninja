@@ -18,6 +18,7 @@ public:
 	void DrawCollider();
 
 public:
+	fPoint GetExternalPositionFromCoordinates(fPoint coordinates);
 	fPoint GetCenter();
 	float GetRotation();
 	fPoint* GetPoints();

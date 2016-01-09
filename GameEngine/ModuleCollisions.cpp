@@ -128,7 +128,8 @@ list<Collider*> ModuleCollisions::CheckCollisions(Collider* collider, int type)
 	// Devuelve los colliders que colisionan con el collider especificado (ignora al propio collider)
 	list<Collider*> ret;
 	for (list<Collider*>::iterator it = colliders.begin(); it != colliders.end(); ++it)
-		if ((*it)->IsEnabled() && *it != collider && (*it)->GetType() == type && collider->CollidesWith(*it))
-			ret.push_back(*it);
+		if ((*it)->IsEnabled() && *it != collider && (*it)->GetType() == type)
+			if (collider->CollidesWith(*it))
+				ret.push_back(*it);
 	return ret;
 }

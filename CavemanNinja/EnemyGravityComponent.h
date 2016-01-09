@@ -11,7 +11,7 @@ class DieOnPlayerAttackComponent;
 class EnemyGravityComponent : public Component
 {
 public:
-	EnemyGravityComponent(float gravity, ColliderComponent* colliderComponent, float verticalTolerance = 5.0f, float step_size = 0.5f);
+	EnemyGravityComponent(float gravity, ColliderComponent* colliderComponent, float verticalTolerance = 5.0f);
 	virtual ~EnemyGravityComponent();
 
 protected:
@@ -22,10 +22,10 @@ protected:
 
 public:
 	float gravity;
+	float verticalTolerance;
 	bool falling;
+
 	ColliderComponent* colliderComponent;
 	DieOnPlayerAttackComponent* lifeComponent;
-	float verticalTolerance;
-	float step_size;
 };
 #endif //__ENEMYGRAVITYCOMPONENT_H__

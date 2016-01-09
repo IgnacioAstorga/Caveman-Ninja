@@ -24,6 +24,7 @@ public:
 	void DrawCollider();
 
 public:
+	fPoint GetExternalPositionFromCoordinates(fPoint coordinates);
 	fPoint GetPointGlobalCoordinates(unsigned int index);
 	RectangleCollider CreateSegmentCollider(int leftBoundIndex);
 	fPoint GetCenter();

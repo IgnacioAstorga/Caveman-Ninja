@@ -98,6 +98,14 @@ fPoint CircleCollider::GetCenter()
 	return transform->GetGlobalPosition() + offset.Rotate(transform->GetGlobalRotation());
 }
 
+fPoint CircleCollider::GetExternalPositionFromCoordinates(fPoint coordinates)
+{
+	// Calcula la intersección entre el centro del círculo y las coordenadas
+	fPoint center = GetCenter();
+	fPoint distance = coordinates - center;
+	return center + distance.Normalize() * GetRadius();
+}
+
 float CircleCollider::GetRadius()
 {
 	// Por simpleza solo se toma la media de su escala horizontal y vertical

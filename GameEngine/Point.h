@@ -134,12 +134,44 @@ public:
 		return(*this);
 	}
 
+	Point& Normalize()
+	{
+		T norm = Norm();
+
+		x = x / norm;
+		y = y / norm;
+
+		return(*this);
+	}
+
+	Point ProjectionOn(const Point& v) const
+	{
+		T norm = v.Norm();
+		T product = Dot(v);
+		return v * (product / norm);
+	}
+
+	T Dot(const Point& v) const
+	{
+		return (x * v.x) + (y * v.y);
+	}
+
+	T PerpendicularDot(const Point& v) const
+	{
+		return (y * v.x) - (x * v.y);
+	}
+
 	T DistanceTo(const Point& v) const
 	{
 		T fx = x - v.x;
 		T fy = y - v.y;
 
 		return sqrt((fx*fx) + (fy*fy));
+	}
+
+	T Norm() const
+	{
+		return DistanceTo({ 0, 0 });
 	}
 };
 

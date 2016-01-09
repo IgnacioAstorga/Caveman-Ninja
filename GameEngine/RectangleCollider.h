@@ -22,6 +22,7 @@ public:
 	virtual void DrawCollider(SDL_Color color);
 
 public:
+	virtual fPoint GetExternalPositionFromCoordinates(fPoint coordinates);
 	virtual fPoint GetCenter();
 	virtual float GetRotation();
 	virtual fPoint* GetPoints();

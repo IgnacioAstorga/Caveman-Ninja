@@ -91,6 +91,12 @@ void RectangleBasicCollider::DrawCollider()
 	RectangleCollider::DrawCollider(renderColor);
 }
 
+fPoint RectangleBasicCollider::GetExternalPositionFromCoordinates(fPoint coordinates)
+{
+	// Se limita a devolver la coordenada Y del lado superior del rectángulo
+	return fPoint(coordinates.x, GetCenter().y - height / 2);
+}
+
 fPoint RectangleBasicCollider::GetCenter()
 {
 	fPoint offset = fPoint(offsetX, offsetY);

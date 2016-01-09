@@ -21,7 +21,7 @@ void Player::OnCreate()
 	AddComponent(new PlayerLifeComponent(colliderComponent, 18, 1.0f, 5.0f, 2.0f));
 	AddComponent(new PlayerInputComponent(100.0f, WALL, colliderComponent, 0.1f));
 	AddComponent(colliderComponent = new CircleColliderComponent(1.0f, { FLOOR, GROUND }, 0.0f, 0.0f, PLAYER, true));
-	AddComponent(new PlayerGravityComponent(500.0f, colliderComponent, 5.0f, 0.1f));
+	AddComponent(new PlayerGravityComponent(500.0f, colliderComponent, 5.0f));
 	AddComponent(new PlayerJumpComponent(300.0f, 1.25f));
 	AddComponent(new MovementSimpleComponent());
 	AddComponent(new AnimatorMappingComponent());

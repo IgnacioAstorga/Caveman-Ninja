@@ -10,12 +10,11 @@
 #include "PlayerJumpComponent.h"
 #include "RectangleBasicCollider.h"
 
-PlayerGravityComponent::PlayerGravityComponent(float gravity, ColliderComponent* colliderComponent, float verticalTolerance, float step_size)
+PlayerGravityComponent::PlayerGravityComponent(float gravity, ColliderComponent* colliderComponent, float verticalTolerance)
 {
 	this->gravity = gravity;
 	this->colliderComponent = colliderComponent;
 	this->verticalTolerance = verticalTolerance;
-	this->step_size = step_size;
 }
 
 PlayerGravityComponent::~PlayerGravityComponent()
@@ -37,21 +36,24 @@ bool PlayerGravityComponent::OnStart()
 
 bool PlayerGravityComponent::OnUpdate()
 {
-	if (!falling && (jumpComponent == NULL || !jumpComponent->jumping))
-	{
-		Collider* collisionChecker = new RectangleBasicCollider(NULL, entity->transform, 0, verticalTolerance);
-		list<Collider*> collisions = App->collisions->CheckCollisions(collisionChecker, GROUND);
-		if (!collisions.empty())
-			entity->transform->Move(0, verticalTolerance);
-		RELEASE(collisionChecker);
-	}
-
 	// Mueve a la entidad según la gravedad (coordenadas globales)
-	// Suma la gravedad a la velocidad de la entidad
 	float newYSpeed = entity->transform->GetGlobalSpeed().y + gravity * App->time->DeltaTime();
 	entity->transform->SetGlobalSpeed(entity->transform->GetGlobalSpeed().x, newYSpeed);
+
+	// Comprueba si está callendo
 	if (entity->transform->GetGlobalSpeed().y > 0)
 		falling = true;
+
+	// Si está callendo, comprueba si está cerca del suelo
+	if (falling)
+	{
+		Collider* checker = new RectangleBasicCollider(NULL, entity->transform, 1.0f, verticalTolerance, 0.0f, verticalTolerance / 2);
+		list<Collider*> colliders = App->collisions->CheckCollisions(checker, GROUND);
+		if (!colliders.empty())
+			// Fuerza la colisión
+			this->OnCollisionEnter(colliderComponent->GetCollider(), colliders.front());
+		RELEASE(checker);
+	}
 
 	return true;
 }
@@ -82,11 +84,8 @@ bool PlayerGravityComponent::OnCollisionEnter(Collider* self, Collider* other)
 	}
 
 	// Recoloca la entidad
-	int count = 0;
-	do
-	{
-		entity->transform->SetGlobalPosition(entity->transform->GetGlobalPosition().x, entity->transform->GetGlobalPosition().y - step_size);
-	} while (self->CollidesWith(other) && count++ < 100);
+	fPoint newPosition = other->GetExternalPositionFromCoordinates(entity->transform->GetGlobalPosition());
+	entity->transform->SetGlobalPosition(newPosition.x, newPosition.y);
 	
 	return true;
 }

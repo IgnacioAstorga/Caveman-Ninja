@@ -225,6 +225,19 @@ void RectangleCollider::DrawCollider(SDL_Color color)
 	App->renderer->Blit(App->collisions->square, (int)(renderPosition.x - renderWidth / 2), (int)(renderPosition.y - renderHeight / 2), GetRotation(), NULL, &color, NULL, renderScale);
 }
 
+fPoint RectangleCollider::GetExternalPositionFromCoordinates(fPoint coordinates)
+{
+	// Se limita a devolver las coordenadas adecuadas en el lado superior
+	fPoint center = GetCenter();
+	fPoint scale = transform->GetGlobalScale();
+	float totalRotation = GetRotation();
+	fPoint upperLeft = center + fPoint(-width * scale.x / 2, -height * scale.y / 2).Rotate(totalRotation);
+	double rads = totalRotation * 2 * M_PI / 360.0;
+	float yCoordinate = (float) tan(rads) * (coordinates.x - upperLeft.x) + upperLeft.y;
+
+	return fPoint(coordinates.x, yCoordinate);
+}
+
 fPoint RectangleCollider::GetCenter()
 {
 	fPoint offset = fPoint(offsetX, offsetY);

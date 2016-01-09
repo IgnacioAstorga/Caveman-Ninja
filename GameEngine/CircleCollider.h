@@ -12,14 +12,17 @@ public:
 	virtual ~CircleCollider();
 
 	virtual bool CallMe(Collider* self);
+
 	virtual bool CheckCollision(CircleCollider* other);
 	virtual bool CheckCollision(CircleTraceCollider* other);
 	virtual bool CheckCollision(RectangleCollider* other);
 	virtual bool CheckCollision(RectangleBasicCollider* other);
 	virtual bool CheckCollision(LineCollider* other);
+
 	virtual void DrawCollider();
 
 public:
+	virtual fPoint GetExternalPositionFromCoordinates(fPoint coordinates);
 	virtual fPoint GetCenter();
 	virtual float GetRadius();
 
