@@ -13,13 +13,11 @@ ModuleTextures::ModuleTextures()
 {
 }
 
-// Destructor
 ModuleTextures::~ModuleTextures()
 {
 	IMG_Quit();
 }
 
-// Called before render is available
 bool ModuleTextures::Init()
 {
 	LOG("Init Image library");
@@ -38,25 +36,30 @@ bool ModuleTextures::Init()
 	return ret;
 }
 
-// Called before quitting
 bool ModuleTextures::CleanUp()
 {
 	LOG("Freeing textures and Image library");
 
-	for(list<SDL_Texture*>::iterator it = textures.begin(); it != textures.end(); ++it)
-		SDL_DestroyTexture(*it);
+	for(unordered_map<string, SDL_Texture*>::iterator it = textures.begin(); it != textures.end(); ++it)
+		SDL_DestroyTexture(it->second);
 	textures.clear();
 
 	return true;
 }
 
-// Load new texture from file path
 SDL_Texture* const ModuleTextures::Load(const char* path)
 {
+	// Comprueba si la textura ya existe
+	if (textures[path] != nullptr)
+	{
+		textureUseCount[path] += 1;
+		return textures[path];
+	}
+
 	SDL_Texture* texture = nullptr;
 	SDL_Surface* surface = IMG_Load(path);
 
-	if(surface == nullptr)
+	if (surface == nullptr)
 	{
 		LOG("Could not load surface with path: %s. IMG_Load: %s", path, IMG_GetError());
 	}
@@ -64,13 +67,14 @@ SDL_Texture* const ModuleTextures::Load(const char* path)
 	{
 		texture = SDL_CreateTextureFromSurface(App->renderer->renderer, surface);
 
-		if(texture == nullptr)
+		if (texture == nullptr)
 		{
 			LOG("Unable to create texture from surface! SDL Error: %s\n", SDL_GetError());
 		}
 		else
 		{
-			textures.push_back(texture);
+			textures[path] = texture;
+			textureUseCount[path] = 1;
 		}
 
 		SDL_FreeSurface(surface);
@@ -79,16 +83,19 @@ SDL_Texture* const ModuleTextures::Load(const char* path)
 	return texture;
 }
 
-// Free texture from memory
 void ModuleTextures::Unload(SDL_Texture* texture)
 {
-	for(list<SDL_Texture*>::iterator it = textures.begin(); it != textures.end(); ++it)
+	for(unordered_map<string, SDL_Texture*>::iterator it = textures.begin(); it != textures.end(); ++it)
 	{
-		if(*it == texture)
+		if(it->second == texture)
 		{
-			SDL_DestroyTexture(*it);
-			textures.remove(*it);
-			break;
+			textureUseCount[it->first] -= 1;
+			if (textureUseCount[it->first] <= 0)
+			{
+				SDL_DestroyTexture(it->second);
+				textures[it->first] = nullptr;
+				break;
+			}
 		}
 	}
 }

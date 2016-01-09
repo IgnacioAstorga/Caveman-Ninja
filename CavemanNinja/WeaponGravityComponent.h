@@ -2,7 +2,6 @@
 #define __TOMAHAWKGRAVITYCOMPONENT_H__
 
 #include "Component.h"
-#include "ColliderTypes.h"
 #include "Point.h"
 
 class ColliderComponent;
@@ -13,7 +12,7 @@ class WeaponGravityComponent : public Component
 	friend class Scene;
 
 public:
-	WeaponGravityComponent(float gravity, ColliderType groundColliderType, ColliderComponent* colliderComponent, float step_size = 0.1f);
+	WeaponGravityComponent(float gravity, ColliderComponent* colliderComponent, float step_size = 0.1f);
 	virtual ~WeaponGravityComponent();
 
 protected:
@@ -26,7 +25,6 @@ public:
 	float gravity;
 	bool falling;
 	bool onGround;
-	ColliderType groundColliderType;
 	ColliderComponent* colliderComponent;
 	WeaponLifespanComponent* lifespanComponent;
 	float step_size;

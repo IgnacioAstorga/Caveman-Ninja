@@ -1,11 +1,14 @@
 #ifndef __MODULETEXTURES_H__
 #define __MODULETEXTURES_H__
 
-#include <list>
 #include "Module.h"
 #include "Globals.h"
 
+#include <unordered_map>
+
 struct SDL_Texture;
+
+using namespace std;
 
 class ModuleTextures : public Module
 {
@@ -20,7 +23,8 @@ public:
 	void Unload(SDL_Texture* texture);
 
 private:
-	std::list<SDL_Texture*> textures;
+	unordered_map<string, SDL_Texture*> textures;
+	unordered_map<string, int> textureUseCount;
 };
 
 #endif // __MODULETEXTURES_H__

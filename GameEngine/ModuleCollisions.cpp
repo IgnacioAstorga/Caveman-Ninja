@@ -54,11 +54,12 @@ update_status ModuleCollisions::Update()
 		if ((*it)->IsEnabled())
 			for (list<Collider*>::iterator other = it; other != colliders.end(); ++other)
 				if (*other != *it && (*other)->IsEnabled())
-					if ((*it)->CollidesWith(*other))
-					{
-						(*it)->NotifyCollision(*other);
-						(*other)->NotifyCollision(*it);
-					}
+					if ((*it)->CanCollideWithType((*other)->GetType()) && (*other)->CanCollideWithType((*it)->GetType()))
+						if ((*it)->CollidesWith(*other))
+						{
+							(*it)->NotifyCollision(*other);
+							(*other)->NotifyCollision(*it);
+						}
 
 	// Hace Update a los colliders para que comprueben si alguna colisión ha dejado de producirse
 	for (list<Collider*>::iterator it = colliders.begin(); it != colliders.end(); ++it)

@@ -4,6 +4,7 @@
 #include "CircleCollider.h"
 #include "CircleTraceCollider.h"
 #include "RectangleCollider.h"
+#include "RectangleBasicCollider.h"
 #include "Application.h"
 #include "ModuleCollisions.h"
 #include "ModuleRender.h"
@@ -12,7 +13,18 @@
 
 bool comparePointsByX(fPoint a, fPoint b) { return a.x < b.x; }
 
-LineCollider::LineCollider(CollisionListener* listener, Transform* transform, vector<fPoint> points, float thickness, int type, bool start_enabled) : Collider(listener, transform, type, start_enabled)
+LineCollider::LineCollider(CollisionListener* listener, Transform* transform, vector<fPoint> points, float thickness, int type, bool start_enabled)
+	: Collider(listener, transform, type, start_enabled)
+{
+	this->points = points;
+	this->thickness = thickness;
+
+	// Ordena los puntos de menor a mayor X
+	sort(this->points.begin(), this->points.end(), comparePointsByX);
+}
+
+LineCollider::LineCollider(CollisionListener * listener, Transform * transform, vector<fPoint> points, float thickness, vector<int> collisionsTypes, int type, bool start_enabled)
+	: Collider(listener, transform, collisionsTypes, type, start_enabled)
 {
 	this->points = points;
 	this->thickness = thickness;
@@ -66,6 +78,15 @@ bool LineCollider::CheckCollision(RectangleCollider* other)
 		if (CreateSegmentCollider(i).CollidesWith(other))
 			return true;
 	return false;	// Llegados a este punto, ningún segmento colisiona con el rectángulo
+}
+
+bool LineCollider::CheckCollision(RectangleBasicCollider * other)
+{
+	// Para cada segmento, comprueba si colisiona con la línea
+	for (unsigned int i = 0; i < points.size() - 1; ++i)	// Empieza desde el primero y acaba en el penúltimo
+		if (CreateSegmentCollider(i).CollidesWith(other))
+			return true;
+	return false;	// Llegados a este punto, ningún segmento colisiona con la línea
 }
 
 bool LineCollider::CheckCollision(LineCollider* other)

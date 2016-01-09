@@ -12,12 +12,14 @@ class LineCollider : public Collider
 {
 public:
 	LineCollider(CollisionListener* listener, Transform* transform, vector<fPoint> points, float thickness, int type = -1, bool start_enabled = true);
+	LineCollider(CollisionListener* listener, Transform* transform, vector<fPoint> points, float thickness, vector<int> collisionsTypes, int type = -1, bool start_enabled = true);
 	~LineCollider();
 
 	bool CallMe(Collider* self);
 	bool CheckCollision(CircleCollider* other);
 	bool CheckCollision(CircleTraceCollider* other);
 	bool CheckCollision(RectangleCollider* other);
+	bool CheckCollision(RectangleBasicCollider* other);
 	bool CheckCollision(LineCollider* other);
 	void DrawCollider();
 

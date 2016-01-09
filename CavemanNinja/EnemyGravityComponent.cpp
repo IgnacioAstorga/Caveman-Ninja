@@ -6,13 +6,12 @@
 #include "Application.h"
 #include "ModuleTime.h"
 #include "ModuleCollisions.h"
-#include "RectangleCollider.h"
+#include "RectangleBasicCollider.h"
 #include "DieOnPlayerAttackComponent.h"
 
-EnemyGravityComponent::EnemyGravityComponent(float gravity, ColliderType groundColliderType, ColliderComponent* colliderComponent, float verticalTolerance, float step_size)
+EnemyGravityComponent::EnemyGravityComponent(float gravity, ColliderComponent* colliderComponent, float verticalTolerance, float step_size)
 {
 	this->gravity = gravity;
-	this->groundColliderType = groundColliderType;
 	this->colliderComponent = colliderComponent;
 	this->verticalTolerance = verticalTolerance;
 	this->step_size = step_size;
@@ -36,7 +35,7 @@ bool EnemyGravityComponent::OnUpdate()
 {
 	if (!falling)
 	{
-		Collider* collisionChecker = new RectangleCollider(NULL, entity->transform, 0, verticalTolerance);
+		Collider* collisionChecker = new RectangleBasicCollider(NULL, entity->transform, 0, verticalTolerance);
 		list<Collider*> collisions = App->collisions->CheckCollisions(collisionChecker, GROUND);
 		if (!collisions.empty())
 			entity->transform->Move(0, verticalTolerance);
@@ -56,15 +55,11 @@ bool EnemyGravityComponent::OnUpdate()
 bool EnemyGravityComponent::OnCollisionEnter(Collider* self, Collider* other)
 {
 	// Primero, detecta si la colisión es con el suelo
-	if (other->GetType() != groundColliderType && other->GetType() != FLOOR)
+	if (other->GetType() != GROUND && other->GetType() != FLOOR)
 		return true;
 
 	// Segundo, detecta si el collider que ha realizado la colisión es el correcto
 	if (self != colliderComponent->GetCollider())
-		return true;
-
-	// Ahora detecta si está cayendo o posado. Si no, ignora la colisión
-	if (entity->transform->GetLocalSpeed().y < 0.0f)	// Abajo es positivo, arriba es negativo
 		return true;
 
 	// Frena la caida de la entidad

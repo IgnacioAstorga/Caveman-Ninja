@@ -21,7 +21,7 @@ bool ModuleTime::Start()
 	lastFrameTime = SDL_GetTicks();
 
 	// Establece una semilla para los números aleatorios
-	srand(time(NULL));
+	srand((unsigned int) time(NULL));
 
 	return true;
 }

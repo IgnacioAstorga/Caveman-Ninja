@@ -8,12 +8,11 @@
 #include "ModuleAudio.h"
 #include "ModuleCollisions.h"
 #include "PlayerJumpComponent.h"
-#include "RectangleCollider.h"
+#include "RectangleBasicCollider.h"
 
-PlayerGravityComponent::PlayerGravityComponent(float gravity, ColliderType groundColliderType, ColliderComponent* colliderComponent, float verticalTolerance, float step_size)
+PlayerGravityComponent::PlayerGravityComponent(float gravity, ColliderComponent* colliderComponent, float verticalTolerance, float step_size)
 {
 	this->gravity = gravity;
-	this->groundColliderType = groundColliderType;
 	this->colliderComponent = colliderComponent;
 	this->verticalTolerance = verticalTolerance;
 	this->step_size = step_size;
@@ -33,22 +32,17 @@ bool PlayerGravityComponent::OnStart()
 	landSound = App->audio->LoadFx("assets/sounds/player_jump_land.wav");
 
 	falling = true;	// Empieza "callendo", en el primer frame se comprobará si está posado o no
-	onGround = false;
 	return colliderComponent != NULL;	// Si no ha especificado collider o flag de caída, da error
 }
 
 bool PlayerGravityComponent::OnUpdate()
 {
-	onGround = false;
 	if (!falling && (jumpComponent == NULL || !jumpComponent->jumping))
 	{
-		Collider* collisionChecker = new RectangleCollider(NULL, entity->transform, 0, verticalTolerance);
+		Collider* collisionChecker = new RectangleBasicCollider(NULL, entity->transform, 0, verticalTolerance);
 		list<Collider*> collisions = App->collisions->CheckCollisions(collisionChecker, GROUND);
 		if (!collisions.empty())
-		{
 			entity->transform->Move(0, verticalTolerance);
-			onGround = true;
-		}
 		RELEASE(collisionChecker);
 	}
 
@@ -65,21 +59,20 @@ bool PlayerGravityComponent::OnUpdate()
 bool PlayerGravityComponent::OnCollisionEnter(Collider* self, Collider* other)
 {
 	// Primero, detecta si la colisión es con el suelo
-	if (other->GetType() != groundColliderType && other->GetType() != FLOOR)
+	if (other->GetType() != GROUND && other->GetType() != FLOOR)
 		return true;
 
 	// Segundo, detecta si el collider que ha realizado la colisión es el correcto
 	if (self != colliderComponent->GetCollider())
 		return true;
 
-	// Ahora detecta si está cayendo o posado. Si no, ignora la colisión
-	if (entity->transform->GetLocalSpeed().y < 0.0f)	// Abajo es positivo, arriba es negativo
+	// Si el personaje está saltando y subiendo, ignora la colisión
+	if (jumpComponent->jumping && entity->transform->GetLocalSpeed().y < 0.0f)	// Abajo es positivo, arriba es negativo
 		return true;
 
 	// Frena la caida de la entidad
 	entity->transform->SetSpeed(entity->transform->GetLocalSpeed().x, 0.0f);
 	falling = false;
-	onGround = true;
 	if (jumpComponent != NULL)
 	{
 		if (jumpComponent->jumping)

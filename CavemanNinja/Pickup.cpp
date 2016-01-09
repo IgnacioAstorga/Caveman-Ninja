@@ -46,9 +46,13 @@ void Pickup::OnCreate()
 			return;
 	}
 
+	// Crea el vector con los tipos de colliders ("{}" no soporta un solo elemento)
+	vector<int> collisionsTypes;
+	collisionsTypes.push_back(PLAYER);
+
 	// Crea los componentes de la entidad
 	AddComponent(new SpriteRendererComponent("assets/images/pickups_food.png", animation, -16, -32));
-	AddComponent(new CircleColliderComponent(16, 0, -16, PICKUP));
+	AddComponent(new CircleColliderComponent(16, collisionsTypes, 0, -16, PICKUP));
 	AddComponent(new OnFoodPickUpComponent(type));
 	AddComponent(new EffectLifespanComponent(10.0f));	// Reaprovecha este componente, la funcionalidad es la adecuada
 }

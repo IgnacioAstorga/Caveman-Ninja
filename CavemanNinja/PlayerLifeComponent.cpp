@@ -24,6 +24,7 @@ PlayerLifeComponent::PlayerLifeComponent(ColliderComponent* colliderComponent, i
 	this->decayTime = decayTime;
 	this->harvesting = harvesting;
 	this->hit = false;
+	this->invulnerable = false;
 	this->dead = false;
 	this->decaying = false;
 }
@@ -57,12 +58,16 @@ bool PlayerLifeComponent::OnStart()
 
 bool PlayerLifeComponent::OnUpdate()
 {
+	// Animación de golpeo
+	if (hit && !inputComponent->IsStopped())
+		hit = false;
+
 	// Periodo de gracia
-	if (hit)
+	if (invulnerable)
 	{
 		graceDuration += App->time->DeltaTime();
 		if (graceDuration >= graceTime)
-			hit = false;
+			invulnerable = false;
 	}
 
 	// Hambre
@@ -112,7 +117,7 @@ bool PlayerLifeComponent::OnCollisionEnter(Collider * self, Collider * other)
 		return true;
 
 	// Si acaba de ser golpeado, aborta
-	if (hit)
+	if (invulnerable)
 		return true;
 
 	// Calcula el punto medio entre ambos colliders
@@ -138,6 +143,7 @@ void PlayerLifeComponent::TakeDamage(int amount, fPoint damagePosition)
 {
 	// Le garantiza inmunidad
 	hit = true;
+	invulnerable = true;
 	graceDuration = 0.0f;
 
 	// Crea el efecto especial

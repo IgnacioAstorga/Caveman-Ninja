@@ -3,16 +3,25 @@
 
 #include "Component.h"
 
+#include <vector>
+
 class Collider;
+
+using namespace std;
 
 class ColliderComponent : public Component
 {
 public:
-	ColliderComponent(bool start_enabled = true) : Component(start_enabled) {};
-	virtual ~ColliderComponent() {};
+	ColliderComponent(bool start_enabled = true);
+	ColliderComponent(vector<int> collisionsTypes, bool start_enabled = true);
+	virtual ~ColliderComponent();
 
 public:
 	virtual Collider* GetCollider() = 0;
+
+public:
+	bool hasSpecificCollisionsTypes;
+	vector<int> collisionsTypes;
 };
 
 #endif // __COLLIDERCOMPONENT_H__

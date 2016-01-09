@@ -8,12 +8,14 @@ class CircleTraceCollider : public CircleCollider
 {
 public:
 	CircleTraceCollider(CollisionListener* listener, Transform* transform, float radius, float offsetX = 0.0f, float offsetY = 0.0f, int type = -1, bool start_enabled = true);
+	CircleTraceCollider(CollisionListener* listener, Transform* transform, float radius, vector<int> collisionsTypes, float offsetX = 0.0f, float offsetY = 0.0f, int type = -1, bool start_enabled = true);
 	~CircleTraceCollider();
 
 	bool CallMe(Collider* self);
 	bool CheckCollision(CircleCollider* other);
 	bool CheckCollision(CircleTraceCollider* other);
 	bool CheckCollision(RectangleCollider* other);
+	bool CheckCollision(RectangleBasicCollider* other);
 	bool CheckCollision(LineCollider* other);
 	void DrawCollider();
 

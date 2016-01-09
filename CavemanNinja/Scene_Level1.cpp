@@ -30,7 +30,7 @@ void Scene_Level1::OnCreateScene()
 
 	ground = new Entity("ground");
 	ground->AddComponent(new SpriteRendererComponent("assets/images/world_1_background.png"));
-	ground->AddComponent(new RectangleColliderComponent(4000, 1, 0, 220, 0, FLOOR));
+	ground->AddComponent(new RectangleColliderComponent(4000, 10, { PLAYER, PLAYER_ATTACK, ENEMY }, 0, 225, 0, FLOOR, true));
 	ground->AddComponent(new LineColliderComponent(	// El lomo
 	{ 
 		fPoint(290, 211),
@@ -48,7 +48,7 @@ void Scene_Level1::OnCreateScene()
 		fPoint(756, 164),
 		fPoint(781, 180),
 		fPoint(798, 191)
-	}, 1, GROUND));
+	}, 1, { PLAYER, ENEMY }, GROUND));
 	ground->AddComponent(new LineColliderComponent(	// La pata trasera
 	{
 		fPoint(520, 129),
@@ -56,13 +56,13 @@ void Scene_Level1::OnCreateScene()
 		fPoint(562, 115),
 		fPoint(576, 124),
 		fPoint(587, 145)
-	}, 1, GROUND));
+	}, 1, { PLAYER, ENEMY }, GROUND));
 	ground->AddComponent(new LineColliderComponent(	// La pata delantera
 	{
 		fPoint(640, 176),
 		fPoint(648, 173),
 		fPoint(656, 181)
-	}, 1, GROUND));
+	}, 1, { PLAYER, ENEMY }, GROUND));
 	AddChild(ground);
 
 	dinosaurEye = new DinosaurEye("dinosaur_eye", 720, 141);
@@ -83,9 +83,9 @@ void Scene_Level1::OnCreateScene()
 	gameController->AddComponent(new GameControllerComponent());
 	AddChild(gameController);
 
-	for (int i = 0; i < 10; ++i)
+	for (int i = 0; i < 30; ++i)
 	{
-		EnemyCaveman* enemy = new EnemyCaveman("caveman_" + i, 300 + 100 * i, 0);
+		EnemyCaveman* enemy = new EnemyCaveman("caveman_" + i, 300.0f + 50.0f * i, 0);
 		AddChild(enemy);
 	}
 }

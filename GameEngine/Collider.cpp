@@ -9,6 +9,18 @@ Collider::Collider(CollisionListener* listener, Transform* transform, int type, 
 	this->listener = listener;
 	this->transform = transform;
 	this->type = type;
+
+	this->hasSpecificCollisionsTypes = false;
+}
+
+Collider::Collider(CollisionListener* listener, Transform* transform, vector<int> collisionsTypes, int type, bool enabled) : enabled(enabled)
+{
+	this->listener = listener;
+	this->transform = transform;
+	this->type = type;
+
+	this->hasSpecificCollisionsTypes = true;
+	this->collisionsTypes = collisionsTypes;
 }
 
 Collider::~Collider()
@@ -73,6 +85,20 @@ void Collider::PostUpdate()
 {
 	// Llamada al delegado
 	OnPostUpdate();
+}
+
+bool Collider::CanCollideWithType(int type)
+{
+	// Si no tiene tipos específicos, puede colisionar
+	if (!hasSpecificCollisionsTypes)
+		return true;
+
+	// Comprueba si el tipo es adecuado
+	for (unsigned int i = 0; i < collisionsTypes.size(); ++i)
+		if (type == collisionsTypes[i])
+			return true;
+
+	return false;	// Llegado este punto, no colisiona con el tipo
 }
 
 bool Collider::CollidesWith(Collider* other)

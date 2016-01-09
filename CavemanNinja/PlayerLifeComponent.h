@@ -40,6 +40,7 @@ public:
 	float decayTime;
 	float decayDuration;
 	bool hit;
+	bool invulnerable;
 	bool dead;
 	bool harvesting;
 	bool decaying;

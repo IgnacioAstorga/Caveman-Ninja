@@ -81,9 +81,6 @@ bool AnimatorMappingComponent::OnPostUpdate()
 	// Mapea si el personaje está muriendo o no
 	animator->SetFlagValue("decaying", lifeComponent->decaying && lifeComponent->deathCause == DAMAGE);
 
-	// Mapea si el personaje está en el suelo o no
-	animator->SetFlagValue("on_ground", gravityComponent->onGround);
-
 	// Mapea si el personaje ha sido herido o no
 	bool hitted = lifeComponent->hit && inputComponent->IsStopped();
 	bool hitFromBack;

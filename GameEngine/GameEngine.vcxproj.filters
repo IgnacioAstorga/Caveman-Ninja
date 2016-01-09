@@ -270,6 +270,9 @@
     <ClInclude Include="PreciseAnimation.h">
       <Filter>Elements\Animations</Filter>
     </ClInclude>
+    <ClInclude Include="RectangleBasicCollider.h">
+      <Filter>Elements\Collisions\Colliders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -370,6 +373,21 @@
     </ClCompile>
     <ClCompile Include="PreciseAnimation.cpp">
       <Filter>Elements\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="RectangleBasicCollider.cpp">
+      <Filter>Elements\Collisions\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="ColliderComponent.cpp">
+      <Filter>Elements\Entities\ColliderComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleColliderComponent.cpp">
+      <Filter>Elements\Entities\ColliderComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="RectangleColliderComponent.cpp">
+      <Filter>Elements\Entities\ColliderComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="LineColliderComponent.cpp">
+      <Filter>Elements\Entities\ColliderComponents</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

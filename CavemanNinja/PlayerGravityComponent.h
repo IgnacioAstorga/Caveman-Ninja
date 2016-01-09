@@ -11,7 +11,7 @@ class PlayerJumpComponent;
 class PlayerGravityComponent : public Component
 {
 public:
-	PlayerGravityComponent(float gravity, ColliderType groundColliderType, ColliderComponent* colliderComponent, float verticalTolerance = 5.0f, float step_size = 0.5f);
+	PlayerGravityComponent(float gravity, ColliderComponent* colliderComponent, float verticalTolerance = 5.0f, float step_size = 0.5f);
 	virtual ~PlayerGravityComponent();
 
 protected:
@@ -22,11 +22,10 @@ protected:
 
 public:
 	float gravity;
-	ColliderType groundColliderType;
 	float verticalTolerance;
 	float step_size;
+
 	bool falling;
-	bool onGround;
 
 	ColliderComponent* colliderComponent;
 	PlayerJumpComponent* jumpComponent;

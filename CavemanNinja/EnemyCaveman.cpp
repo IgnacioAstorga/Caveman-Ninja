@@ -18,10 +18,10 @@ void EnemyCaveman::OnCreate()
 	ColliderComponent* colliderComponent;
 	AddComponent(new SpriteRendererComponent("assets/images/enemy_caveman_1.png", EnemyCavemanAnimator::Create(), -64, -128));
 	AddComponent(new EnemyAnimatorMappingComponent());
-	AddComponent(colliderComponent = new RectangleColliderComponent(25, 46, 0, -23, 0, ENEMY));
+	AddComponent(colliderComponent = new RectangleColliderComponent(25, 46, { PLAYER, PLAYER_ATTACK }, 0, -23, 0, ENEMY, true));
 	AddComponent(new DieOnPlayerAttackComponent(1.25f, colliderComponent));
-	AddComponent(colliderComponent = new CircleColliderComponent(1.0f, 0.0f, 0.0f, NONE, true));
-	AddComponent(new EnemyGravityComponent(500.0f, GROUND, colliderComponent, 5.0f, 0.1f));
+	AddComponent(colliderComponent = new CircleColliderComponent(1.0f, { FLOOR, GROUND }, 0.0f, 0.0f, ENEMY, true));
+	AddComponent(new EnemyGravityComponent(500.0f, colliderComponent, 5.0f, 0.1f));
 	AddComponent(new MovementSimpleComponent());
 
 	// Añade el componente que hace aparecer un pickup de forma aleatoria

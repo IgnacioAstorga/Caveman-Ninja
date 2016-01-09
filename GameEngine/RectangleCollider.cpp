@@ -3,12 +3,24 @@
 #include "CollisionListener.h"
 #include "CircleCollider.h"
 #include "CircleTraceCollider.h"
+#include "RectangleBasicCollider.h"
 #include "LineCollider.h"
 #include "Application.h"
 #include "ModuleCollisions.h"
 #include "ModuleRender.h"
 
-RectangleCollider::RectangleCollider(CollisionListener* listener, Transform* transform, float width, float height, float offsetX, float offsetY, float rotation, int type, bool start_enabled) : Collider(listener, transform, type, start_enabled)
+RectangleCollider::RectangleCollider(CollisionListener* listener, Transform* transform, float width, float height, float offsetX, float offsetY, float rotation, int type, bool start_enabled)
+	: Collider(listener, transform, type, start_enabled)
+{
+	this->width = width;
+	this->height = height;
+	this->offsetX = offsetX;
+	this->offsetY = offsetY;
+	this->rotation = rotation;
+}
+
+RectangleCollider::RectangleCollider(CollisionListener * listener, Transform * transform, float width, float height, vector<int> collisionsTypes, float offsetX, float offsetY, float rotation, int type, bool start_enabled)
+	: Collider(listener, transform, collisionsTypes, type, start_enabled)
 {
 	this->width = width;
 	this->height = height;
@@ -170,6 +182,11 @@ bool RectangleCollider::CheckCollision(RectangleCollider* other)
 	return collides;
 }
 
+bool RectangleCollider::CheckCollision(RectangleBasicCollider * other)
+{
+	return CheckCollision((RectangleCollider*) other);
+}
+
 bool RectangleCollider::CheckCollision(LineCollider* other)
 {
 	// Delega la responsabilidad en el otro collider
@@ -180,9 +197,9 @@ void RectangleCollider::DrawCollider()
 {
 	// Determina el color y opacidad del dibujo
 	SDL_Color renderColor;
-	renderColor.r = 0;
+	renderColor.r = 179;
 	renderColor.g = 0;
-	renderColor.b = 179;
+	renderColor.b = 0;
 	renderColor.a = 128;
 	DrawCollider(renderColor);
 }

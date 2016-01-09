@@ -1,11 +1,15 @@
 #include "CircleTraceCollider.h"
 #include "CircleCollider.h"
 #include "RectangleCollider.h"
+#include "RectangleBasicCollider.h"
 #include "LineCollider.h"
 #include "Transform.h"
 
 CircleTraceCollider::CircleTraceCollider(CollisionListener * listener, Transform * transform, float radius, float offsetX, float offsetY, int type, bool start_enabled)
 	: CircleCollider(listener, transform, radius, offsetX, offsetY, type, start_enabled) {}
+
+CircleTraceCollider::CircleTraceCollider(CollisionListener * listener, Transform * transform, float radius, vector<int> collisionsTypes, float offsetX, float offsetY, int type, bool start_enabled)
+	: CircleCollider(listener, transform, radius, collisionsTypes, offsetX, offsetY, type, start_enabled) {}
 
 CircleTraceCollider::~CircleTraceCollider()
 {
@@ -38,6 +42,16 @@ bool CircleTraceCollider::CheckCollision(CircleTraceCollider * other)
 }
 
 bool CircleTraceCollider::CheckCollision(RectangleCollider * other)
+{
+	// Comprueba si colisionan el círculo o su trazo
+	if (other->CollidesWith(&GetCircleCollider()))
+		return true;
+	if (other->CollidesWith(&GetTraceCollider()))
+		return true;
+	return false;
+}
+
+bool CircleTraceCollider::CheckCollision(RectangleBasicCollider * other)
 {
 	// Comprueba si colisionan el círculo o su trazo
 	if (other->CollidesWith(&GetCircleCollider()))

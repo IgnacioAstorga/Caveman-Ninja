@@ -12,7 +12,7 @@ void PlayerCamera::OnCreate()
 
 	// Añade la pared a la izquierda de la cámara
 	wall = new Entity("wall", 0, 0);
-	wall->AddComponent(new RectangleColliderComponent(0, 1000, 0, 0, 0 , WALL));
+	wall->AddComponent(new RectangleColliderComponent(0, 1000, { PLAYER, PLAYER_ATTACK }, 0, 0, 0, WALL, true));
 	AddChild(wall);
 
 	// Añade el área de movimiento a la derecha de la pantalla

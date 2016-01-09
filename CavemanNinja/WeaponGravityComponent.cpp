@@ -7,11 +7,11 @@
 #include "Application.h"
 #include "ModuleTime.h"
 #include "ModuleCollisions.h"
+#include "ColliderTypes.h"
 
-WeaponGravityComponent::WeaponGravityComponent(float gravity, ColliderType groundColliderType, ColliderComponent* colliderComponent, float step_size)
+WeaponGravityComponent::WeaponGravityComponent(float gravity, ColliderComponent* colliderComponent, float step_size)
 {
 	this->gravity = gravity;
-	this->groundColliderType = groundColliderType;
 	this->colliderComponent = colliderComponent;
 	this->step_size = step_size;
 }
@@ -49,7 +49,7 @@ bool WeaponGravityComponent::OnUpdate()
 bool WeaponGravityComponent::OnCollisionEnter(Collider* self, Collider* other)
 {
 	// Primero, detecta si la colisión es con el suelo
-	if (other->GetType() != groundColliderType)
+	if (other->GetType() != FLOOR)
 		return true;
 
 	// Segundo, detecta si el collider que ha realizado la colisión es el correcto

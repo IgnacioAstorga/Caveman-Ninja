@@ -3,12 +3,22 @@
 #include "CollisionListener.h"
 #include "CircleTraceCollider.h"
 #include "RectangleCollider.h"
+#include "RectangleBasicCollider.h"
 #include "LineCollider.h"
 #include "Application.h"
 #include "ModuleCollisions.h"
 #include "ModuleRender.h"
 
-CircleCollider::CircleCollider(CollisionListener* listener, Transform* transform, float radius, float offsetX, float offsetY, int type, bool start_enabled) : Collider(listener, transform, type, start_enabled)
+CircleCollider::CircleCollider(CollisionListener* listener, Transform* transform, float radius, float offsetX, float offsetY, int type, bool start_enabled)
+	: Collider(listener, transform, type, start_enabled)
+{
+	this->radius = radius;
+	this->offsetX = offsetX;
+	this->offsetY = offsetY;
+}
+
+CircleCollider::CircleCollider(CollisionListener * listener, Transform * transform, float radius, vector<int> collisionsTypes, float offsetX, float offsetY, int type, bool start_enabled)
+	: Collider(listener, transform, collisionsTypes, type, start_enabled)
 {
 	this->radius = radius;
 	this->offsetX = offsetX;
@@ -38,6 +48,12 @@ bool CircleCollider::CheckCollision(CircleTraceCollider* other)
 }
 
 bool CircleCollider::CheckCollision(RectangleCollider* other)
+{
+	// Delega la responsabilidad en el otro collider
+	return other->CheckCollision(this);
+}
+
+bool CircleCollider::CheckCollision(RectangleBasicCollider * other)
 {
 	// Delega la responsabilidad en el otro collider
 	return other->CheckCollision(this);
