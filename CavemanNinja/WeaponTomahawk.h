@@ -6,7 +6,7 @@
 class WeaponTomahawk : public WeaponComponent
 {
 public:
-	WeaponTomahawk();
+	WeaponTomahawk(CircleColliderComponent* meleeComponent, fPoint meleeOffset);
 
 protected:
 	Entity* GetWeaponProjectile(fPoint position, int projectileNumber);

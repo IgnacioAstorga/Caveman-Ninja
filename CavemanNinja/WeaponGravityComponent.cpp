@@ -68,7 +68,7 @@ bool WeaponGravityComponent::OnCollisionEnter(Collider* self, Collider* other)
 	// Desactiva este componente y el collider
 	this->Disable();
 	colliderComponent->GetCollider()->Disable();
-	lifespanComponent->Reset(0.2f);
+	lifespanComponent->Reset(0.3f);
 
 	// Recoloca la entidad
 	int count = 0;

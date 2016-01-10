@@ -19,16 +19,14 @@ bool UserInterfaceComponent::OnStart()
 
 	// Crea el texto de la puntuación
 	score = new Entity("score", 98, 23);
-	score->AddComponent(new GUITextRendererComponent("", "assets/fonts/PressStart2P.ttf", 12, BLACK, BOTTOM_RIGHT, 2.0f, 1.0f));
-	score->AddComponent(new GUITextRendererComponent("", "assets/fonts/PressStart2P.ttf", 12, WHITE, BOTTOM_RIGHT));
+	score->AddComponent(new GUITextRendererComponent("", "assets/fonts/PressStart2P.ttf", 12, WHITE, BOTTOM_RIGHT, 0.0f, 0.0f, TOP_LEFT, true, { 1.0f, 1.0f }));
 	score->AddComponent(new GUIScoreTextComponent());
 	score->transform->SetScale(0.5f);
 	score->Instantiate(entity);
 
 	// Crea la etiqueta del jugador
 	playerLabel = new Entity("label", 24, 23);
-	playerLabel->AddComponent(new GUITextRendererComponent("1 PL", "assets/fonts/PressStart2P.ttf", 12, BLACK, BOTTOM_LEFT, 2.0f, 1.0f));
-	playerLabel->AddComponent(new GUITextRendererComponent("1 PL", "assets/fonts/PressStart2P.ttf", 12, WHITE, BOTTOM_LEFT));
+	playerLabel->AddComponent(new GUITextRendererComponent("1 PL", "assets/fonts/PressStart2P.ttf", 12, WHITE, BOTTOM_LEFT, 0.0f, 0.0f, TOP_LEFT, true, { 1.0f, 1.0f }));
 	playerLabel->transform->SetScale(0.5f);
 	playerLabel->Instantiate(entity);
 

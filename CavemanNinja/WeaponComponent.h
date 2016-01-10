@@ -2,35 +2,49 @@
 #define __WEAPONCOMPONENT_H__
 
 #include "Component.h"
+#include "Timer.h"
 
 class PlayerInputComponent;
 class PlayerJumpComponent;
+class CircleColliderComponent;
 class Animator;
 
 class WeaponComponent : public Component
 {
 public:
-	WeaponComponent(fPoint offset, fPoint initialSpeed, float delay, int maximumProjectileCount);
+	WeaponComponent(CircleColliderComponent* meleeComponent, fPoint meleeOffset, fPoint rangedOffset, fPoint initialSpeed, float delay, int maximumProjectileCount);
 	virtual ~WeaponComponent();
 
 protected:
 	bool OnStart();
+	bool OnCleanUp();
+
 	bool OnPreUpdate();
 
 	virtual Entity* GetWeaponProjectile(fPoint position, int projectileNumber) = 0;
 	virtual unsigned int GetFireSound() = 0;
 
+private:
+	void MeleeAttack();
+	void RangedAttack();
+
 public:
-	fPoint offset;
+	fPoint meleeOffset;
+	fPoint rangedOffset;
 	fPoint initialSpeed;
+
 	float delay;
+	float currentDelay;
 	int maximumProjectileCount;
+	int projectileCount;
+
+	Timer meleeTimer;
+
 	Animator* animator;
 	PlayerInputComponent* inputComponent;
 	PlayerJumpComponent* jumpComponent;
-	unsigned int fireSound;
+	CircleColliderComponent* meleeComponent;
 
-	float currentDelay;
-	int projectileCount;
+	unsigned int fireSound;
 };
 #endif //__WEAPONCOMPONENT_H__

@@ -70,6 +70,10 @@ bool DieOnPlayerAttackComponent::OnCollisionEnter(Collider * self, Collider * ot
 		entity->transform->SetSpeed(100.0f, -150.0f);
 	else if (other->transform->GetGlobalSpeed().x < 0)
 		entity->transform->SetSpeed(-100.0f, -150.0f);
+	else if (selfCenter.x > otherCenter.x)
+		entity->transform->SetSpeed(100.0f, -150.0f);
+	else if (selfCenter.x < otherCenter.x)
+		entity->transform->SetSpeed(-100.0f, -150.0f);
 	else
 		entity->transform->SetSpeed(0.0f, -200.0f);
 

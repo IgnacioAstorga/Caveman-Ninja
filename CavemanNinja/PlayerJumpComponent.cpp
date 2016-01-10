@@ -67,6 +67,13 @@ bool PlayerJumpComponent::OnPreUpdate()
 	if (leapingDownTimer.IsTimerExpired())
 		leapingDown = false;
 
+	// Si el personaje está callendo, ha dejado de saltar
+	if (fallingComponent->falling)
+	{
+		jumping = false;
+		longJumping = false;
+	}
+
 	// Comprueba si el personaje esta mirando hacia arriba
 	KeyState keyStateUp = App->input->GetKey(SDL_SCANCODE_W);
 	KeyState keyStateDown = App->input->GetKey(SDL_SCANCODE_S);

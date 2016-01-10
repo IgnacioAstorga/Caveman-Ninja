@@ -3,8 +3,8 @@
 #include "Application.h"
 #include "ModuleAudio.h"
 
-WeaponTomahawk::WeaponTomahawk()
-	: WeaponComponent(fPoint(10,-31), fPoint(150, -100), 0.2f, 2) {}
+WeaponTomahawk::WeaponTomahawk(CircleColliderComponent* meleeComponent, fPoint meleeOffset)
+	: WeaponComponent(meleeComponent, meleeOffset, fPoint(10,-31), fPoint(150, -100), 0.2f, 2) {}
 
 Entity* WeaponTomahawk::GetWeaponProjectile(fPoint position, int projectileNumber)
 {

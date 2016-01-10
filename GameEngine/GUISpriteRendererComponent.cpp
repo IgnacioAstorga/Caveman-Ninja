@@ -3,8 +3,8 @@
 #include "Application.h"
 #include "ModuleTextures.h"
 
-GUISpriteRendererComponent::GUISpriteRendererComponent(string fileName, Animation * animation, float offsetX, float offsetY, GUILocation location, bool start_enabled)
-	: GUITextureRendererComponent(animation, offsetX, offsetY, location, start_enabled)
+GUISpriteRendererComponent::GUISpriteRendererComponent(string fileName, Animation * animation, float offsetX, float offsetY, GUILocation location, bool shadow, fPoint shadowOffset, bool start_enabled)
+	: GUITextureRendererComponent(animation, offsetX, offsetY, location, shadow, shadowOffset, start_enabled)
 {
 	this->fileName = fileName;
 }

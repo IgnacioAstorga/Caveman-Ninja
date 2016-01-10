@@ -7,14 +7,17 @@
 #include "Transform.h"
 #include "Animation.h"
 #include "ModuleAnimation.h"
+#include "Color.h"
 
 #include "SDL.h"
 
-GUITextureRendererComponent::GUITextureRendererComponent(Animation* animation, float offsetX, float offsetY, GUILocation location, bool start_enabled) : GUIComponent(location, start_enabled)
+GUITextureRendererComponent::GUITextureRendererComponent(Animation* animation, float offsetX, float offsetY, GUILocation location, bool shadow, fPoint shadowOffset, bool start_enabled) : GUIComponent(location, start_enabled)
 {
 	this->animation = animation;
 	this->offsetX = offsetX;
 	this->offsetY = offsetY;
+	this->shadow = shadow;
+	this->shadowOffset = shadowOffset;
 }
 
 GUITextureRendererComponent::~GUITextureRendererComponent()
@@ -72,7 +75,12 @@ bool GUITextureRendererComponent::GUIPostUpdate()
 	if (animation != nullptr)
 		renderArea = &(animation->GetCurrentFrame());
 
-	App->renderer->Blit(texture, (int)renderPosition.x, (int)renderPosition.y, renderRotation, &pivot, renderArea, renderScale);
+	// Dibuja la sombra
+	if (shadow)
+		App->renderer->Blit(texture, (int)renderPosition.x + shadowOffset.x, (int)renderPosition.y + shadowOffset.y, renderRotation, &pivot, &BLACK.ToSDLColor(), renderArea, renderScale);
+
+	// Dibuja la imagen
+	App->renderer->Blit(texture, (int)renderPosition.x, (int)renderPosition.y, renderRotation, &pivot, &WHITE.ToSDLColor(), renderArea, renderScale);
 
 	return true;
 }

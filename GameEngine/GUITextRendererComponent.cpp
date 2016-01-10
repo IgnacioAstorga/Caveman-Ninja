@@ -3,8 +3,8 @@
 #include "ModuleRender.h"
 #include "ModuleFonts.h"
 
-GUITextRendererComponent::GUITextRendererComponent(string text, string fontName, unsigned int size, Color color, GUILocation align, float offsetX, float offsetY, GUILocation location, bool start_enabled)
-	:GUITextureRendererComponent(nullptr, offsetX, offsetY, location, start_enabled)
+GUITextRendererComponent::GUITextRendererComponent(string text, string fontName, unsigned int size, Color color, GUILocation align, float offsetX, float offsetY, GUILocation location, bool shadow, fPoint shadowOffset, bool start_enabled)
+	:GUITextureRendererComponent(nullptr, offsetX, offsetY, location, shadow, shadowOffset, start_enabled)
 {
 	this->text = text;
 	this->size = size;
