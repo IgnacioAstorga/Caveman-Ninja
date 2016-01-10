@@ -1,4 +1,5 @@
 #include "ModuleTime.h"
+#include "Timer.h"
 
 #include "SDL.h"
 
@@ -32,16 +33,39 @@ update_status ModuleTime::PreUpdate()
 	unsigned long newFrameTime = SDL_GetTicks();
 	deltaTime = (newFrameTime - lastFrameTime) / 1000.0f;
 	lastFrameTime = newFrameTime;
+
+	// Incrementa todos los timers
+	for (list<Timer*>::iterator it = timers.begin(); it != timers.end(); ++it)
+		if (!(*it)->IsPaused())
+			(*it)->Increment(deltaTime);
+
 	return UPDATE_CONTINUE;
 }
 
 bool ModuleTime::CleanUp()
 {
-	// Por ahora no hace nada
+	// Limpia la lista de timers
+	timers.clear();
+
 	return true;
 }
 
 float ModuleTime::DeltaTime()
 {
 	return deltaTime;
+}
+
+void ModuleTime::RegisterTimer(Timer * timer)
+{
+	LOG("Timer registration");
+
+	if (find(timers.begin(), timers.end(), timer) == timers.end())
+		timers.push_back(timer);
+}
+
+void ModuleTime::UnregisterTimer(Timer * timer)
+{
+	LOG("Timer unregistration");
+
+	timers.remove(timer);
 }

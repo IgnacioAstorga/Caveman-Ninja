@@ -2,6 +2,7 @@
 #include "SpriteRendererComponent.h"
 #include "Animator.h"
 #include "DieOnPlayerAttackComponent.h"
+#include "AICavemanComponent.h"
 
 EnemyAnimatorMappingComponent::EnemyAnimatorMappingComponent()
 {
@@ -26,25 +27,41 @@ bool EnemyAnimatorMappingComponent::OnStart()
 
 	// Recupera el componente de la vida del personaje
 	lifeComponent = entity->FindComponent<DieOnPlayerAttackComponent>();
+	if (lifeComponent == NULL)
+		return false;
+
+	// Recupera el componente de AI de la entidad
+	AIComponent = entity->FindComponent<AICavemanComponent>();
+	if (AIComponent == NULL)
+		return false;
 
 	return true;
 }
 
 bool EnemyAnimatorMappingComponent::OnPostUpdate()
 {
-	if (animator == NULL)
+	if (animator == NULL || lifeComponent == NULL || AIComponent == NULL)
 		return false;
 
 	// Mapea los atributos adecuados al animator
-	if (lifeComponent != NULL)
-	{
-		// Mapea si el personaje está muriendo o no
-		animator->SetFlagValue("decaying", lifeComponent->decaying);
+	// Mapea el estado del personaje
+	animator->SetFlagValue("AI_state", AIComponent->GetState());
 
-		// Mapea si el personaje ha sido herido o no
-		float speed = entity->transform->GetLocalSpeed().x;
-		animator->SetFlagValue("hit_back", lifeComponent->dead && speed < 0);
-		animator->SetFlagValue("hit_front", lifeComponent->dead && speed >= 0);
+	// Mapea si el personaje está muriendo o no
+	animator->SetFlagValue("decaying", lifeComponent->decaying);
+
+	// Mapea si el personaje ha sido herido o no
+	float speed = entity->transform->GetLocalSpeed().x;
+	animator->SetFlagValue("hit_back", lifeComponent->dead && speed < 0);
+	animator->SetFlagValue("hit_front", lifeComponent->dead && speed >= 0);
+
+	// Flipea el animator según la orientacion
+	if (!lifeComponent->dead)
+	{
+		if (AIComponent->GetOrientation() > 0)
+			animator->SetFlip(SDL_FLIP_HORIZONTAL);
+		else if (AIComponent->GetOrientation() < 0)
+			animator->SetFlip(SDL_FLIP_NONE);
 	}
 
 	return true;

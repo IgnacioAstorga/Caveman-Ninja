@@ -4,6 +4,7 @@
 #include "Component.h"
 
 class ColliderComponent;
+class AICavemanComponent;
 
 class DieOnPlayerAttackComponent : public Component
 {
@@ -25,7 +26,9 @@ public:
 	float decayDuration;
 	bool dead;
 	bool decaying;
+
 	ColliderComponent* colliderComponent;
+	AICavemanComponent* AIComponent;
 
 	unsigned int hitSound;
 	unsigned int dieSound;

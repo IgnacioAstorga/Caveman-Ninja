@@ -5,6 +5,7 @@
 
 class Animator;
 class DieOnPlayerAttackComponent;
+class AICavemanComponent;
 
 class EnemyAnimatorMappingComponent : public Component
 {
@@ -19,5 +20,6 @@ protected:
 public:
 	Animator* animator;
 	DieOnPlayerAttackComponent* lifeComponent;
+	AICavemanComponent* AIComponent;
 };
 #endif // __ENEMYANIMATORMAPPINGCOMPONENT_H__

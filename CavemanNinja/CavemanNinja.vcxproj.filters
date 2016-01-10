@@ -127,6 +127,9 @@
     <ClCompile Include="DinosaurEyeComponent.cpp">
       <Filter>Other\Components</Filter>
     </ClCompile>
+    <ClCompile Include="AICavemanComponent.cpp">
+      <Filter>Enemies\AI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scenes">
@@ -200,6 +203,9 @@
     </Filter>
     <Filter Include="Other\Components">
       <UniqueIdentifier>{b26a3b5a-c8d2-463b-9d33-6bfeaf0f546e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemies\AI">
+      <UniqueIdentifier>{31219f38-4460-4dbc-99da-3da9f4b43607}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -325,6 +331,9 @@
     </ClInclude>
     <ClInclude Include="DinosaurEyeComponent.h">
       <Filter>Other\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="AICavemanComponent.h">
+      <Filter>Enemies\AI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

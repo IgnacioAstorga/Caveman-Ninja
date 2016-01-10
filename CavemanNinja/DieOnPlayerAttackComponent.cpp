@@ -9,6 +9,7 @@
 #include "ModuleAudio.h"
 #include "EnemyHitEffect.h"
 #include "SpawnPickupOnDeathComponent.h"
+#include "AICavemanComponent.h"
 
 DieOnPlayerAttackComponent::DieOnPlayerAttackComponent(float decayTime, ColliderComponent* colliderComponent, bool start_enabled)
 	: Component(start_enabled)
@@ -23,11 +24,14 @@ DieOnPlayerAttackComponent::~DieOnPlayerAttackComponent() {}
 
 bool DieOnPlayerAttackComponent::OnStart()
 {
+	// Recupera el componente de la IA
+	AIComponent = entity->FindComponent<AICavemanComponent>();
+
 	// Carga los efectos de sonido
 	hitSound = App->audio->LoadFx("assets/sounds/enemy_hit.wav");
 	dieSound = App->audio->LoadFx("assets/sounds/enemy_caveman_die.wav");
 
-	return true;
+	return AIComponent != NULL;
 }
 
 bool DieOnPlayerAttackComponent::OnUpdate()
@@ -48,8 +52,9 @@ bool DieOnPlayerAttackComponent::OnCollisionEnter(Collider * self, Collider * ot
 	if (self != colliderComponent->GetCollider() || other->GetType() != PLAYER_ATTACK)
 		return true;
 
-	// Desactiva el collider y mata al personaje
+	// Desactiva el collider, su IA y mata al personaje
 	colliderComponent->GetCollider()->Disable();
+	AIComponent->Disable();
 	dead = true;
 
 	// Crea el efecto especial
@@ -58,7 +63,7 @@ bool DieOnPlayerAttackComponent::OnCollisionEnter(Collider * self, Collider * ot
 	hitEffect->transform->SetGlobalPosition(otherPosition.x, otherPosition.y);
 	hitEffect->Instantiate();
 
-	// Lanca al enemigo volando en la dirección adecuada
+	// Lanza al enemigo volando en la dirección adecuada
 	if (other->transform->GetGlobalSpeed().x > 0)
 		entity->transform->SetSpeed(100.0f, -150.0f);
 	else if (other->transform->GetGlobalSpeed().x < 0)

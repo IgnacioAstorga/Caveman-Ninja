@@ -116,6 +116,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AICavemanComponent.cpp" />
     <ClCompile Include="AnimatorMappingComponent.cpp" />
     <ClCompile Include="CameraMovementComponent.cpp" />
     <ClCompile Include="DieOnPlayerAttackComponent.cpp" />
@@ -167,6 +168,7 @@
   <ItemGroup>
     <ClInclude Include="AnimatorMappingComponent.h" />
     <ClInclude Include="CameraMovementComponent.h" />
+    <ClInclude Include="AICavemanComponent.h" />
     <ClInclude Include="ColliderTypes.h" />
     <ClInclude Include="DieOnPlayerAttackComponent.h" />
     <ClInclude Include="DinosaurEye.h" />

@@ -39,6 +39,7 @@
     <ClInclude Include="DestroyOnCollisionComponent.h" />
     <ClInclude Include="EmitContinuouslyEmitter.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityLifetimeComponent.h" />
     <ClInclude Include="FlagCondition.h" />
     <ClInclude Include="FlagEqualsCondition.h" />
     <ClInclude Include="FlagGreaterThanCondition.h" />
@@ -90,6 +91,7 @@
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="StateSwitcher.h" />
     <ClInclude Include="StateTransition.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +132,7 @@
     <ClCompile Include="RectangleCollider.cpp" />
     <ClCompile Include="RectangleColliderComponent.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

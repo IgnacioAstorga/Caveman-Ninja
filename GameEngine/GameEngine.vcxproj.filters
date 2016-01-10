@@ -273,6 +273,12 @@
     <ClInclude Include="RectangleBasicCollider.h">
       <Filter>Elements\Collisions\Colliders</Filter>
     </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityLifetimeComponent.h">
+      <Filter>Elements\Entities\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -388,6 +394,9 @@
     </ClCompile>
     <ClCompile Include="LineColliderComponent.cpp">
       <Filter>Elements\Entities\ColliderComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Util</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

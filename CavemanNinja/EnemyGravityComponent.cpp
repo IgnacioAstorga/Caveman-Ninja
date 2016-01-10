@@ -33,7 +33,6 @@ bool EnemyGravityComponent::OnStart()
 bool EnemyGravityComponent::OnUpdate()
 {
 	// Mueve a la entidad según la gravedad (coordenadas globales)
-	// Suma la gravedad a la velocidad de la entidad
 	float newYSpeed = entity->transform->GetGlobalSpeed().y + gravity * App->time->DeltaTime();
 	entity->transform->SetGlobalSpeed(entity->transform->GetGlobalSpeed().x, newYSpeed);
 	if (entity->transform->GetGlobalSpeed().y > 0)
@@ -54,18 +53,20 @@ bool EnemyGravityComponent::OnCollisionEnter(Collider* self, Collider* other)
 
 	// Frena la caida de la entidad
 	if (!lifeComponent->dead)
+	{
 		entity->transform->SetSpeed(entity->transform->GetLocalSpeed().x, 0.0f);
-	else
+		falling = false;
+
+		// Recoloca la entidad
+		fPoint newPosition = other->GetExternalPositionFromCoordinates(entity->transform->GetGlobalPosition());
+		entity->transform->SetGlobalPosition(newPosition.x, newPosition.y);
+	}
+	else if (falling)
 	{
 		entity->transform->SetSpeed(0.0f, 0.0f);	// Si está muerto lo frena completamente
 		lifeComponent->Decay();
 		this->Disable();	// Desactiva el componente de gravedad
 	}
-	falling = false;
-
-	// Recoloca la entidad
-	fPoint newPosition = other->GetExternalPositionFromCoordinates(entity->transform->GetGlobalPosition());
-	entity->transform->SetGlobalPosition(newPosition.x, newPosition.y);
 
 	return true;
 }

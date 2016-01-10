@@ -38,7 +38,7 @@ void ScoreTextEffect::OnCreate()
 		return;
 	}
 
-	AddComponent(new SpriteRendererComponent("assets/images/pickups_score.png", animation, -8, -8));
+	AddComponent(new SpriteRendererComponent("assets/images/pickups_score.png", animation, -8, -16));
 	AddComponent(new EffectLifespanComponent(1.0f));
 	AddComponent(new MovementSimpleComponent());
 
