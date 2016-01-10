@@ -78,8 +78,13 @@ bool WeaponComponent::OnPreUpdate()
 
 	// Crea el proyectil del disparo
 	Entity* projectile = GetWeaponProjectile(position, projectileCount);
-	float horizontalSpeed = inputComponent->orientation == FORWARD ? initialSpeed.x : -initialSpeed.x;
-	projectile->transform->SetGlobalSpeed(horizontalSpeed, initialSpeed.y);
+	if (jumpComponent->lookingUp && (!jumpComponent->longJumping || jumpComponent->fallingComponent->falling))
+		projectile->transform->SetGlobalSpeed(0.0f, -1.25f * initialSpeed.Norm());	// Disparo hacia arriba si está en el suelo, saltando normal o callendo
+	else
+	{
+		float horizontalSpeed = inputComponent->orientation == FORWARD ? initialSpeed.x : -initialSpeed.x;
+		projectile->transform->SetGlobalSpeed(horizontalSpeed, initialSpeed.y);
+	}
 	projectile->Instantiate();
 	currentDelay = 0;
 	projectileCount++;

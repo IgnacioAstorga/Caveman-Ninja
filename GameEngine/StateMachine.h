@@ -70,12 +70,15 @@ T* StateMachine<T>::GetActualState()
 template<class T>
 StateSwitcher<T>* StateMachine<T>::SetFlagValue(string flag, bool value)
 {
-	flags[flag] = value;
-	StateSwitcher<T>* newStateSwitcher = currentStateSwitcher->Process(flags);
-	if (newStateSwitcher != currentStateSwitcher)
+	if (flags[flag] != (float) value)
 	{
-		OnStateTransition(currentStateSwitcher->GetActualState(), newStateSwitcher->GetActualState());
-		currentStateSwitcher = newStateSwitcher;
+		flags[flag] = (float) value;
+		StateSwitcher<T>* newStateSwitcher = currentStateSwitcher->Process(flags);
+		if (newStateSwitcher != currentStateSwitcher)
+		{
+			OnStateTransition(currentStateSwitcher->GetActualState(), newStateSwitcher->GetActualState());
+			currentStateSwitcher = newStateSwitcher;
+		}
 	}
 	return currentStateSwitcher;
 }
@@ -83,12 +86,15 @@ StateSwitcher<T>* StateMachine<T>::SetFlagValue(string flag, bool value)
 template<class T>
 StateSwitcher<T>* StateMachine<T>::SetFlagValue(string flag, int value)
 {
-	flags[flag] = (float) value;
-	StateSwitcher<T>* newStateSwitcher = currentStateSwitcher->Process(flags);
-	if (newStateSwitcher != currentStateSwitcher)
+	if (flags[flag] != (float)value)
 	{
-		OnStateTransition(currentStateSwitcher->GetActualState(), newStateSwitcher->GetActualState());
-		currentStateSwitcher = newStateSwitcher;
+		flags[flag] = (float) value;
+		StateSwitcher<T>* newStateSwitcher = currentStateSwitcher->Process(flags);
+		if (newStateSwitcher != currentStateSwitcher)
+		{
+			OnStateTransition(currentStateSwitcher->GetActualState(), newStateSwitcher->GetActualState());
+			currentStateSwitcher = newStateSwitcher;
+		}
 	}
 	return currentStateSwitcher;
 }
@@ -96,12 +102,15 @@ StateSwitcher<T>* StateMachine<T>::SetFlagValue(string flag, int value)
 template<class T>
 StateSwitcher<T>* StateMachine<T>::SetFlagValue(string flag, float value)
 {
-	flags[flag] = value;
-	StateSwitcher<T>* newStateSwitcher = currentStateSwitcher->Process(flags);
-	if (newStateSwitcher != currentStateSwitcher)
+	if (flags[flag] != value)
 	{
-		OnStateTransition(currentStateSwitcher->GetActualState(), newStateSwitcher->GetActualState());
-		currentStateSwitcher = newStateSwitcher;
+		flags[flag] = value;
+		StateSwitcher<T>* newStateSwitcher = currentStateSwitcher->Process(flags);
+		if (newStateSwitcher != currentStateSwitcher)
+		{
+			OnStateTransition(currentStateSwitcher->GetActualState(), newStateSwitcher->GetActualState());
+			currentStateSwitcher = newStateSwitcher;
+		}
 	}
 	return currentStateSwitcher;
 }

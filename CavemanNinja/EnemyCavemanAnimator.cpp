@@ -100,6 +100,9 @@ EnemyCavemanAnimator* EnemyCavemanAnimator::Create()
 	runStartState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
 	runStartState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
+	runState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	runState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+
 	hitBackState->AddStateTransition(new StateTransition<Animation>(walkState, new FlagEqualsCondition("hit_back", false)));
 	hitBackState->AddStateTransition(new StateTransition<Animation>(dieBackState, new FlagEqualsCondition("decaying", true)));
 

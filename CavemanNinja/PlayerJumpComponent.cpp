@@ -40,16 +40,16 @@ bool PlayerJumpComponent::OnStart()
 
 bool PlayerJumpComponent::OnPreUpdate()
 {
+	// Comprueba si el personaje esta miarando hacia arriba
+	KeyState keyState = App->input->GetKey(SDL_SCANCODE_W);
+	lookingUp = keyState == KEY_DOWN || keyState == KEY_REPEAT;
+
 	// Primero comprueba si ela entidad está callendo o saltando
 	if (fallingComponent->falling || jumping)
 		return true;	// No se puede saltar mientras se cae
 
 	if (inputComponent->IsStopped())
 		return true;	// No se puede saltar si el personaje está detenido
-
-	// Comprueba si el personaje esta miarando hacia arriba
-	KeyState keyState = App->input->GetKey(SDL_SCANCODE_W);
-	lookingUp = keyState == KEY_DOWN || keyState == KEY_REPEAT;
 
 	// Comprueba si la tecla de saltar (barra espaciadora) fue pulsada
 	keyState = App->input->GetKey(SDL_SCANCODE_SPACE);
