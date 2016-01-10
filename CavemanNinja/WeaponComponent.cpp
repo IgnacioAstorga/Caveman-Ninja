@@ -74,7 +74,7 @@ bool WeaponComponent::OnPreUpdate()
 	// Determina la posición del disparo
 	fPoint position = entity->transform->GetGlobalPosition();
 	position.x += inputComponent->orientation == FORWARD ? offset.x : -offset.x;
-	position.y += offset.y;
+	position.y += jumpComponent->crouch == true ? offset.y / 2.0f : offset.y;
 
 	// Crea el proyectil del disparo
 	Entity* projectile = GetWeaponProjectile(position, projectileCount);

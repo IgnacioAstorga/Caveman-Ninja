@@ -133,7 +133,10 @@ bool PlayerLifeComponent::OnCollisionEnter(Collider * self, Collider * other)
 
 	// Si está callendo, rebota. Si no, se hace daño
 	if (gravityComponent->falling)
+	{
 		entity->transform->SetSpeed(entity->transform->speed.x, -100.0f);
+		gravityComponent->jumpComponent->jumping = true;
+	}
 	else
 		// Hace daño al personaje
 		TakeDamage(5, damagePosition);	// 5 es el daño por colisión con enemigo

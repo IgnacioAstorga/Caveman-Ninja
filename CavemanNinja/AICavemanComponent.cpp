@@ -72,6 +72,9 @@ bool AICavemanComponent::OnCleanUp()
 	// Desregistra el timer
 	App->time->UnregisterTimer(&timer);
 
+	// Desactiva el collider de ataque	(por si fue interrumpido)
+	attackComponent->Disable();
+
 	return true;
 }
 

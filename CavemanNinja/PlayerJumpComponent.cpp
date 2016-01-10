@@ -1,6 +1,9 @@
 #include "PlayerJumpComponent.h"
 #include "PlayerGravityComponent.h"
 #include "PlayerInputComponent.h"
+#include "ColliderComponent.h"
+#include "Collider.h"
+#include "RectangleBasicCollider.h"
 #include "Entity.h"
 #include "Transform.h"
 #include "Application.h"
@@ -32,6 +35,14 @@ bool PlayerJumpComponent::OnStart()
 	if (inputComponent == NULL)
 		return false;
 
+	// Intenta recuperar la hitbox del personaje
+	hitboxCollider = dynamic_cast<RectangleBasicCollider*>(inputComponent->colliderComponent->GetCollider());
+	if (hitboxCollider == NULL)
+		return false;
+	// Guarda sus atributos originales
+	originalOffsetY = hitboxCollider->offsetY;
+	originalHeight = hitboxCollider->height;
+
 	// Carga los efectos de sonido
 	jumpLongSound = App->audio->LoadFx("assets/sounds/player_jump_long.wav");
 
@@ -41,20 +52,55 @@ bool PlayerJumpComponent::OnStart()
 bool PlayerJumpComponent::OnPreUpdate()
 {
 	// Comprueba si el personaje esta mirando hacia arriba
-	KeyState keyState = App->input->GetKey(SDL_SCANCODE_W);
-	lookingUp = (keyState == KEY_DOWN || keyState == KEY_REPEAT) && (!longJumping || fallingComponent->falling);	// No mirará hacia arriba si está haciendo salto largo
+	KeyState keyStateUp = App->input->GetKey(SDL_SCANCODE_W);
+	KeyState keyStateDown = App->input->GetKey(SDL_SCANCODE_S);
+	bool up = keyStateUp == KEY_DOWN || keyStateUp == KEY_REPEAT;
+	bool down = keyStateDown == KEY_DOWN || keyStateDown == KEY_REPEAT;
+	if (up && !down)
+	{
+		lookingUp = !longJumping || fallingComponent->falling;	// No mirará hacia arriba si está haciendo salto largo
+		crouch = false;
+	}
+	else if (!up && down)
+	{
+		crouch = !jumping && !fallingComponent->falling;	// No se podrá agachar ni saltando ni callendo
+		lookingUp = false;
+	}
+	else
+	{
+		lookingUp = false;
+		crouch = false;
+	}
 
-	// Primero comprueba si ela entidad está callendo o saltando
+	if (!crouch)
+	{
+		// Devuelve la hitbox a su tamaño original
+		hitboxCollider->offsetY = originalOffsetY;
+		hitboxCollider->height = originalHeight;
+
+		// Comprueba si la tecla de saltar (barra espaciadora) fue pulsada
+		KeyState keyStateJump = App->input->GetKey(SDL_SCANCODE_SPACE);
+		if (keyStateJump == KEY_DOWN || keyStateJump == KEY_REPEAT)
+			Jump();
+	}
+	else
+	{
+		// Se agacha, reduciendo la altura de la hitbox a la mitad
+		hitboxCollider->offsetY = originalOffsetY / 2;
+		hitboxCollider->height = originalHeight / 2;
+	}
+
+	return true;
+}
+
+void PlayerJumpComponent::Jump()
+{
+	// Primero comprueba si la entidad está callendo o saltando
 	if (fallingComponent->falling || jumping)
-		return true;	// No se puede saltar mientras se cae
+		return;	// No se puede saltar mientras se cae
 
 	if (inputComponent->IsStopped())
-		return true;	// No se puede saltar si el personaje está detenido
-
-	// Comprueba si la tecla de saltar (barra espaciadora) fue pulsada
-	keyState = App->input->GetKey(SDL_SCANCODE_SPACE);
-	if (keyState != KEY_DOWN && keyState != KEY_REPEAT)
-		return true;
+		return;	// No se puede saltar si el personaje está detenido
 
 	// Modifica la velocidad vertical de la entidad para hacerla saltar
 	fPoint currentSpeed = entity->transform->GetGlobalSpeed();
@@ -66,6 +112,4 @@ bool PlayerJumpComponent::OnPreUpdate()
 	// Reproduce un sonido
 	if (jumping && longJumping)
 		App->audio->PlayFx(jumpLongSound);
-
-	return true;
 }

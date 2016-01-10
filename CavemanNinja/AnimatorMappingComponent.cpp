@@ -63,6 +63,9 @@ bool AnimatorMappingComponent::OnPostUpdate()
 	// Mapea si el personaje está mirando hacia arriba o no
 	animator->SetFlagValue("looking_up", jumpComponent->lookingUp);
 
+	// Mapea si el personaje está agachado o no
+	animator->SetFlagValue("crouch", jumpComponent->crouch);
+
 	// Mapea si el personaje está saltando o no
 	animator->SetFlagValue("jumping", jumpComponent->jumping && !jumpComponent->longJumping);
 	animator->SetFlagValue("jumping_long", jumpComponent->jumping && jumpComponent->longJumping);
@@ -99,6 +102,10 @@ bool AnimatorMappingComponent::OnPostUpdate()
 			animator->SetFlip(SDL_FLIP_NONE);
 		else if (speed.x < 0)
 			animator->SetFlip(SDL_FLIP_HORIZONTAL);
+		else if (inputComponent->orientation == FORWARD)
+			animator->SetFlip(SDL_FLIP_NONE);
+		else if (inputComponent->orientation == BACKWARD)
+			animator->SetFlip(SDL_FLIP_HORIZONTAL);			
 	}
 
 	return true;

@@ -19,6 +19,9 @@ PlayerAnimator* PlayerAnimator::Create()
 	BasicAnimation* idleUp = new BasicAnimation(1024, 512, 8, 8, 0.0f);
 	idleUp->frames.push_back({ 0, 4 });
 
+	BasicAnimation* idleCrouch = new BasicAnimation(1024, 512, 8, 8, 0.0f);
+	idleCrouch->frames.push_back({ 1, 4 });
+
 	BasicAnimation* attack = new BasicAnimation(1024, 512, 8, 8, 16.0f, false);
 	attack->frames.push_back({ 4, 0 });
 	attack->frames.push_back({ 5, 0 });
@@ -34,6 +37,10 @@ PlayerAnimator* PlayerAnimator::Create()
 	BasicAnimation* attackUpJump = new BasicAnimation(1024, 512, 8, 8, 16.0f, false);
 	attackUpJump->frames.push_back({ 6, 4 });
 	attackUpJump->frames.push_back({ 7, 4 });
+
+	BasicAnimation* attackCrouch = new BasicAnimation(1024, 512, 8, 8, 16.0f, false);
+	attackCrouch->frames.push_back({ 2, 4 });
+	attackCrouch->frames.push_back({ 3, 4 });
 
 	BasicAnimation* run = new BasicAnimation(1024, 512, 8, 8, 8.0f);
 	run->frames.push_back({ 1, 0 });
@@ -88,10 +95,12 @@ PlayerAnimator* PlayerAnimator::Create()
 	// Crea los estados del personaje
 	StateSwitcher<Animation>* idleState = new StateSwitcher<Animation>(idle);
 	StateSwitcher<Animation>* idleUpState = new StateSwitcher<Animation>(idleUp);
+	StateSwitcher<Animation>* idleCrouchState = new StateSwitcher<Animation>(idleCrouch);
 	StateSwitcher<Animation>* attackState = new StateSwitcher<Animation>(attack);
 	StateSwitcher<Animation>* attackJumpState = new StateSwitcher<Animation>(attackJump);
 	StateSwitcher<Animation>* attackUpState = new StateSwitcher<Animation>(attackUp);
 	StateSwitcher<Animation>* attackUpJumpState = new StateSwitcher<Animation>(attackUpJump);
+	StateSwitcher<Animation>* attackCrouchState = new StateSwitcher<Animation>(attackCrouch);
 	StateSwitcher<Animation>* runState = new StateSwitcher<Animation>(run);
 	StateSwitcher<Animation>* jumpState = new StateSwitcher<Animation>(jump);
 	StateSwitcher<Animation>* longJumpStartState = new StateSwitcher<Animation>(longJumpStart);
@@ -109,6 +118,7 @@ PlayerAnimator* PlayerAnimator::Create()
 	idleState->AddStateTransition(new StateTransition<Animation>(longJumpStartState, new FlagEqualsCondition("jumping_long", true)));
 	idleState->AddStateTransition(new StateTransition<Animation>(fallState, new FlagEqualsCondition("falling", true)));
 	idleState->AddStateTransition(new StateTransition<Animation>(idleUpState, new FlagEqualsCondition("looking_up", true)));
+	idleState->AddStateTransition(new StateTransition<Animation>(idleCrouchState, new FlagEqualsCondition("crouch", true)));
 	idleState->AddStateTransition(new StateTransition<Animation>(attackUpState, new FlagEqualsCondition("weapon_attack_up", true)));
 	idleState->AddStateTransition(new StateTransition<Animation>(attackState, new FlagEqualsCondition("weapon_attack", true)));
 	idleState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
@@ -126,6 +136,13 @@ PlayerAnimator* PlayerAnimator::Create()
 	idleUpState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 	idleUpState->AddStateTransition(new StateTransition<Animation>(dieHarvestState, new FlagEqualsCondition("dead_harvest", true)));
 
+	idleCrouchState->AddStateTransition(new StateTransition<Animation>(attackCrouchState, new FlagEqualsCondition("weapon_attack", true)));
+	idleCrouchState->AddStateTransition(new StateTransition<Animation>(fallState, new FlagEqualsCondition("falling", true)));
+	idleCrouchState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("crouch", false)));
+	idleCrouchState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	idleCrouchState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+	idleCrouchState->AddStateTransition(new StateTransition<Animation>(dieHarvestState, new FlagEqualsCondition("dead_harvest", true)));
+
 	attackState->AddStateTransition(new StateTransition<Animation>(idleState, new AnimationEndCondition()));
 	attackState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
 	attackState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
@@ -141,6 +158,10 @@ PlayerAnimator* PlayerAnimator::Create()
 	attackUpJumpState->AddStateTransition(new StateTransition<Animation>(jumpState, new AnimationEndCondition()));
 	attackUpJumpState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
 	attackUpJumpState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+
+	attackCrouchState->AddStateTransition(new StateTransition<Animation>(idleCrouchState, new AnimationEndCondition()));
+	attackCrouchState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	attackCrouchState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
 	runState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("speedX_absolute", 0.0f)));
 	runState->AddStateTransition(new StateTransition<Animation>(jumpState, new FlagEqualsCondition("jumping", true)));

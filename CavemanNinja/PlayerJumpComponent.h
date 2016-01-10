@@ -5,6 +5,7 @@
 
 class PlayerGravityComponent;
 class PlayerInputComponent;
+class RectangleBasicCollider;
 
 class PlayerJumpComponent : public Component
 {
@@ -16,15 +17,23 @@ protected:
 	bool OnStart();
 	bool OnPreUpdate();
 
+private:
+	void Jump();
+
 public:
 	float jumpSpeed;
 	float longJumpMultiplier;
 	bool jumping;
 	bool longJumping;
 	bool lookingUp;
+	bool crouch;
 
 	PlayerGravityComponent* fallingComponent;
 	PlayerInputComponent* inputComponent;
+	RectangleBasicCollider* hitboxCollider;
+
+	float originalOffsetY;
+	float originalHeight;
 
 	unsigned int jumpLongSound;
 };
