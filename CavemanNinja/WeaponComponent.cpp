@@ -78,8 +78,8 @@ bool WeaponComponent::OnPreUpdate()
 
 	// Crea el proyectil del disparo
 	Entity* projectile = GetWeaponProjectile(position, projectileCount);
-	if (jumpComponent->lookingUp && (!jumpComponent->longJumping || jumpComponent->fallingComponent->falling))
-		projectile->transform->SetGlobalSpeed(0.0f, -1.25f * initialSpeed.Norm());	// Disparo hacia arriba si está en el suelo, saltando normal o callendo
+	if (jumpComponent->lookingUp)
+		projectile->transform->SetGlobalSpeed(0.0f, -1.25f * initialSpeed.Norm());
 	else
 	{
 		float horizontalSpeed = inputComponent->orientation == FORWARD ? initialSpeed.x : -initialSpeed.x;
@@ -93,7 +93,10 @@ bool WeaponComponent::OnPreUpdate()
 	App->audio->PlayFx(fireSound);
 
 	// Activa el flag en el animator (se hace aquí en vez de en el mapping porque es un trigger)
-	animator->Trigger("weapon_attack");
+	if (jumpComponent->lookingUp)
+		animator->Trigger("weapon_attack_up");
+	else
+		animator->Trigger("weapon_attack");
 
 	return true;
 }

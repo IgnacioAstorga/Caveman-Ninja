@@ -57,7 +57,7 @@ bool AnimatorMappingComponent::OnPostUpdate()
 
 	// Mapea la velocidad horizontal del personaje al animator
 	float speed = entity->transform->GetLocalSpeed().x;
-	animator->SetFlagValue("speedX_absolute", abs(speed));
+	animator->SetFlagValue("speedX_absolute", abs(speed), true);
 
 	// Mapea si el personaje está mirando hacia arriba o no
 	animator->SetFlagValue("looking_up", jumpComponent->lookingUp);

@@ -20,9 +20,9 @@ public:
 	void RegisterStateSwitcher(StateSwitcher<T>* stateSwitcher);
 
 	T* GetActualState();
-	StateSwitcher<T>* SetFlagValue(string flag, bool value);
-	StateSwitcher<T>* SetFlagValue(string flag, int value);
-	StateSwitcher<T>* SetFlagValue(string flag, float value);
+	StateSwitcher<T>* SetFlagValue(string flag, bool value, bool force = false);
+	StateSwitcher<T>* SetFlagValue(string flag, int value, bool force = false);
+	StateSwitcher<T>* SetFlagValue(string flag, float value, bool force = false);
 	StateSwitcher<T>* Trigger(string flag);
 
 protected:
@@ -68,9 +68,9 @@ T* StateMachine<T>::GetActualState()
 }
 
 template<class T>
-StateSwitcher<T>* StateMachine<T>::SetFlagValue(string flag, bool value)
+StateSwitcher<T>* StateMachine<T>::SetFlagValue(string flag, bool value, bool force)
 {
-	if (flags[flag] != (float) value)
+	if (force || flags[flag] != (float) value)
 	{
 		flags[flag] = (float) value;
 		StateSwitcher<T>* newStateSwitcher = currentStateSwitcher->Process(flags);
@@ -84,9 +84,9 @@ StateSwitcher<T>* StateMachine<T>::SetFlagValue(string flag, bool value)
 }
 
 template<class T>
-StateSwitcher<T>* StateMachine<T>::SetFlagValue(string flag, int value)
+StateSwitcher<T>* StateMachine<T>::SetFlagValue(string flag, int value, bool force)
 {
-	if (flags[flag] != (float)value)
+	if (force || flags[flag] != (float)value)
 	{
 		flags[flag] = (float) value;
 		StateSwitcher<T>* newStateSwitcher = currentStateSwitcher->Process(flags);
@@ -100,9 +100,9 @@ StateSwitcher<T>* StateMachine<T>::SetFlagValue(string flag, int value)
 }
 
 template<class T>
-StateSwitcher<T>* StateMachine<T>::SetFlagValue(string flag, float value)
+StateSwitcher<T>* StateMachine<T>::SetFlagValue(string flag, float value, bool force)
 {
-	if (flags[flag] != value)
+	if (force || flags[flag] != value)
 	{
 		flags[flag] = value;
 		StateSwitcher<T>* newStateSwitcher = currentStateSwitcher->Process(flags);

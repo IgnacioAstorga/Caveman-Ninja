@@ -40,9 +40,9 @@ bool PlayerJumpComponent::OnStart()
 
 bool PlayerJumpComponent::OnPreUpdate()
 {
-	// Comprueba si el personaje esta miarando hacia arriba
+	// Comprueba si el personaje esta mirando hacia arriba
 	KeyState keyState = App->input->GetKey(SDL_SCANCODE_W);
-	lookingUp = keyState == KEY_DOWN || keyState == KEY_REPEAT;
+	lookingUp = (keyState == KEY_DOWN || keyState == KEY_REPEAT) && (!longJumping || fallingComponent->falling);	// No mirará hacia arriba si está haciendo salto largo
 
 	// Primero comprueba si ela entidad está callendo o saltando
 	if (fallingComponent->falling || jumping)
