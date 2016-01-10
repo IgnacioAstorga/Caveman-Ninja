@@ -8,6 +8,7 @@
 #include "Transform.h"
 #include "Application.h"
 #include "ModuleInput.h"
+#include "ModuleTime.h"
 #include "ModuleAudio.h"
 
 PlayerJumpComponent::PlayerJumpComponent(float jumpSpeed, float longJumpMultiplier)
@@ -43,14 +44,29 @@ bool PlayerJumpComponent::OnStart()
 	originalOffsetY = hitboxCollider->offsetY;
 	originalHeight = hitboxCollider->height;
 
-	// Carga los efectos de sonido
+	// Registra el timer
+	App->time->RegisterTimer(&leapingDownTimer);
+
+	// Carga los efectos de sonidod
 	jumpLongSound = App->audio->LoadFx("assets/sounds/player_jump_long.wav");
+
+	return true;
+}
+
+bool PlayerJumpComponent::OnCleanUp()
+{
+	// Desregistra el timer
+	App->time->UnregisterTimer(&leapingDownTimer);
 
 	return true;
 }
 
 bool PlayerJumpComponent::OnPreUpdate()
 {
+	// Comprueba si el timer ha expirado
+	if (leapingDownTimer.IsTimerExpired())
+		leapingDown = false;
+
 	// Comprueba si el personaje esta mirando hacia arriba
 	KeyState keyStateUp = App->input->GetKey(SDL_SCANCODE_W);
 	KeyState keyStateDown = App->input->GetKey(SDL_SCANCODE_S);
@@ -77,17 +93,22 @@ bool PlayerJumpComponent::OnPreUpdate()
 		// Devuelve la hitbox a su tamaño original
 		hitboxCollider->offsetY = originalOffsetY;
 		hitboxCollider->height = originalHeight;
-
-		// Comprueba si la tecla de saltar (barra espaciadora) fue pulsada
-		KeyState keyStateJump = App->input->GetKey(SDL_SCANCODE_SPACE);
-		if (keyStateJump == KEY_DOWN || keyStateJump == KEY_REPEAT)
-			Jump();
 	}
 	else
 	{
 		// Se agacha, reduciendo la altura de la hitbox a la mitad
 		hitboxCollider->offsetY = originalOffsetY / 2;
 		hitboxCollider->height = originalHeight / 2;
+	}
+
+	// Comprueba si la tecla de saltar (barra espaciadora) fue pulsada
+	KeyState keyStateJump = App->input->GetKey(SDL_SCANCODE_SPACE);
+	if (keyStateJump == KEY_DOWN || keyStateJump == KEY_REPEAT)
+	{
+		if (!crouch)
+			Jump();
+		else
+			LeapDown();	// Si está agachado, se baja de la plataforma
 	}
 
 	return true;
@@ -112,4 +133,18 @@ void PlayerJumpComponent::Jump()
 	// Reproduce un sonido
 	if (jumping && longJumping)
 		App->audio->PlayFx(jumpLongSound);
+}
+
+void PlayerJumpComponent::LeapDown()
+{
+	// Primero comprueba si la entidad está agachada
+	if (!crouch)
+		return;	// No se puede bajar mientras no se está agachado
+
+	if (inputComponent->IsStopped())
+		return;	// No se puede bajar si el personaje está detenido
+
+	// Cambia el flag y activa el timer de leaping
+	leapingDown = true;
+	leapingDownTimer.SetTimer(0.1f);	// Tiempo suficiente para atravesar el collider de la plataforma
 }

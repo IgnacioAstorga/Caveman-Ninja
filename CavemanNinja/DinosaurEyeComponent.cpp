@@ -19,7 +19,7 @@ DinosaurEyeComponent::~DinosaurEyeComponent()
 bool DinosaurEyeComponent::OnUpdate()
 {
 	// Comprueba si el jugador esta cerca
-	if (abs(entity->transform->GetGlobalPosition().x - GameController->player->transform->GetGlobalPosition().x) > 50)
+	if (entity->transform->GetGlobalPosition().x > GameController->player->transform->GetGlobalPosition().x)
 		return true;
 
 	// Activa el flag en el animator

@@ -2,6 +2,7 @@
 #define __PLAYERJUMPCOMPONENT_H__
 
 #include "Component.h"
+#include "Timer.h"
 
 class PlayerGravityComponent;
 class PlayerInputComponent;
@@ -15,10 +16,13 @@ public:
 
 protected:
 	bool OnStart();
+	bool OnCleanUp();
+
 	bool OnPreUpdate();
 
 private:
 	void Jump();
+	void LeapDown();
 
 public:
 	float jumpSpeed;
@@ -27,6 +31,9 @@ public:
 	bool longJumping;
 	bool lookingUp;
 	bool crouch;
+	bool leapingDown;
+
+	Timer leapingDownTimer;
 
 	PlayerGravityComponent* fallingComponent;
 	PlayerInputComponent* inputComponent;

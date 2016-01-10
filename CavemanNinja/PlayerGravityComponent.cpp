@@ -66,6 +66,10 @@ bool PlayerGravityComponent::OnCollisionEnter(Collider* self, Collider* other)
 	if (other->GetType() != GROUND && other->GetType() != FLOOR)
 		return true;
 
+	// Si el collider es GROUND pero está bajando, aborta
+	if (other->GetType() == GROUND && jumpComponent->leapingDown)
+		return true;
+
 	// Segundo, detecta si el collider que ha realizado la colisión es el correcto
 	if (self != colliderComponent->GetCollider())
 		return true;
