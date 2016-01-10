@@ -51,18 +51,20 @@ bool EnemyAnimatorMappingComponent::OnPostUpdate()
 	animator->SetFlagValue("decaying", lifeComponent->decaying);
 
 	// Mapea si el personaje ha sido herido o no
-	float speed = entity->transform->GetLocalSpeed().x;
-	animator->SetFlagValue("hit_back", lifeComponent->dead && speed < 0);
-	animator->SetFlagValue("hit_front", lifeComponent->dead && speed >= 0);
+	fPoint speed = entity->transform->GetLocalSpeed();
+	bool hitFromBack;
+	if (speed.x > 0)
+		hitFromBack = AIComponent->GetOrientation() == 1;
+	else
+		hitFromBack = AIComponent->GetOrientation() == -1;
+	animator->SetFlagValue("hit_back", lifeComponent->dead && hitFromBack);
+	animator->SetFlagValue("hit_front", lifeComponent->dead && !hitFromBack);
 
 	// Flipea el animator según la orientacion
-	if (!lifeComponent->dead)
-	{
-		if (AIComponent->GetOrientation() > 0)
-			animator->SetFlip(SDL_FLIP_HORIZONTAL);
-		else if (AIComponent->GetOrientation() < 0)
-			animator->SetFlip(SDL_FLIP_NONE);
-	}
+	if (AIComponent->GetOrientation() > 0)
+		animator->SetFlip(SDL_FLIP_HORIZONTAL);
+	else if (AIComponent->GetOrientation() < 0)
+		animator->SetFlip(SDL_FLIP_NONE);
 
 	return true;
 }

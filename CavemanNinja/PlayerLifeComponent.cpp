@@ -105,6 +105,12 @@ bool PlayerLifeComponent::OnUpdate()
 			GameController->GameOver();
 	}
 
+	// Si el personaje está callendo, su hitbox pasa a ser la de un ataque
+	if (gravityComponent->falling)
+		colliderComponent->GetCollider()->type = PLAYER_ATTACK;
+	else
+		colliderComponent->GetCollider()->type = PLAYER;
+
 	return true;
 }
 
@@ -125,8 +131,12 @@ bool PlayerLifeComponent::OnCollisionEnter(Collider * self, Collider * other)
 	fPoint otherCenter = other->GetCenter();
 	fPoint damagePosition = selfCenter + (otherCenter - selfCenter) * (1.0f / 2.0f);
 
-	// Hace daño al personaje
-	TakeDamage(5, damagePosition);	// 5 es el daño por colisión con enemigo
+	// Si está callendo, rebota. Si no, se hace daño
+	if (gravityComponent->falling)
+		entity->transform->SetSpeed(entity->transform->speed.x, -100.0f);
+	else
+		// Hace daño al personaje
+		TakeDamage(5, damagePosition);	// 5 es el daño por colisión con enemigo
 
 	return true;
 }

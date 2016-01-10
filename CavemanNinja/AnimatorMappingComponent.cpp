@@ -56,8 +56,9 @@ bool AnimatorMappingComponent::OnPostUpdate()
 		return false;
 
 	// Mapea la velocidad horizontal del personaje al animator
-	float speed = entity->transform->GetLocalSpeed().x;
-	animator->SetFlagValue("speedX_absolute", abs(speed), true);
+	fPoint speed = entity->transform->GetLocalSpeed();
+	animator->SetFlagValue("speedX_absolute", abs(speed.x), true);
+	animator->SetFlagValue("speedY", speed.y, true);
 
 	// Mapea si el personaje está mirando hacia arriba o no
 	animator->SetFlagValue("looking_up", jumpComponent->lookingUp);
@@ -84,7 +85,7 @@ bool AnimatorMappingComponent::OnPostUpdate()
 	// Mapea si el personaje ha sido herido o no
 	bool hitted = lifeComponent->hit && inputComponent->IsStopped();
 	bool hitFromBack;
-	if (speed > 0)
+	if (speed.x > 0)
 		hitFromBack = inputComponent->orientation == FORWARD;
 	else
 		hitFromBack = inputComponent->orientation == BACKWARD;
@@ -94,9 +95,9 @@ bool AnimatorMappingComponent::OnPostUpdate()
 	// Flipea el animator según la velocidad
 	if (!hitted)
 	{
-		if (speed > 0)
+		if (speed.x > 0)
 			animator->SetFlip(SDL_FLIP_NONE);
-		else if (speed < 0)
+		else if (speed.x < 0)
 			animator->SetFlip(SDL_FLIP_HORIZONTAL);
 	}
 

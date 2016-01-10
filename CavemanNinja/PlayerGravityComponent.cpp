@@ -43,6 +43,8 @@ bool PlayerGravityComponent::OnUpdate()
 	// Comprueba si está callendo
 	if (entity->transform->GetGlobalSpeed().y > 0)
 		falling = true;
+	else
+		falling = false;
 
 	// Si está callendo, comprueba si está cerca del suelo
 	if (falling)

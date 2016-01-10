@@ -58,9 +58,11 @@ bool DieOnPlayerAttackComponent::OnCollisionEnter(Collider * self, Collider * ot
 	dead = true;
 
 	// Crea el efecto especial
+	fPoint selfCenter = self->GetCenter();
+	fPoint otherCenter = other->GetCenter();
+	fPoint damagePosition = selfCenter + (otherCenter - selfCenter) * (1.0f / 2.0f);
 	EnemyHitEffect* hitEffect = new EnemyHitEffect("hit_" + entity->name);
-	fPoint otherPosition = other->transform->GetGlobalPosition();
-	hitEffect->transform->SetGlobalPosition(otherPosition.x, otherPosition.y);
+	hitEffect->transform->SetGlobalPosition(damagePosition.x, damagePosition.y);
 	hitEffect->Instantiate();
 
 	// Lanza al enemigo volando en la dirección adecuada

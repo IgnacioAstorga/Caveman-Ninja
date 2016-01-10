@@ -170,6 +170,7 @@ PlayerAnimator* PlayerAnimator::Create()
 	longJumpState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
 	fallState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("falling", false)));
+	fallState->AddStateTransition(new StateTransition<Animation>(jumpState, new FlagLessThanCondition("speedY_absolute", 0.0f)));
 	fallState->AddStateTransition(new StateTransition<Animation>(attackUpJumpState, new FlagEqualsCondition("weapon_attack_up", true)));
 	fallState->AddStateTransition(new StateTransition<Animation>(attackJumpState, new FlagEqualsCondition("weapon_attack", true)));
 	fallState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
