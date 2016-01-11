@@ -10,6 +10,7 @@ Collider::Collider(CollisionListener* listener, Transform* transform, int type, 
 	this->transform = transform;
 	this->type = type;
 
+	this->started = false;
 	this->hasSpecificCollisionsTypes = false;
 }
 
@@ -19,6 +20,7 @@ Collider::Collider(CollisionListener* listener, Transform* transform, vector<int
 	this->transform = transform;
 	this->type = type;
 
+	this->started = false;
 	this->hasSpecificCollisionsTypes = true;
 	this->collisionsTypes = collisionsTypes;
 }
@@ -53,6 +55,10 @@ bool Collider::Disable()
 
 bool Collider::Start()
 {
+	if (started)
+		return true;
+	started = true;
+
 	// Crea las lista de colisiones
 	thisFrameCollisions = new list<Collider*>();
 	lastFrameCollisions = new list<Collider*>();
@@ -62,6 +68,10 @@ bool Collider::Start()
 
 bool Collider::CleanUp()
 {
+	if (!started)
+		return true;
+	started = false;
+
 	// Borra las listas de colisiones
 	RELEASE(thisFrameCollisions);
 	RELEASE(lastFrameCollisions);

@@ -12,8 +12,7 @@ WeaponLifespanComponent::WeaponLifespanComponent(float lifeTime, WeaponComponent
 
 WeaponLifespanComponent::~WeaponLifespanComponent()
 {
-	// Reduce en uno la cuenta de proyectiles disparados
-	weaponComponent->projectileCount -= 1;
+	// No hace nada
 }
 
 bool WeaponLifespanComponent::OnStart()
@@ -36,7 +35,11 @@ bool WeaponLifespanComponent::OnCleanUp()
 bool WeaponLifespanComponent::OnPostUpdate()
 {
 	if (lifetimeTimer.IsTimerExpired())
-		entity->Destroy();	// Destuye la entidad
+	{ 
+		entity->Destroy();	// Destruye la entidad
+		weaponComponent->projectileCount -= 1;	// Reduce en uno la cuenta de proyectiles disparados
+	}
+
 	return true;
 }
 

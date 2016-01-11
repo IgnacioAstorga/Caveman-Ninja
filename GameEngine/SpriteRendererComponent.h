@@ -88,22 +88,21 @@ public:
 
 		
 		// Determina el frame que pintar
-		SDL_Rect* renderArea = NULL;
 		SDL_RendererFlip flip = SDL_FLIP_NONE;
 		if (animation != nullptr)
 		{
 			flip = animation->GetFlip();
-			renderArea = &(animation->GetCurrentFrame());
+			renderArea = animation->GetCurrentFrame();
 		}
 		else
 		{
-			renderArea = new SDL_Rect();
-			renderArea->x = 0;
-			renderArea->y = 0;
-			SDL_QueryTexture(texture, NULL, NULL, &renderArea->w, &renderArea->h);
+			renderArea = SDL_Rect();
+			renderArea.x = 0;
+			renderArea.y = 0;
+			SDL_QueryTexture(texture, NULL, NULL, &renderArea.w, &renderArea.h);
 		}
 
-		Render(renderPosition, renderRotation, &pivot, renderArea, renderScale, flip, speed);
+		Render(renderPosition, renderRotation, &pivot, &renderArea, renderScale, flip, speed);
 
 		return true;
 	}
@@ -190,6 +189,8 @@ private:
 	float speed;
 	bool tiledHorizontal;
 	bool tiledVertical;
+
+	SDL_Rect renderArea;
 };
 
 #endif //  __SPRITERENDERERCOMPONENT_H__

@@ -78,5 +78,7 @@ public:
 
 	bool hasSpecificCollisionsTypes;
 	vector<int> collisionsTypes;
+
+	bool started;
 };
 #endif // __COLLIDER_H__

@@ -199,7 +199,8 @@ update_status Entity::PostUpdate()
 		if ((*it)->dead == true)
 			toDestroy.push_back(*it);
 	// Forma segura de destruir elementos mientras se recorre la lista
-	for (list<Entity*>::iterator it = toDestroy.begin(); it != toDestroy.end() && ret == UPDATE_CONTINUE; ++it) {
+	for (list<Entity*>::iterator it = toDestroy.begin(); it != toDestroy.end() && ret == UPDATE_CONTINUE; ++it)
+	{
 		(*it)->CleanUp();
 		RemoveChild(*it, false);	// Lo deshereda
 		RELEASE(*it);
