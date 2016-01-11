@@ -2,6 +2,7 @@
 #define __PLAYERINPUTCOMPONENT_H__
 
 #include "Component.h"
+#include "Timer.h"
 
 enum Orientation {
 	FORWARD,
@@ -20,6 +21,7 @@ public:
 
 protected:
 	bool OnStart();
+	bool OnCleanUp();
 
 	bool OnPreUpdate();
 
@@ -33,9 +35,9 @@ public:
 public:
 	float speed;
 	bool stopped;
-	float stoppedDuration;
-	float stoppedTime;
 	Orientation orientation;
+
+	Timer stopTimer;
 
 	PlayerJumpComponent* jumpComponent;
 	ColliderComponent* colliderComponent;

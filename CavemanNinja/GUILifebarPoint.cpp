@@ -23,27 +23,27 @@ void GUILifebarPoint::OnCreate()
 	empty->frames.push_back({ 3, 0 });
 
 	// Crea los estados
-	StateSwitcher<Animation>* greenState = new StateSwitcher<Animation>(green);
-	StateSwitcher<Animation>* yellowState = new StateSwitcher<Animation>(yellow);
-	StateSwitcher<Animation>* redState = new StateSwitcher<Animation>(red);
-	StateSwitcher<Animation>* emptyState = new StateSwitcher<Animation>(empty);
+	AnimationState* greenState = new AnimationState(green);
+	AnimationState* yellowState = new AnimationState(yellow);
+	AnimationState* redState = new AnimationState(red);
+	AnimationState* emptyState = new AnimationState(empty);
 
 	// Crea las transiciones entre estados
-	greenState->AddStateTransition(new StateTransition<Animation>(yellowState, new FlagEqualsCondition("color", YELLOW)));
-	greenState->AddStateTransition(new StateTransition<Animation>(redState, new FlagEqualsCondition("color", RED)));
-	greenState->AddStateTransition(new StateTransition<Animation>(emptyState, new FlagEqualsCondition("color", EMPTY)));
+	greenState->AddStateTransition(new AnimationTransition(yellowState, new FlagEqualsCondition("color", YELLOW)));
+	greenState->AddStateTransition(new AnimationTransition(redState, new FlagEqualsCondition("color", RED)));
+	greenState->AddStateTransition(new AnimationTransition(emptyState, new FlagEqualsCondition("color", EMPTY)));
 
-	yellowState->AddStateTransition(new StateTransition<Animation>(greenState, new FlagEqualsCondition("color", GREEN)));
-	yellowState->AddStateTransition(new StateTransition<Animation>(redState, new FlagEqualsCondition("color", RED)));
-	yellowState->AddStateTransition(new StateTransition<Animation>(emptyState, new FlagEqualsCondition("color", EMPTY)));
+	yellowState->AddStateTransition(new AnimationTransition(greenState, new FlagEqualsCondition("color", GREEN)));
+	yellowState->AddStateTransition(new AnimationTransition(redState, new FlagEqualsCondition("color", RED)));
+	yellowState->AddStateTransition(new AnimationTransition(emptyState, new FlagEqualsCondition("color", EMPTY)));
 
-	redState->AddStateTransition(new StateTransition<Animation>(greenState, new FlagEqualsCondition("color", GREEN)));
-	redState->AddStateTransition(new StateTransition<Animation>(yellowState, new FlagEqualsCondition("color", YELLOW)));
-	redState->AddStateTransition(new StateTransition<Animation>(emptyState, new FlagEqualsCondition("color", EMPTY)));
+	redState->AddStateTransition(new AnimationTransition(greenState, new FlagEqualsCondition("color", GREEN)));
+	redState->AddStateTransition(new AnimationTransition(yellowState, new FlagEqualsCondition("color", YELLOW)));
+	redState->AddStateTransition(new AnimationTransition(emptyState, new FlagEqualsCondition("color", EMPTY)));
 
-	emptyState->AddStateTransition(new StateTransition<Animation>(greenState, new FlagEqualsCondition("color", GREEN)));
-	emptyState->AddStateTransition(new StateTransition<Animation>(yellowState, new FlagEqualsCondition("color", YELLOW)));
-	emptyState->AddStateTransition(new StateTransition<Animation>(redState, new FlagEqualsCondition("color", RED)));
+	emptyState->AddStateTransition(new AnimationTransition(greenState, new FlagEqualsCondition("color", GREEN)));
+	emptyState->AddStateTransition(new AnimationTransition(yellowState, new FlagEqualsCondition("color", YELLOW)));
+	emptyState->AddStateTransition(new AnimationTransition(redState, new FlagEqualsCondition("color", RED)));
 
 	// Crea el animator
 	Animator* animator = new Animator(emptyState);

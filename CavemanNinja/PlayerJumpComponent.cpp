@@ -74,7 +74,7 @@ bool PlayerJumpComponent::OnPreUpdate()
 		longJumping = false;
 	}
 
-	// Comprueba si el personaje esta mirando hacia arriba
+	// Comprueba si el personaje esta mirando hacia arriba o agachado
 	KeyState keyStateUp = App->input->GetKey(SDL_SCANCODE_W);
 	KeyState keyStateDown = App->input->GetKey(SDL_SCANCODE_S);
 	bool up = keyStateUp == KEY_DOWN || keyStateUp == KEY_REPEAT;

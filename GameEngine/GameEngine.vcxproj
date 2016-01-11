@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AIBehaviour.h" />
+    <ClInclude Include="AIComponent.h" />
+    <ClInclude Include="AIManager.h" />
     <ClInclude Include="AlphaFadeInOutOperator.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationEndCondition.h" />
@@ -54,6 +57,7 @@
     <ClInclude Include="LineCollider.h" />
     <ClInclude Include="LineColliderComponent.h" />
     <ClInclude Include="Module.h" />
+    <ClInclude Include="ModuleAI.h" />
     <ClInclude Include="ModuleAnimation.h" />
     <ClInclude Include="ModuleAudio.h" />
     <ClInclude Include="ModuleCollisions.h" />
@@ -95,6 +99,9 @@
     <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AIBehaviour.cpp" />
+    <ClCompile Include="AIComponent.cpp" />
+    <ClCompile Include="AIManager.cpp" />
     <ClCompile Include="BasicAnimation.cpp" />
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Application.cpp" />
@@ -114,6 +121,7 @@
     <ClCompile Include="LineCollider.cpp" />
     <ClCompile Include="LineColliderComponent.cpp" />
     <ClCompile Include="Log.cpp" />
+    <ClCompile Include="ModuleAI.cpp" />
     <ClCompile Include="ModuleAnimation.cpp" />
     <ClCompile Include="ModuleAudio.cpp" />
     <ClCompile Include="ModuleCollisions.cpp" />

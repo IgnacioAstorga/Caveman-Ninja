@@ -29,14 +29,14 @@ void DinosaurEye::OnCreate()
 	looking->frames.push_back({ 0, 1 });
 
 	// Crea los estados del personaje
-	StateSwitcher<Animation>* idleState = new StateSwitcher<Animation>(idle);
-	StateSwitcher<Animation>* startLookingState = new StateSwitcher<Animation>(startLooking);
-	StateSwitcher<Animation>* lookingState = new StateSwitcher<Animation>(looking);
+	AnimationState* idleState = new AnimationState(idle);
+	AnimationState* startLookingState = new AnimationState(startLooking);
+	AnimationState* lookingState = new AnimationState(looking);
 
 	// Crea las transiciones entre los estados
-	idleState->AddStateTransition(new StateTransition<Animation>(startLookingState, new FlagEqualsCondition("player_in_sight", true)));
+	idleState->AddStateTransition(new AnimationTransition(startLookingState, new FlagEqualsCondition("player_in_sight", true)));
 
-	startLookingState->AddStateTransition(new StateTransition<Animation>(lookingState, new AnimationEndCondition()));
+	startLookingState->AddStateTransition(new AnimationTransition(lookingState, new AnimationEndCondition()));
 
 	// Crea el animator
 	Animator* animator = new Animator(idleState);

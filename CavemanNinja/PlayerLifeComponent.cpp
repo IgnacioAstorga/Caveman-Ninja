@@ -40,8 +40,13 @@ bool PlayerLifeComponent::OnStart()
 	Player* player = dynamic_cast<Player*>(entity);
 	GameController->player = player;
 
+	// Registra los timers
+	App->time->RegisterTimer(&graceTimer);
+	App->time->RegisterTimer(&harvestTimer);
+	App->time->RegisterTimer(&decayTimer);
+
 	// Inicia el contador de hambre
-	harvestDuration = 0.0f;
+	harvestTimer.SetTimer(harvestTime);
 
 	// Restablece la vida del jugador
 	this->currentLifePoints = maxLifePoints;
@@ -56,6 +61,16 @@ bool PlayerLifeComponent::OnStart()
 	return true;
 }
 
+bool PlayerLifeComponent::OnCleanUp()
+{
+	// Desregistra los timers
+	App->time->UnregisterTimer(&graceTimer);
+	App->time->UnregisterTimer(&harvestTimer);
+	App->time->UnregisterTimer(&decayTimer);
+
+	return true;
+}
+
 bool PlayerLifeComponent::OnUpdate()
 {
 	// Animación de golpeo
@@ -63,20 +78,14 @@ bool PlayerLifeComponent::OnUpdate()
 		hit = false;
 
 	// Periodo de gracia
-	if (invulnerable)
-	{
-		graceDuration += App->time->DeltaTime();
-		if (graceDuration >= graceTime)
-			invulnerable = false;
-	}
+	if (invulnerable && graceTimer.IsTimerExpired())
+		invulnerable = false;
 
 	// Hambre
 	if (harvesting)
 	{
-		harvestDuration += App->time->DeltaTime();
-		while (harvestDuration >= harvestTime)
+		while (harvestTimer.IsTimerExpired(true))
 		{
-			harvestDuration -= harvestTime;
 			currentLifePoints -= 1;
 			if (currentLifePoints <= 0)
 			{
@@ -98,15 +107,11 @@ bool PlayerLifeComponent::OnUpdate()
 		Decay();
 
 	// Periodo de muerte
-	if (decaying)
-	{
-		decayDuration += App->time->DeltaTime();
-		if (decayDuration >= decayTime)
-			GameController->GameOver();
-	}
+	if (decaying && decayTimer.IsTimerExpired())
+		GameController->GameOver();
 
 	// Si el personaje está callendo, su hitbox pasa a ser la de un ataque
-	if (gravityComponent->falling)
+	if (gravityComponent->falling && !inputComponent->IsStopped())
 		colliderComponent->GetCollider()->type = PLAYER_ATTACK;
 	else
 		colliderComponent->GetCollider()->type = PLAYER;
@@ -132,10 +137,11 @@ bool PlayerLifeComponent::OnCollisionEnter(Collider * self, Collider * other)
 	fPoint damagePosition = selfCenter + (otherCenter - selfCenter) * (1.0f / 2.0f);
 
 	// Si está callendo, rebota. Si no, se hace daño
-	if (gravityComponent->falling)
+	if (gravityComponent->falling && other->GetType() != ENEMY_ATTACK)
 	{
 		entity->transform->SetSpeed(entity->transform->speed.x, -100.0f);
 		gravityComponent->jumpComponent->jumping = true;
+		gravityComponent->falling = false;
 	}
 	else
 		// Hace daño al personaje
@@ -157,7 +163,7 @@ void PlayerLifeComponent::TakeDamage(int amount, fPoint damagePosition)
 	// Le garantiza inmunidad
 	hit = true;
 	invulnerable = true;
-	graceDuration = 0.0f;
+	graceTimer.SetTimer(graceTime);
 
 	// Crea el efecto especial
 	PlayerHitEffect* hitEffect = new PlayerHitEffect("hit_" + entity->name);
@@ -208,6 +214,6 @@ void PlayerLifeComponent::Decay()
 		return;
 
 	decaying = true;
-	decayDuration = 0.0f;
+	decayTimer.SetTimer(decayTime);
 	entity->transform->speed.x = 0.0f;
 }

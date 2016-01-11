@@ -73,9 +73,6 @@
     <ClCompile Include="EnemyHitEffect.cpp">
       <Filter>Effects</Filter>
     </ClCompile>
-    <ClCompile Include="EffectLifespanComponent.cpp">
-      <Filter>Effects\Components</Filter>
-    </ClCompile>
     <ClCompile Include="WeaponDestroyOnCollisionComponent.cpp">
       <Filter>Weapons\Components</Filter>
     </ClCompile>
@@ -127,8 +124,26 @@
     <ClCompile Include="DinosaurEyeComponent.cpp">
       <Filter>Other\Components</Filter>
     </ClCompile>
-    <ClCompile Include="AICavemanComponent.cpp">
-      <Filter>Enemies\AI</Filter>
+    <ClCompile Include="CavemanAIManager.cpp">
+      <Filter>Enemies\AI\Caveman</Filter>
+    </ClCompile>
+    <ClCompile Include="CavemanChargeAIBehaviour.cpp">
+      <Filter>Enemies\AI\Caveman</Filter>
+    </ClCompile>
+    <ClCompile Include="CavemanIdleAIBehaviour.cpp">
+      <Filter>Enemies\AI\Caveman</Filter>
+    </ClCompile>
+    <ClCompile Include="CavemanSearchAIBehaviour.cpp">
+      <Filter>Enemies\AI\Caveman</Filter>
+    </ClCompile>
+    <ClCompile Include="CavemanAttackAIBehaviour.cpp">
+      <Filter>Enemies\AI\Caveman</Filter>
+    </ClCompile>
+    <ClCompile Include="CavemanStartRunAIBehaviour.cpp">
+      <Filter>Enemies\AI\Caveman</Filter>
+    </ClCompile>
+    <ClCompile Include="CavemanRunAIBehaviour.cpp">
+      <Filter>Enemies\AI\Caveman</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -177,9 +192,6 @@
     <Filter Include="Effects">
       <UniqueIdentifier>{943a5d97-6e9d-407f-acfe-59076d179f0d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Effects\Components">
-      <UniqueIdentifier>{5bc1ae8a-7886-4a34-bcc4-71ca35a5ee25}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GUI">
       <UniqueIdentifier>{7ab74bea-3f29-4a19-8118-9fde2222999b}</UniqueIdentifier>
     </Filter>
@@ -206,6 +218,9 @@
     </Filter>
     <Filter Include="Enemies\AI">
       <UniqueIdentifier>{31219f38-4460-4dbc-99da-3da9f4b43607}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemies\AI\Caveman">
+      <UniqueIdentifier>{744ae942-4678-4db2-818d-edcd167d3dc0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -278,9 +293,6 @@
     <ClInclude Include="EnemyHitEffect.h">
       <Filter>Effects</Filter>
     </ClInclude>
-    <ClInclude Include="EffectLifespanComponent.h">
-      <Filter>Effects\Components</Filter>
-    </ClInclude>
     <ClInclude Include="WeaponDestroyOnCollisionComponent.h">
       <Filter>Weapons\Components</Filter>
     </ClInclude>
@@ -332,8 +344,26 @@
     <ClInclude Include="DinosaurEyeComponent.h">
       <Filter>Other\Components</Filter>
     </ClInclude>
-    <ClInclude Include="AICavemanComponent.h">
-      <Filter>Enemies\AI</Filter>
+    <ClInclude Include="CavemanAIManager.h">
+      <Filter>Enemies\AI\Caveman</Filter>
+    </ClInclude>
+    <ClInclude Include="CavemanChargeAIBehaviour.h">
+      <Filter>Enemies\AI\Caveman</Filter>
+    </ClInclude>
+    <ClInclude Include="CavemanIdleAIBehaviour.h">
+      <Filter>Enemies\AI\Caveman</Filter>
+    </ClInclude>
+    <ClInclude Include="CavemanSearchAIBehaviour.h">
+      <Filter>Enemies\AI\Caveman</Filter>
+    </ClInclude>
+    <ClInclude Include="CavemanAttackAIBehaviour.h">
+      <Filter>Enemies\AI\Caveman</Filter>
+    </ClInclude>
+    <ClInclude Include="CavemanStartRunAIBehaviour.h">
+      <Filter>Enemies\AI\Caveman</Filter>
+    </ClInclude>
+    <ClInclude Include="CavemanRunAIBehaviour.h">
+      <Filter>Enemies\AI\Caveman</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

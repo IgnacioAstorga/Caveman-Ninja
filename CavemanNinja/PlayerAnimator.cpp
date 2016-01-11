@@ -7,7 +7,7 @@
 #include "FlagEqualsCondition.h"
 #include "AnimationEndCondition.h"
 
-PlayerAnimator::PlayerAnimator(StateSwitcher<Animation>* initialState)
+PlayerAnimator::PlayerAnimator(AnimationState* initialState)
 	: Animator(initialState) {}
 
 PlayerAnimator* PlayerAnimator::Create()
@@ -113,151 +113,151 @@ PlayerAnimator* PlayerAnimator::Create()
 	dieHarvest->frames.push_back({ 7, 3 });
 
 	// Crea los estados del personaje
-	StateSwitcher<Animation>* idleState = new StateSwitcher<Animation>(idle);
-	StateSwitcher<Animation>* idleUpState = new StateSwitcher<Animation>(idleUp);
-	StateSwitcher<Animation>* idleCrouchState = new StateSwitcher<Animation>(idleCrouch);
-	StateSwitcher<Animation>* attackState = new StateSwitcher<Animation>(attack);
-	StateSwitcher<Animation>* attackJumpState = new StateSwitcher<Animation>(attackJump);
-	StateSwitcher<Animation>* attackUpState = new StateSwitcher<Animation>(attackUp);
-	StateSwitcher<Animation>* attackUpJumpState = new StateSwitcher<Animation>(attackUpJump);
-	StateSwitcher<Animation>* attackCrouchState = new StateSwitcher<Animation>(attackCrouch);
-	StateSwitcher<Animation>* attackMeleeState = new StateSwitcher<Animation>(attackMelee);
-	StateSwitcher<Animation>* attackJumpMeleeState = new StateSwitcher<Animation>(attackJumpMelee);
-	StateSwitcher<Animation>* attackUpMeleeState = new StateSwitcher<Animation>(attackUpMelee);
-	StateSwitcher<Animation>* attackUpJumpMeleeState = new StateSwitcher<Animation>(attackUpJumpMelee);
-	StateSwitcher<Animation>* attackCrouchMeleeState = new StateSwitcher<Animation>(attackCrouchMelee);
-	StateSwitcher<Animation>* runState = new StateSwitcher<Animation>(run);
-	StateSwitcher<Animation>* jumpState = new StateSwitcher<Animation>(jump);
-	StateSwitcher<Animation>* longJumpStartState = new StateSwitcher<Animation>(longJumpStart);
-	StateSwitcher<Animation>* longJumpState = new StateSwitcher<Animation>(longJump);
-	StateSwitcher<Animation>* fallState = new StateSwitcher<Animation>(fall);
-	StateSwitcher<Animation>* hitBackState = new StateSwitcher<Animation>(hitBack);
-	StateSwitcher<Animation>* dieBackState = new StateSwitcher<Animation>(dieBack);
-	StateSwitcher<Animation>* hitFrontState = new StateSwitcher<Animation>(hitFront);
-	StateSwitcher<Animation>* dieFrontState = new StateSwitcher<Animation>(dieFront);
-	StateSwitcher<Animation>* dieHarvestState = new StateSwitcher<Animation>(dieHarvest);
+	AnimationState* idleState = new AnimationState(idle);
+	AnimationState* idleUpState = new AnimationState(idleUp);
+	AnimationState* idleCrouchState = new AnimationState(idleCrouch);
+	AnimationState* attackState = new AnimationState(attack);
+	AnimationState* attackJumpState = new AnimationState(attackJump);
+	AnimationState* attackUpState = new AnimationState(attackUp);
+	AnimationState* attackUpJumpState = new AnimationState(attackUpJump);
+	AnimationState* attackCrouchState = new AnimationState(attackCrouch);
+	AnimationState* attackMeleeState = new AnimationState(attackMelee);
+	AnimationState* attackJumpMeleeState = new AnimationState(attackJumpMelee);
+	AnimationState* attackUpMeleeState = new AnimationState(attackUpMelee);
+	AnimationState* attackUpJumpMeleeState = new AnimationState(attackUpJumpMelee);
+	AnimationState* attackCrouchMeleeState = new AnimationState(attackCrouchMelee);
+	AnimationState* runState = new AnimationState(run);
+	AnimationState* jumpState = new AnimationState(jump);
+	AnimationState* longJumpStartState = new AnimationState(longJumpStart);
+	AnimationState* longJumpState = new AnimationState(longJump);
+	AnimationState* fallState = new AnimationState(fall);
+	AnimationState* hitBackState = new AnimationState(hitBack);
+	AnimationState* dieBackState = new AnimationState(dieBack);
+	AnimationState* hitFrontState = new AnimationState(hitFront);
+	AnimationState* dieFrontState = new AnimationState(dieFront);
+	AnimationState* dieHarvestState = new AnimationState(dieHarvest);
 
 	// Crea las transiciones entre los estados
-	idleState->AddStateTransition(new StateTransition<Animation>(runState, new FlagGreaterThanCondition("speedX_absolute", 0.0f)));
-	idleState->AddStateTransition(new StateTransition<Animation>(jumpState, new FlagEqualsCondition("jumping", true)));
-	idleState->AddStateTransition(new StateTransition<Animation>(longJumpStartState, new FlagEqualsCondition("jumping_long", true)));
-	idleState->AddStateTransition(new StateTransition<Animation>(fallState, new FlagEqualsCondition("falling", true)));
-	idleState->AddStateTransition(new StateTransition<Animation>(idleUpState, new FlagEqualsCondition("looking_up", true)));
-	idleState->AddStateTransition(new StateTransition<Animation>(idleCrouchState, new FlagEqualsCondition("crouch", true)));
-	idleState->AddStateTransition(new StateTransition<Animation>(attackUpState, new FlagEqualsCondition("weapon_attack_up", true)));
-	idleState->AddStateTransition(new StateTransition<Animation>(attackState, new FlagEqualsCondition("weapon_attack", true)));
-	idleState->AddStateTransition(new StateTransition<Animation>(attackUpMeleeState, new FlagEqualsCondition("melee_attack_up", true)));
-	idleState->AddStateTransition(new StateTransition<Animation>(attackMeleeState, new FlagEqualsCondition("melee_attack", true)));
-	idleState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
-	idleState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
-	idleState->AddStateTransition(new StateTransition<Animation>(dieHarvestState, new FlagEqualsCondition("dead_harvest", true)));
+	idleState->AddStateTransition(new AnimationTransition(runState, new FlagGreaterThanCondition("speedX_absolute", 0.0f)));
+	idleState->AddStateTransition(new AnimationTransition(jumpState, new FlagEqualsCondition("jumping", true)));
+	idleState->AddStateTransition(new AnimationTransition(longJumpStartState, new FlagEqualsCondition("jumping_long", true)));
+	idleState->AddStateTransition(new AnimationTransition(fallState, new FlagEqualsCondition("falling", true)));
+	idleState->AddStateTransition(new AnimationTransition(idleUpState, new FlagEqualsCondition("looking_up", true)));
+	idleState->AddStateTransition(new AnimationTransition(idleCrouchState, new FlagEqualsCondition("crouch", true)));
+	idleState->AddStateTransition(new AnimationTransition(attackUpState, new FlagEqualsCondition("weapon_attack_up", true)));
+	idleState->AddStateTransition(new AnimationTransition(attackState, new FlagEqualsCondition("weapon_attack", true)));
+	idleState->AddStateTransition(new AnimationTransition(attackUpMeleeState, new FlagEqualsCondition("melee_attack_up", true)));
+	idleState->AddStateTransition(new AnimationTransition(attackMeleeState, new FlagEqualsCondition("melee_attack", true)));
+	idleState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	idleState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+	idleState->AddStateTransition(new AnimationTransition(dieHarvestState, new FlagEqualsCondition("dead_harvest", true)));
 
-	idleUpState->AddStateTransition(new StateTransition<Animation>(runState, new FlagGreaterThanCondition("speedX_absolute", 0.0f)));
-	idleUpState->AddStateTransition(new StateTransition<Animation>(jumpState, new FlagEqualsCondition("jumping", true)));
-	idleUpState->AddStateTransition(new StateTransition<Animation>(longJumpStartState, new FlagEqualsCondition("jumping_long", true)));
-	idleUpState->AddStateTransition(new StateTransition<Animation>(fallState, new FlagEqualsCondition("falling", true)));
-	idleUpState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("looking_up", false)));
-	idleUpState->AddStateTransition(new StateTransition<Animation>(attackUpState, new FlagEqualsCondition("weapon_attack_up", true)));
-	idleUpState->AddStateTransition(new StateTransition<Animation>(attackState, new FlagEqualsCondition("weapon_attack", true)));
-	idleUpState->AddStateTransition(new StateTransition<Animation>(attackUpMeleeState, new FlagEqualsCondition("melee_attack_up", true)));
-	idleUpState->AddStateTransition(new StateTransition<Animation>(attackMeleeState, new FlagEqualsCondition("melee_attack", true)));
-	idleUpState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
-	idleUpState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
-	idleUpState->AddStateTransition(new StateTransition<Animation>(dieHarvestState, new FlagEqualsCondition("dead_harvest", true)));
+	idleUpState->AddStateTransition(new AnimationTransition(runState, new FlagGreaterThanCondition("speedX_absolute", 0.0f)));
+	idleUpState->AddStateTransition(new AnimationTransition(jumpState, new FlagEqualsCondition("jumping", true)));
+	idleUpState->AddStateTransition(new AnimationTransition(longJumpStartState, new FlagEqualsCondition("jumping_long", true)));
+	idleUpState->AddStateTransition(new AnimationTransition(fallState, new FlagEqualsCondition("falling", true)));
+	idleUpState->AddStateTransition(new AnimationTransition(idleState, new FlagEqualsCondition("looking_up", false)));
+	idleUpState->AddStateTransition(new AnimationTransition(attackUpState, new FlagEqualsCondition("weapon_attack_up", true)));
+	idleUpState->AddStateTransition(new AnimationTransition(attackState, new FlagEqualsCondition("weapon_attack", true)));
+	idleUpState->AddStateTransition(new AnimationTransition(attackUpMeleeState, new FlagEqualsCondition("melee_attack_up", true)));
+	idleUpState->AddStateTransition(new AnimationTransition(attackMeleeState, new FlagEqualsCondition("melee_attack", true)));
+	idleUpState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	idleUpState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+	idleUpState->AddStateTransition(new AnimationTransition(dieHarvestState, new FlagEqualsCondition("dead_harvest", true)));
 
-	idleCrouchState->AddStateTransition(new StateTransition<Animation>(attackCrouchState, new FlagEqualsCondition("weapon_attack", true)));
-	idleCrouchState->AddStateTransition(new StateTransition<Animation>(attackCrouchMeleeState, new FlagEqualsCondition("melee_attack", true)));
-	idleCrouchState->AddStateTransition(new StateTransition<Animation>(fallState, new FlagEqualsCondition("falling", true)));
-	idleCrouchState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("crouch", false)));
-	idleCrouchState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
-	idleCrouchState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
-	idleCrouchState->AddStateTransition(new StateTransition<Animation>(dieHarvestState, new FlagEqualsCondition("dead_harvest", true)));
+	idleCrouchState->AddStateTransition(new AnimationTransition(attackCrouchState, new FlagEqualsCondition("weapon_attack", true)));
+	idleCrouchState->AddStateTransition(new AnimationTransition(attackCrouchMeleeState, new FlagEqualsCondition("melee_attack", true)));
+	idleCrouchState->AddStateTransition(new AnimationTransition(fallState, new FlagEqualsCondition("falling", true)));
+	idleCrouchState->AddStateTransition(new AnimationTransition(idleState, new FlagEqualsCondition("crouch", false)));
+	idleCrouchState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	idleCrouchState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+	idleCrouchState->AddStateTransition(new AnimationTransition(dieHarvestState, new FlagEqualsCondition("dead_harvest", true)));
 
-	runState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("speedX_absolute", 0.0f)));
-	runState->AddStateTransition(new StateTransition<Animation>(jumpState, new FlagEqualsCondition("jumping", true)));
-	runState->AddStateTransition(new StateTransition<Animation>(longJumpStartState, new FlagEqualsCondition("jumping_long", true)));
-	runState->AddStateTransition(new StateTransition<Animation>(fallState, new FlagEqualsCondition("falling", true)));
-	runState->AddStateTransition(new StateTransition<Animation>(attackUpState, new FlagEqualsCondition("weapon_attack_up", true)));
-	runState->AddStateTransition(new StateTransition<Animation>(attackState, new FlagEqualsCondition("weapon_attack", true)));
-	runState->AddStateTransition(new StateTransition<Animation>(attackUpMeleeState, new FlagEqualsCondition("melee_attack_up", true)));
-	runState->AddStateTransition(new StateTransition<Animation>(attackMeleeState, new FlagEqualsCondition("melee_attack", true)));
-	runState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
-	runState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+	runState->AddStateTransition(new AnimationTransition(idleState, new FlagEqualsCondition("speedX_absolute", 0.0f)));
+	runState->AddStateTransition(new AnimationTransition(jumpState, new FlagEqualsCondition("jumping", true)));
+	runState->AddStateTransition(new AnimationTransition(longJumpStartState, new FlagEqualsCondition("jumping_long", true)));
+	runState->AddStateTransition(new AnimationTransition(fallState, new FlagEqualsCondition("falling", true)));
+	runState->AddStateTransition(new AnimationTransition(attackUpState, new FlagEqualsCondition("weapon_attack_up", true)));
+	runState->AddStateTransition(new AnimationTransition(attackState, new FlagEqualsCondition("weapon_attack", true)));
+	runState->AddStateTransition(new AnimationTransition(attackUpMeleeState, new FlagEqualsCondition("melee_attack_up", true)));
+	runState->AddStateTransition(new AnimationTransition(attackMeleeState, new FlagEqualsCondition("melee_attack", true)));
+	runState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	runState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
-	jumpState->AddStateTransition(new StateTransition<Animation>(fallState, new FlagEqualsCondition("falling", true)));
-	jumpState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("jumping", false)));
-	jumpState->AddStateTransition(new StateTransition<Animation>(attackUpJumpState, new FlagEqualsCondition("weapon_attack_up", true)));
-	jumpState->AddStateTransition(new StateTransition<Animation>(attackJumpState, new FlagEqualsCondition("weapon_attack", true)));
-	jumpState->AddStateTransition(new StateTransition<Animation>(attackUpJumpMeleeState, new FlagEqualsCondition("melee_attack_up", true)));
-	jumpState->AddStateTransition(new StateTransition<Animation>(attackJumpMeleeState, new FlagEqualsCondition("melee_attack", true)));
-	jumpState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
-	jumpState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+	jumpState->AddStateTransition(new AnimationTransition(fallState, new FlagEqualsCondition("falling", true)));
+	jumpState->AddStateTransition(new AnimationTransition(idleState, new FlagEqualsCondition("jumping", false)));
+	jumpState->AddStateTransition(new AnimationTransition(attackUpJumpState, new FlagEqualsCondition("weapon_attack_up", true)));
+	jumpState->AddStateTransition(new AnimationTransition(attackJumpState, new FlagEqualsCondition("weapon_attack", true)));
+	jumpState->AddStateTransition(new AnimationTransition(attackUpJumpMeleeState, new FlagEqualsCondition("melee_attack_up", true)));
+	jumpState->AddStateTransition(new AnimationTransition(attackJumpMeleeState, new FlagEqualsCondition("melee_attack", true)));
+	jumpState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	jumpState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
-	longJumpStartState->AddStateTransition(new StateTransition<Animation>(longJumpState, new AnimationEndCondition()));
-	longJumpStartState->AddStateTransition(new StateTransition<Animation>(fallState, new FlagEqualsCondition("falling", true)));
-	longJumpStartState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("jumping_long", false)));
-	longJumpStartState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
-	longJumpStartState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+	longJumpStartState->AddStateTransition(new AnimationTransition(longJumpState, new AnimationEndCondition()));
+	longJumpStartState->AddStateTransition(new AnimationTransition(fallState, new FlagEqualsCondition("falling", true)));
+	longJumpStartState->AddStateTransition(new AnimationTransition(idleState, new FlagEqualsCondition("jumping_long", false)));
+	longJumpStartState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	longJumpStartState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
-	longJumpState->AddStateTransition(new StateTransition<Animation>(fallState, new FlagEqualsCondition("falling", true)));
-	longJumpState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("jumping_long", false)));
-	longJumpState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
-	longJumpState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+	longJumpState->AddStateTransition(new AnimationTransition(fallState, new FlagEqualsCondition("falling", true)));
+	longJumpState->AddStateTransition(new AnimationTransition(idleState, new FlagEqualsCondition("jumping_long", false)));
+	longJumpState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	longJumpState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
-	fallState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("falling", false)));
-	fallState->AddStateTransition(new StateTransition<Animation>(jumpState, new FlagLessThanCondition("speedY_absolute", 0.0f)));
-	fallState->AddStateTransition(new StateTransition<Animation>(attackUpJumpState, new FlagEqualsCondition("weapon_attack_up", true)));
-	fallState->AddStateTransition(new StateTransition<Animation>(attackJumpState, new FlagEqualsCondition("weapon_attack", true)));
-	fallState->AddStateTransition(new StateTransition<Animation>(attackUpJumpMeleeState, new FlagEqualsCondition("melee_attack_up", true)));
-	fallState->AddStateTransition(new StateTransition<Animation>(attackJumpMeleeState, new FlagEqualsCondition("melee_attack", true)));
-	fallState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
-	fallState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+	fallState->AddStateTransition(new AnimationTransition(idleState, new FlagEqualsCondition("falling", false)));
+	fallState->AddStateTransition(new AnimationTransition(jumpState, new FlagLessThanCondition("speedY_absolute", 0.0f)));
+	fallState->AddStateTransition(new AnimationTransition(attackUpJumpState, new FlagEqualsCondition("weapon_attack_up", true)));
+	fallState->AddStateTransition(new AnimationTransition(attackJumpState, new FlagEqualsCondition("weapon_attack", true)));
+	fallState->AddStateTransition(new AnimationTransition(attackUpJumpMeleeState, new FlagEqualsCondition("melee_attack_up", true)));
+	fallState->AddStateTransition(new AnimationTransition(attackJumpMeleeState, new FlagEqualsCondition("melee_attack", true)));
+	fallState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	fallState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
-	attackState->AddStateTransition(new StateTransition<Animation>(idleState, new AnimationEndCondition()));
-	attackState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
-	attackState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+	attackState->AddStateTransition(new AnimationTransition(idleState, new AnimationEndCondition()));
+	attackState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	attackState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
-	attackJumpState->AddStateTransition(new StateTransition<Animation>(jumpState, new AnimationEndCondition()));
-	attackJumpState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
-	attackJumpState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+	attackJumpState->AddStateTransition(new AnimationTransition(jumpState, new AnimationEndCondition()));
+	attackJumpState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	attackJumpState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
-	attackUpState->AddStateTransition(new StateTransition<Animation>(idleState, new AnimationEndCondition()));
-	attackUpState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
-	attackUpState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+	attackUpState->AddStateTransition(new AnimationTransition(idleState, new AnimationEndCondition()));
+	attackUpState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	attackUpState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
-	attackUpJumpState->AddStateTransition(new StateTransition<Animation>(jumpState, new AnimationEndCondition()));
-	attackUpJumpState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
-	attackUpJumpState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+	attackUpJumpState->AddStateTransition(new AnimationTransition(jumpState, new AnimationEndCondition()));
+	attackUpJumpState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	attackUpJumpState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
-	attackCrouchState->AddStateTransition(new StateTransition<Animation>(idleCrouchState, new AnimationEndCondition()));
-	attackCrouchState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
-	attackCrouchState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+	attackCrouchState->AddStateTransition(new AnimationTransition(idleCrouchState, new AnimationEndCondition()));
+	attackCrouchState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	attackCrouchState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
-	attackMeleeState->AddStateTransition(new StateTransition<Animation>(idleState, new AnimationEndCondition()));
-	attackMeleeState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
-	attackMeleeState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+	attackMeleeState->AddStateTransition(new AnimationTransition(idleState, new AnimationEndCondition()));
+	attackMeleeState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	attackMeleeState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
-	attackJumpMeleeState->AddStateTransition(new StateTransition<Animation>(jumpState, new AnimationEndCondition()));
-	attackJumpMeleeState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
-	attackJumpMeleeState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+	attackJumpMeleeState->AddStateTransition(new AnimationTransition(jumpState, new AnimationEndCondition()));
+	attackJumpMeleeState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	attackJumpMeleeState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
-	attackUpMeleeState->AddStateTransition(new StateTransition<Animation>(idleState, new AnimationEndCondition()));
-	attackUpMeleeState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
-	attackUpMeleeState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+	attackUpMeleeState->AddStateTransition(new AnimationTransition(idleState, new AnimationEndCondition()));
+	attackUpMeleeState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	attackUpMeleeState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
-	attackUpJumpMeleeState->AddStateTransition(new StateTransition<Animation>(jumpState, new AnimationEndCondition()));
-	attackUpJumpMeleeState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
-	attackUpJumpMeleeState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+	attackUpJumpMeleeState->AddStateTransition(new AnimationTransition(jumpState, new AnimationEndCondition()));
+	attackUpJumpMeleeState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	attackUpJumpMeleeState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
-	attackCrouchMeleeState->AddStateTransition(new StateTransition<Animation>(idleCrouchState, new AnimationEndCondition()));
-	attackCrouchMeleeState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
-	attackCrouchMeleeState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+	attackCrouchMeleeState->AddStateTransition(new AnimationTransition(idleCrouchState, new AnimationEndCondition()));
+	attackCrouchMeleeState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	attackCrouchMeleeState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
-	hitBackState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("hit_back", false)));
-	hitBackState->AddStateTransition(new StateTransition<Animation>(dieBackState, new FlagEqualsCondition("decaying", true)));
+	hitBackState->AddStateTransition(new AnimationTransition(idleState, new FlagEqualsCondition("hit_back", false)));
+	hitBackState->AddStateTransition(new AnimationTransition(dieBackState, new FlagEqualsCondition("decaying", true)));
 
-	hitFrontState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("hit_front", false)));
-	hitFrontState->AddStateTransition(new StateTransition<Animation>(dieFrontState, new FlagEqualsCondition("decaying", true)));
+	hitFrontState->AddStateTransition(new AnimationTransition(idleState, new FlagEqualsCondition("hit_front", false)));
+	hitFrontState->AddStateTransition(new AnimationTransition(dieFrontState, new FlagEqualsCondition("decaying", true)));
 
 	// Crea y devuelve el animator
 	return new PlayerAnimator(idleState);

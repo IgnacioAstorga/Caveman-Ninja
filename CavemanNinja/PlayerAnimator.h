@@ -6,7 +6,7 @@
 class PlayerAnimator : public Animator
 {
 public:
-	PlayerAnimator(StateSwitcher<Animation>* initialState);
+	PlayerAnimator(AnimationState* initialState);
 	static PlayerAnimator* Create();
 };
 #endif	// __PLAYERANIMATOR_H__

@@ -2,9 +2,10 @@
 #define __DIEONPLAYERATTACKCOMPONENT_H__
 
 #include "Component.h"
+#include "Timer.h"
 
 class ColliderComponent;
-class AICavemanComponent;
+class AIComponent;
 
 class DieOnPlayerAttackComponent : public Component
 {
@@ -14,6 +15,8 @@ public:
 
 protected:
 	bool OnStart();
+	bool OnCleanUp();
+
 	bool OnUpdate();
 
 	bool OnCollisionEnter(Collider* self, Collider* other);
@@ -23,12 +26,13 @@ public:
 
 public:
 	float decayTime;
-	float decayDuration;
 	bool dead;
 	bool decaying;
 
+	Timer decayTimer;
+
 	ColliderComponent* colliderComponent;
-	AICavemanComponent* AIComponent;
+	AIComponent* aiComponent;
 
 	unsigned int hitSound;
 	unsigned int dieSound;

@@ -3,9 +3,9 @@
 #include "BasicAnimation.h"
 #include "StateTransition.h"
 #include "FlagEqualsCondition.h"
-#include "AICavemanComponent.h"
+#include "CavemanAIManager.h"
 
-EnemyCavemanAnimator::EnemyCavemanAnimator(StateSwitcher<Animation>* initialState)
+EnemyCavemanAnimator::EnemyCavemanAnimator(AnimationState* initialState)
 	: Animator(initialState) {}
 
 EnemyCavemanAnimator* EnemyCavemanAnimator::Create()
@@ -66,48 +66,48 @@ EnemyCavemanAnimator* EnemyCavemanAnimator::Create()
 	dieFront->frames.push_back({ 7, 3 });
 
 	// Crea los estados del personaje
-	StateSwitcher<Animation>* walkState = new StateSwitcher<Animation>(walk);
-	StateSwitcher<Animation>* searchState = new StateSwitcher<Animation>(search);
-	StateSwitcher<Animation>* chargeState = new StateSwitcher<Animation>(charge);
-	StateSwitcher<Animation>* attackState = new StateSwitcher<Animation>(attack);
-	StateSwitcher<Animation>* runStartState = new StateSwitcher<Animation>(runStart);
-	StateSwitcher<Animation>* runState = new StateSwitcher<Animation>(run);
-	StateSwitcher<Animation>* hitBackState = new StateSwitcher<Animation>(hitBack);
-	StateSwitcher<Animation>* dieBackState = new StateSwitcher<Animation>(dieBack);
-	StateSwitcher<Animation>* hitFrontState = new StateSwitcher<Animation>(hitFront);
-	StateSwitcher<Animation>* dieFrontState = new StateSwitcher<Animation>(dieFront);
+	AnimationState* walkState = new AnimationState(walk);
+	AnimationState* searchState = new AnimationState(search);
+	AnimationState* chargeState = new AnimationState(charge);
+	AnimationState* attackState = new AnimationState(attack);
+	AnimationState* runStartState = new AnimationState(runStart);
+	AnimationState* runState = new AnimationState(run);
+	AnimationState* hitBackState = new AnimationState(hitBack);
+	AnimationState* dieBackState = new AnimationState(dieBack);
+	AnimationState* hitFrontState = new AnimationState(hitFront);
+	AnimationState* dieFrontState = new AnimationState(dieFront);
 
 	// Crea las transiciones entre los estados
-	walkState->AddStateTransition(new StateTransition<Animation>(searchState, new FlagEqualsCondition("AI_state", SEARCH)));
-	walkState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
-	walkState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+	walkState->AddStateTransition(new AnimationTransition(searchState, new FlagEqualsCondition("AI_state", SEARCH)));
+	walkState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	walkState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
-	searchState->AddStateTransition(new StateTransition<Animation>(walkState, new FlagEqualsCondition("AI_state", IDLE)));
-	searchState->AddStateTransition(new StateTransition<Animation>(chargeState, new FlagEqualsCondition("AI_state", CHARGE)));
-	searchState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
-	searchState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+	searchState->AddStateTransition(new AnimationTransition(walkState, new FlagEqualsCondition("AI_state", IDLE)));
+	searchState->AddStateTransition(new AnimationTransition(chargeState, new FlagEqualsCondition("AI_state", CHARGE)));
+	searchState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	searchState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
-	chargeState->AddStateTransition(new StateTransition<Animation>(searchState, new FlagEqualsCondition("AI_state", SEARCH)));
-	chargeState->AddStateTransition(new StateTransition<Animation>(attackState, new FlagEqualsCondition("AI_state", ATTACK)));
-	chargeState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
-	chargeState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+	chargeState->AddStateTransition(new AnimationTransition(searchState, new FlagEqualsCondition("AI_state", SEARCH)));
+	chargeState->AddStateTransition(new AnimationTransition(attackState, new FlagEqualsCondition("AI_state", ATTACK)));
+	chargeState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	chargeState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
-	attackState->AddStateTransition(new StateTransition<Animation>(runStartState, new FlagEqualsCondition("AI_state", START_RUN)));
-	attackState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
-	attackState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+	attackState->AddStateTransition(new AnimationTransition(runStartState, new FlagEqualsCondition("AI_state", START_RUN)));
+	attackState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	attackState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
-	runStartState->AddStateTransition(new StateTransition<Animation>(runState, new FlagEqualsCondition("AI_state", RUN)));
-	runStartState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
-	runStartState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+	runStartState->AddStateTransition(new AnimationTransition(runState, new FlagEqualsCondition("AI_state", RUN)));
+	runStartState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	runStartState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
-	runState->AddStateTransition(new StateTransition<Animation>(hitBackState, new FlagEqualsCondition("hit_back", true)));
-	runState->AddStateTransition(new StateTransition<Animation>(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+	runState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	runState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
-	hitBackState->AddStateTransition(new StateTransition<Animation>(walkState, new FlagEqualsCondition("hit_back", false)));
-	hitBackState->AddStateTransition(new StateTransition<Animation>(dieBackState, new FlagEqualsCondition("decaying", true)));
+	hitBackState->AddStateTransition(new AnimationTransition(walkState, new FlagEqualsCondition("hit_back", false)));
+	hitBackState->AddStateTransition(new AnimationTransition(dieBackState, new FlagEqualsCondition("decaying", true)));
 
-	hitFrontState->AddStateTransition(new StateTransition<Animation>(walkState, new FlagEqualsCondition("hit_front", false)));
-	hitFrontState->AddStateTransition(new StateTransition<Animation>(dieFrontState, new FlagEqualsCondition("decaying", true)));
+	hitFrontState->AddStateTransition(new AnimationTransition(walkState, new FlagEqualsCondition("hit_front", false)));
+	hitFrontState->AddStateTransition(new AnimationTransition(dieFrontState, new FlagEqualsCondition("decaying", true)));
 
 	// Crea y devuelve el animator
 	return new EnemyCavemanAnimator(walkState);

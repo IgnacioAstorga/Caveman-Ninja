@@ -4,7 +4,7 @@
 #include "Application.h"
 #include "ModuleAnimation.h"
 
-Animator::Animator(StateSwitcher<Animation>* initialStateSwitcher) : StateMachine(initialStateSwitcher)
+Animator::Animator(AnimationState* initialStateSwitcher) : StateMachine(initialStateSwitcher)
 {
 	this->storedFlip = SDL_FLIP_NONE;
 }

@@ -77,7 +77,7 @@ bool GUITextureRendererComponent::GUIPostUpdate()
 
 	// Dibuja la sombra
 	if (shadow)
-		App->renderer->Blit(texture, (int)renderPosition.x + shadowOffset.x, (int)renderPosition.y + shadowOffset.y, renderRotation, &pivot, &BLACK.ToSDLColor(), renderArea, renderScale);
+		App->renderer->Blit(texture, (int)(renderPosition.x + shadowOffset.x), (int)(renderPosition.y + shadowOffset.y), renderRotation, &pivot, &BLACK.ToSDLColor(), renderArea, renderScale);
 
 	// Dibuja la imagen
 	App->renderer->Blit(texture, (int)renderPosition.x, (int)renderPosition.y, renderRotation, &pivot, &WHITE.ToSDLColor(), renderArea, renderScale);

@@ -9,7 +9,7 @@
 #include "ModuleAudio.h"
 #include "EnemyHitEffect.h"
 #include "SpawnPickupOnDeathComponent.h"
-#include "AICavemanComponent.h"
+#include "AIComponent.h"
 
 DieOnPlayerAttackComponent::DieOnPlayerAttackComponent(float decayTime, ColliderComponent* colliderComponent, bool start_enabled)
 	: Component(start_enabled)
@@ -25,13 +25,24 @@ DieOnPlayerAttackComponent::~DieOnPlayerAttackComponent() {}
 bool DieOnPlayerAttackComponent::OnStart()
 {
 	// Recupera el componente de la IA
-	AIComponent = entity->FindComponent<AICavemanComponent>();
+	aiComponent = entity->FindComponent<AIComponent>();
+
+	// Registra el timer
+	App->time->RegisterTimer(&decayTimer);
 
 	// Carga los efectos de sonido
 	hitSound = App->audio->LoadFx("assets/sounds/enemy_hit.wav");
 	dieSound = App->audio->LoadFx("assets/sounds/enemy_caveman_die.wav");
 
-	return AIComponent != NULL;
+	return aiComponent != NULL;
+}
+
+bool DieOnPlayerAttackComponent::OnCleanUp()
+{
+	// Desregistra el timer
+	App->time->UnregisterTimer(&decayTimer);
+
+	return true;
 }
 
 bool DieOnPlayerAttackComponent::OnUpdate()
@@ -39,8 +50,7 @@ bool DieOnPlayerAttackComponent::OnUpdate()
 	if (!decaying)
 		return true;
 
-	decayDuration += App->time->DeltaTime();
-	if (decayDuration >= decayTime)
+	if (decayTimer.IsTimerExpired())
 		entity->Destroy();
 
 	return true;
@@ -54,7 +64,7 @@ bool DieOnPlayerAttackComponent::OnCollisionEnter(Collider * self, Collider * ot
 
 	// Desactiva el collider, su IA y mata al personaje
 	colliderComponent->GetCollider()->Disable();
-	AIComponent->Disable();
+	aiComponent->Disable();
 	dead = true;
 
 	// Crea el efecto especial
@@ -93,5 +103,5 @@ void DieOnPlayerAttackComponent::Decay()
 {
 	// Hace que el enemigo desaparezca
 	decaying = true;
-	this->decayDuration = 0.0f;
+	decayTimer.SetTimer(decayTime);
 }

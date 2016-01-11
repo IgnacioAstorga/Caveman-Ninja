@@ -16,6 +16,7 @@ class ModuleAnimation;
 class ModuleParticles;
 class ModuleScene;
 class ModuleCollisions;
+class ModuleAI;
 class ModuleGUI;
 class ModuleFonts;
 
@@ -54,6 +55,7 @@ public:
 	ModuleParticles* particles;
 	ModuleScene* scene;
 	ModuleCollisions* collisions;
+	ModuleAI* ai;
 	ModuleGUI* gui;
 	ModuleFonts* fonts;
 

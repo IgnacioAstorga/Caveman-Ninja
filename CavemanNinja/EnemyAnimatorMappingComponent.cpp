@@ -2,7 +2,8 @@
 #include "SpriteRendererComponent.h"
 #include "Animator.h"
 #include "DieOnPlayerAttackComponent.h"
-#include "AICavemanComponent.h"
+#include "AIComponent.h"
+#include "CavemanAIManager.h"
 
 EnemyAnimatorMappingComponent::EnemyAnimatorMappingComponent()
 {
@@ -31,8 +32,8 @@ bool EnemyAnimatorMappingComponent::OnStart()
 		return false;
 
 	// Recupera el componente de AI de la entidad
-	AIComponent = entity->FindComponent<AICavemanComponent>();
-	if (AIComponent == NULL)
+	aiManager = dynamic_cast<CavemanAIManager*>(entity->FindComponent<AIComponent>()->GetAIManager());
+	if (aiManager == NULL)
 		return false;
 
 	return true;
@@ -40,12 +41,12 @@ bool EnemyAnimatorMappingComponent::OnStart()
 
 bool EnemyAnimatorMappingComponent::OnPostUpdate()
 {
-	if (animator == NULL || lifeComponent == NULL || AIComponent == NULL)
+	if (animator == NULL || lifeComponent == NULL || aiManager == NULL)
 		return false;
 
 	// Mapea los atributos adecuados al animator
 	// Mapea el estado del personaje
-	animator->SetFlagValue("AI_state", AIComponent->GetState());
+	animator->SetFlagValue("AI_state", aiManager->GetActualState()->GetIdentifier());
 
 	// Mapea si el personaje está muriendo o no
 	animator->SetFlagValue("decaying", lifeComponent->decaying);
@@ -54,16 +55,16 @@ bool EnemyAnimatorMappingComponent::OnPostUpdate()
 	fPoint speed = entity->transform->GetLocalSpeed();
 	bool hitFromBack;
 	if (speed.x > 0)
-		hitFromBack = AIComponent->GetOrientation() == 1;
+		hitFromBack = aiManager->orientation > 0;
 	else
-		hitFromBack = AIComponent->GetOrientation() == -1;
+		hitFromBack = aiManager->orientation < 0;
 	animator->SetFlagValue("hit_back", lifeComponent->dead && hitFromBack);
 	animator->SetFlagValue("hit_front", lifeComponent->dead && !hitFromBack);
 
 	// Flipea el animator según la orientacion
-	if (AIComponent->GetOrientation() > 0)
+	if (aiManager->orientation > 0)
 		animator->SetFlip(SDL_FLIP_HORIZONTAL);
-	else if (AIComponent->GetOrientation() < 0)
+	else if (aiManager->orientation < 0)
 		animator->SetFlip(SDL_FLIP_NONE);
 
 	return true;

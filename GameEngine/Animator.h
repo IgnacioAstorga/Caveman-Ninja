@@ -6,10 +6,13 @@
 
 #define ANIMATION_END "_animation_finished"
 
+typedef StateSwitcher<Animation> AnimationState;
+typedef StateTransition<Animation> AnimationTransition;
+
 class Animator : public Animation, public StateMachine<Animation>
 {
 public:
-	Animator(StateSwitcher<Animation>* initialStateSwitcher);
+	Animator(AnimationState* initialStateSwitcher);
 	virtual ~Animator();
 
 	bool Start();

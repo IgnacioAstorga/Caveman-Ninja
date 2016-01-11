@@ -117,7 +117,7 @@ void WeaponComponent::MeleeAttack()
 	if (jumpComponent->lookingUp)
 	{
 		x = 0.0f;
-		y = 2.0f * meleeOffset.y;
+		y = 2.0f * meleeOffset.y - abs(meleeOffset.x);
 	}
 	else
 	{

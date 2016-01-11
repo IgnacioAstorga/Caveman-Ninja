@@ -55,6 +55,9 @@
     <Filter Include="Elements\Entities\ColliderComponents">
       <UniqueIdentifier>{6f74d29a-0c9a-4fde-ab99-1f30a9342b62}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Elements\AI">
+      <UniqueIdentifier>{281e5487-7c7d-4454-a63c-1c99536fc4be}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.h">
@@ -279,6 +282,18 @@
     <ClInclude Include="EntityLifetimeComponent.h">
       <Filter>Elements\Entities\Components</Filter>
     </ClInclude>
+    <ClInclude Include="AIManager.h">
+      <Filter>Elements\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="AIBehaviour.h">
+      <Filter>Elements\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="AIComponent.h">
+      <Filter>Elements\Entities\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleAI.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -397,6 +412,18 @@
     </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="AIBehaviour.cpp">
+      <Filter>Elements\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="AIManager.cpp">
+      <Filter>Elements\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="AIComponent.cpp">
+      <Filter>Elements\Entities\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleAI.cpp">
+      <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

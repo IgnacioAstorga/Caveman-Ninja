@@ -8,6 +8,7 @@
 #include "ModuleAnimation.h"
 #include "ModuleParticles.h"
 #include "ModuleScene.h"
+#include "ModuleAI.h"
 #include "ModuleCollisions.h"
 #include "ModuleGUI.h"
 #include "ModuleFonts.h"
@@ -55,6 +56,7 @@ void Application::Create() {
 	modules.push_back(particles = new ModuleParticles());
 	modules.push_back(scene = new ModuleScene());
 	modules.push_back(collisions = new ModuleCollisions());
+	modules.push_back(ai = new ModuleAI());
 	modules.push_back(gui = new ModuleGUI());	// El GUI va después del Scene
 
 	// El Renderer siempre es el último módulo

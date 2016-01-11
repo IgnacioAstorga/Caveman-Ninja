@@ -18,7 +18,6 @@ PlayerInputComponent::PlayerInputComponent(float speed, ColliderComponent* colli
 
 	this->orientation = FORWARD;	// Por defecto mira de frente
 	this->stopped = false;
-	this->stoppedDuration = 0.0f;
 }
 
 PlayerInputComponent::~PlayerInputComponent() {}
@@ -28,14 +27,24 @@ bool PlayerInputComponent::OnStart()
 	// Intenta recuperar el componente de salto de la entidad
 	jumpComponent = entity->FindComponent<PlayerJumpComponent>();
 
+	// Registra el timer
+	App->time->RegisterTimer(&stopTimer);
+
 	return jumpComponent != NULL;
+}
+
+bool PlayerInputComponent::OnCleanUp()
+{
+	// Desregistra el timer
+	App->time->UnregisterTimer(&stopTimer);
+
+	return true;
 }
 
 bool PlayerInputComponent::OnPreUpdate()
 {
 	// Comprueba si deja de estar parado
-	stoppedTime += App->time->DeltaTime();
-	if (stopped && stoppedTime >= stoppedDuration)
+	if (stopped && stopTimer.IsTimerExpired())
 		stopped = false;
 
 	// Comprueba si está parado
@@ -111,8 +120,7 @@ bool PlayerInputComponent::OnCollisionStay(Collider * self, Collider * other)
 void PlayerInputComponent::Stop(float duration)
 {
 	stopped = true;
-	stoppedDuration = duration;
-	stoppedTime = 0.0f;
+	stopTimer.SetTimer(duration);
 }
 
 bool PlayerInputComponent::IsStopped()

@@ -3,6 +3,7 @@
 
 #include "Component.h"
 #include "Point.h"
+#include "Timer.h"
 
 enum DeathType {
 	DAMAGE,
@@ -21,7 +22,10 @@ public:
 
 protected:
 	bool OnStart();
+	bool OnCleanUp();
+
 	bool OnUpdate();
+
 	bool OnCollisionEnter(Collider* self, Collider* other);
 
 public:
@@ -33,18 +37,19 @@ public:
 public:
 	int maxLifePoints;
 	int currentLifePoints;
-	float graceTime;
-	float graceDuration;
-	float harvestTime;
-	float harvestDuration;
-	float decayTime;
-	float decayDuration;
 	bool hit;
 	bool invulnerable;
 	bool dead;
 	bool harvesting;
 	bool decaying;
 	DeathType deathCause;
+
+	float graceTime;
+	float harvestTime;
+	float decayTime;
+	Timer graceTimer;
+	Timer harvestTimer;
+	Timer decayTimer;
 
 	PlayerInputComponent* inputComponent;
 	PlayerGravityComponent* gravityComponent;

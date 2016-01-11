@@ -18,14 +18,24 @@ WeaponLifespanComponent::~WeaponLifespanComponent()
 
 bool WeaponLifespanComponent::OnStart()
 {
-	duration = 0;
+	// Registra el timer y lo inicia
+	App->time->RegisterTimer(&lifetimeTimer);
+	lifetimeTimer.SetTimer(lifeTime);
+
 	return weaponComponent != NULL;
+}
+
+bool WeaponLifespanComponent::OnCleanUp()
+{
+	// Desregistra el timer
+	App->time->UnregisterTimer(&lifetimeTimer);
+
+	return true;
 }
 
 bool WeaponLifespanComponent::OnPostUpdate()
 {
-	duration += App->time->DeltaTime();
-	if (duration >= lifeTime)
+	if (lifetimeTimer.IsTimerExpired())
 		entity->Destroy();	// Destuye la entidad
 	return true;
 }
@@ -37,6 +47,5 @@ void WeaponLifespanComponent::Reset()
 
 void WeaponLifespanComponent::Reset(float lifeTime)
 {
-	this->duration = 0.0f;
-	this->lifeTime = lifeTime;
+	lifetimeTimer.SetTimer(lifeTime);
 }
