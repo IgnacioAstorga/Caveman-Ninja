@@ -6,8 +6,10 @@
 #include "Transform.h"
 #include "GameControllerComponent.h"
 #include "Player.h"
+#include "Random.h"
 
-#define WAIT_FOR_SEARCH 5.0f
+#define WAIT_FOR_SEARCH_MIN 3.0f
+#define WAIT_FOR_SEARCH_MAX 5.0f
 #define WALK_SPEED 25.0f
 
 CavemanIdleAIBehaviour::CavemanIdleAIBehaviour()
@@ -26,7 +28,7 @@ void CavemanIdleAIBehaviour::OnEnter()
 	App->time->RegisterTimer(&timer);
 
 	// Inicia el contador para buscar
-	timer.SetTimer(WAIT_FOR_SEARCH);
+	timer.SetTimer(Random().Range(WAIT_FOR_SEARCH_MIN, WAIT_FOR_SEARCH_MAX));
 
 	// Establece la orientación hacia el jugador
 	if (entity->transform->GetGlobalPosition().x >= GameController->player->transform->GetGlobalPosition().x)
