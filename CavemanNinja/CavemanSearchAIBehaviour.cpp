@@ -34,6 +34,9 @@ void CavemanSearchAIBehaviour::OnEnter()
 
 void CavemanSearchAIBehaviour::OnTick()
 {
+	if (GameController->player == NULL)
+		return;
+
 	// Si encuentra al jugador, carga hacia él
 	if (abs(entity->transform->GetGlobalPosition().x - GameController->player->transform->GetGlobalPosition().x) <= CHARGE_START_DISTANCE)
 		manager->SetFlagValue(STATE, CHARGE);

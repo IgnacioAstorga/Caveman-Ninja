@@ -19,7 +19,7 @@ bool UserInterfaceComponent::OnStart()
 
 	// Crea el texto de la puntuación
 	score = new Entity("score", 98, 23);
-	score->AddComponent(new GUITextRendererComponent("", "assets/fonts/PressStart2P.ttf", 12, WHITE, BOTTOM_RIGHT, 0.0f, 0.0f, TOP_LEFT, true, { 1.0f, 1.0f }));
+	score->AddComponent(new GUITextRendererComponent("0", "assets/fonts/PressStart2P.ttf", 12, WHITE, BOTTOM_RIGHT, 0.0f, 0.0f, TOP_LEFT, true, { 1.0f, 1.0f }));
 	score->AddComponent(new GUIScoreTextComponent());
 	score->transform->SetScale(0.5f);
 	score->Instantiate(entity);

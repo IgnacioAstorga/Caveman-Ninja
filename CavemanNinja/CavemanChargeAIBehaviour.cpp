@@ -22,6 +22,9 @@ CavemanChargeAIBehaviour::~CavemanChargeAIBehaviour()
 
 void CavemanChargeAIBehaviour::OnEnter()
 {
+	if (GameController->player == NULL)
+		return;
+
 	CavemanAIManager* cavemanManager = (CavemanAIManager*)manager;
 
 	// Establece la orientación hacia el jugador
@@ -36,6 +39,9 @@ void CavemanChargeAIBehaviour::OnEnter()
 
 void CavemanChargeAIBehaviour::OnTick()
 {
+	if (GameController->player == NULL)
+		return;
+
 	fPoint thisPosition = entity->transform->GetGlobalPosition();
 	fPoint playerPosition = GameController->player->transform->GetGlobalPosition();
 

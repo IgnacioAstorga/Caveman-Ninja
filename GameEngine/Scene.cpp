@@ -45,12 +45,6 @@ Scene::~Scene()
 	RELEASE(root);
 }
 
-void Scene::Destroy()
-{
-	// Marca la escena para morir
-	App->scene->DestroyScene(this);
-}
-
 bool Scene::Start()
 {
 	bool ret = true;
@@ -163,18 +157,6 @@ Entity * Scene::FindChild(string name, int deepness) const
 	return root->FindChild(name, deepness);
 }
 
-template<class T>
-inline T* Scene::FindChild() const
-{
-	return root->FindChild<T>();
-}
-
-template<class T>
-T* Scene::FindChild(int deepness) const
-{
-	return root->FindChild<T>(deepness);
-}
-
 list<Entity*> Scene::FindAllChildren(string name) const
 {
 	return root->FindAllChildren(name);
@@ -183,17 +165,5 @@ list<Entity*> Scene::FindAllChildren(string name) const
 list<Entity*> Scene::FindAllChildren(string name, int deepness) const
 {
 	return root->FindAllChildren(name, deepness);
-}
-
-template<class T>
-inline list<T*> Scene::FindAllChildren() const
-{
-	return root->FindAllChildren<T>();
-}
-
-template<class T>
-list<T*> Scene::FindAllChildren(int deepness) const
-{
-	return root->FindAllChildren<T>(deepness);
 }
 

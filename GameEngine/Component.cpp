@@ -25,7 +25,10 @@ bool Component::IsEnabled() const
 bool Component::Enable()
 {
 	if (enabled == false)
-		return enabled = Start();
+	{
+		enabled = true;
+		return Start();
+	}
 
 	return true;
 }
@@ -33,7 +36,10 @@ bool Component::Enable()
 bool Component::Disable()
 {
 	if (enabled == true)
-		return enabled = !CleanUp();
+	{
+		enabled = false;
+		return CleanUp();
+	}
 
 	return true;
 }

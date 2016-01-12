@@ -123,7 +123,7 @@ list<T*> Entity::FindAllChildren(int deepness) const
 	list<T*> allChildren;
 	for (list<Entity*>::const_iterator it = children.begin(); it != children.end(); ++it)
 	{
-		T* casted = dynamic_cast<T*>(*it)
+		T* casted = dynamic_cast<T*>(*it);
 		if (casted != NULL)
 			allChildren.push_back(casted);
 		if (deepness != 0)

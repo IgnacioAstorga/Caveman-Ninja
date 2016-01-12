@@ -15,6 +15,8 @@
 #include "CavemanAIManager.h"
 #include "EntityLifetimeComponent.h"
 #include "Transform.h"
+#include "GameControllerComponent.h"
+#include "Player.h"
 
 void EnemyCaveman::OnCreate()
 {
@@ -50,4 +52,10 @@ void EnemyCaveman::OnCreate()
 void EnemyCaveman::OnDestroy()
 {
 	// No hace nada
+}
+
+void EnemyCaveman::Kill()
+{
+	// Mata al personaje directamente
+	FindComponent<DieOnPlayerAttackComponent>()->Die(GameController->player->transform);
 }

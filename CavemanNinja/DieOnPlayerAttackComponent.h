@@ -6,6 +6,7 @@
 
 class ColliderComponent;
 class AIComponent;
+class Transform;
 
 class DieOnPlayerAttackComponent : public Component
 {
@@ -22,6 +23,7 @@ protected:
 	bool OnCollisionEnter(Collider* self, Collider* other);
 
 public:
+	void Die(Transform* otherTransform);
 	void Decay();
 
 public:

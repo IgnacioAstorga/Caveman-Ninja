@@ -7,6 +7,7 @@
 #include "PlayerLifeComponent.h"
 #include "Entity.h"
 #include "Transform.h"
+#include "GameControllerComponent.h"
 
 AnimatorMappingComponent::AnimatorMappingComponent()
 {
@@ -109,6 +110,9 @@ bool AnimatorMappingComponent::OnPostUpdate()
 		else if (inputComponent->orientation == BACKWARD)
 			animator->SetFlip(SDL_FLIP_HORIZONTAL);			
 	}
+
+	// Mapea si ha ganado o no
+	animator->SetFlagValue("victory", GameController->victory, true);
 
 	return true;
 }

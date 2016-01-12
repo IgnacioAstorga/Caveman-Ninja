@@ -29,7 +29,7 @@ bool AIComponent::OnCleanUp()
 	// Desregistra el manager en el módulo de IA
 	App->ai->UnregisterAIManager(manager);
 
-	return false;
+	return true;
 }
 
 AIManager * AIComponent::GetAIManager() const

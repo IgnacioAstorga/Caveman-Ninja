@@ -22,6 +22,9 @@ CavemanIdleAIBehaviour::~CavemanIdleAIBehaviour()
 
 void CavemanIdleAIBehaviour::OnEnter()
 {
+	if (GameController->player == NULL)
+		return;
+
 	CavemanAIManager* cavemanManager = (CavemanAIManager*) manager;
 
 	// Registra el timer

@@ -14,8 +14,6 @@ public:
 	Scene();
 	virtual ~Scene();
 
-	void Destroy();
-
 public:
 	void AddChild(Entity* child);
 	void RemoveChild(Entity* child);
@@ -48,4 +46,29 @@ protected:
 private:
 	Entity* root;
 };
+
+template<class T>
+T* Scene::FindChild() const
+{
+	return root->FindChild<T>();
+}
+
+template<class T>
+T* Scene::FindChild(int deepness) const
+{
+	return root->FindChild<T>(deepness);
+}
+
+template<class T>
+inline list<T*> Scene::FindAllChildren() const
+{
+	return root->FindAllChildren<T>();
+}
+
+template<class T>
+list<T*> Scene::FindAllChildren(int deepness) const
+{
+	return root->FindAllChildren<T>(deepness);
+}
+
 #endif //__SCENE_H__

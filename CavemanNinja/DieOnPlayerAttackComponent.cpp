@@ -62,10 +62,11 @@ bool DieOnPlayerAttackComponent::OnCollisionEnter(Collider * self, Collider * ot
 	if (self != colliderComponent->GetCollider() || other->GetType() != PLAYER_ATTACK)
 		return true;
 
-	// Desactiva el collider, su IA y mata al personaje
-	colliderComponent->GetCollider()->Disable();
-	aiComponent->Disable();
-	dead = true;
+	// Mata al personaje
+	Die(other->transform);
+
+	// Reproduce los efectos de sonido
+	App->audio->PlayFx(hitSound);
 
 	// Crea el efecto especial
 	fPoint selfCenter = self->GetCenter();
@@ -75,28 +76,43 @@ bool DieOnPlayerAttackComponent::OnCollisionEnter(Collider * self, Collider * ot
 	hitEffect->transform->SetGlobalPosition(damagePosition.x, damagePosition.y);
 	hitEffect->Instantiate();
 
+	return true;
+}
+
+void DieOnPlayerAttackComponent::Die(Transform* otherTransform)
+{
+	if (dead)
+		return;
+
+	// Desactiva el collider, su IA y mata al personaje
+	if (colliderComponent->GetCollider() != NULL)
+		colliderComponent->GetCollider()->Disable();
+	aiComponent->Disable();
+	dead = true;
+
+	fPoint otherSpeed = otherTransform->GetGlobalSpeed();
+	fPoint otherPosition = otherTransform->GetGlobalPosition();
+	fPoint selfPosition = entity->transform->GetGlobalPosition();
+
 	// Lanza al enemigo volando en la dirección adecuada
-	if (other->transform->GetGlobalSpeed().x > 0)
+	if (otherSpeed.x > 0)
 		entity->transform->SetSpeed(100.0f, -150.0f);
-	else if (other->transform->GetGlobalSpeed().x < 0)
+	else if (otherSpeed.x < 0)
 		entity->transform->SetSpeed(-100.0f, -150.0f);
-	else if (selfCenter.x > otherCenter.x)
+	else if (selfPosition.x > otherPosition.x)
 		entity->transform->SetSpeed(100.0f, -150.0f);
-	else if (selfCenter.x < otherCenter.x)
+	else if (selfPosition.x < otherPosition.x)
 		entity->transform->SetSpeed(-100.0f, -150.0f);
 	else
 		entity->transform->SetSpeed(0.0f, -200.0f);
 
 	// Reproduce los efectos de sonido
-	App->audio->PlayFx(hitSound);
 	App->audio->PlayFx(dieSound);
 
 	// Da la señal a los componentes que hagan aparecer pickups
 	list<SpawnPickupOnDeathComponent*> spawners = entity->FindAllComponents<SpawnPickupOnDeathComponent>();
 	for (list<SpawnPickupOnDeathComponent*>::iterator it = spawners.begin(); it != spawners.end(); ++it)
 		(*it)->Spawn();
-
-	return true;
 }
 
 void DieOnPlayerAttackComponent::Decay()

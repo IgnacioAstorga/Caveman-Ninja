@@ -20,7 +20,7 @@ void Player::OnCreate()
 	AddComponent(colliderComponent = new RectangleColliderComponent(28, 47, { WALL, ENEMY, ENEMY_ATTACK, PICKUP }, 0, -24, 0, PLAYER, true));
 	AddComponent(new PlayerLifeComponent(colliderComponent, 18, 1.0f, 5.0f, 2.0f));
 	AddComponent(new PlayerInputComponent(75.0f, colliderComponent, 0.1f));
-	AddComponent(colliderComponent = new CircleColliderComponent(1.0f, { FLOOR, GROUND }, 0.0f, 0.0f, PLAYER, true));
+	AddComponent(colliderComponent = new CircleColliderComponent(1.0f, { FLOOR, GROUND, VICTORY }, 0.0f, 0.0f, PLAYER, true));
 	AddComponent(new PlayerGravityComponent(500.0f, colliderComponent, 5.0f));
 	AddComponent(new PlayerJumpComponent(250.0f, 1.25f));
 	AddComponent(new MovementSimpleComponent());
