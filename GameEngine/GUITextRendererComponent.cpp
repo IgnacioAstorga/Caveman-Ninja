@@ -35,7 +35,7 @@ void GUITextRendererComponent::SetText(string text)
 	texture = CreateTexture();	// Recrea la textura
 }
 
-string GUITextRendererComponent::GetText()
+string GUITextRendererComponent::GetText() const
 {
 	return text;
 }
@@ -54,7 +54,7 @@ void GUITextRendererComponent::SetFont(string fontName, unsigned int size)
 	texture = CreateTexture();	// Recrea la textura
 }
 
-string GUITextRendererComponent::GetFontName()
+string GUITextRendererComponent::GetFontName() const
 {
 	return fontName;
 }
@@ -65,7 +65,7 @@ void GUITextRendererComponent::SetSize(unsigned int size)
 	SetFont(fontName);	// La textura será creada por el método SetFont
 }
 
-unsigned int GUITextRendererComponent::GetSize()
+unsigned int GUITextRendererComponent::GetSize() const
 {
 	return size;
 }
@@ -76,7 +76,7 @@ void GUITextRendererComponent::SetColor(Color color)
 	texture = CreateTexture();	// Recrea la textura
 }
 
-Color GUITextRendererComponent::GetColor()
+Color GUITextRendererComponent::GetColor() const
 {
 	return color;
 }

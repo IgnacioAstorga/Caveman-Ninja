@@ -20,7 +20,7 @@ public:
 	void SetHeight(float height);
 	void SetOffset(float offsetX, float offsetY);
 	void SetRotation(float rotation);
-	Collider* GetCollider();
+	Collider* GetCollider() const;
 
 private:
 	float width, height;

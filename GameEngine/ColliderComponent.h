@@ -17,7 +17,7 @@ public:
 	virtual ~ColliderComponent();
 
 public:
-	virtual Collider* GetCollider() = 0;
+	virtual Collider* GetCollider() const = 0;
 
 public:
 	bool hasSpecificCollisionsTypes;

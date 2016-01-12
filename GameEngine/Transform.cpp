@@ -77,12 +77,12 @@ void Transform::SetGlobalScale(float xScale, float yScale)
 	this->scale = fPoint(xScale, yScale) - entity->GetParent()->transform->GetGlobalScale();
 }
 
-fPoint Transform::GetLocalPosition()
+fPoint Transform::GetLocalPosition() const
 {
 	return position;
 }
 
-fPoint Transform::GetGlobalPosition()
+fPoint Transform::GetGlobalPosition() const
 {
 	if (entity->GetParent() == nullptr)
 		return GetLocalPosition();
@@ -95,12 +95,12 @@ fPoint Transform::GetGlobalPosition()
 	}
 }
 
-fPoint Transform::GetLocalSpeed()
+fPoint Transform::GetLocalSpeed() const
 {
 	return speed;
 }
 
-fPoint Transform::GetGlobalSpeed()
+fPoint Transform::GetGlobalSpeed() const
 {
 	if (entity->GetParent() == nullptr)
 		return GetLocalSpeed();
@@ -113,12 +113,12 @@ fPoint Transform::GetGlobalSpeed()
 	}
 }
 
-float Transform::GetLocalRotation()
+float Transform::GetLocalRotation() const
 {
 	return rotation;
 }
 
-float Transform::GetGlobalRotation()
+float Transform::GetGlobalRotation() const
 {
 	if (entity->GetParent() == nullptr)
 		return GetLocalRotation();
@@ -126,12 +126,12 @@ float Transform::GetGlobalRotation()
 		return entity->GetParent()->transform->GetGlobalRotation() + GetLocalRotation();
 }
 
-fPoint Transform::GetLocalScale()
+fPoint Transform::GetLocalScale() const
 {
 	return scale;
 }
 
-fPoint Transform::GetGlobalScale()
+fPoint Transform::GetGlobalScale() const
 {
 	if (entity->GetParent() == nullptr)
 		return GetLocalScale();
@@ -144,24 +144,24 @@ fPoint Transform::GetGlobalScale()
 	}
 }
 
-fPoint Transform::GetForwardVector()
+fPoint Transform::GetForwardVector() const
 {
 	double rads = rotation * 2 * M_PI / 360.0;
 	return fPoint((float)cos(rads), (float)sin(rads));
 }
 
-fPoint Transform::GetBackwardVector()
+fPoint Transform::GetBackwardVector() const
 {
 	return GetForwardVector().Negate();
 }
 
-fPoint Transform::GetRightVector()
+fPoint Transform::GetRightVector() const
 {
 	double rads = rotation * 2 * M_PI / 360.0;
 	return fPoint((float)sin(rads), (float)-cos(rads));
 }
 
-fPoint Transform::GetLeftVector()
+fPoint Transform::GetLeftVector() const
 {
 	return GetRightVector().Negate();
 }

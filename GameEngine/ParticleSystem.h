@@ -20,7 +20,7 @@ public:
 	ParticleSystem(Transform* transform = nullptr, bool start_enabled = true);
 	virtual ~ParticleSystem();
 	
-	bool IsEnabled();
+	bool IsEnabled() const;
 	bool Enable();
 	bool Disable();
 
@@ -38,14 +38,15 @@ public:
 
 	bool CreateParticle(unsigned int amount);
 
-	Transform* transform;
-
 public:
 	bool Start();
 	update_status PreUpdate();
 	update_status Update();
 	update_status PostUpdate();
 	bool CleanUp();
+
+public:
+	Transform* transform;
 
 private:
 	bool active;

@@ -17,7 +17,7 @@ Component::~Component()
 	OnDestroy();
 }
 
-bool Component::IsEnabled()
+bool Component::IsEnabled() const
 {
 	return enabled;
 }

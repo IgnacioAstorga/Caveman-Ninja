@@ -102,10 +102,12 @@
     <ClCompile Include="AIBehaviour.cpp" />
     <ClCompile Include="AIComponent.cpp" />
     <ClCompile Include="AIManager.cpp" />
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="BasicAnimation.cpp" />
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="CircleCollider.cpp" />
     <ClCompile Include="CircleColliderComponent.cpp" />
     <ClCompile Include="CircleTraceCollider.cpp" />
@@ -113,7 +115,9 @@
     <ClCompile Include="ColliderComponent.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="DestroyOnCollisionComponent.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EntityLifetimeComponent.cpp" />
     <ClCompile Include="GUIComponent.cpp" />
     <ClCompile Include="GUISpriteRendererComponent.cpp" />
     <ClCompile Include="GUITextRendererComponent.cpp" />
@@ -121,6 +125,7 @@
     <ClCompile Include="LineCollider.cpp" />
     <ClCompile Include="LineColliderComponent.cpp" />
     <ClCompile Include="Log.cpp" />
+    <ClCompile Include="Module.cpp" />
     <ClCompile Include="ModuleAI.cpp" />
     <ClCompile Include="ModuleAnimation.cpp" />
     <ClCompile Include="ModuleAudio.cpp" />
@@ -134,12 +139,20 @@
     <ClCompile Include="ModuleTextures.cpp" />
     <ClCompile Include="ModuleTime.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
+    <ClCompile Include="MovementSimpleComponent.cpp" />
+    <ClCompile Include="ParticleEmitter.cpp" />
+    <ClCompile Include="ParticleInitializer.cpp" />
+    <ClCompile Include="ParticleOperator.cpp" />
+    <ClCompile Include="ParticleRenderer.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
+    <ClCompile Include="ParticleSystemComponent.cpp" />
     <ClCompile Include="PreciseAnimation.cpp" />
     <ClCompile Include="RectangleBasicCollider.cpp" />
     <ClCompile Include="RectangleCollider.cpp" />
     <ClCompile Include="RectangleColliderComponent.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SpriteParticleRenderer.cpp" />
+    <ClCompile Include="SpriteRendererComponent.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
@@ -156,7 +169,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -226,7 +239,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)\SDL2_image\include;$(SolutionDir)\SDL2_mixer\include;$(SolutionDir)\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\SDL2_ttf\include;$(SolutionDir)\SDL2_image\include;$(SolutionDir)\SDL2_mixer\include;$(SolutionDir)\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

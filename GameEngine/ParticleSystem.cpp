@@ -39,7 +39,7 @@ ParticleSystem::~ParticleSystem()
 	particles.clear();
 }
 
-bool ParticleSystem::IsEnabled()
+bool ParticleSystem::IsEnabled() const
 {
 	return active;
 }

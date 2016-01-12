@@ -30,42 +30,42 @@ CircleCollider::~CircleCollider()
 	// No hace nada
 }
 
-bool CircleCollider::CallMe(Collider* self)
+bool CircleCollider::CallMe(const Collider* self) const
 {
 	return self->CheckCollision(this);
 }
 
-bool CircleCollider::CheckCollision(CircleCollider* other)
+bool CircleCollider::CheckCollision(const CircleCollider* other) const
 {
 	// Comprueba si la distancia entre ambos centros es menor que la suma de sus radios
 	return this->GetCenter().DistanceTo(other->GetCenter()) < (this->GetRadius() + other->GetRadius());
 }
 
-bool CircleCollider::CheckCollision(CircleTraceCollider* other)
+bool CircleCollider::CheckCollision(const CircleTraceCollider* other) const
 {
 	// Delega la responsabilidad en el otro collider
 	return other->CheckCollision(this);
 }
 
-bool CircleCollider::CheckCollision(RectangleCollider* other)
+bool CircleCollider::CheckCollision(const RectangleCollider* other) const
 {
 	// Delega la responsabilidad en el otro collider
 	return other->CheckCollision(this);
 }
 
-bool CircleCollider::CheckCollision(RectangleBasicCollider * other)
+bool CircleCollider::CheckCollision(const RectangleBasicCollider * other) const
 {
 	// Delega la responsabilidad en el otro collider
 	return other->CheckCollision(this);
 }
 
-bool CircleCollider::CheckCollision(LineCollider* other)
+bool CircleCollider::CheckCollision(const LineCollider* other) const
 {
 	// Delega la responsabilidad en el otro collider
 	return other->CheckCollision(this);
 }
 
-void CircleCollider::DrawCollider()
+void CircleCollider::DrawCollider() const
 {
 	// Determina la posición del dibujo en pantalla
 	fPoint renderPosition = transform->GetGlobalPosition();
@@ -90,7 +90,7 @@ void CircleCollider::DrawCollider()
 	App->renderer->Blit(App->collisions->circle, (int)(renderPosition.x - radius), (int)(renderPosition.y - radius), 0, NULL, &renderColor, NULL, fPoint(renderScale, renderScale));
 }
 
-fPoint CircleCollider::GetCenter()
+fPoint CircleCollider::GetCenter() const
 {
 	fPoint offset = fPoint(offsetX, offsetY);
 	offset.x *= transform->GetGlobalScale().x;
@@ -98,7 +98,7 @@ fPoint CircleCollider::GetCenter()
 	return transform->GetGlobalPosition() + offset.Rotate(transform->GetGlobalRotation());
 }
 
-fPoint CircleCollider::GetExternalPositionFromCoordinates(fPoint coordinates)
+fPoint CircleCollider::GetExternalPositionFromCoordinates(fPoint coordinates) const
 {
 	// Calcula la intersección entre el centro del círculo y las coordenadas
 	fPoint center = GetCenter();
@@ -106,7 +106,7 @@ fPoint CircleCollider::GetExternalPositionFromCoordinates(fPoint coordinates)
 	return center + distance.Normalize() * GetRadius();
 }
 
-float CircleCollider::GetRadius()
+float CircleCollider::GetRadius() const
 {
 	// Por simpleza solo se toma la media de su escala horizontal y vertical
 	// Este collider no esta diseñado para elementos cuya relación de escala varíe

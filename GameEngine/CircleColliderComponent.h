@@ -18,7 +18,7 @@ public:
 public:
 	void SetRadius(float radius);
 	void SetOffset(float offsetX, float offsetY);
-	Collider* GetCollider();
+	Collider* GetCollider() const;
 
 private:
 	float radius;

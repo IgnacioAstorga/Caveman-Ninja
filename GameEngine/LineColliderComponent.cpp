@@ -85,7 +85,7 @@ void LineColliderComponent::RemovePoint(int index)
 	collider->points.erase(points.begin() + index);
 }
 
-Collider* LineColliderComponent::GetCollider()
+Collider* LineColliderComponent::GetCollider() const
 {
 	return collider;
 }

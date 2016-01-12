@@ -11,17 +11,17 @@ public:
 	RectangleBasicCollider(CollisionListener* listener, Transform* transform, float width, float height, vector<int> collisionsTypes, float offsetX = 0.0f, float offsetY = 0.0f, int type = -1, bool start_enabled = true);
 	~RectangleBasicCollider();
 
-	bool CallMe(Collider* self);
-	bool CheckCollision(CircleCollider* other);
-	bool CheckCollision(RectangleBasicCollider* other);
+	bool CallMe(const Collider* self) const;
+	bool CheckCollision(const CircleCollider* other) const;
+	bool CheckCollision(const RectangleBasicCollider* other) const;
 
-	void DrawCollider();
+	void DrawCollider() const;
 
 public:
-	fPoint GetExternalPositionFromCoordinates(fPoint coordinates);
-	fPoint GetCenter();
-	float GetRotation();
-	fPoint* GetPoints();
+	fPoint GetExternalPositionFromCoordinates(fPoint coordinates) const;
+	fPoint GetCenter() const;
+	float GetRotation() const;
+	fPoint* GetPoints() const;
 };
 
 #endif // __RECTANGLECOLLIDER_H__

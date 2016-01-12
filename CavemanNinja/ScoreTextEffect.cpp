@@ -3,6 +3,7 @@
 #include "BasicAnimation.h"
 #include "EntityLifetimeComponent.h"
 #include "MovementSimpleComponent.h"
+#include "Transform.h"
 
 ScoreTextEffect::ScoreTextEffect(int score, std::string name, float positionX, float positionY)
 	: Entity(name, positionX, positionY) 

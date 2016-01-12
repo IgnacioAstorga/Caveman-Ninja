@@ -65,7 +65,7 @@ void Entity::Destroy()
 	dead = true;
 }
 
-bool Entity::IsEnabled()
+bool Entity::IsEnabled() const
 {
 	return enabled;
 }
@@ -233,7 +233,7 @@ bool Entity::CleanUp()
 	return ret;
 }
 
-Entity* Entity::GetParent()
+Entity* Entity::GetParent() const
 {
 	return parent;
 }
@@ -273,19 +273,19 @@ void Entity::RemoveChild(Entity* child, bool attachRoot)
 	}
 }
 
-const list<Entity*>& Entity::GetChildren()
+const list<Entity*>& Entity::GetChildren() const
 {
 	return children;
 }
 
-Entity* Entity::FindChild(string name)
+Entity* Entity::FindChild(string name) const
 {
 	return FindChild(name, -1);
 }
 
-Entity * Entity::FindChild(string name, int deepness)
+Entity * Entity::FindChild(string name, int deepness) const
 {
-	for (list<Entity*>::iterator it = children.begin(); it != children.end(); ++it)
+	for (list<Entity*>::const_iterator it = children.begin(); it != children.end(); ++it)
 	{
 		if ((*it)->name == name)
 			return *it;
@@ -299,15 +299,15 @@ Entity * Entity::FindChild(string name, int deepness)
 	return nullptr;
 }
 
-list<Entity*> Entity::FindAllChildren(string name)
+list<Entity*> Entity::FindAllChildren(string name) const
 {
 	return FindAllChildren(name, -1);
 }
 
-list<Entity*> Entity::FindAllChildren(string name, int deepness)
+list<Entity*> Entity::FindAllChildren(string name, int deepness) const
 {
 	list<Entity*> allChildren;
-	for (list<Entity*>::iterator it = children.begin(); it != children.end(); ++it)
+	for (list<Entity*>::const_iterator it = children.begin(); it != children.end(); ++it)
 	{
 		if ((*it)->name == name)
 			allChildren.push_back(*it);
@@ -338,7 +338,7 @@ void Entity::RemoveComponent(Component* component)
 	}
 }
 
-const list<Component*>& Entity::GetComponents()
+const list<Component*>& Entity::GetComponents() const
 {
 	return components;
 }

@@ -4,6 +4,8 @@
 #include "DieOnPlayerAttackComponent.h"
 #include "AIComponent.h"
 #include "CavemanAIManager.h"
+#include "Entity.h"
+#include "Transform.h"
 
 EnemyAnimatorMappingComponent::EnemyAnimatorMappingComponent()
 {

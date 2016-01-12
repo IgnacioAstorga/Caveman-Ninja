@@ -21,7 +21,7 @@ protected:
 	virtual SDL_Texture* OnLoadTexture() = 0;	// Método encargado de cargar la textura adecuada
 
 protected:
-	fPoint GetReferencePosition();
+	fPoint GetReferencePosition() const;
 
 protected:
 	SDL_Texture* texture = nullptr;

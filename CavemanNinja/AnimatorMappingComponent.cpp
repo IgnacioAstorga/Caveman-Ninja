@@ -5,6 +5,8 @@
 #include "PlayerJumpComponent.h"
 #include "PlayerInputComponent.h"
 #include "PlayerLifeComponent.h"
+#include "Entity.h"
+#include "Transform.h"
 
 AnimatorMappingComponent::AnimatorMappingComponent()
 {

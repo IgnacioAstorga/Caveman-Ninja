@@ -8,37 +8,22 @@ struct SDL_Rect;
 class Animation
 {
 public:
-	Animation(bool start_enabled = true) : enabled(start_enabled) {};
-	virtual ~Animation() {};
+	Animation(bool start_enabled = true);
+	virtual ~Animation();
 
-	bool Animation::IsEnabled()
-	{
-		return enabled;
-	}
-
-	bool Enable()
-	{
-		if (enabled == false)
-			return enabled = Start();
-		return true;
-	};
-
-	bool Disable()
-	{
-		if (enabled == true)
-			return enabled = !CleanUp();
-		return true;
-	};
+	bool IsEnabled() const;
+	bool Enable();
+	bool Disable();
 
 	virtual bool Start() { return true; };
 	virtual bool CleanUp() { return true; };
 
 public:
-	virtual SDL_Rect GetCurrentFrame() = 0;
-	virtual SDL_RendererFlip GetFlip() = 0;
+	virtual SDL_Rect GetCurrentFrame() const = 0;
+	virtual SDL_RendererFlip GetFlip() const = 0;
 	virtual void SetFlip(SDL_RendererFlip flip) = 0;
 	virtual void Increment(float amount) = 0;
-	virtual bool IsFinished() = 0;
+	virtual bool IsFinished() const = 0;
 
 protected:
 	bool enabled;

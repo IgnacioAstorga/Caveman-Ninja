@@ -30,7 +30,7 @@ Collider::~Collider()
 	// En principio no hace nada
 }
 
-bool Collider::IsEnabled()
+bool Collider::IsEnabled() const
 {
 	return enabled;
 }
@@ -97,7 +97,7 @@ void Collider::PostUpdate()
 	OnPostUpdate();
 }
 
-bool Collider::CanCollideWithType(int type)
+bool Collider::CanCollideWithType(int type) const
 {
 	// Si no tiene tipos específicos, puede colisionar
 	if (!hasSpecificCollisionsTypes)
@@ -111,7 +111,7 @@ bool Collider::CanCollideWithType(int type)
 	return false;	// Llegado este punto, no colisiona con el tipo
 }
 
-bool Collider::CollidesWith(Collider* other)
+bool Collider::CollidesWith(const Collider* other) const
 {
 	// Pide al otro collider que le llame para aprovecharse del polimorfismo
 	return other->CallMe(this);
@@ -145,7 +145,7 @@ void Collider::ClearFrameCollisions()
 	thisFrameCollisions->clear();
 }
 
-int Collider::GetType()
+int Collider::GetType() const
 {
 	return type;
 }

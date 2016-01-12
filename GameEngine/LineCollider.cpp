@@ -38,12 +38,12 @@ LineCollider::~LineCollider()
 	// No hace nada
 }
 
-bool LineCollider::CallMe(Collider* self)
+bool LineCollider::CallMe(const Collider* self) const
 {
 	return self->CheckCollision(this);
 }
 
-bool LineCollider::CheckCollision(CircleCollider* other)
+bool LineCollider::CheckCollision(const CircleCollider* other) const
 {
 	// Por las propiedades del círculo, solo comprueba en el segmento que contiene la X del centro del círculo
 	int leftBoundIndex = 0;
@@ -65,13 +65,13 @@ bool LineCollider::CheckCollision(CircleCollider* other)
 	return rc.CollidesWith(other);
 }
 
-bool LineCollider::CheckCollision(CircleTraceCollider* other)
+bool LineCollider::CheckCollision(const CircleTraceCollider* other) const
 {
 	// Delega la responsabilidad en el otro collider
 	return other->CheckCollision(this);
 }
 
-bool LineCollider::CheckCollision(RectangleCollider* other)
+bool LineCollider::CheckCollision(const RectangleCollider* other) const
 {
 	// Para cada segmento, comprueba si colisiona con el rectángulo
 	for (unsigned int i = 0; i < points.size() - 1; ++i)	// Empieza desde el primero y acaba en el penúltimo
@@ -80,7 +80,7 @@ bool LineCollider::CheckCollision(RectangleCollider* other)
 	return false;	// Llegados a este punto, ningún segmento colisiona con el rectángulo
 }
 
-bool LineCollider::CheckCollision(RectangleBasicCollider * other)
+bool LineCollider::CheckCollision(const RectangleBasicCollider * other) const
 {
 	// Para cada segmento, comprueba si colisiona con la línea
 	for (unsigned int i = 0; i < points.size() - 1; ++i)	// Empieza desde el primero y acaba en el penúltimo
@@ -89,7 +89,7 @@ bool LineCollider::CheckCollision(RectangleBasicCollider * other)
 	return false;	// Llegados a este punto, ningún segmento colisiona con la línea
 }
 
-bool LineCollider::CheckCollision(LineCollider* other)
+bool LineCollider::CheckCollision(const LineCollider* other) const
 {
 	// Para cada segmento, comprueba si colisiona con la línea
 	for (unsigned int i = 0; i < points.size() - 1; ++i)	// Empieza desde el primero y acaba en el penúltimo
@@ -98,7 +98,7 @@ bool LineCollider::CheckCollision(LineCollider* other)
 	return false;	// Llegados a este punto, ningún segmento colisiona con la línea
 }
 
-void LineCollider::DrawCollider()
+void LineCollider::DrawCollider() const
 {
 	// Determina el color del collider
 	SDL_Color color;
@@ -112,7 +112,7 @@ void LineCollider::DrawCollider()
 		CreateSegmentCollider(i).DrawCollider(color);
 }
 
-fPoint LineCollider::GetExternalPositionFromCoordinates(fPoint coordinates)
+fPoint LineCollider::GetExternalPositionFromCoordinates(fPoint coordinates) const
 {
 	// Busca el segmento adecuado
 	int leftBoundIndex = 0;
@@ -132,7 +132,7 @@ fPoint LineCollider::GetExternalPositionFromCoordinates(fPoint coordinates)
 	return CreateSegmentCollider(leftBoundIndex).GetExternalPositionFromCoordinates(coordinates);
 }
 
-fPoint LineCollider::GetPointGlobalCoordinates(unsigned int index)
+fPoint LineCollider::GetPointGlobalCoordinates(unsigned int index) const
 {
 	fPoint coordinates = points[index];
 	coordinates.x *= transform->GetGlobalScale().x;
@@ -140,7 +140,7 @@ fPoint LineCollider::GetPointGlobalCoordinates(unsigned int index)
 	return transform->GetGlobalPosition() + coordinates.Rotate(transform->GetGlobalRotation());
 }
 
-RectangleCollider LineCollider::CreateSegmentCollider(int leftBoundIndex)
+RectangleCollider LineCollider::CreateSegmentCollider(int leftBoundIndex) const
 {
 	// Calcula el centro del segmento
 	// Las coordenadas serán locales dado que el rectángulo poseerá el mismo transform
@@ -160,7 +160,7 @@ RectangleCollider LineCollider::CreateSegmentCollider(int leftBoundIndex)
 	return RectangleCollider(NULL, transform, width, height, center.x, center.y, rotation, type);
 }
 
-fPoint LineCollider::GetCenter()
+fPoint LineCollider::GetCenter() const
 {
 	// Se limita a devolver la posición de transform
 	return transform->GetGlobalPosition();

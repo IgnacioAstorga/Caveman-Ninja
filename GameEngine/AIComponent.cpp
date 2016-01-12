@@ -32,7 +32,7 @@ bool AIComponent::OnCleanUp()
 	return false;
 }
 
-AIManager * AIComponent::GetAIManager()
+AIManager * AIComponent::GetAIManager() const
 {
 	return manager;
 }

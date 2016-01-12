@@ -83,9 +83,9 @@ void Scene_Level1::OnCreateScene()
 	gameController->AddComponent(new GameControllerComponent());
 	AddChild(gameController);
 
-	for (int i = 0; i < 4; ++i)
+	for (int i = 0; i < 30; ++i)
 	{
-		EnemyCaveman* enemy = new EnemyCaveman("caveman_" + i, 300.0f + 100.0f * i, 0);
+		EnemyCaveman* enemy = new EnemyCaveman("caveman_" + i, 300.0f + 50.0f * i, 0);
 		AddChild(enemy);
 	}
 }

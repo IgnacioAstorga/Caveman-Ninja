@@ -20,7 +20,7 @@ SDL_Texture * GUISpriteRendererComponent::OnLoadTexture()
 	return App->textures->Load(fileName.c_str());
 }
 
-Animation * GUISpriteRendererComponent::GetAnimation()
+Animation * GUISpriteRendererComponent::GetAnimation() const
 {
 	return animation;
 }

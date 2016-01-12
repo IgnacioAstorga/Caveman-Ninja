@@ -15,12 +15,12 @@ RectangleBasicCollider::~RectangleBasicCollider()
 	// No hace nada
 }
 
-bool RectangleBasicCollider::CallMe(Collider * self)
+bool RectangleBasicCollider::CallMe(const Collider * self) const
 {
 	return self->CheckCollision(this);
 }
 
-bool RectangleBasicCollider::CheckCollision(CircleCollider * other)
+bool RectangleBasicCollider::CheckCollision(const CircleCollider * other) const
 {
 	fPoint circleCenter = other->GetCenter();
 	fPoint thisCenter = this->GetCenter();
@@ -52,7 +52,7 @@ bool RectangleBasicCollider::CheckCollision(CircleCollider * other)
 	return fPoint(closestX, closestY).DistanceTo(circleCenter) < other->GetRadius();
 }
 
-bool RectangleBasicCollider::CheckCollision(RectangleBasicCollider * other)
+bool RectangleBasicCollider::CheckCollision(const RectangleBasicCollider * other) const
 {
 	fPoint otherCenter = other->GetCenter();
 	fPoint thisCenter = this->GetCenter();
@@ -80,7 +80,7 @@ bool RectangleBasicCollider::CheckCollision(RectangleBasicCollider * other)
 	return true;	// Llegados a este punto, hay solapamiento en ambos ejes
 }
 
-void RectangleBasicCollider::DrawCollider()
+void RectangleBasicCollider::DrawCollider() const
 {
 	// Determina el color y opacidad del dibujo
 	SDL_Color renderColor;
@@ -91,13 +91,13 @@ void RectangleBasicCollider::DrawCollider()
 	RectangleCollider::DrawCollider(renderColor);
 }
 
-fPoint RectangleBasicCollider::GetExternalPositionFromCoordinates(fPoint coordinates)
+fPoint RectangleBasicCollider::GetExternalPositionFromCoordinates(fPoint coordinates) const
 {
 	// Se limita a devolver la coordenada Y del lado superior del rectángulo
 	return fPoint(coordinates.x, GetCenter().y - height / 2);
 }
 
-fPoint RectangleBasicCollider::GetCenter()
+fPoint RectangleBasicCollider::GetCenter() const
 {
 	fPoint offset = fPoint(offsetX, offsetY);
 	offset.x *= transform->GetGlobalScale().x;
@@ -105,12 +105,12 @@ fPoint RectangleBasicCollider::GetCenter()
 	return transform->GetGlobalPosition() + offset;
 }
 
-float RectangleBasicCollider::GetRotation()
+float RectangleBasicCollider::GetRotation() const
 {
 	return 0.0f;	// La rotación de este rectángulo siempre es 0
 }
 
-fPoint * RectangleBasicCollider::GetPoints()
+fPoint * RectangleBasicCollider::GetPoints() const
 {
 	fPoint center = GetCenter();
 	fPoint scale = transform->GetGlobalScale();

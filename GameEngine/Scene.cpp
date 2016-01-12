@@ -148,51 +148,51 @@ void Scene::RemoveChild(Entity* child)
 	root->RemoveChild(child);
 }
 
-const list<Entity*>& Scene::GetChildren()
+const list<Entity*>& Scene::GetChildren() const
 {
 	return root->GetChildren();
 }
 
-Entity* Scene::FindChild(string name)
+Entity* Scene::FindChild(string name) const
 {
 	return root->FindChild(name);
 }
 
-Entity * Scene::FindChild(string name, int deepness)
+Entity * Scene::FindChild(string name, int deepness) const
 {
 	return root->FindChild(name, deepness);
 }
 
 template<class T>
-inline T* Scene::FindChild()
+inline T* Scene::FindChild() const
 {
 	return root->FindChild<T>();
 }
 
 template<class T>
-T* Scene::FindChild(int deepness)
+T* Scene::FindChild(int deepness) const
 {
 	return root->FindChild<T>(deepness);
 }
 
-list<Entity*> Scene::FindAllChildren(string name)
+list<Entity*> Scene::FindAllChildren(string name) const
 {
 	return root->FindAllChildren(name);
 }
 
-list<Entity*> Scene::FindAllChildren(string name, int deepness)
+list<Entity*> Scene::FindAllChildren(string name, int deepness) const
 {
 	return root->FindAllChildren(name, deepness);
 }
 
 template<class T>
-inline list<T*> Scene::FindAllChildren()
+inline list<T*> Scene::FindAllChildren() const
 {
 	return root->FindAllChildren<T>();
 }
 
 template<class T>
-list<T*> Scene::FindAllChildren(int deepness)
+list<T*> Scene::FindAllChildren(int deepness) const
 {
 	return root->FindAllChildren<T>(deepness);
 }

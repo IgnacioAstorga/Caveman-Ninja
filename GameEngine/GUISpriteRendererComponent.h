@@ -17,7 +17,7 @@ protected:
 	SDL_Texture* OnLoadTexture();
 
 public:
-	Animation* GetAnimation();
+	Animation* GetAnimation() const;
 
 private:
 	string fileName;

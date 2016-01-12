@@ -21,14 +21,14 @@ protected:
 
 public:
 	void SetText(string text);
-	string GetText();
+	string GetText() const;
 	void SetFont(string fontName);
 	void SetFont(string fontName, unsigned int size);
-	string GetFontName();
+	string GetFontName() const;
 	void SetSize(unsigned int size);
-	unsigned int GetSize();
+	unsigned int GetSize() const;
 	void SetColor(Color color);
-	Color GetColor();
+	Color GetColor() const;
 
 private:
 	SDL_Texture* CreateTexture();

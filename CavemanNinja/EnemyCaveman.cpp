@@ -14,6 +14,7 @@
 #include "AIComponent.h"
 #include "CavemanAIManager.h"
 #include "EntityLifetimeComponent.h"
+#include "Transform.h"
 
 void EnemyCaveman::OnCreate()
 {

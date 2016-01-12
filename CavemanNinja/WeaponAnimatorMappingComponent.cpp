@@ -2,6 +2,8 @@
 #include "SpriteRendererComponent.h"
 #include "Animator.h"
 #include "WeaponGravityComponent.h"
+#include "Entity.h"
+#include "Transform.h"
 
 WeaponAnimatorMappingComponent::WeaponAnimatorMappingComponent()
 {

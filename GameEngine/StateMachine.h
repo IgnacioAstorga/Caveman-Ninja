@@ -19,7 +19,7 @@ public:
 
 	void RegisterStateSwitcher(StateSwitcher<T>* stateSwitcher);
 
-	T* GetActualState();
+	T* GetActualState() const;
 	StateSwitcher<T>* SetFlagValue(string flag, bool value, bool force = false);
 	StateSwitcher<T>* SetFlagValue(string flag, int value, bool force = false);
 	StateSwitcher<T>* SetFlagValue(string flag, float value, bool force = false);
@@ -62,7 +62,7 @@ void StateMachine<T>::RegisterStateSwitcher(StateSwitcher<T>* stateSwitcher)
 }
 
 template<class T>
-T* StateMachine<T>::GetActualState()
+T* StateMachine<T>::GetActualState() const
 {
 	return currentStateSwitcher->GetActualState();
 }

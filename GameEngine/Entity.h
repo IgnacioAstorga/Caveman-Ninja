@@ -27,31 +27,33 @@ public:
 	void Destroy();
 
 public:
-	bool IsEnabled();
+	bool IsEnabled() const;
 	bool Enable();
 	bool Disable();
 
-	Entity* GetParent();
+	Entity* GetParent() const;
 	void SetParent(Entity* entity);
 	void SetParent(Scene* scene);
 
 	void AddChild(Entity* child);
 	void RemoveChild(Entity* child, bool attachRoot = true);
-	const list<Entity*>& GetChildren();
-	Entity* FindChild(string name);
-	Entity* FindChild(string name, int deepness);
-	template <class T> T* FindChild();
-	template <class T> T* FindChild(int deepness);
-	list<Entity*> FindAllChildren(string name);
-	list<Entity*> FindAllChildren(string name, int deepness);
-	template <class T> list<T*> FindAllChildren();
-	template <class T> list<T*> FindAllChildren(int deepness);
+	const list<Entity*>& GetChildren() const;
+
+	Entity* FindChild(string name) const;
+	Entity* FindChild(string name, int deepness) const;
+	template <class T> T* FindChild() const;
+	template <class T> T* FindChild(int deepness) const;
+	list<Entity*> FindAllChildren(string name) const;
+	list<Entity*> FindAllChildren(string name, int deepness) const;
+	template <class T> list<T*> FindAllChildren() const;
+	template <class T> list<T*> FindAllChildren(int deepness) const;
 
 	void AddComponent(Component* component);
 	void RemoveComponent(Component* component);
-	const list<Component*>& GetComponents();
-	template <class T> T* FindComponent();
-	template <class T> list<T*> FindAllComponents();
+
+	const list<Component*>& GetComponents() const;
+	template <class T> T* FindComponent() const;
+	template <class T> list<T*> FindAllComponents() const;
 
 	bool OnCollisionEnter(Collider* self, Collider* other);
 	bool OnCollisionStay(Collider* self, Collider* other);
@@ -86,15 +88,15 @@ private:
 };
 
 template<class T>
-T* Entity::FindChild()
+T* Entity::FindChild() const
 {
 	return FindChild<T>(-1);
 }
 
 template<class T>
-T* Entity::FindChild(int deepness)
+T* Entity::FindChild(int deepness) const
 {
-	for (list<Entity*>::iterator it = children.begin(); it != children.end(); ++it)
+	for (list<Entity*>::const_iterator it = children.begin(); it != children.end(); ++it)
 	{
 		T* casted = dynamic_cast<T*>(*it);
 		if (casted != NULL)
@@ -110,16 +112,16 @@ T* Entity::FindChild(int deepness)
 }
 
 template<class T>
-list<T*> Entity::FindAllChildren()
+list<T*> Entity::FindAllChildren() const
 {
 	return FindAllChildren<T>(-1);
 }
 
 template<class T>
-list<T*> Entity::FindAllChildren(int deepness)
+list<T*> Entity::FindAllChildren(int deepness) const
 {
 	list<T*> allChildren;
-	for (list<Entity*>::iterator it = children.begin(); it != children.end(); ++it)
+	for (list<Entity*>::const_iterator it = children.begin(); it != children.end(); ++it)
 	{
 		T* casted = dynamic_cast<T*>(*it)
 		if (casted != NULL)
@@ -135,9 +137,9 @@ list<T*> Entity::FindAllChildren(int deepness)
 }
 
 template<class T>
-T* Entity::FindComponent()
+T* Entity::FindComponent() const
 {
-	for (list<Component*>::iterator it = components.begin(); it != components.end(); ++it)
+	for (list<Component*>::const_iterator it = components.begin(); it != components.end(); ++it)
 	{
 		T* casted = dynamic_cast<T*>(*it);
 		if (casted != NULL)
@@ -148,10 +150,10 @@ T* Entity::FindComponent()
 }
 
 template<class T>
-list<T*> Entity::FindAllComponents()
+list<T*> Entity::FindAllComponents() const
 {
 	list<T*> allComponents;
-	for (list<Component*>::iterator it = components.begin(); it != components.end(); ++it)
+	for (list<Component*>::const_iterator it = components.begin(); it != components.end(); ++it)
 	{
 		T* casted = dynamic_cast<T*>(*it);
 		if (casted != NULL)

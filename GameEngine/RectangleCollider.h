@@ -11,22 +11,22 @@ public:
 	RectangleCollider(CollisionListener* listener, Transform* transform, float width, float height, vector<int> collisionsTypes, float offsetX = 0.0f, float offsetY = 0.0f, float rotation = 0.0f, int type = -1, bool start_enabled = true);
 	virtual ~RectangleCollider();
 
-	virtual bool CallMe(Collider* self);
-	virtual bool CheckCollision(CircleCollider* other);
-	virtual bool CheckCollision(CircleTraceCollider* other);
-	virtual bool CheckCollision(RectangleCollider* other);
-	virtual bool CheckCollision(RectangleBasicCollider* other);
-	virtual bool CheckCollision(LineCollider* other);
+	virtual bool CallMe(const Collider* self) const;
+	virtual bool CheckCollision(const CircleCollider* other) const;
+	virtual bool CheckCollision(const CircleTraceCollider* other) const;
+	virtual bool CheckCollision(const RectangleCollider* other) const;
+	virtual bool CheckCollision(const RectangleBasicCollider* other) const;
+	virtual bool CheckCollision(const LineCollider* other) const;
 
-	virtual void DrawCollider();
-	virtual void DrawCollider(SDL_Color color);
+	virtual void DrawCollider() const;
+	virtual void DrawCollider(SDL_Color color) const;
 
 public:
-	virtual fPoint GetExternalPositionFromCoordinates(fPoint coordinates);
-	virtual fPoint GetCenter();
-	virtual float GetRotation();
-	virtual fPoint* GetPoints();
-	virtual CircleCollider GetBoundingCircle();
+	virtual fPoint GetExternalPositionFromCoordinates(fPoint coordinates) const;
+	virtual fPoint GetCenter() const;
+	virtual float GetRotation() const;
+	virtual fPoint* GetPoints() const;
+	virtual CircleCollider GetBoundingCircle() const;
 
 public:
 	float width, height;

@@ -13,11 +13,11 @@ public:
 
 	~AnimationEndCondition() {}
 
-	bool IsTrue(unordered_map<string, float>& flags)
+	bool IsTrue(const unordered_map<string, float>& flags) const
 	{
 		if (flags.find(ANIMATION_END) == flags.end())
 			return false;
-		return flags[ANIMATION_END] == (float)true;
+		return flags.at(ANIMATION_END) == (float)true;
 	}
 };
 #endif // __ANIMATIONENDCONDITION_H__

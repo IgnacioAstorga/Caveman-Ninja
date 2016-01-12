@@ -12,6 +12,6 @@ public:
 	FlagCondition() {};
 	virtual ~FlagCondition() {};
 
-	virtual bool IsTrue(unordered_map<string, float>& flags) { return false; };
+	virtual bool IsTrue(const unordered_map<string, float>& flags) const { return false; };
 };
 #endif // __FLAGCONDITION_H__

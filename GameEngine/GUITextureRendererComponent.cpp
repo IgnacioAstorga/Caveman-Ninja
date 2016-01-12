@@ -85,7 +85,7 @@ bool GUITextureRendererComponent::GUIPostUpdate()
 	return true;
 }
 
-fPoint GUITextureRendererComponent::GetReferencePosition()
+fPoint GUITextureRendererComponent::GetReferencePosition() const
 {
 	SDL_Rect viewArea = App->renderer->activeCamera->GetViewArea();
 	fPoint origin = fPoint((float)viewArea.x, (float)viewArea.y);

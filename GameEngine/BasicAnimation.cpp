@@ -22,14 +22,14 @@ bool BasicAnimation::Start()
 	return true;
 }
 
-SDL_Rect BasicAnimation::GetCurrentFrame()
+SDL_Rect BasicAnimation::GetCurrentFrame() const
 {
 	iPoint frame = frames[(int)current_frame];
 	SDL_Rect rect { frame.x * frameWidth, frame.y * frameHeight, frameWidth, frameHeight };
 	return rect;
 }
 
-SDL_RendererFlip BasicAnimation::GetFlip()
+SDL_RendererFlip BasicAnimation::GetFlip() const
 {
 	return flip;
 }
@@ -60,7 +60,7 @@ void BasicAnimation::Increment(float amount)
 		}
 }
 
-bool BasicAnimation::IsFinished()
+bool BasicAnimation::IsFinished() const
 {
 	return finished;
 }

@@ -15,19 +15,19 @@ public:
 	LineCollider(CollisionListener* listener, Transform* transform, vector<fPoint> points, float thickness, vector<int> collisionsTypes, int type = -1, bool start_enabled = true);
 	~LineCollider();
 
-	bool CallMe(Collider* self);
-	bool CheckCollision(CircleCollider* other);
-	bool CheckCollision(CircleTraceCollider* other);
-	bool CheckCollision(RectangleCollider* other);
-	bool CheckCollision(RectangleBasicCollider* other);
-	bool CheckCollision(LineCollider* other);
-	void DrawCollider();
+	bool CallMe(const Collider* self) const;
+	bool CheckCollision(const CircleCollider* other) const;
+	bool CheckCollision(const CircleTraceCollider* other) const;
+	bool CheckCollision(const RectangleCollider* other) const;
+	bool CheckCollision(const RectangleBasicCollider* other) const;
+	bool CheckCollision(const LineCollider* other) const;
+	void DrawCollider() const;
 
 public:
-	fPoint GetExternalPositionFromCoordinates(fPoint coordinates);
-	fPoint GetPointGlobalCoordinates(unsigned int index);
-	RectangleCollider CreateSegmentCollider(int leftBoundIndex);
-	fPoint GetCenter();
+	fPoint GetExternalPositionFromCoordinates(fPoint coordinates) const;
+	fPoint GetPointGlobalCoordinates(unsigned int index) const;
+	RectangleCollider CreateSegmentCollider(int leftBoundIndex) const;
+	fPoint GetCenter() const;
 
 public:
 	float thickness;

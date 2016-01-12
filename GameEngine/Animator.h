@@ -19,11 +19,11 @@ public:
 	bool CleanUp();
 
 public:
-	SDL_Rect GetCurrentFrame();
-	SDL_RendererFlip GetFlip();
+	SDL_Rect GetCurrentFrame() const;
+	SDL_RendererFlip GetFlip() const;
 	void SetFlip(SDL_RendererFlip flip);
 	void Increment(float amount);
-	bool IsFinished();
+	bool IsFinished() const;
 
 protected:
 	void OnStateTransition(Animation* lastState, Animation* newState);

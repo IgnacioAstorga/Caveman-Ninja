@@ -16,12 +16,12 @@ CircleTraceCollider::~CircleTraceCollider()
 	// No hace nada
 }
 
-bool CircleTraceCollider::CallMe(Collider * self)
+bool CircleTraceCollider::CallMe(const Collider * self) const
 {
 	return self->CheckCollision(this);
 }
 
-bool CircleTraceCollider::CheckCollision(CircleCollider * other)
+bool CircleTraceCollider::CheckCollision(const CircleCollider * other) const
 {
 	// Comprueba si colisionan el círculo o su trazo
 	if (other->CollidesWith(&GetCircleCollider()))
@@ -31,7 +31,7 @@ bool CircleTraceCollider::CheckCollision(CircleCollider * other)
 	return false;
 }
 
-bool CircleTraceCollider::CheckCollision(CircleTraceCollider * other)
+bool CircleTraceCollider::CheckCollision(const CircleTraceCollider * other) const
 {
 	// Comprueba si colisionan el círculo o su trazo
 	if (other->CollidesWith(&GetCircleCollider()))
@@ -41,7 +41,7 @@ bool CircleTraceCollider::CheckCollision(CircleTraceCollider * other)
 	return false;
 }
 
-bool CircleTraceCollider::CheckCollision(RectangleCollider * other)
+bool CircleTraceCollider::CheckCollision(const RectangleCollider * other) const
 {
 	// Comprueba si colisionan el círculo o su trazo
 	if (other->CollidesWith(&GetCircleCollider()))
@@ -51,7 +51,7 @@ bool CircleTraceCollider::CheckCollision(RectangleCollider * other)
 	return false;
 }
 
-bool CircleTraceCollider::CheckCollision(RectangleBasicCollider * other)
+bool CircleTraceCollider::CheckCollision(const RectangleBasicCollider * other) const
 {
 	// Comprueba si colisionan el círculo o su trazo
 	if (other->CollidesWith(&GetCircleCollider()))
@@ -61,7 +61,7 @@ bool CircleTraceCollider::CheckCollision(RectangleBasicCollider * other)
 	return false;
 }
 
-bool CircleTraceCollider::CheckCollision(LineCollider * other)
+bool CircleTraceCollider::CheckCollision(const LineCollider * other) const
 {
 	// Comprueba si colisionan el círculo o su trazo
 	if (other->CollidesWith(&GetCircleCollider()))
@@ -71,7 +71,7 @@ bool CircleTraceCollider::CheckCollision(LineCollider * other)
 	return false;
 }
 
-void CircleTraceCollider::DrawCollider()
+void CircleTraceCollider::DrawCollider() const
 {
 	// Pinta sus colliders característicos
 	SDL_Color color;
@@ -96,12 +96,12 @@ void CircleTraceCollider::OnPostUpdate()
 	lastFramePosition = transform->GetLocalPosition();
 }
 
-CircleCollider CircleTraceCollider::GetCircleCollider()
+CircleCollider CircleTraceCollider::GetCircleCollider() const
 {
 	return CircleCollider(NULL, transform, radius, offsetX, offsetY, type);
 }
 
-RectangleCollider CircleTraceCollider::GetTraceCollider()
+RectangleCollider CircleTraceCollider::GetTraceCollider() const
 {
 	// La anchura de la traza es la distancia desde la posición anterior
 	fPoint thisFramePosition = transform->GetLocalPosition();

@@ -19,9 +19,9 @@ public:
 	virtual ~StateSwitcher();
 
 	void AddStateTransition(StateTransition<T>* stateTransition);
-	list<StateSwitcher<T>*> GetReachableStateSwitchers();
+	list<StateSwitcher<T>*> GetReachableStateSwitchers() const;
 
-	T* GetActualState();
+	T* GetActualState() const;
 	StateSwitcher<T>* Process(unordered_map<string, float>& flags);
 
 protected:
@@ -54,16 +54,16 @@ void StateSwitcher<T>::AddStateTransition(StateTransition<T>* stateTransition)
 }
 
 template<class T>
-list<StateSwitcher<T>*> StateSwitcher<T>::GetReachableStateSwitchers()
+list<StateSwitcher<T>*> StateSwitcher<T>::GetReachableStateSwitchers() const
 {
 	list<StateSwitcher<T>*> reachableStateSwitchers;
-	for (list<StateTransition<T>*>::iterator it = stateTransitions.begin(); it != stateTransitions.end(); ++it)
+	for (list<StateTransition<T>*>::const_iterator it = stateTransitions.begin(); it != stateTransitions.end(); ++it)
 		reachableStateSwitchers.push_back((*it)->GetTargetStateSwitcher());
 	return reachableStateSwitchers;
 }
 
 template<class T>
-T* StateSwitcher<T>::GetActualState()
+T* StateSwitcher<T>::GetActualState() const
 {
 	return state;
 }

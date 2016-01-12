@@ -5,6 +5,8 @@
 #include "Particle.h"
 #include "Globals.h"
 
+#include <math.h>
+
 class RotationMatchingSpeedOperator : public ParticleOperator
 {
 public:

@@ -16,7 +16,7 @@ void AIBehaviour::Configure(AIManager* manager, Entity* entity)
 	this->entity = entity;
 }
 
-int AIBehaviour::GetIdentifier()
+int AIBehaviour::GetIdentifier() const
 {
 	return identifier;
 }

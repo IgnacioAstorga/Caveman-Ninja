@@ -12,7 +12,7 @@ public:
 
 public:
 	void Configure(AIManager* manager, Entity* entity);
-	int GetIdentifier();
+	int GetIdentifier() const;
 
 public:
 	virtual void OnEnter() {}

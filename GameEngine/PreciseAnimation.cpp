@@ -16,12 +16,12 @@ bool PreciseAnimation::Start()
 	return true;
 }
 
-SDL_Rect PreciseAnimation::GetCurrentFrame()
+SDL_Rect PreciseAnimation::GetCurrentFrame() const
 {
 	return frames[(int)current_frame];
 }
 
-SDL_RendererFlip PreciseAnimation::GetFlip()
+SDL_RendererFlip PreciseAnimation::GetFlip() const
 {
 	return flip;
 }
@@ -52,7 +52,7 @@ void PreciseAnimation::Increment(float amount)
 		}
 }
 
-bool PreciseAnimation::IsFinished()
+bool PreciseAnimation::IsFinished() const
 {
 	return finished;
 }

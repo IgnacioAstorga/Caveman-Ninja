@@ -16,7 +16,7 @@ public:
 	bool OnCleanUp();
 
 public:
-	AIManager* GetAIManager();
+	AIManager* GetAIManager() const;
 
 private:
 	AIManager* manager;
