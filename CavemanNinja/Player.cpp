@@ -13,6 +13,17 @@
 #include "WeaponTomahawk.h"
 #include "PlayerLifeComponent.h"
 
+#define LIFE_POINTS 18
+#define GRACE_TIME 1.0f
+#define HARVEST_PERIOD 5.0f
+#define DECAY_TIME 2.0f
+#define MOVEMENT_SPEED 75.0f
+#define GRAVITY 500.0f
+#define JUMP_SPEED 250.0f
+#define LONG_JUMP_MULTIPLIER 1.25f
+#define MELEE_ATTACK_RADIUS 20.0f
+#define MELEE_ATTACK_OFFSET {14, -24}
+
 void Player::OnCreate()
 {
 	// Añade las componentes de la entidad
@@ -24,11 +35,11 @@ void Player::OnCreate()
 	AddComponent(chargingRendererComponent = new SpriteRendererComponent("assets/images/player_green_charging.png", PlayerAnimator::Create(), -64, -128));
 	AddComponent(armRendererComponent = new SpriteRendererComponent("assets/images/player_green_arm.png", PlayerArmAnimator::Create(), -48, -48));
 	AddComponent(colliderComponent = new RectangleColliderComponent(28, 47, { WALL, ENEMY, ENEMY_ATTACK, PICKUP }, 0, -24, 0, PLAYER, true));
-	AddComponent(new PlayerLifeComponent(colliderComponent, 18, 1.0f, 5.0f, 2.0f));
-	AddComponent(new PlayerInputComponent(75.0f, colliderComponent, 0.1f));
+	AddComponent(new PlayerLifeComponent(colliderComponent, LIFE_POINTS, GRACE_TIME, HARVEST_PERIOD, DECAY_TIME));
+	AddComponent(new PlayerInputComponent(MOVEMENT_SPEED, colliderComponent));
 	AddComponent(colliderComponent = new CircleColliderComponent(1.0f, { FLOOR, GROUND, VICTORY }, 0.0f, 0.0f, PLAYER, true));
-	AddComponent(new PlayerGravityComponent(500.0f, colliderComponent, 5.0f));
-	AddComponent(new PlayerJumpComponent(250.0f, 1.25f));
+	AddComponent(new PlayerGravityComponent(GRAVITY, colliderComponent));
+	AddComponent(new PlayerJumpComponent(JUMP_SPEED, LONG_JUMP_MULTIPLIER));
 	AddComponent(new MovementSimpleComponent());
 	AddComponent(new AnimatorMappingComponent(mainRendererComponent, chargingRendererComponent, armRendererComponent));
 
@@ -36,8 +47,8 @@ void Player::OnCreate()
 	vector<int> collisionsTypes;
 	collisionsTypes.push_back(ENEMY);
 	CircleColliderComponent* meleeComponent;
-	AddComponent(meleeComponent = new CircleColliderComponent(20.0f, collisionsTypes, 0.0f, 0.0f, PLAYER_ATTACK, false));
-	AddComponent(new WeaponTomahawk(meleeComponent, fPoint(14, -24)));
+	AddComponent(meleeComponent = new CircleColliderComponent(MELEE_ATTACK_RADIUS, collisionsTypes, 0.0f, 0.0f, PLAYER_ATTACK, false));
+	AddComponent(new WeaponTomahawk(meleeComponent, MELEE_ATTACK_OFFSET));
 }
 
 void Player::OnDestroy()

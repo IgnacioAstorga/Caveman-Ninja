@@ -43,7 +43,7 @@ void CavemanAttackAIBehaviour::OnTick()
 {
 	// Si ha terminado de atacar, empieza a huir
 	if (timer.IsTimerExpired())
-		manager->SetFlagValue(STATE, START_RUN);
+		manager->SetFlagValue(STATE, RUN_START);
 }
 
 void CavemanAttackAIBehaviour::OnExit()

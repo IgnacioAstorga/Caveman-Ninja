@@ -8,11 +8,13 @@
 #include "Scene_Level1.h"
 #include "Player.h"
 #include "PlayerInputComponent.h"
-#include "EnemyCaveman.h"
+#include "Enemy.h"
 #include "Transform.h"
 #include "Collider.h"
 #include "ColliderTypes.h"
 #include "PlayerLifeComponent.h"
+
+#define RESTART_DELAY 8.0f
 
 GameControllerComponent* GameController = NULL;
 
@@ -102,8 +104,8 @@ void GameControllerComponent::Win()
 	player->FindComponent<PlayerLifeComponent>()->Disable();
 
 	// Mata a todos los enemigos
-	list<EnemyCaveman*> enemies = App->scene->GetCurrentScene()->FindAllChildren<EnemyCaveman>();
-	for (list<EnemyCaveman*>::iterator it = enemies.begin(); it != enemies.end(); ++it)
+	list<Enemy*> enemies = App->scene->GetCurrentScene()->FindAllChildren<Enemy>();
+	for (list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); ++it)
 		(*it)->Kill();
 
 	// Reproduce el sonido y para la música
@@ -111,6 +113,6 @@ void GameControllerComponent::Win()
 	App->audio->PauseMusic();
 
 	// Activa el timer
-	victoryTimer.SetTimer(8.0f);
+	victoryTimer.SetTimer(RESTART_DELAY);
 	victory = true;
 }

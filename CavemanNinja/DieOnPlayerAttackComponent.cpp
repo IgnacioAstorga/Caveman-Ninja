@@ -13,10 +13,12 @@
 
 #define BIG_FACTOR 2.0f;
 
-DieOnPlayerAttackComponent::DieOnPlayerAttackComponent(float decayTime, ColliderComponent* colliderComponent, bool start_enabled)
+DieOnPlayerAttackComponent::DieOnPlayerAttackComponent(float decayTime, fPoint flySpeed, string dieSoundName, ColliderComponent* colliderComponent, bool start_enabled)
 	: Component(start_enabled)
 {
 	this->decayTime = decayTime;
+	this->flySpeed = flySpeed;
+	this->dieSoundName = dieSoundName;
 	this->colliderComponent = colliderComponent;
 	this->dead = false;
 	this->decaying = false;
@@ -34,9 +36,9 @@ bool DieOnPlayerAttackComponent::OnStart()
 
 	// Carga los efectos de sonido
 	hitSound = App->audio->LoadFx("assets/sounds/enemy_hit.wav");
-	dieSound = App->audio->LoadFx("assets/sounds/enemy_caveman_die.wav");
+	dieSound = App->audio->LoadFx(dieSoundName.c_str());
 
-	return aiComponent != NULL;
+	return true;
 }
 
 bool DieOnPlayerAttackComponent::OnCleanUp()
@@ -73,8 +75,8 @@ bool DieOnPlayerAttackComponent::OnCollisionEnter(Collider * self, Collider * ot
 	// Crea el efecto especial
 	fPoint selfCenter = self->GetCenter();
 	fPoint otherCenter = other->GetCenter();
-	fPoint damagePosition = selfCenter + (otherCenter - selfCenter) * (1.0f / 2.0f);
-	EnemyHitEffect* hitEffect = new EnemyHitEffect("hit_" + entity->name);
+	fPoint damagePosition = selfCenter + (otherCenter - selfCenter) * 0.5f;
+	EnemyHitEffect* hitEffect = new EnemyHitEffect("hit_" + entity->name, other->GetType() == PLAYER_ATTACK_BIG);
 	hitEffect->transform->SetGlobalPosition(damagePosition.x, damagePosition.y);
 	hitEffect->Instantiate();
 
@@ -89,7 +91,8 @@ void DieOnPlayerAttackComponent::Die(Transform* otherTransform, bool big)
 	// Desactiva el collider, su IA y mata al personaje
 	if (colliderComponent->GetCollider() != NULL)
 		colliderComponent->GetCollider()->Disable();
-	aiComponent->Disable();
+	if (aiComponent != NULL)
+		aiComponent->Disable();
 	dead = true;
 
 	fPoint otherSpeed = otherTransform->GetGlobalSpeed();
@@ -98,15 +101,15 @@ void DieOnPlayerAttackComponent::Die(Transform* otherTransform, bool big)
 
 	// Lanza al enemigo volando en la dirección adecuada
 	if (otherSpeed.x > 0)
-		entity->transform->SetSpeed(100.0f, -150.0f);
+		entity->transform->SetSpeed(flySpeed.x, flySpeed.y);
 	else if (otherSpeed.x < 0)
-		entity->transform->SetSpeed(-100.0f, -150.0f);
+		entity->transform->SetSpeed(-flySpeed.x, flySpeed.y);
 	else if (selfPosition.x > otherPosition.x)
-		entity->transform->SetSpeed(100.0f, -150.0f);
+		entity->transform->SetSpeed(flySpeed.x, flySpeed.y);
 	else if (selfPosition.x < otherPosition.x)
-		entity->transform->SetSpeed(-100.0f, -150.0f);
+		entity->transform->SetSpeed(-flySpeed.x, flySpeed.y);
 	else
-		entity->transform->SetSpeed(0.0f, -200.0f);
+		entity->transform->SetSpeed(0.0f, -flySpeed.Norm());
 	if (big)
 		entity->transform->speed *= BIG_FACTOR;
 

@@ -3,8 +3,6 @@
 
 #include "Animator.h"
 
-class DieOnPlayerAttackComponent;
-
 class EnemyCavemanAnimator : public Animator
 {
 private:

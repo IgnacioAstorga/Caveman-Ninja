@@ -297,6 +297,9 @@
     <ClInclude Include="Camera.h">
       <Filter>Elements\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="NullAnimation.h">
+      <Filter>Elements\Animations</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">

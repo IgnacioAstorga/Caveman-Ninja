@@ -11,6 +11,13 @@
 #include "Application.h"
 #include "ModuleAudio.h"
 
+#define FOOD_SMALL_SCORE 100
+#define FOOD_MEAT_SCORE 300
+#define FOOD_BIG_SCORE 500
+#define FOOD_SMALL_RESTORATION 1
+#define FOOD_MEAT_RESTORATION 3
+#define FOOD_BIG_RESTORATION 5
+
 OnFoodPickUpComponent::OnFoodPickUpComponent(PickupType type)
 {
 	this->type = type;
@@ -41,16 +48,16 @@ bool OnFoodPickUpComponent::OnCollisionEnter(Collider * self, Collider * other)
 	switch (type)
 	{
 	case FOOD_SMALL:
-		score = 100;
-		restoration = 1;
+		score = FOOD_SMALL_SCORE;
+		restoration = FOOD_SMALL_RESTORATION;
 		break;
 	case FOOD_MEAT:
-		score = 300;
-		restoration = 3;
+		score = FOOD_MEAT_SCORE;
+		restoration = FOOD_MEAT_RESTORATION;
 		break;
 	case FOOD_BIG:
-		score = 500;
-		restoration = 5;
+		score = FOOD_BIG_SCORE;
+		restoration = FOOD_BIG_RESTORATION;
 		break;
 	default:
 		return false;

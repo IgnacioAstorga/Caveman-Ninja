@@ -4,14 +4,18 @@
 #include "Component.h"
 #include "Timer.h"
 
+#include <string>
+
 class ColliderComponent;
 class AIComponent;
 class Transform;
 
+using namespace std;
+
 class DieOnPlayerAttackComponent : public Component
 {
 public:
-	DieOnPlayerAttackComponent(float decayTime, ColliderComponent* colliderComponent, bool start_enabled = true);
+	DieOnPlayerAttackComponent(float decayTime, fPoint flySpeed, string dieSoundName, ColliderComponent* colliderComponent, bool start_enabled = true);
 	~DieOnPlayerAttackComponent();
 
 protected:
@@ -28,6 +32,9 @@ public:
 
 public:
 	float decayTime;
+	fPoint flySpeed;
+	string dieSoundName;
+
 	bool dead;
 	bool decaying;
 

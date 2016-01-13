@@ -92,7 +92,7 @@ EnemyCavemanAnimator* EnemyCavemanAnimator::Create()
 	chargeState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
 	chargeState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
-	attackState->AddStateTransition(new AnimationTransition(runStartState, new FlagEqualsCondition("AI_state", START_RUN)));
+	attackState->AddStateTransition(new AnimationTransition(runStartState, new FlagEqualsCondition("AI_state", RUN_START)));
 	attackState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
 	attackState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 

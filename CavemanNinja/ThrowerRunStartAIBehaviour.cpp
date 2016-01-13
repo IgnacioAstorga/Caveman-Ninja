@@ -1,5 +1,5 @@
-#include "CavemanStartRunAIBehaviour.h"
-#include "CavemanAIManager.h"
+#include "ThrowerRunStartAIBehaviour.h"
+#include "ThrowerAIManager.h"
 #include "Application.h"
 #include "ModuleTime.h"
 #include "Entity.h"
@@ -8,17 +8,17 @@
 
 #define RUN_START_DELAY 0.5f
 
-CavemanStartRunAIBehaviour::CavemanStartRunAIBehaviour()
-	: AIBehaviour(START_RUN) {}
+ThrowerRunStartAIBehaviour::ThrowerRunStartAIBehaviour()
+	: AIBehaviour(RUN_START) {}
 
-CavemanStartRunAIBehaviour::~CavemanStartRunAIBehaviour()
+ThrowerRunStartAIBehaviour::~ThrowerRunStartAIBehaviour()
 {
 	// No hace nada
 }
 
-void CavemanStartRunAIBehaviour::OnEnter()
+void ThrowerRunStartAIBehaviour::OnEnter()
 {
-	CavemanAIManager* cavemanManager = (CavemanAIManager*)manager;
+	ThrowerAIManager* throwerManager = (ThrowerAIManager*)manager;
 
 	// Registra el timer
 	App->time->RegisterTimer(&timer);
@@ -30,17 +30,17 @@ void CavemanStartRunAIBehaviour::OnEnter()
 	entity->transform->speed.x = 0.0f;
 
 	// Reproduce el sonido
-	App->audio->PlayFx(cavemanManager->runStartSound);
+	App->audio->PlayFx(throwerManager->runStartSound);
 }
 
-void CavemanStartRunAIBehaviour::OnTick()
+void ThrowerRunStartAIBehaviour::OnTick()
 {
 	// Cuando esté listo, huye
 	if (timer.IsTimerExpired())
 		manager->SetFlagValue(STATE, RUN);
 }
 
-void CavemanStartRunAIBehaviour::OnExit()
+void ThrowerRunStartAIBehaviour::OnExit()
 {
 	// Desregistra el timer
 	App->time->UnregisterTimer(&timer);

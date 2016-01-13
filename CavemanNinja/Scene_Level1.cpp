@@ -7,9 +7,11 @@
 #include "ColliderTypes.h"
 #include "Player.h"
 #include "PlayerCamera.h"
-#include "EnemyCaveman.h"
 #include "UserInterfaceComponent.h"
 #include "DinosaurEye.h"
+
+#include "EnemyCaveman.h"
+#include "EnemyThrower.h"
 
 void Scene_Level1::OnCreateScene()
 {
@@ -87,7 +89,13 @@ void Scene_Level1::OnCreateScene()
 
 	for (int i = 0; i < 10; ++i)
 	{
-		EnemyCaveman* enemy = new EnemyCaveman("caveman_" + i, 300.0f + 100.0f * i, 0);
+		Enemy* enemy = new EnemyCaveman("caveman_" + i, 250.0f + 100.0f * i, 0);
+		AddChild(enemy);
+	}
+
+	for (int i = 0; i < 10; ++i)
+	{
+		Enemy* enemy = new EnemyThrower("thrower_" + i, 300.0f + 100.0f * i, 0);
 		AddChild(enemy);
 	}
 }

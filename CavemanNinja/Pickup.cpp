@@ -6,6 +6,8 @@
 #include "OnFoodPickUpComponent.h"
 #include "EntityLifetimeComponent.h"
 
+#define PICKUP_LIFETIME 10.0f
+
 Pickup::Pickup(PickupType type, string name, float positionX, float positionY)
 	: Entity(name, positionX, positionY) 
 {
@@ -54,7 +56,7 @@ void Pickup::OnCreate()
 	AddComponent(new SpriteRendererComponent("assets/images/pickups_food.png", animation, -16, -32));
 	AddComponent(new CircleColliderComponent(16, collisionsTypes, 0, -16, PICKUP));
 	AddComponent(new OnFoodPickUpComponent(type));
-	AddComponent(new EntityLifetimeComponent(10.0f));
+	AddComponent(new EntityLifetimeComponent(PICKUP_LIFETIME));
 }
 
 void Pickup::OnDestroy()
