@@ -16,7 +16,7 @@ public:
 	StateTransition(StateSwitcher<T>* targetStateSwitcher, FlagCondition* flagCondition);
 	virtual ~StateTransition();
 
-	StateSwitcher<T>* GetTargetStateSwitcher();
+	StateSwitcher<T>* GetTargetStateSwitcher() const;
 
 	StateSwitcher<T>* Process(unordered_map<string, float>& flags);
 
@@ -39,7 +39,7 @@ StateTransition<T>::~StateTransition()
 }
 
 template<class T>
-StateSwitcher<T>* StateTransition<T>::GetTargetStateSwitcher()
+StateSwitcher<T>* StateTransition<T>::GetTargetStateSwitcher() const
 {
 	return targetStateSwitcher;
 }

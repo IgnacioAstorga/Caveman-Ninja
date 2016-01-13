@@ -14,22 +14,20 @@ public:
 	Scene();
 	virtual ~Scene();
 
-	void Destroy();
-
 public:
 	void AddChild(Entity* child);
 	void RemoveChild(Entity* child);
 
-	const list<Entity*>& GetChildren();
+	const list<Entity*>& GetChildren() const;
 
-	Entity* FindChild(string name);
-	Entity* FindChild(string name, int deepness);
-	template <class T> T* FindChild();
-	template <class T> T* FindChild(int deepness);
-	list<Entity*> FindAllChildren(string name);
-	list<Entity*> FindAllChildren(string name, int deepness);
-	template <class T> list<T*> FindAllChildren();
-	template <class T> list<T*> FindAllChildren(int deepness);
+	Entity* FindChild(string name) const;
+	Entity* FindChild(string name, int deepness) const;
+	template <class T> T* FindChild() const;
+	template <class T> T* FindChild(int deepness) const;
+	list<Entity*> FindAllChildren(string name) const;
+	list<Entity*> FindAllChildren(string name, int deepness) const;
+	template <class T> list<T*> FindAllChildren() const;
+	template <class T> list<T*> FindAllChildren(int deepness) const;
 
 public:
 	bool Start();
@@ -48,4 +46,29 @@ protected:
 private:
 	Entity* root;
 };
+
+template<class T>
+T* Scene::FindChild() const
+{
+	return root->FindChild<T>();
+}
+
+template<class T>
+T* Scene::FindChild(int deepness) const
+{
+	return root->FindChild<T>(deepness);
+}
+
+template<class T>
+inline list<T*> Scene::FindAllChildren() const
+{
+	return root->FindAllChildren<T>();
+}
+
+template<class T>
+list<T*> Scene::FindAllChildren(int deepness) const
+{
+	return root->FindAllChildren<T>(deepness);
+}
+
 #endif //__SCENE_H__

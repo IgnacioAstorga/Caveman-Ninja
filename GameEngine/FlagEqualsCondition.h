@@ -19,11 +19,11 @@ public:
 		// No hace nada
 	}
 
-	bool IsTrue(unordered_map<string, float>& flags)
+	bool IsTrue(const unordered_map<string, float>& flags) const
 	{
 		if (flags.find(flag) == flags.end())
 			return false;
-		return flags[flag] == value;
+		return flags.at(flag) == value;
 	}
 
 private:

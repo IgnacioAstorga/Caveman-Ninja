@@ -2,47 +2,20 @@
 #define __PARTICLESYSTEMCOMPONENT_H__
 
 #include "Component.h"
-#include "ParticleSystem.h"
-#include "Application.h"
-#include "ModuleParticles.h"
-#include "Entity.h"
 
-#include "SDL.h"
+class ParticleSystem;
 
 class ParticleSystemComponent : public Component
 {
 public:
-	ParticleSystemComponent(ParticleSystem* system, bool start_enabled = true) : Component(start_enabled)
-	{
-		this->system = system;
-	}
+	ParticleSystemComponent(ParticleSystem* system, bool start_enabled = true);
+	virtual ~ParticleSystemComponent();
 
-	~ParticleSystemComponent()
-	{
-		RELEASE(system);
-	}
+	bool OnStart();
+	bool OnCleanUp();
 
-	bool OnStart()
-	{
-		if (system == nullptr || entity == nullptr)
-			return false;
-
-		system->transform = entity->transform;
-		App->particles->RegisterParticleSystem(system);
-
-		return true;
-	}
-
-	bool OnCleanUp()
-	{
-		if (system == nullptr || entity == nullptr)
-			return false;
-
-		App->particles->UnregisterParticleSystem(system);
-		system->transform = nullptr;
-
-		return true;
-	}
+public:
+	ParticleSystem* GetSystem() const;
 
 private:
 	ParticleSystem* system;

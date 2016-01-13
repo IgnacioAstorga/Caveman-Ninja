@@ -4,7 +4,7 @@
 #include "CircleColliderComponent.h"
 #include "ColliderTypes.h"
 #include "OnFoodPickUpComponent.h"
-#include "EffectLifespanComponent.h"
+#include "EntityLifetimeComponent.h"
 
 Pickup::Pickup(PickupType type, string name, float positionX, float positionY)
 	: Entity(name, positionX, positionY) 
@@ -54,7 +54,7 @@ void Pickup::OnCreate()
 	AddComponent(new SpriteRendererComponent("assets/images/pickups_food.png", animation, -16, -32));
 	AddComponent(new CircleColliderComponent(16, collisionsTypes, 0, -16, PICKUP));
 	AddComponent(new OnFoodPickUpComponent(type));
-	AddComponent(new EffectLifespanComponent(10.0f));	// Reaprovecha este componente, la funcionalidad es la adecuada
+	AddComponent(new EntityLifetimeComponent(10.0f));
 }
 
 void Pickup::OnDestroy()

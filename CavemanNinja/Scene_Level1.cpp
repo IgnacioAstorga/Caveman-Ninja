@@ -68,7 +68,6 @@ void Scene_Level1::OnCreateScene()
 	dinosaurEye = new DinosaurEye("dinosaur_eye", 720, 141);
 	ground->AddChild(dinosaurEye);
 
-
 	player = new Player("player_1", 20, 190);
 	AddChild(player);
 
@@ -79,13 +78,16 @@ void Scene_Level1::OnCreateScene()
 	gui->AddComponent(new UserInterfaceComponent());
 	AddChild(gui);
 
+	vector<int> collisionsTypes;
+	collisionsTypes.push_back(PLAYER);
 	gameController = new Entity("game_controller", 100, 100);
 	gameController->AddComponent(new GameControllerComponent());
+	gameController->AddComponent(new RectangleColliderComponent(10, 4000, collisionsTypes, 850, 0, 0, VICTORY, true));
 	AddChild(gameController);
 
-	for (int i = 0; i < 30; ++i)
+	for (int i = 0; i < 10; ++i)
 	{
-		EnemyCaveman* enemy = new EnemyCaveman("caveman_" + i, 300.0f + 50.0f * i, 0);
+		EnemyCaveman* enemy = new EnemyCaveman("caveman_" + i, 300.0f + 100.0f * i, 0);
 		AddChild(enemy);
 	}
 }

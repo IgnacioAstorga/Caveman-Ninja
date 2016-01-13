@@ -2,6 +2,7 @@
 #define __GAMECONTROLLERCOMPONENT_H__
 
 #include "Component.h"
+#include "Timer.h"
 
 class Player;
 
@@ -13,18 +14,25 @@ public:
 
 protected:
 	bool OnStart();
+	bool OnCleanUp();
 	bool OnPreUpdate();
+
+	bool OnCollisionEnter(Collider* self, Collider* other);
 
 public:
 	void AddScore(int amount);
 	void GameOver();
+	void Win();
 
 public:
 	int score;
+	bool victory;
 
 	Player* player;
 
-	unsigned int music;
+	Timer victoryTimer;
+
+	unsigned int victorySound;
 };
 
 extern GameControllerComponent* GameController;

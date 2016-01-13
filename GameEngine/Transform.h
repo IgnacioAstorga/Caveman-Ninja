@@ -22,19 +22,19 @@ public:
 	void SetGlobalScale(float scale);
 	void SetGlobalScale(float xScale, float yScale);
 
-	fPoint GetLocalPosition();
-	fPoint GetGlobalPosition();
-	fPoint GetLocalSpeed();
-	fPoint GetGlobalSpeed();
-	float GetLocalRotation();
-	float GetGlobalRotation();
-	fPoint GetLocalScale();
-	fPoint GetGlobalScale();
+	fPoint GetLocalPosition() const;
+	fPoint GetGlobalPosition() const;
+	fPoint GetLocalSpeed() const;
+	fPoint GetGlobalSpeed() const;
+	float GetLocalRotation() const;
+	float GetGlobalRotation() const;
+	fPoint GetLocalScale() const;
+	fPoint GetGlobalScale() const;
 
-	fPoint GetForwardVector();
-	fPoint GetBackwardVector();
-	fPoint GetRightVector();
-	fPoint GetLeftVector();
+	fPoint GetForwardVector() const;
+	fPoint GetBackwardVector() const;
+	fPoint GetRightVector() const;
+	fPoint GetLeftVector() const;
 
 	void Move(float x, float y);
 	void Move(fPoint distance);

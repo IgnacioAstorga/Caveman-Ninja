@@ -1,5 +1,5 @@
-#ifndef __TOMAHAWKATTACK_H__
-#define __TOMAHAWKATTACK_H__
+#ifndef __TOMAHAWKPROJECTILE_H__
+#define __TOMAHAWKPROJECTILE_H__
 
 #include "Entity.h"
 
@@ -18,4 +18,4 @@ protected:
 public:
 	WeaponComponent* weaponComponent;
 };
-#endif	// __TOMAHAWKATTACK_H__
+#endif	// __TOMAHAWKPROJECTILE_H__

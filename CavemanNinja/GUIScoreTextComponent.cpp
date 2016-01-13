@@ -16,23 +16,22 @@ GUIScoreTextComponent::~GUIScoreTextComponent()
 bool GUIScoreTextComponent::OnStart()
 {
 	// Recupera el componente de texto de la entidad
-	textRenderers = entity->FindAllComponents<GUITextRendererComponent>();
+	textRenderer = entity->FindComponent<GUITextRendererComponent>();
 
 	storedScore = -1;
 
-	return !textRenderers.empty();
+	return textRenderer != NULL;
 }
 
 bool GUIScoreTextComponent::OnPostUpdate()
 {
-	if (textRenderers.empty())
+	if (textRenderer == NULL)
 		return false;
 
 	// Actualiza el texto con la puntuación
 	if (storedScore != GameController->score)
 	{
-		for (list<GUITextRendererComponent*>::iterator it = textRenderers.begin(); it != textRenderers.end(); ++it)
-			(*it)->SetText(to_string(GameController->score));
+		textRenderer->SetText(to_string(GameController->score));
 		storedScore = GameController->score;
 	}
 

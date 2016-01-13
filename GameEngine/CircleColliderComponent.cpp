@@ -83,7 +83,7 @@ void CircleColliderComponent::SetOffset(float offsetX, float offsetY)
 	collider->offsetY = offsetY;
 }
 
-Collider* CircleColliderComponent::GetCollider()
+Collider* CircleColliderComponent::GetCollider() const
 {
 	return collider;
 }

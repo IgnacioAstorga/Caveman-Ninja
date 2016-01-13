@@ -34,12 +34,12 @@ RectangleCollider::~RectangleCollider()
 	// No hace nada
 }
 
-bool RectangleCollider::CallMe(Collider* self)
+bool RectangleCollider::CallMe(const Collider* self) const
 {
 	return self->CheckCollision(this);
 }
 
-bool RectangleCollider::CheckCollision(CircleCollider* other)
+bool RectangleCollider::CheckCollision(const CircleCollider* other) const
 {
 	float angle = -(float)(GetRotation() * M_PI / 180.0f);
 	fPoint thisCenter = GetCenter();
@@ -77,13 +77,13 @@ bool RectangleCollider::CheckCollision(CircleCollider* other)
 	return fPoint(closestX, closestY).DistanceTo(newCirclePosition) < other->GetRadius();
 }
 
-bool RectangleCollider::CheckCollision(CircleTraceCollider* other)
+bool RectangleCollider::CheckCollision(const CircleTraceCollider* other) const
 {
 	// Delega la responsabilidad en el otro collider
 	return other->CheckCollision(this);
 }
 
-bool RectangleCollider::CheckCollision(RectangleCollider* other)
+bool RectangleCollider::CheckCollision(const RectangleCollider* other) const
 {
 	// Si el rectángulo no tiene altura ni anchura, es un punto
 	if (height == 0.0f && width == 0.0f)
@@ -182,18 +182,18 @@ bool RectangleCollider::CheckCollision(RectangleCollider* other)
 	return collides;
 }
 
-bool RectangleCollider::CheckCollision(RectangleBasicCollider * other)
+bool RectangleCollider::CheckCollision(const RectangleBasicCollider * other) const
 {
 	return CheckCollision((RectangleCollider*) other);
 }
 
-bool RectangleCollider::CheckCollision(LineCollider* other)
+bool RectangleCollider::CheckCollision(const LineCollider* other) const
 {
 	// Delega la responsabilidad en el otro collider
 	return other->CheckCollision(this);
 }
 
-void RectangleCollider::DrawCollider()
+void RectangleCollider::DrawCollider() const
 {
 	// Determina el color y opacidad del dibujo
 	SDL_Color renderColor;
@@ -204,7 +204,7 @@ void RectangleCollider::DrawCollider()
 	DrawCollider(renderColor);
 }
 
-void RectangleCollider::DrawCollider(SDL_Color color)
+void RectangleCollider::DrawCollider(SDL_Color color) const
 {
 	// Determina la posición del dibujo en pantalla
 	fPoint renderPosition = transform->GetGlobalPosition();
@@ -225,7 +225,7 @@ void RectangleCollider::DrawCollider(SDL_Color color)
 	App->renderer->Blit(App->collisions->square, (int)(renderPosition.x - renderWidth / 2), (int)(renderPosition.y - renderHeight / 2), GetRotation(), NULL, &color, NULL, renderScale);
 }
 
-fPoint RectangleCollider::GetExternalPositionFromCoordinates(fPoint coordinates)
+fPoint RectangleCollider::GetExternalPositionFromCoordinates(fPoint coordinates) const
 {
 	// Se limita a devolver las coordenadas adecuadas en el lado superior
 	fPoint center = GetCenter();
@@ -238,7 +238,7 @@ fPoint RectangleCollider::GetExternalPositionFromCoordinates(fPoint coordinates)
 	return fPoint(coordinates.x, yCoordinate);
 }
 
-fPoint RectangleCollider::GetCenter()
+fPoint RectangleCollider::GetCenter() const
 {
 	fPoint offset = fPoint(offsetX, offsetY);
 	offset.x *= transform->GetGlobalScale().x;
@@ -246,12 +246,12 @@ fPoint RectangleCollider::GetCenter()
 	return transform->GetGlobalPosition() + offset.Rotate(transform->GetGlobalRotation());
 }
 
-float RectangleCollider::GetRotation()
+float RectangleCollider::GetRotation() const
 {
 	return transform->GetGlobalRotation() + rotation;
 }
 
-fPoint* RectangleCollider::GetPoints()
+fPoint* RectangleCollider::GetPoints() const
 {
 	fPoint center = GetCenter();
 	fPoint scale = transform->GetGlobalScale();
@@ -266,7 +266,7 @@ fPoint* RectangleCollider::GetPoints()
 	return points;
 }
 
-CircleCollider RectangleCollider::GetBoundingCircle()
+CircleCollider RectangleCollider::GetBoundingCircle() const
 {
 	fPoint center = GetCenter();
 	float radius = center.DistanceTo(fPoint(center.x + width / 2, center.y + height / 2));

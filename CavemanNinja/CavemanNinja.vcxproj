@@ -80,6 +80,7 @@
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_mixer.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)SDL2_ttf\lib\x86;$(SolutionDir)SDL2_image\lib\x86;$(SolutionDir)SDL2_mixer\lib\x86;$(SolutionDir)SDL2\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>Debug</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -96,10 +97,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)GameEngine;$(SolutionDir)SDL2_ttf\include;$(SolutionDir)SDL2_image\include;$(SolutionDir)SDL2_mixer\include;$(SolutionDir)SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(SolutionDir)SDL2_ttf\lib\x86;$(SolutionDir)SDL2_image\lib\x86;$(SolutionDir)SDL2_mixer\lib\x86;$(SolutionDir)SDL2\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_mixer.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -116,13 +121,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AICavemanComponent.cpp" />
+    <ClCompile Include="CavemanAIManager.cpp" />
     <ClCompile Include="AnimatorMappingComponent.cpp" />
     <ClCompile Include="CameraMovementComponent.cpp" />
+    <ClCompile Include="CavemanAttackAIBehaviour.cpp" />
+    <ClCompile Include="CavemanChargeAIBehaviour.cpp" />
+    <ClCompile Include="CavemanIdleAIBehaviour.cpp" />
+    <ClCompile Include="CavemanRunAIBehaviour.cpp" />
+    <ClCompile Include="CavemanSearchAIBehaviour.cpp" />
+    <ClCompile Include="CavemanStartRunAIBehaviour.cpp" />
     <ClCompile Include="DieOnPlayerAttackComponent.cpp" />
     <ClCompile Include="DinosaurEye.cpp" />
     <ClCompile Include="DinosaurEyeComponent.cpp" />
-    <ClCompile Include="EffectLifespanComponent.cpp" />
     <ClCompile Include="EnemyAnimatorMappingComponent.cpp" />
     <ClCompile Include="EnemyGravityComponent.cpp" />
     <ClCompile Include="EnemyCaveman.cpp" />
@@ -134,8 +144,12 @@
     <ClCompile Include="OnFoodPickUpComponent.cpp" />
     <ClCompile Include="Pickup.cpp" />
     <ClCompile Include="GUIScoreTextComponent.cpp" />
+    <ClCompile Include="PlayerArmAnimator.cpp" />
+    <ClCompile Include="RollingBallGravityComponent.cpp" />
+    <ClCompile Include="RollingBall.cpp" />
     <ClCompile Include="ScoreTextEffect.cpp" />
     <ClCompile Include="SpawnPickupOnDeathComponent.cpp" />
+    <ClCompile Include="TomahawkBigProjectile.cpp" />
     <ClCompile Include="UserInterfaceComponent.cpp" />
     <ClCompile Include="GUILifebarComponent.cpp" />
     <ClCompile Include="GUILifebarPoint.cpp" />
@@ -166,14 +180,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CavemanAIManager.h" />
     <ClInclude Include="AnimatorMappingComponent.h" />
     <ClInclude Include="CameraMovementComponent.h" />
-    <ClInclude Include="AICavemanComponent.h" />
+    <ClInclude Include="CavemanAttackAIBehaviour.h" />
+    <ClInclude Include="CavemanChargeAIBehaviour.h" />
+    <ClInclude Include="CavemanIdleAIBehaviour.h" />
+    <ClInclude Include="CavemanRunAIBehaviour.h" />
+    <ClInclude Include="CavemanSearchAIBehaviour.h" />
+    <ClInclude Include="CavemanStartRunAIBehaviour.h" />
     <ClInclude Include="ColliderTypes.h" />
     <ClInclude Include="DieOnPlayerAttackComponent.h" />
     <ClInclude Include="DinosaurEye.h" />
     <ClInclude Include="DinosaurEyeComponent.h" />
-    <ClInclude Include="EffectLifespanComponent.h" />
     <ClInclude Include="EnemyAnimatorMappingComponent.h" />
     <ClInclude Include="EnemyCaveman.h" />
     <ClInclude Include="EnemyCavemanAnimator.h" />
@@ -183,10 +202,14 @@
     <ClInclude Include="GUIPortrait.h" />
     <ClInclude Include="GUIPortraitComponent.h" />
     <ClInclude Include="GUIScoreTextComponent.h" />
+    <ClInclude Include="PlayerArmAnimator.h" />
+    <ClInclude Include="RollingBallGravityComponent.h" />
+    <ClInclude Include="RollingBall.h" />
     <ClInclude Include="SpawnPickupOnDeathComponent.h" />
     <ClInclude Include="OnFoodPickUpComponent.h" />
     <ClInclude Include="Pickup.h" />
     <ClInclude Include="ScoreTextEffect.h" />
+    <ClInclude Include="TomahawkBigProjectile.h" />
     <ClInclude Include="UserInterfaceComponent.h" />
     <ClInclude Include="GUILifebarComponent.h" />
     <ClInclude Include="GUILifebarPoint.h" />

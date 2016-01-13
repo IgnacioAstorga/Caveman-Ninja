@@ -5,28 +5,46 @@
 #include "Entity.h"
 #include "Transform.h"
 #include "ColliderComponent.h"
+#include "PlayerJumpComponent.h"
 #include "Collider.h"
+#include "ColliderTypes.h"
 #include "SDL.h"
 
-PlayerInputComponent::PlayerInputComponent(float speed, ColliderType colliderType, ColliderComponent* colliderComponent, float step_size)
+PlayerInputComponent::PlayerInputComponent(float speed, ColliderComponent* colliderComponent, float step_size)
 {
 	this->speed = speed;
-	this->wallColliderType = colliderType;
 	this->colliderComponent = colliderComponent;
 	this->step_size = step_size;
 
 	this->orientation = FORWARD;	// Por defecto mira de frente
 	this->stopped = false;
-	this->stoppedDuration = 0.0f;
 }
 
 PlayerInputComponent::~PlayerInputComponent() {}
 
+bool PlayerInputComponent::OnStart()
+{
+	// Intenta recuperar el componente de salto de la entidad
+	jumpComponent = entity->FindComponent<PlayerJumpComponent>();
+
+	// Registra el timer
+	App->time->RegisterTimer(&stopTimer);
+
+	return jumpComponent != NULL;
+}
+
+bool PlayerInputComponent::OnCleanUp()
+{
+	// Desregistra el timer
+	App->time->UnregisterTimer(&stopTimer);
+
+	return true;
+}
+
 bool PlayerInputComponent::OnPreUpdate()
 {
 	// Comprueba si deja de estar parado
-	stoppedTime += App->time->DeltaTime();
-	if (stopped && stoppedTime >= stoppedDuration)
+	if (stopped && stopTimer.IsTimerExpired())
 		stopped = false;
 
 	// Comprueba si está parado
@@ -41,12 +59,18 @@ bool PlayerInputComponent::OnPreUpdate()
 
 	if (leftPressed && !rightPressed)
 	{
-		entity->transform->speed.x = -speed;
+		if (!jumpComponent->crouch)
+			entity->transform->speed.x = -speed;
+		else
+			entity->transform->speed.x = 0.0f;
 		orientation = BACKWARD;
 	}
 	else if (!leftPressed && rightPressed)
 	{
-		entity->transform->speed.x = speed;
+		if (!jumpComponent->crouch)
+			entity->transform->speed.x = speed;
+		else
+			entity->transform->speed.x = 0.0f;
 		orientation = FORWARD;
 	}
 	else
@@ -58,7 +82,7 @@ bool PlayerInputComponent::OnPreUpdate()
 bool PlayerInputComponent::OnCollisionEnter(Collider * self, Collider * other)
 {
 	// Primero, detecta si la colisión es con una pared
-	if (other->GetType() != wallColliderType)
+	if (other->GetType() != WALL)
 		return true;
 
 	// Segundo, detecta si el collider que ha realizado la colisión es el correcto
@@ -96,8 +120,7 @@ bool PlayerInputComponent::OnCollisionStay(Collider * self, Collider * other)
 void PlayerInputComponent::Stop(float duration)
 {
 	stopped = true;
-	stoppedDuration = duration;
-	stoppedTime = 0.0f;
+	stopTimer.SetTimer(duration);
 }
 
 bool PlayerInputComponent::IsStopped()

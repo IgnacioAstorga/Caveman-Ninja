@@ -9,11 +9,10 @@
 #include "RectangleBasicCollider.h"
 #include "DieOnPlayerAttackComponent.h"
 
-EnemyGravityComponent::EnemyGravityComponent(float gravity, ColliderComponent* colliderComponent, float verticalTolerance)
+EnemyGravityComponent::EnemyGravityComponent(float gravity, ColliderComponent* colliderComponent)
 {
 	this->gravity = gravity;
 	this->colliderComponent = colliderComponent;
-	this->verticalTolerance = verticalTolerance;
 }
 
 EnemyGravityComponent::~EnemyGravityComponent()

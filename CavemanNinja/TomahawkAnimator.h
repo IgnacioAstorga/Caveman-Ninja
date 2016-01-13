@@ -6,7 +6,7 @@
 class TomahawkAnimator : public Animator
 {
 public:
-	TomahawkAnimator(StateSwitcher<Animation>* initialState);
+	TomahawkAnimator(AnimationState* initialState);
 	static TomahawkAnimator* Create();
 };
 #endif	// __TOMAHAWKANIMATOR_H__

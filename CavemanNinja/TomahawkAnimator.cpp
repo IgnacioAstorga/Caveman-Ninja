@@ -4,7 +4,7 @@
 #include "BasicAnimation.h"
 #include "FlagEqualsCondition.h"
 
-TomahawkAnimator::TomahawkAnimator(StateSwitcher<Animation>* initialState)
+TomahawkAnimator::TomahawkAnimator(AnimationState* initialState)
 	: Animator(initialState) {}
 
 TomahawkAnimator* TomahawkAnimator::Create()
@@ -24,11 +24,11 @@ TomahawkAnimator* TomahawkAnimator::Create()
 	idle->frames.push_back({ 1, 1 });
 
 	// Crea los estados del personaje
-	StateSwitcher<Animation>* spinState = new StateSwitcher<Animation>(spin);
-	StateSwitcher<Animation>* idleState = new StateSwitcher<Animation>(idle);
+	AnimationState* spinState = new AnimationState(spin);
+	AnimationState* idleState = new AnimationState(idle);
 
 	// Crea las transiciones entre los estados
-	spinState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("on_ground", true)));
+	spinState->AddStateTransition(new AnimationTransition(idleState, new FlagEqualsCondition("on_ground", true)));
 
 	// Crea y devuelve el animator
 	return new TomahawkAnimator(spinState);

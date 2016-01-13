@@ -10,14 +10,14 @@ using namespace std;
 class GUISpriteRendererComponent : public GUITextureRendererComponent
 {
 public:
-	GUISpriteRendererComponent(string fileName, Animation* animation = nullptr, float offsetX = 0.0f, float offsetY = 0.0f, GUILocation location = TOP_LEFT, bool start_enabled = true);
+	GUISpriteRendererComponent(string fileName, Animation* animation = nullptr, float offsetX = 0.0f, float offsetY = 0.0f, GUILocation location = TOP_LEFT, bool shadow = false, fPoint shadowOffset = { 0, 0 }, bool start_enabled = true);
 	virtual ~GUISpriteRendererComponent();
 
 protected:
 	SDL_Texture* OnLoadTexture();
 
 public:
-	Animation* GetAnimation();
+	Animation* GetAnimation() const;
 
 private:
 	string fileName;

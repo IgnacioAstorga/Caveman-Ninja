@@ -2,28 +2,14 @@
 #define __DESTROYONCOLLISIONCOMPONENT_H__
 
 #include "Component.h"
-#include "Collider.h"
-#include "Entity.h"
 
 class DestroyOnCollisionComponent : public Component
 {
 public:
-	DestroyOnCollisionComponent(bool start_enabled = true) : Component(start_enabled)
-	{
-		// En principio no hace nada
-	}
+	DestroyOnCollisionComponent(bool start_enabled = true);
+	virtual ~DestroyOnCollisionComponent();
 
-	~DestroyOnCollisionComponent()
-	{
-		// En principio no hace nada
-	}
-
-	bool OnCollisionEnter(Collider* self, Collider* other)
-	{
-		if (self->GetType() != other->GetType())
-			entity->Destroy();
-		return true;
-	}
+	bool OnCollisionEnter(Collider* self, Collider* other);
 };
 
 #endif // __DESTROYONCOLLISIONCOMPONENT_H__

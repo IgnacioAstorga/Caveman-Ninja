@@ -20,19 +20,19 @@ void GUIPortrait::OnCreate()
 	dead->frames.push_back({ 1, 1 });
 
 	// Crea los estados
-	StateSwitcher<Animation>* idleState = new StateSwitcher<Animation>(idle);
-	StateSwitcher<Animation>* hitState = new StateSwitcher<Animation>(hit);
-	StateSwitcher<Animation>* deadState = new StateSwitcher<Animation>(dead);
+	AnimationState* idleState = new AnimationState(idle);
+	AnimationState* hitState = new AnimationState(hit);
+	AnimationState* deadState = new AnimationState(dead);
 
 	// Crea las transiciones entre estados
-	idleState->AddStateTransition(new StateTransition<Animation>(hitState, new FlagEqualsCondition("player_status", HIT)));
-	idleState->AddStateTransition(new StateTransition<Animation>(deadState, new FlagEqualsCondition("player_status", DEAD)));
+	idleState->AddStateTransition(new AnimationTransition(hitState, new FlagEqualsCondition("player_status", HIT)));
+	idleState->AddStateTransition(new AnimationTransition(deadState, new FlagEqualsCondition("player_status", DEAD)));
 
-	hitState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("player_status", IDLE)));
-	hitState->AddStateTransition(new StateTransition<Animation>(deadState, new FlagEqualsCondition("player_status", DEAD)));
+	hitState->AddStateTransition(new AnimationTransition(idleState, new FlagEqualsCondition("player_status", IDLE)));
+	hitState->AddStateTransition(new AnimationTransition(deadState, new FlagEqualsCondition("player_status", DEAD)));
 
-	deadState->AddStateTransition(new StateTransition<Animation>(idleState, new FlagEqualsCondition("player_status", IDLE)));
-	deadState->AddStateTransition(new StateTransition<Animation>(hitState, new FlagEqualsCondition("player_status", HIT)));
+	deadState->AddStateTransition(new AnimationTransition(idleState, new FlagEqualsCondition("player_status", IDLE)));
+	deadState->AddStateTransition(new AnimationTransition(hitState, new FlagEqualsCondition("player_status", HIT)));
 
 	// Crea el animator
 	Animator* animator = new Animator(idleState);

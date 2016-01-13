@@ -1,7 +1,6 @@
 #include "PlayerHarvestEffect.h"
 #include "SpriteRendererComponent.h"
 #include "BasicAnimation.h"
-#include "EffectLifespanComponent.h"
 
 void PlayerHarvestEffect::OnCreate()
 {

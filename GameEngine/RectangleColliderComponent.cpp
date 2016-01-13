@@ -100,7 +100,7 @@ void RectangleColliderComponent::SetRotation(float rotation)
 	collider->rotation = rotation;
 }
 
-Collider* RectangleColliderComponent::GetCollider()
+Collider* RectangleColliderComponent::GetCollider() const
 {
 	return collider;
 }

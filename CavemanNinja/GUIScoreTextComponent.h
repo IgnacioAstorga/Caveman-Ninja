@@ -3,11 +3,7 @@
 
 #include "Component.h"
 
-#include <list>
-
 class GUITextRendererComponent;
-
-using namespace std;
 
 class GUIScoreTextComponent : public Component
 {
@@ -21,6 +17,6 @@ protected:
 
 public:
 	int storedScore;
-	list<GUITextRendererComponent*> textRenderers;
+	GUITextRendererComponent* textRenderer;
 };
 #endif //__GUISCORETEXTCOMPONENT_H__

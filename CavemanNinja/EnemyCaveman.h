@@ -12,5 +12,8 @@ public:
 protected:
 	void OnCreate();
 	void OnDestroy();
+
+public:
+	void Kill();
 };
 #endif	// __ENEMYCAVEMAN_H__

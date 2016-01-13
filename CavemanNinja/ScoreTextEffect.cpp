@@ -1,8 +1,9 @@
 #include "ScoreTextEffect.h"
 #include "SpriteRendererComponent.h"
 #include "BasicAnimation.h"
-#include "EffectLifespanComponent.h"
+#include "EntityLifetimeComponent.h"
 #include "MovementSimpleComponent.h"
+#include "Transform.h"
 
 ScoreTextEffect::ScoreTextEffect(int score, std::string name, float positionX, float positionY)
 	: Entity(name, positionX, positionY) 
@@ -39,7 +40,7 @@ void ScoreTextEffect::OnCreate()
 	}
 
 	AddComponent(new SpriteRendererComponent("assets/images/pickups_score.png", animation, -8, -16));
-	AddComponent(new EffectLifespanComponent(1.0f));
+	AddComponent(new EntityLifetimeComponent(1.0f));
 	AddComponent(new MovementSimpleComponent());
 
 	transform->SetSpeed(0.0f, -30.0f);

@@ -52,11 +52,6 @@ update_status ModuleScene::PostUpdate()
 	if (currentScene == nullptr)
 		return UPDATE_ERROR;
 	return currentScene->PostUpdate();
-
-	// Finalmente, elimina las escenas pendientes de morir
-	for (list<Scene*>::iterator it = toDestroy.begin(); it != toDestroy.end(); ++it)
-		RELEASE(*it);
-	toDestroy.clear();
 }
 
 bool ModuleScene::CleanUp()
@@ -77,12 +72,6 @@ void ModuleScene::ChangeScene(Scene* scene)
 	nextScene = scene;
 }
 
-void ModuleScene::DestroyScene(Scene* scene)
-{
-	// Marca la escena para morir
-	toDestroy.push_back(scene);
-}
-
 Scene * ModuleScene::GetCurrentScene()
 {
 	return currentScene;
@@ -95,7 +84,10 @@ void ModuleScene::DoChangeScene()
 	if (nextScene != nullptr) {
 		// Elimina la escena anterior (de haberla)
 		if (currentScene != nullptr)
+		{
 			currentScene->CleanUp();
+			RELEASE(currentScene);
+		}
 
 		// Realiza el cambio de escena
 		currentScene = nextScene;

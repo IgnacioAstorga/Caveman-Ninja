@@ -17,7 +17,7 @@ Component::~Component()
 	OnDestroy();
 }
 
-bool Component::IsEnabled()
+bool Component::IsEnabled() const
 {
 	return enabled;
 }
@@ -25,7 +25,10 @@ bool Component::IsEnabled()
 bool Component::Enable()
 {
 	if (enabled == false)
-		return enabled = Start();
+	{
+		enabled = true;
+		return Start();
+	}
 
 	return true;
 }
@@ -33,7 +36,10 @@ bool Component::Enable()
 bool Component::Disable()
 {
 	if (enabled == true)
-		return enabled = !CleanUp();
+	{
+		enabled = false;
+		return CleanUp();
+	}
 
 	return true;
 }
@@ -46,7 +52,7 @@ bool Component::Start()
 	started = true;
 
 	if (!OnStart())
-		LOG("Error al hacer Start en el componente: ", typeid(this).name());
+		LOG("Error al hacer Start en el componente: %s\n", typeid(this).name());
 
 	return true;
 }
@@ -54,7 +60,7 @@ bool Component::Start()
 update_status Component::PreUpdate()
 {
 	if (!OnPreUpdate())
-		LOG("Error al hacer Update en el componente: ", typeid(this).name());
+		LOG("Error al hacer Update en el componente:  %s\n", typeid(this).name());
 
 	return UPDATE_CONTINUE;
 }
@@ -62,7 +68,7 @@ update_status Component::PreUpdate()
 update_status Component::Update()
 {
 	if (!OnUpdate())
-		LOG("Error al hacer Update en el componente: ", typeid(this).name());
+		LOG("Error al hacer Update en el componente:  %s\n", typeid(this).name());
 
 	return UPDATE_CONTINUE;
 }
@@ -70,7 +76,7 @@ update_status Component::Update()
 update_status Component::PostUpdate()
 {
 	if (!OnPostUpdate())
-		LOG("Error al hacer PostUpdate en el componente: ", typeid(this).name());
+		LOG("Error al hacer PostUpdate en el componente:  %s\n", typeid(this).name());
 
 	return UPDATE_CONTINUE;
 }
@@ -83,7 +89,7 @@ bool Component::CleanUp()
 	started = false;
 
 	if (!OnCleanUp())
-		LOG("Error al hacer CleanUp en el componente: ", typeid(this).name());
+		LOG("Error al hacer CleanUp en el componente:  %s\n", typeid(this).name());
 
 	return true;
 }

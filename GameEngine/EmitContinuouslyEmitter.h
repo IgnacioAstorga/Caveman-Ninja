@@ -4,6 +4,7 @@
 #include "ParticleEmitter.h"
 #include "Application.h"
 #include "ModuleTime.h"
+#include "ParticleSystem.h"
 
 class EmitContinuouslyEmitter : public ParticleEmitter
 {

@@ -26,7 +26,7 @@ public:
 	virtual ~Collider();
 
 public:
-	bool IsEnabled();
+	bool IsEnabled() const;
 	bool Enable();
 	bool Disable();
 
@@ -46,26 +46,26 @@ protected:
 	virtual void OnPostUpdate() {};
 
 public:
-	bool CanCollideWithType(int type);
-	bool CollidesWith(Collider* other);
+	bool CanCollideWithType(int type) const;
+	bool CollidesWith(const Collider* other) const;
 	void NotifyCollision(Collider* other);
 	void CheckExitCollisions();
 	void ClearFrameCollisions();
-	int GetType();
+	int GetType() const;
 
 public:
-	virtual bool CallMe(Collider* self) = 0;
+	virtual bool CallMe(const Collider* self) const = 0;
 
-	virtual bool CheckCollision(CircleCollider* other) = 0;
-	virtual bool CheckCollision(CircleTraceCollider* other) = 0;
-	virtual bool CheckCollision(RectangleCollider* other) = 0;
-	virtual bool CheckCollision(RectangleBasicCollider* other) = 0;
-	virtual bool CheckCollision(LineCollider* other) = 0;
+	virtual bool CheckCollision(const CircleCollider* other) const = 0;
+	virtual bool CheckCollision(const CircleTraceCollider* other) const = 0;
+	virtual bool CheckCollision(const RectangleCollider* other) const = 0;
+	virtual bool CheckCollision(const RectangleBasicCollider* other) const = 0;
+	virtual bool CheckCollision(const LineCollider* other) const = 0;
 
-	virtual void DrawCollider() = 0;
+	virtual void DrawCollider() const = 0;
 
-	virtual fPoint GetCenter() = 0;
-	virtual fPoint GetExternalPositionFromCoordinates(fPoint coordinates) = 0;
+	virtual fPoint GetCenter() const = 0;
+	virtual fPoint GetExternalPositionFromCoordinates(fPoint coordinates) const = 0;
 
 public:
 	bool enabled;
@@ -78,5 +78,7 @@ public:
 
 	bool hasSpecificCollisionsTypes;
 	vector<int> collisionsTypes;
+
+	bool started;
 };
 #endif // __COLLIDER_H__

@@ -11,20 +11,20 @@ public:
 	CircleTraceCollider(CollisionListener* listener, Transform* transform, float radius, vector<int> collisionsTypes, float offsetX = 0.0f, float offsetY = 0.0f, int type = -1, bool start_enabled = true);
 	~CircleTraceCollider();
 
-	bool CallMe(Collider* self);
-	bool CheckCollision(CircleCollider* other);
-	bool CheckCollision(CircleTraceCollider* other);
-	bool CheckCollision(RectangleCollider* other);
-	bool CheckCollision(RectangleBasicCollider* other);
-	bool CheckCollision(LineCollider* other);
-	void DrawCollider();
+	bool CallMe(const Collider* self) const;
+	bool CheckCollision(const CircleCollider* other) const;
+	bool CheckCollision(const CircleTraceCollider* other) const;
+	bool CheckCollision(const RectangleCollider* other) const;
+	bool CheckCollision(const RectangleBasicCollider* other) const;
+	bool CheckCollision(const LineCollider* other) const;
+	void DrawCollider() const;
 
 	bool OnStartCollider();
 	void OnPostUpdate();
 
 public:
-	CircleCollider GetCircleCollider();
-	RectangleCollider GetTraceCollider();
+	CircleCollider GetCircleCollider() const;
+	RectangleCollider GetTraceCollider() const;
 
 public:
 	fPoint lastFramePosition;

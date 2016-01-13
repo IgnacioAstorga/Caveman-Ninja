@@ -6,20 +6,19 @@
 class Random
 {
 public:
-
-	Random() {
-		// No hace nada
-	}
-
-	float Value() {
+	
+	float Value() const
+	{
 		return (float)rand() / (float) RAND_MAX;
 	}
 
-	float Range(float min, float max) {
+	float Range(float min, float max) const
+	{
 		return min + Value() * (max - min);
 	}
 
-	float Top(float max) {
+	float Top(float max) const
+	{
 		return Range(0, max);
 	}
 };

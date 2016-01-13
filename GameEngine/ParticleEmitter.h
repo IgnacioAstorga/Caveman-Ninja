@@ -2,41 +2,24 @@
 #define __PARTICLEEMITTER_H__
 
 #include "Globals.h"
-#include "ParticleSystem.h"
+
+class ParticleSystem;
 
 class ParticleEmitter
 {
 public:
-	ParticleEmitter(bool start_enabled = true) : enabled(start_enabled) {};
-	virtual ~ParticleEmitter() {};
+	ParticleEmitter(bool start_enabled = true);
+	virtual ~ParticleEmitter();
 
-	bool IsEnabled() const
-	{
-		return enabled;
-	}
+	bool IsEnabled() const;
+	bool Enable();
+	bool Disable();
 
-	bool Enable()
-	{
-		if (enabled == false)
-			return enabled = Start();
-		return true;
-	}
-
-	bool Disable()
-	{
-		if (enabled == true)
-			return enabled = !CleanUp();
-		return true;
-	}
-
-	void SetParticleSystem(ParticleSystem* particleSystem)
-	{
-		system = particleSystem;
-	}
-
-public:
 	virtual bool Start() { return true; };
 	virtual bool CleanUp() { return true; };
+
+public:
+	void SetParticleSystem(ParticleSystem* particleSystem);
 
 	virtual update_status Emit() = 0;
 

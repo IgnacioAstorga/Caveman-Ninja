@@ -25,14 +25,12 @@ public:
 	bool CleanUp();
 
 	void ChangeScene(Scene* scene);
-	void DestroyScene(Scene* scene);
 
 	Scene* GetCurrentScene();
 
 private:
 	Scene* currentScene;
 	Scene* nextScene;
-	list<Scene*> toDestroy;
 
 	void DoChangeScene();
 };

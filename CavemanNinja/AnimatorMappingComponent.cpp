@@ -5,10 +5,17 @@
 #include "PlayerJumpComponent.h"
 #include "PlayerInputComponent.h"
 #include "PlayerLifeComponent.h"
+#include "Entity.h"
+#include "Transform.h"
+#include "GameControllerComponent.h"
+#include "SpriteRendererComponent.h"
+#include "WeaponComponent.h"
 
-AnimatorMappingComponent::AnimatorMappingComponent()
+AnimatorMappingComponent::AnimatorMappingComponent(SpriteRendererComponent* mainRendererComponent, SpriteRendererComponent* chargingRendererComponent, SpriteRendererComponent* armRendererComponent)
 {
-	// En principio no hace nada
+	this->mainRendererComponent = mainRendererComponent;
+	this->chargingRendererComponent = chargingRendererComponent;
+	this->armRendererComponent = armRendererComponent;
 }
 
 AnimatorMappingComponent::~AnimatorMappingComponent()
@@ -18,13 +25,22 @@ AnimatorMappingComponent::~AnimatorMappingComponent()
 
 bool AnimatorMappingComponent::OnStart()
 {
-	// Recupera el renderer de la entidad
-	SpriteRendererComponent* renderer = entity->FindComponent<SpriteRendererComponent>();
-	if (renderer == NULL)
+	if (mainRendererComponent == NULL || chargingRendererComponent == NULL || armRendererComponent == NULL)
 		return false;
-	// Recupera el animator del renderer
-	animator = dynamic_cast<Animator*>(renderer->GetAnimation());
-	if (animator == NULL)
+
+	// Recupera el animator del renderer principal
+	mainAnimator = dynamic_cast<Animator*>(mainRendererComponent->GetAnimation());
+	if (mainAnimator == NULL)
+		return false;
+
+	// Recupera el animator del renderer cargando
+	chargingAnimator = dynamic_cast<Animator*>(chargingRendererComponent->GetAnimation());
+	if (chargingAnimator == NULL)
+		return false;
+
+	// Recupera el animator del brazo
+	armAnimator = dynamic_cast<Animator*>(armRendererComponent->GetAnimation());
+	if (armAnimator == NULL)
 		return false;
 
 	// Recupera el componente de gravedad de la entidad
@@ -47,20 +63,58 @@ bool AnimatorMappingComponent::OnStart()
 	if (lifeComponent == NULL)
 		return false;
 
+	// Recupera el componente de ataque de la entidad
+	weaponComponent = entity->FindComponent<WeaponComponent>();
+	if (weaponComponent == NULL)
+		return false;
+
 	return true;
 }
 
 bool AnimatorMappingComponent::OnPostUpdate()
 {
-	if (animator == NULL || gravityComponent == NULL || jumpComponent == NULL)
+	if (mainAnimator == NULL || chargingAnimator == NULL || armAnimator == NULL || gravityComponent == NULL || jumpComponent == NULL)
 		return false;
 
+	// Mapea los animator
+	ConfigureAnimator(mainAnimator);
+	ConfigureAnimator(chargingAnimator);
+	ConfigureAnimator(armAnimator);
+
+	// Alterna entre las dos versiones del renderer
+	if (weaponComponent->charging)
+	{
+		mainRendererComponent->Disable();
+		chargingRendererComponent->Enable();
+		armRendererComponent->Enable();
+	}
+	else
+	{
+		mainRendererComponent->Enable();
+		chargingRendererComponent->Disable();
+		armRendererComponent->Disable();
+	}
+
+	// Coloca el brazo en la posición adecuada
+	float offsetX = inputComponent->orientation == FORWARD ? -32.0f : -16.0f;
+	float offsetY = jumpComponent->crouch ? -44.0f : -54.0f;
+	armRendererComponent->SetOffset(offsetX, offsetY);
+
+	return true;
+}
+
+void AnimatorMappingComponent::ConfigureAnimator(Animator * animator)
+{
 	// Mapea la velocidad horizontal del personaje al animator
-	float speed = entity->transform->GetLocalSpeed().x;
-	animator->SetFlagValue("speedX_absolute", abs(speed));
+	fPoint speed = entity->transform->GetLocalSpeed();
+	animator->SetFlagValue("speedX_absolute", abs(speed.x), true);
+	animator->SetFlagValue("speedY", speed.y, true);
 
 	// Mapea si el personaje está mirando hacia arriba o no
 	animator->SetFlagValue("looking_up", jumpComponent->lookingUp);
+
+	// Mapea si el personaje está agachado o no
+	animator->SetFlagValue("crouch", jumpComponent->crouch);
 
 	// Mapea si el personaje está saltando o no
 	animator->SetFlagValue("jumping", jumpComponent->jumping && !jumpComponent->longJumping);
@@ -84,7 +138,7 @@ bool AnimatorMappingComponent::OnPostUpdate()
 	// Mapea si el personaje ha sido herido o no
 	bool hitted = lifeComponent->hit && inputComponent->IsStopped();
 	bool hitFromBack;
-	if (speed > 0)
+	if (speed.x > 0)
 		hitFromBack = inputComponent->orientation == FORWARD;
 	else
 		hitFromBack = inputComponent->orientation == BACKWARD;
@@ -94,11 +148,20 @@ bool AnimatorMappingComponent::OnPostUpdate()
 	// Flipea el animator según la velocidad
 	if (!hitted)
 	{
-		if (speed > 0)
+		if (speed.x > 0)
 			animator->SetFlip(SDL_FLIP_NONE);
-		else if (speed < 0)
+		else if (speed.x < 0)
+			animator->SetFlip(SDL_FLIP_HORIZONTAL);
+		else if (inputComponent->orientation == FORWARD)
+			animator->SetFlip(SDL_FLIP_NONE);
+		else if (inputComponent->orientation == BACKWARD)
 			animator->SetFlip(SDL_FLIP_HORIZONTAL);
 	}
 
-	return true;
+	// Mapea si ha ganado o no
+	animator->SetFlagValue("victory", GameController->victory, true);
+
+	// Mapea si tiene el ataque cargado o no
+	animator->SetFlagValue("charging", weaponComponent->charging, true);
+	animator->SetFlagValue("attack_charged", weaponComponent->charging && weaponComponent->chargeTimer.IsTimerExpired(), true);
 }

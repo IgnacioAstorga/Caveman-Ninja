@@ -17,6 +17,7 @@ public:
 protected:
 	bool OnStart();
 	bool OnUpdate();
+	bool OnPostUpdate();
 	bool OnCollisionEnter(Collider* self, Collider* other);
 	bool OnCollisionStay(Collider* self, Collider* other);
 
@@ -25,6 +26,7 @@ public:
 	float verticalTolerance;
 
 	bool falling;
+	bool onAir;
 
 	ColliderComponent* colliderComponent;
 	PlayerJumpComponent* jumpComponent;

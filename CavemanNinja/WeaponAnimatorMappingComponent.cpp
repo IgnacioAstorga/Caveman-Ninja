@@ -2,6 +2,8 @@
 #include "SpriteRendererComponent.h"
 #include "Animator.h"
 #include "WeaponGravityComponent.h"
+#include "Entity.h"
+#include "Transform.h"
 
 WeaponAnimatorMappingComponent::WeaponAnimatorMappingComponent()
 {
@@ -21,8 +23,6 @@ bool WeaponAnimatorMappingComponent::OnStart()
 		return false;
 	// Recupera el animator del renderer
 	animator = dynamic_cast<Animator*>(renderer->GetAnimation());
-	if (animator == NULL)
-		return false;
 
 	// Recupera el componente de gravedad de la entidad
 	gravityComponent = entity->FindComponent<WeaponGravityComponent>();
@@ -34,11 +34,18 @@ bool WeaponAnimatorMappingComponent::OnStart()
 
 bool WeaponAnimatorMappingComponent::OnPostUpdate()
 {
+	// Flipea la animación según la velocidad
+	float speed = entity->transform->GetLocalSpeed().x;
+	SpriteRendererComponent* renderer = entity->FindComponent<SpriteRendererComponent>();
+	if (speed > 0)
+		renderer->GetAnimation()->SetFlip(SDL_FLIP_NONE);
+	else if (speed < 0)
+		renderer->GetAnimation()->SetFlip(SDL_FLIP_HORIZONTAL);
+
 	if (animator == NULL || gravityComponent == NULL)
-		return false;
+		return true;	// No da error, no tiene por qué tener animator
 
 	// Mapea la velocidad horizontal de la entidad al animator
-	float speed = entity->transform->GetLocalSpeed().x;
 	animator->SetFlagValue("speedX_absolute", abs(speed));
 
 	// Mapea si la entidad está callendo o no
@@ -46,12 +53,6 @@ bool WeaponAnimatorMappingComponent::OnPostUpdate()
 
 	// Mapea si la entidad está en el suelo o no
 	animator->SetFlagValue("on_ground", gravityComponent->onGround);
-
-	// Flipea el animator según la velocidad
-	if (speed > 0)
-		animator->SetFlip(SDL_FLIP_NONE);
-	else if (speed < 0)
-		animator->SetFlip(SDL_FLIP_HORIZONTAL);
 
 	return true;
 }

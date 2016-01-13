@@ -6,10 +6,13 @@
 class WeaponTomahawk : public WeaponComponent
 {
 public:
-	WeaponTomahawk();
+	WeaponTomahawk(CircleColliderComponent* meleeComponent, fPoint meleeOffset);
 
 protected:
 	Entity* GetWeaponProjectile(fPoint position, int projectileNumber);
+	Entity* GetChargedWeaponProjectile(fPoint position, int projectileNumber);
+	fPoint GetInitialSpeed();
+	fPoint GetInitialChargedSpeed();
 	unsigned int GetFireSound();
 };
 #endif //__WEAPONTOMAHAWK_H__

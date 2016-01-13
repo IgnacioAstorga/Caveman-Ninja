@@ -1,7 +1,7 @@
 #include "PlayerHitEffect.h"
 #include "SpriteRendererComponent.h"
 #include "BasicAnimation.h"
-#include "EffectLifespanComponent.h"
+#include "EntityLifetimeComponent.h"
 
 void PlayerHitEffect::OnCreate()
 {
@@ -11,5 +11,5 @@ void PlayerHitEffect::OnCreate()
 	animation->frames.push_back({ 3, 1 });
 
 	AddComponent(new SpriteRendererComponent("assets/images/effects.png", animation, -32, -32));
-	AddComponent(new EffectLifespanComponent(0.25f));
+	AddComponent(new EntityLifetimeComponent(0.25f));
 }

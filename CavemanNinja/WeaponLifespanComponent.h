@@ -2,6 +2,7 @@
 #define __WEAPONLIFESPANCOMPONENT_H__
 
 #include "Component.h"
+#include "Timer.h"
 
 class WeaponComponent;
 
@@ -13,6 +14,8 @@ public:
 
 protected:
 	bool OnStart();
+	bool OnCleanUp();
+
 	bool OnPostUpdate();
 
 public:
@@ -21,7 +24,8 @@ public:
 
 public:
 	float lifeTime;
-	float duration;
+	Timer lifetimeTimer;
+
 	WeaponComponent* weaponComponent;
 };
 #endif // __WEAPONLIFESPANCOMPONENT_H__

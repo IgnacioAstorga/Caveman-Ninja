@@ -2,9 +2,12 @@
 #define __PLAYERJUMPCOMPONENT_H__
 
 #include "Component.h"
+#include "Timer.h"
 
 class PlayerGravityComponent;
 class PlayerInputComponent;
+class RectangleBasicCollider;
+class WeaponComponent;
 
 class PlayerJumpComponent : public Component
 {
@@ -14,7 +17,13 @@ public:
 
 protected:
 	bool OnStart();
+	bool OnCleanUp();
+
 	bool OnPreUpdate();
+
+private:
+	void Jump();
+	void LeapDown();
 
 public:
 	float jumpSpeed;
@@ -22,9 +31,18 @@ public:
 	bool jumping;
 	bool longJumping;
 	bool lookingUp;
+	bool crouch;
+	bool leapingDown;
+
+	Timer leapingDownTimer;
 
 	PlayerGravityComponent* fallingComponent;
 	PlayerInputComponent* inputComponent;
+	RectangleBasicCollider* hitboxCollider;
+	WeaponComponent* weaponComponent;
+
+	float originalOffsetY;
+	float originalHeight;
 
 	unsigned int jumpLongSound;
 };

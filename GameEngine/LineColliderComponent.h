@@ -22,7 +22,7 @@ public:
 	void AddPoint(fPoint point, int index);
 	void SetPoint(fPoint point, int index);
 	void RemovePoint(int index);
-	Collider* GetCollider();
+	Collider* GetCollider() const;
 
 private:
 	vector<fPoint> points;

@@ -8,7 +8,7 @@ class DieOnPlayerAttackComponent;
 class EnemyCavemanAnimator : public Animator
 {
 private:
-	EnemyCavemanAnimator(StateSwitcher<Animation>* initialState);
+	EnemyCavemanAnimator(AnimationState* initialState);
 
 public:
 	static EnemyCavemanAnimator* Create();

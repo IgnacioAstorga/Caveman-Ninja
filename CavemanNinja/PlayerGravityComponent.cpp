@@ -43,6 +43,8 @@ bool PlayerGravityComponent::OnUpdate()
 	// Comprueba si está callendo
 	if (entity->transform->GetGlobalSpeed().y > 0)
 		falling = true;
+	else
+		falling = false;
 
 	// Si está callendo, comprueba si está cerca del suelo
 	if (falling)
@@ -58,10 +60,20 @@ bool PlayerGravityComponent::OnUpdate()
 	return true;
 }
 
+bool PlayerGravityComponent::OnPostUpdate()
+{
+	onAir = jumpComponent->jumping || falling;
+	return true;
+}
+
 bool PlayerGravityComponent::OnCollisionEnter(Collider* self, Collider* other)
 {
 	// Primero, detecta si la colisión es con el suelo
 	if (other->GetType() != GROUND && other->GetType() != FLOOR)
+		return true;
+
+	// Si el collider es GROUND pero está bajando, aborta
+	if (other->GetType() == GROUND && jumpComponent->leapingDown)
 		return true;
 
 	// Segundo, detecta si el collider que ha realizado la colisión es el correcto
@@ -77,7 +89,7 @@ bool PlayerGravityComponent::OnCollisionEnter(Collider* self, Collider* other)
 	falling = false;
 	if (jumpComponent != NULL)
 	{
-		if (jumpComponent->jumping)
+		if (onAir)
 			App->audio->PlayFx(landSound);
 		jumpComponent->jumping = false;
 		jumpComponent->longJumping = false;

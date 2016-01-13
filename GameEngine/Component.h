@@ -13,7 +13,7 @@ public:
 	virtual ~Component();
 
 public:
-	bool IsEnabled();
+	bool IsEnabled() const;
 	bool Enable();
 	bool Disable();
 

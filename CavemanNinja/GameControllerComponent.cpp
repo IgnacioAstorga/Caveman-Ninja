@@ -3,8 +3,16 @@
 #include "ModuleAudio.h"
 #include "ModuleScene.h"
 #include "ModuleInput.h"
+#include "ModuleTime.h"
 #include "ModuleCollisions.h"
 #include "Scene_Level1.h"
+#include "Player.h"
+#include "PlayerInputComponent.h"
+#include "EnemyCaveman.h"
+#include "Transform.h"
+#include "Collider.h"
+#include "ColliderTypes.h"
+#include "PlayerLifeComponent.h"
 
 GameControllerComponent* GameController = NULL;
 
@@ -21,11 +29,24 @@ GameControllerComponent::~GameControllerComponent()
 
 bool GameControllerComponent::OnStart()
 {
-	// Carga y reproduce la música
-	music = App->audio->PlayMusic("assets/sounds/world_1_music.mp3");
+	// Carga los efectos de sonido y reproduce la música
+	victorySound = App->audio->LoadFx("assets/sounds/victory.wav");
+	App->audio->PlayMusic("assets/sounds/world_1_music.mp3");
 
 	// Establece la puntuación a cero
 	score = 0;
+	victory = 0;
+
+	// Registra el timer
+	App->time->RegisterTimer(&victoryTimer);
+
+	return true;
+}
+
+bool GameControllerComponent::OnCleanUp()
+{
+	// Desregistra el timer
+	App->time->UnregisterTimer(&victoryTimer);
 
 	return true;
 }
@@ -35,6 +56,27 @@ bool GameControllerComponent::OnPreUpdate()
 	// Cambia entre modo con y sin modo debug
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		DEBUG = !DEBUG;
+
+	// Activa o desactiva el audio
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+		if (App->audio->IsEnabled())
+			App->audio->Disable();
+		else
+			App->audio->Enable();
+	}
+
+	// Comprueba si el timer ha expirado
+	if (victory && victoryTimer.IsTimerExpired())
+		GameOver();
+
+	return true;
+}
+
+bool GameControllerComponent::OnCollisionEnter(Collider * self, Collider * other)
+{
+	if (other->GetType() == PLAYER)
+		Win();
 
 	return true;
 }
@@ -46,6 +88,29 @@ void GameControllerComponent::AddScore(int amount)
 
 void GameControllerComponent::GameOver()
 {
-	// Se limita a reiniciar la escena (por ahora)
+	// Se limita a reiniciar la escena
 	App->scene->ChangeScene(new Scene_Level1());
+}
+
+void GameControllerComponent::Win()
+{
+	// Detiene el jugador
+	player->transform->speed.x = 0;
+	player->FindComponent<PlayerInputComponent>()->Stop(10.0f);	// Suficiente tiempo
+
+	// Desactiva el componente de vida del jugador
+	player->FindComponent<PlayerLifeComponent>()->Disable();
+
+	// Mata a todos los enemigos
+	list<EnemyCaveman*> enemies = App->scene->GetCurrentScene()->FindAllChildren<EnemyCaveman>();
+	for (list<EnemyCaveman*>::iterator it = enemies.begin(); it != enemies.end(); ++it)
+		(*it)->Kill();
+
+	// Reproduce el sonido y para la música
+	App->audio->PlayFx(victorySound, 0);	// Canal reservado 0
+	App->audio->PauseMusic();
+
+	// Activa el timer
+	victoryTimer.SetTimer(8.0f);
+	victory = true;
 }
