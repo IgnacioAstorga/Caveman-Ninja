@@ -10,6 +10,9 @@
 #include "WeaponAnimatorMappingComponent.h"
 #include "WeaponDestroyOnCollisionComponent.h"
 
+#define GRAVITY 500.0f
+#define LIFETIME 1.15f
+
 TomahawkProjectile::TomahawkProjectile(WeaponComponent * weaponComponent, std::string name, float positionX, float positionY)
 	: Entity(name, positionX, positionY)
 {
@@ -24,8 +27,8 @@ void TomahawkProjectile::OnCreate()
 	AddComponent(new WeaponAnimatorMappingComponent());
 	AddComponent(new MovementSimpleComponent());
 	AddComponent(colliderComponent = new CircleColliderComponent(11.0f, { FLOOR, ENEMY }, 0.0f, 0.0f, PLAYER_ATTACK, false));
-	AddComponent(new WeaponGravityComponent(500.0f, colliderComponent));
-	AddComponent(new WeaponLifespanComponent(1.15f, weaponComponent));
+	AddComponent(new WeaponGravityComponent(GRAVITY, colliderComponent));
+	AddComponent(new WeaponLifespanComponent(LIFETIME, weaponComponent));
 	AddComponent(new WeaponDestroyOnCollisionComponent(ENEMY, weaponComponent));
 }
 

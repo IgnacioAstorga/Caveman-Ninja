@@ -1,12 +1,7 @@
 #ifndef __CAVEMANAIMANAGER_H__
 #define __CAVEMANAIMANAGER_H__
 
-#include "AIManager.h"
-
-#define STATE "_state"
-
-#define LEFT -1
-#define RIGHT 1
+#include "EnemyAIManager.h"
 
 enum CavemanAIState
 {
@@ -14,7 +9,7 @@ enum CavemanAIState
 	SEARCH,
 	CHARGE,
 	ATTACK,
-	START_RUN,
+	RUN_START,
 	RUN
 };
 
@@ -22,7 +17,7 @@ class CircleColliderComponent;
 class ColliderComponent;
 class EntityLifetimeComponent;
 
-class CavemanAIManager : public AIManager
+class CavemanAIManager : public EnemyAIManager
 {
 public:
 	CavemanAIManager(CircleColliderComponent* attackComponent, ColliderComponent* hitboxComponent, AIState* initialState, float frecuency);
@@ -36,8 +31,6 @@ public:
 	static CavemanAIManager* Create(CircleColliderComponent* attackComponent, ColliderComponent* hitboxComponent);
 
 public:
-	int orientation;
-
 	CircleColliderComponent* attackComponent;
 	ColliderComponent* hitboxComponent;
 	EntityLifetimeComponent* lifetimeComponent;

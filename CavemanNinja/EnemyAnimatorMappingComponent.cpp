@@ -3,7 +3,7 @@
 #include "Animator.h"
 #include "DieOnPlayerAttackComponent.h"
 #include "AIComponent.h"
-#include "CavemanAIManager.h"
+#include "EnemyAIManager.h"
 #include "Entity.h"
 #include "Transform.h"
 
@@ -34,7 +34,7 @@ bool EnemyAnimatorMappingComponent::OnStart()
 		return false;
 
 	// Recupera el componente de AI de la entidad
-	aiManager = dynamic_cast<CavemanAIManager*>(entity->FindComponent<AIComponent>()->GetAIManager());
+	aiManager = dynamic_cast<EnemyAIManager*>(entity->FindComponent<AIComponent>()->GetAIManager());
 	if (aiManager == NULL)
 		return false;
 

@@ -4,8 +4,15 @@
 #include "Application.h"
 #include "ModuleAudio.h"
 
+#define RANGED_OFFSET {10, -31}
+#define CHARGE_TIME 1.25f
+#define DELAY 0.2f
+#define MAX_PROJECTILE_COUNT 2
+#define INITIAL_SPEED {150, -100}
+#define INITIAL_SPEED_CHARGED {250, -100}
+
 WeaponTomahawk::WeaponTomahawk(CircleColliderComponent* meleeComponent, fPoint meleeOffset)
-	: WeaponComponent(meleeComponent, meleeOffset, fPoint(10,-31), 1.25f, 0.2f, 2) {}
+	: WeaponComponent(meleeComponent, meleeOffset, RANGED_OFFSET, CHARGE_TIME, DELAY, MAX_PROJECTILE_COUNT) {}
 
 Entity* WeaponTomahawk::GetWeaponProjectile(fPoint position, int projectileNumber)
 {
@@ -19,12 +26,12 @@ Entity * WeaponTomahawk::GetChargedWeaponProjectile(fPoint position, int project
 
 fPoint WeaponTomahawk::GetInitialSpeed()
 {
-	return fPoint(150, -100);
+	return INITIAL_SPEED;
 }
 
 fPoint WeaponTomahawk::GetInitialChargedSpeed()
 {
-	return fPoint(250, -100);
+	return INITIAL_SPEED_CHARGED;
 }
 
 unsigned int WeaponTomahawk::GetFireSound()

@@ -3,6 +3,8 @@
 #include "BasicAnimation.h"
 #include "EntityLifetimeComponent.h"
 
+#define EFFECT_LIFETIME 0.25f
+
 void PlayerHitEffect::OnCreate()
 {
 	BasicAnimation* animation = new BasicAnimation(256, 128, 4, 2, 12.0f, false);
@@ -11,5 +13,5 @@ void PlayerHitEffect::OnCreate()
 	animation->frames.push_back({ 3, 1 });
 
 	AddComponent(new SpriteRendererComponent("assets/images/effects.png", animation, -32, -32));
-	AddComponent(new EntityLifetimeComponent(0.25f));
+	AddComponent(new EntityLifetimeComponent(EFFECT_LIFETIME));
 }

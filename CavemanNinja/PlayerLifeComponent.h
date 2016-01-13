@@ -56,5 +56,6 @@ public:
 	ColliderComponent* colliderComponent;
 
 	unsigned int hitSound;
+	unsigned int dieSound;
 };
 #endif // __PLAYERLIFECOMPONENT_H__

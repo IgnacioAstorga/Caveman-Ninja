@@ -11,6 +11,11 @@
 #include "SpriteRendererComponent.h"
 #include "WeaponComponent.h"
 
+#define ARM_OFFSET_X_FORWARD -32.0f
+#define ARM_OFFSET_X_BACKWARD -16.0f
+#define ARM_OFFSET_Y_STAND -54.0f
+#define ARM_OFFSET_Y_CROUCH -44.0f
+
 AnimatorMappingComponent::AnimatorMappingComponent(SpriteRendererComponent* mainRendererComponent, SpriteRendererComponent* chargingRendererComponent, SpriteRendererComponent* armRendererComponent)
 {
 	this->mainRendererComponent = mainRendererComponent;
@@ -87,8 +92,8 @@ bool AnimatorMappingComponent::OnPostUpdate()
 	armRendererComponent->SetVisible(weaponComponent->charging);
 
 	// Coloca el brazo en la posición adecuada
-	float offsetX = inputComponent->orientation == FORWARD ? -32.0f : -16.0f;
-	float offsetY = jumpComponent->crouch ? -44.0f : -54.0f;
+	float offsetX = inputComponent->orientation == FORWARD ? ARM_OFFSET_X_FORWARD : ARM_OFFSET_X_BACKWARD;
+	float offsetY = jumpComponent->crouch ? ARM_OFFSET_Y_CROUCH : ARM_OFFSET_Y_STAND;
 	armRendererComponent->SetOffset(offsetX, offsetY);
 
 	return true;

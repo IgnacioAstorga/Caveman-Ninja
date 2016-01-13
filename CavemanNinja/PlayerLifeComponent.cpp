@@ -15,6 +15,12 @@
 #include "PlayerHitEffect.h"
 #include "PlayerHarvestEffect.h"
 
+#define HARVEST_EFFECT_OFFSET_X 32.0f
+#define HARVEST_EFFECT_OFFSET_Y -64.0f
+#define BOUNCE_SPEED -100.0f
+#define FLY_SPEED_HORIZONTAL 100.0f
+#define FLY_SPEED_VERTICAL -100.0f
+
 PlayerLifeComponent::PlayerLifeComponent(ColliderComponent* colliderComponent, int lifePoints, float graceTime, float harvestTime, float decayTime, bool harvesting)
 {
 	this->colliderComponent = colliderComponent;
@@ -55,8 +61,9 @@ bool PlayerLifeComponent::OnStart()
 	inputComponent = entity->FindComponent<PlayerInputComponent>();
 	gravityComponent = entity->FindComponent<PlayerGravityComponent>();
 
-	// Carga el efecto de sonido al ser golpeado
+	// Carga los efectos de sonido
 	hitSound = App->audio->LoadFx("assets/sounds/player_hit.wav");
+	dieSound = App->audio->LoadFx("assets/sounds/player_die.wav");
 
 	return true;
 }
@@ -92,10 +99,10 @@ bool PlayerLifeComponent::OnUpdate()
 				Die(HARVEST);
 				float offsetX;
 				if (inputComponent->orientation == FORWARD)
-					offsetX = 32;
+					offsetX = HARVEST_EFFECT_OFFSET_X;
 				else
-					offsetX = -32;
-				PlayerHarvestEffect* effect = new PlayerHarvestEffect("harvest_effect", offsetX, -64);
+					offsetX = -HARVEST_EFFECT_OFFSET_X;
+				PlayerHarvestEffect* effect = new PlayerHarvestEffect("harvest_effect", offsetX, HARVEST_EFFECT_OFFSET_Y);
 				effect->Instantiate(entity);
 				break;
 			}
@@ -134,12 +141,12 @@ bool PlayerLifeComponent::OnCollisionEnter(Collider * self, Collider * other)
 	// Calcula el punto medio entre ambos colliders
 	fPoint selfCenter = self->GetCenter();
 	fPoint otherCenter = other->GetCenter();
-	fPoint damagePosition = selfCenter + (otherCenter - selfCenter) * (1.0f / 2.0f);
+	fPoint damagePosition = selfCenter + (otherCenter - selfCenter) * 0.5f;
 
 	// Si está callendo, rebota. Si no, se hace daño
 	if (gravityComponent->falling && other->GetType() != ENEMY_ATTACK)
 	{
-		entity->transform->SetSpeed(entity->transform->speed.x, -100.0f);
+		entity->transform->SetSpeed(entity->transform->speed.x, BOUNCE_SPEED);
 		gravityComponent->jumpComponent->jumping = true;
 		gravityComponent->falling = false;
 	}
@@ -173,9 +180,9 @@ void PlayerLifeComponent::TakeDamage(int amount, fPoint damagePosition)
 	// Lanza volando al personaje y le paraliza
 	inputComponent->Stop(0.5f);
 	if (entity->transform->GetGlobalPosition().x >= damagePosition.x)
-		entity->transform->SetSpeed(100.0f, -100.0f);
+		entity->transform->SetSpeed(FLY_SPEED_HORIZONTAL, FLY_SPEED_VERTICAL);
 	else
-		entity->transform->SetSpeed(-100.0f, -100.0f);
+		entity->transform->SetSpeed(-FLY_SPEED_HORIZONTAL, FLY_SPEED_VERTICAL);
 
 	// Simula que el personaje está saltando para poder despegarlo del suelo
 	gravityComponent->jumpComponent->jumping = true;
@@ -216,4 +223,7 @@ void PlayerLifeComponent::Decay()
 	decaying = true;
 	decayTimer.SetTimer(decayTime);
 	entity->transform->speed.x = 0.0f;
+
+	// Reproduce el sonido
+	App->audio->PlayFx(dieSound);
 }

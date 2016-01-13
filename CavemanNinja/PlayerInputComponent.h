@@ -16,7 +16,7 @@ class Collider;
 class PlayerInputComponent : public Component
 {
 public:
-	PlayerInputComponent(float speed, ColliderComponent* colliderComponent, float step_size = 0.5f);
+	PlayerInputComponent(float speed, ColliderComponent* colliderComponent, float step_size = 0.1f);
 	virtual ~PlayerInputComponent();
 
 protected:

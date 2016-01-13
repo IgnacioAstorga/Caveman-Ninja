@@ -75,7 +75,7 @@ bool DieOnPlayerAttackComponent::OnCollisionEnter(Collider * self, Collider * ot
 	// Crea el efecto especial
 	fPoint selfCenter = self->GetCenter();
 	fPoint otherCenter = other->GetCenter();
-	fPoint damagePosition = selfCenter + (otherCenter - selfCenter) * (1.0f / 2.0f);
+	fPoint damagePosition = selfCenter + (otherCenter - selfCenter) * 0.5f;
 	EnemyHitEffect* hitEffect = new EnemyHitEffect("hit_" + entity->name, other->GetType() == PLAYER_ATTACK_BIG);
 	hitEffect->transform->SetGlobalPosition(damagePosition.x, damagePosition.y);
 	hitEffect->Instantiate();

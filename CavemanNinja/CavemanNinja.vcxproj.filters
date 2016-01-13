@@ -139,9 +139,6 @@
     <ClCompile Include="CavemanAttackAIBehaviour.cpp">
       <Filter>Enemies\AI\Caveman</Filter>
     </ClCompile>
-    <ClCompile Include="CavemanStartRunAIBehaviour.cpp">
-      <Filter>Enemies\AI\Caveman</Filter>
-    </ClCompile>
     <ClCompile Include="CavemanRunAIBehaviour.cpp">
       <Filter>Enemies\AI\Caveman</Filter>
     </ClCompile>
@@ -160,7 +157,39 @@
     <ClCompile Include="RollingBallAnimator.cpp">
       <Filter>Enemies\Animations</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyBasicAnimatorMappingComponent.cpp" />
+    <ClCompile Include="EnemyThrowerAnimator.cpp">
+      <Filter>Enemies\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyBasicAnimatorMappingComponent.cpp">
+      <Filter>Enemies\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ThrowerAIManager.cpp">
+      <Filter>Enemies\AI\Thrower</Filter>
+    </ClCompile>
+    <ClCompile Include="ThrowerIdleAIBehaviour.cpp">
+      <Filter>Enemies\AI\Thrower</Filter>
+    </ClCompile>
+    <ClCompile Include="ThrowerThrowStartAIBehaviour.cpp">
+      <Filter>Enemies\AI\Thrower</Filter>
+    </ClCompile>
+    <ClCompile Include="ThrowerThrowDoAIBehaviour.cpp">
+      <Filter>Enemies\AI\Thrower</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyThrower.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="CavemanRunStartAIBehaviour.cpp">
+      <Filter>Enemies\AI\Caveman</Filter>
+    </ClCompile>
+    <ClCompile Include="ThrowerRunStartAIBehaviour.cpp">
+      <Filter>Enemies\AI\Thrower</Filter>
+    </ClCompile>
+    <ClCompile Include="ThrowerRunAIBehaviour.cpp">
+      <Filter>Enemies\AI\Thrower</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scenes">
@@ -237,6 +266,9 @@
     </Filter>
     <Filter Include="Enemies\AI\Caveman">
       <UniqueIdentifier>{744ae942-4678-4db2-818d-edcd167d3dc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemies\AI\Thrower">
+      <UniqueIdentifier>{e6f20727-cd8e-45e4-a0be-b092ff863d99}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -375,9 +407,6 @@
     <ClInclude Include="CavemanAttackAIBehaviour.h">
       <Filter>Enemies\AI\Caveman</Filter>
     </ClInclude>
-    <ClInclude Include="CavemanStartRunAIBehaviour.h">
-      <Filter>Enemies\AI\Caveman</Filter>
-    </ClInclude>
     <ClInclude Include="CavemanRunAIBehaviour.h">
       <Filter>Enemies\AI\Caveman</Filter>
     </ClInclude>
@@ -398,6 +427,39 @@
     </ClInclude>
     <ClInclude Include="EnemyBasicAnimatorMappingComponent.h">
       <Filter>Enemies\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyThrowerAnimator.h">
+      <Filter>Enemies\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="ThrowerAIManager.h">
+      <Filter>Enemies\AI\Thrower</Filter>
+    </ClInclude>
+    <ClInclude Include="ThrowerIdleAIBehaviour.h">
+      <Filter>Enemies\AI\Thrower</Filter>
+    </ClInclude>
+    <ClInclude Include="ThrowerThrowStartAIBehaviour.h">
+      <Filter>Enemies\AI\Thrower</Filter>
+    </ClInclude>
+    <ClInclude Include="ThrowerThrowDoAIBehaviour.h">
+      <Filter>Enemies\AI\Thrower</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyThrower.h">
+      <Filter>Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyAIManager.h">
+      <Filter>Enemies\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="CavemanRunStartAIBehaviour.h">
+      <Filter>Enemies\AI\Caveman</Filter>
+    </ClInclude>
+    <ClInclude Include="ThrowerRunStartAIBehaviour.h">
+      <Filter>Enemies\AI\Thrower</Filter>
+    </ClInclude>
+    <ClInclude Include="ThrowerRunAIBehaviour.h">
+      <Filter>Enemies\AI\Thrower</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

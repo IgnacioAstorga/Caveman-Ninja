@@ -10,6 +10,8 @@
 #include "ColliderTypes.h"
 #include "SDL.h"
 
+#define ITERATION_COUNT 100
+
 PlayerInputComponent::PlayerInputComponent(float speed, ColliderComponent* colliderComponent, float step_size)
 {
 	this->speed = speed;
@@ -107,7 +109,7 @@ bool PlayerInputComponent::OnCollisionEnter(Collider * self, Collider * other)
 	do
 	{
 		entity->transform->SetGlobalPosition(entity->transform->GetGlobalPosition().x - stepDirection * step_size, entity->transform->GetGlobalPosition().y);
-	} while (self->CollidesWith(other) && count++ < 100);
+	} while (self->CollidesWith(other) && count++ < ITERATION_COUNT);
 
 	return true;
 }

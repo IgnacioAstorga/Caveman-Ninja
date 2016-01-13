@@ -9,11 +9,11 @@
 #include "CavemanSearchAIBehaviour.h"
 #include "CavemanChargeAIBehaviour.h"
 #include "CavemanAttackAIBehaviour.h"
-#include "CavemanStartRunAIBehaviour.h"
+#include "CavemanRunStartAIBehaviour.h"
 #include "CavemanRunAIBehaviour.h"
 
 CavemanAIManager::CavemanAIManager(CircleColliderComponent* attackComponent, ColliderComponent* hitboxComponent, AIState* initialState, float frecuency)
-	: AIManager(initialState, frecuency) {
+	: EnemyAIManager(initialState, frecuency) {
 	this->attackComponent = attackComponent;
 	this->hitboxComponent = hitboxComponent;
 }
@@ -60,7 +60,7 @@ CavemanAIManager * CavemanAIManager::Create(CircleColliderComponent* attackCompo
 	AIState* search = new AIState(new CavemanSearchAIBehaviour());
 	AIState* charge = new AIState(new CavemanChargeAIBehaviour());
 	AIState* attack = new AIState(new CavemanAttackAIBehaviour());
-	AIState* startRun = new AIState(new CavemanStartRunAIBehaviour());
+	AIState* startRun = new AIState(new CavemanRunStartAIBehaviour());
 	AIState* run = new AIState(new CavemanRunAIBehaviour());
 
 	// Crea las transiciones
@@ -72,7 +72,7 @@ CavemanAIManager * CavemanAIManager::Create(CircleColliderComponent* attackCompo
 	charge->AddStateTransition(new AITransition(search, new FlagEqualsCondition(STATE, SEARCH)));
 	charge->AddStateTransition(new AITransition(attack, new FlagEqualsCondition(STATE, ATTACK)));
 
-	attack->AddStateTransition(new AITransition(startRun, new FlagEqualsCondition(STATE, START_RUN)));
+	attack->AddStateTransition(new AITransition(startRun, new FlagEqualsCondition(STATE, RUN_START)));
 
 	startRun->AddStateTransition(new AITransition(run, new FlagEqualsCondition(STATE, RUN)));
 

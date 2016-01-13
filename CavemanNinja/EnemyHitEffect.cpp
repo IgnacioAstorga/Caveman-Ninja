@@ -3,6 +3,8 @@
 #include "BasicAnimation.h"
 #include "EntityLifetimeComponent.h"
 
+#define EFFECT_LIFETIME 0.25f
+
 EnemyHitEffect::EnemyHitEffect(std::string name, bool big, float positionX, float positionY)
 	: Entity(name, positionX, positionY)
 {
@@ -24,5 +26,5 @@ void EnemyHitEffect::OnCreate()
 		animation->frames.push_back({ 1, 0 });
 
 	AddComponent(new SpriteRendererComponent("assets/images/effects.png", animation, -32, -32));
-	AddComponent(new EntityLifetimeComponent(0.25f));
+	AddComponent(new EntityLifetimeComponent(EFFECT_LIFETIME));
 }

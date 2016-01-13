@@ -5,6 +5,9 @@
 #include "MovementSimpleComponent.h"
 #include "Transform.h"
 
+#define EFFECT_LIFETIME 1.25
+#define EFFECT_UP_SPEED -30.0f
+
 ScoreTextEffect::ScoreTextEffect(int score, std::string name, float positionX, float positionY)
 	: Entity(name, positionX, positionY) 
 {
@@ -40,8 +43,8 @@ void ScoreTextEffect::OnCreate()
 	}
 
 	AddComponent(new SpriteRendererComponent("assets/images/pickups_score.png", animation, -8, -16));
-	AddComponent(new EntityLifetimeComponent(1.0f));
+	AddComponent(new EntityLifetimeComponent(EFFECT_LIFETIME));
 	AddComponent(new MovementSimpleComponent());
 
-	transform->SetSpeed(0.0f, -30.0f);
+	transform->SetSpeed(0.0f, EFFECT_UP_SPEED);
 }

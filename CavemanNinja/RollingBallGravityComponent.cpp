@@ -40,6 +40,15 @@ bool RollingBallGravityComponent::OnPreUpdate()
 
 bool RollingBallGravityComponent::OnUpdate()
 {
+	// Comprueba si está muerto
+	if (lifeComponent->dead)
+	{
+		entity->transform->SetSpeed(0.0f, 0.0f);
+		lifeComponent->Decay();
+		this->Disable();	// Desactiva el componente de gravedad
+		return true;
+	}
+
 	// Mueve a la entidad según la gravedad (coordenadas globales)
 	fPoint speed = entity->transform->GetGlobalSpeed();
 	float newYSpeed = speed.y + gravity * App->time->DeltaTime();
@@ -61,15 +70,6 @@ bool RollingBallGravityComponent::OnCollisionEnter(Collider* self, Collider* oth
 	// Segundo, detecta si el collider que ha realizado la colisión es el correcto
 	if (self != colliderComponent->GetCollider())
 		return true;
-
-	// Comprueba si está muerto y ha caido al suelo
-	if (lifeComponent->dead && falling)
-	{
-		entity->transform->SetSpeed(0.0f, 0.0f);
-		lifeComponent->Decay();
-		this->Disable();	// Desactiva el componente de gravedad
-		return true;
-	}
 
 	// Frena la caida de la entidad
 	entity->transform->SetSpeed(entity->transform->GetLocalSpeed().x, 0.0f);

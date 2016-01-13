@@ -1,38 +1,31 @@
-#include "EnemyCavemanAnimator.h"
+#include "EnemyThrowerAnimator.h"
 #include "StateSwitcher.h"
 #include "BasicAnimation.h"
 #include "StateTransition.h"
 #include "FlagEqualsCondition.h"
-#include "CavemanAIManager.h"
+#include "ThrowerAIManager.h"
 
-EnemyCavemanAnimator::EnemyCavemanAnimator(AnimationState* initialState)
-	: Animator(initialState) {}
+EnemyThrowerAnimator::EnemyThrowerAnimator(AnimationState* initialState)
+		: Animator(initialState) {}
 
-EnemyCavemanAnimator* EnemyCavemanAnimator::Create()
+EnemyThrowerAnimator* EnemyThrowerAnimator::Create()
 {
 	// Crea las animaciones del personaje
 	BasicAnimation* walk = new BasicAnimation(1024, 1024, 8, 8, 4.0f);
-	walk->frames.push_back({ 0, 0 });
-	walk->frames.push_back({ 1, 0 });
-	walk->frames.push_back({ 2, 0 });
-	walk->frames.push_back({ 3, 0 });
+	walk->frames.push_back({ 0, 6 });
+	walk->frames.push_back({ 2, 6 });
+	walk->frames.push_back({ 1, 6 });
+	walk->frames.push_back({ 3, 6 });
 
-	BasicAnimation* search = new BasicAnimation(1024, 1024, 8, 8, 4.0f);
-	search->frames.push_back({ 0, 0 });
-	search->frames.push_back({ 2, 3 });
-	search->frames.push_back({ 3, 3 });
-	search->frames.push_back({ 2, 3 });
+	BasicAnimation* throwStart = new BasicAnimation(1024, 1024, 8, 8, 8.0f, false);
+	throwStart->frames.push_back({ 1, 7 });
+	throwStart->frames.push_back({ 0, 7 });
+	throwStart->frames.push_back({ 1, 7 });
 
-	BasicAnimation* charge = new BasicAnimation(1024, 1024, 8, 8, 8.0f);
-	charge->frames.push_back({ 0, 1 });
-	charge->frames.push_back({ 1, 1 });
-	charge->frames.push_back({ 2, 1 });
-	charge->frames.push_back({ 3, 1 });
-
-	BasicAnimation* attack = new BasicAnimation(1024, 1024, 8, 8, 8.0f, false);
-	attack->frames.push_back({ 0, 2 });
-	attack->frames.push_back({ 1, 2 });
-	attack->frames.push_back({ 2, 2 });
+	BasicAnimation* throwDo = new BasicAnimation(1024, 1024, 8, 8, 8.0f, false);
+	throwDo->frames.push_back({ 2, 7 });
+	throwDo->frames.push_back({ 3, 7 });
+	throwDo->frames.push_back({ 1, 4 });
 
 	BasicAnimation* runStart = new BasicAnimation(1024, 1024, 8, 8, 8.0f);
 	runStart->frames.push_back({ 0, 5 });
@@ -67,9 +60,8 @@ EnemyCavemanAnimator* EnemyCavemanAnimator::Create()
 
 	// Crea los estados del personaje
 	AnimationState* walkState = new AnimationState(walk);
-	AnimationState* searchState = new AnimationState(search);
-	AnimationState* chargeState = new AnimationState(charge);
-	AnimationState* attackState = new AnimationState(attack);
+	AnimationState* throwStartState = new AnimationState(throwStart);
+	AnimationState* throwDoState = new AnimationState(throwDo);
 	AnimationState* runStartState = new AnimationState(runStart);
 	AnimationState* runState = new AnimationState(run);
 	AnimationState* hitBackState = new AnimationState(hitBack);
@@ -78,23 +70,17 @@ EnemyCavemanAnimator* EnemyCavemanAnimator::Create()
 	AnimationState* dieFrontState = new AnimationState(dieFront);
 
 	// Crea las transiciones entre los estados
-	walkState->AddStateTransition(new AnimationTransition(searchState, new FlagEqualsCondition("AI_state", SEARCH)));
+	walkState->AddStateTransition(new AnimationTransition(throwStartState, new FlagEqualsCondition("AI_state", THROW_START)));
 	walkState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
 	walkState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
-	searchState->AddStateTransition(new AnimationTransition(walkState, new FlagEqualsCondition("AI_state", IDLE)));
-	searchState->AddStateTransition(new AnimationTransition(chargeState, new FlagEqualsCondition("AI_state", CHARGE)));
-	searchState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
-	searchState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+	throwStartState->AddStateTransition(new AnimationTransition(throwDoState, new FlagEqualsCondition("AI_state", THROW_DO)));
+	throwStartState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	throwStartState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
-	chargeState->AddStateTransition(new AnimationTransition(searchState, new FlagEqualsCondition("AI_state", SEARCH)));
-	chargeState->AddStateTransition(new AnimationTransition(attackState, new FlagEqualsCondition("AI_state", ATTACK)));
-	chargeState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
-	chargeState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
-
-	attackState->AddStateTransition(new AnimationTransition(runStartState, new FlagEqualsCondition("AI_state", RUN_START)));
-	attackState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
-	attackState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+	throwDoState->AddStateTransition(new AnimationTransition(runStartState, new FlagEqualsCondition("AI_state", RUN_START)));
+	throwDoState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	throwDoState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
 	runStartState->AddStateTransition(new AnimationTransition(runState, new FlagEqualsCondition("AI_state", RUN)));
 	runStartState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
@@ -110,5 +96,5 @@ EnemyCavemanAnimator* EnemyCavemanAnimator::Create()
 	hitFrontState->AddStateTransition(new AnimationTransition(dieFrontState, new FlagEqualsCondition("decaying", true)));
 
 	// Crea y devuelve el animator
-	return new EnemyCavemanAnimator(walkState);
+	return new EnemyThrowerAnimator(walkState);
 }

@@ -60,8 +60,11 @@ bool SpriteRendererComponent::OnCleanUp()
 
 bool SpriteRendererComponent::OnPostUpdate()
 {
-	if (texture == nullptr || entity == nullptr || !IsVisible())
+	if (texture == nullptr || entity == nullptr)
 		return false;
+
+	if (!IsVisible())
+		return true;
 
 	// Determina la posición de la imagen en pantalla
 	fPoint temp = offset;

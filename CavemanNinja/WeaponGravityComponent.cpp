@@ -71,11 +71,8 @@ bool WeaponGravityComponent::OnCollisionEnter(Collider* self, Collider* other)
 	lifespanComponent->Reset(0.3f);
 
 	// Recoloca la entidad
-	int count = 0;
-	do
-	{
-		entity->transform->SetGlobalPosition(entity->transform->GetGlobalPosition().x, entity->transform->GetGlobalPosition().y - step_size);
-	} while (self->CollidesWith(other) && count++ < 100);
+	fPoint newPosition = other->GetExternalPositionFromCoordinates(entity->transform->GetGlobalPosition());
+	entity->transform->SetGlobalPosition(newPosition.x, newPosition.y);
 
 	return true;
 }
