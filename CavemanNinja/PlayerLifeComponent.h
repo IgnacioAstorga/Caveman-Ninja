@@ -7,7 +7,8 @@
 
 enum DeathType {
 	DAMAGE,
-	HARVEST
+	HARVEST,
+	EXHAUST
 };
 
 class PlayerInputComponent;
@@ -30,6 +31,8 @@ protected:
 
 public:
 	void Heal(int amount);
+	void Hurt(int amount, DeathType type, bool stop = false);
+	void Exhaust();
 	void TakeDamage(int amount, fPoint damagePosition);
 	void Die(DeathType deathType, bool stop = true);
 	void Decay();
@@ -42,11 +45,14 @@ public:
 	bool dead;
 	bool harvesting;
 	bool decaying;
+	bool exhausted;
 	DeathType deathCause;
 
 	float graceTime;
 	float harvestTime;
 	float decayTime;
+	Timer hitTimer;
+	Timer exhaustedTimer;
 	Timer graceTimer;
 	Timer harvestTimer;
 	Timer decayTimer;
@@ -57,5 +63,6 @@ public:
 
 	unsigned int hitSound;
 	unsigned int dieSound;
+	unsigned int exhaustSound;
 };
 #endif // __PLAYERLIFECOMPONENT_H__

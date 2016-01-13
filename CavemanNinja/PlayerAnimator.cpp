@@ -108,6 +108,14 @@ PlayerAnimator* PlayerAnimator::Create()
 	BasicAnimation* hitFront = new BasicAnimation(1024, 1024, 8, 8, 0.0f, false);
 	hitFront->frames.push_back({ 4, 2 });
 
+	BasicAnimation* exhaust = new BasicAnimation(1024, 1024, 8, 8, 8.0f);
+	exhaust->frames.push_back({ 0, 7 });
+	exhaust->frames.push_back({ 1, 7 });
+	exhaust->frames.push_back({ 2, 7 });
+	exhaust->frames.push_back({ 2, 7 });
+	exhaust->frames.push_back({ 1, 7 });
+	exhaust->frames.push_back({ 0, 7 });
+
 	BasicAnimation* dieFront = new BasicAnimation(1024, 1024, 8, 8, 4.0f, false);
 	dieFront->frames.push_back({ 4, 2 });
 	dieFront->frames.push_back({ 5, 2 });
@@ -119,6 +127,17 @@ PlayerAnimator* PlayerAnimator::Create()
 	dieHarvest->frames.push_back({ 5, 3 });
 	dieHarvest->frames.push_back({ 6, 3 });
 	dieHarvest->frames.push_back({ 7, 3 });
+
+	BasicAnimation* dieExhaust = new BasicAnimation(1024, 1024, 8, 8, 4.0f, false);
+	dieExhaust->frames.push_back({ 3, 7 });
+	dieExhaust->frames.push_back({ 4, 7 });
+	dieExhaust->frames.push_back({ 5, 7 });
+	dieExhaust->frames.push_back({ 6, 7 });
+	dieExhaust->frames.push_back({ 3, 7 });
+	dieExhaust->frames.push_back({ 4, 7 });
+	dieExhaust->frames.push_back({ 5, 7 });
+	dieExhaust->frames.push_back({ 6, 7 });
+	dieExhaust->frames.push_back({ 7, 2 });
 
 	BasicAnimation* victory = new BasicAnimation(1024, 1024, 8, 8, 4.0f);
 	victory->frames.push_back({ 2, 6 });
@@ -150,8 +169,10 @@ PlayerAnimator* PlayerAnimator::Create()
 	AnimationState* hitBackState = new AnimationState(hitBack);
 	AnimationState* dieBackState = new AnimationState(dieBack);
 	AnimationState* hitFrontState = new AnimationState(hitFront);
+	AnimationState* exhaustState = new AnimationState(exhaust);
 	AnimationState* dieFrontState = new AnimationState(dieFront);
 	AnimationState* dieHarvestState = new AnimationState(dieHarvest);
+	AnimationState* dieExhaustState = new AnimationState(dieExhaust);
 	AnimationState* victoryState = new AnimationState(victory);
 
 	// Crea las transiciones entre los estados
@@ -166,6 +187,7 @@ PlayerAnimator* PlayerAnimator::Create()
 	idleState->AddStateTransition(new AnimationTransition(attackChargedState, new FlagEqualsCondition("weapon_attack_charged", true)));
 	idleState->AddStateTransition(new AnimationTransition(attackUpMeleeState, new FlagEqualsCondition("melee_attack_up", true)));
 	idleState->AddStateTransition(new AnimationTransition(attackMeleeState, new FlagEqualsCondition("melee_attack", true)));
+	idleState->AddStateTransition(new AnimationTransition(exhaustState, new FlagEqualsCondition("exhausted", true)));
 	idleState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
 	idleState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 	idleState->AddStateTransition(new AnimationTransition(dieHarvestState, new FlagEqualsCondition("dead_harvest", true)));
@@ -181,6 +203,7 @@ PlayerAnimator* PlayerAnimator::Create()
 	idleUpState->AddStateTransition(new AnimationTransition(attackState, new FlagEqualsCondition("weapon_attack", true)));
 	idleUpState->AddStateTransition(new AnimationTransition(attackUpMeleeState, new FlagEqualsCondition("melee_attack_up", true)));
 	idleUpState->AddStateTransition(new AnimationTransition(attackMeleeState, new FlagEqualsCondition("melee_attack", true)));
+	idleUpState->AddStateTransition(new AnimationTransition(exhaustState, new FlagEqualsCondition("exhausted", true)));
 	idleUpState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
 	idleUpState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 	idleUpState->AddStateTransition(new AnimationTransition(dieHarvestState, new FlagEqualsCondition("dead_harvest", true)));
@@ -191,6 +214,7 @@ PlayerAnimator* PlayerAnimator::Create()
 	idleCrouchState->AddStateTransition(new AnimationTransition(attackChargedState, new FlagEqualsCondition("weapon_attack_charged", true)));
 	idleCrouchState->AddStateTransition(new AnimationTransition(fallState, new FlagEqualsCondition("falling", true)));
 	idleCrouchState->AddStateTransition(new AnimationTransition(idleState, new FlagEqualsCondition("crouch", false)));
+	idleCrouchState->AddStateTransition(new AnimationTransition(exhaustState, new FlagEqualsCondition("exhausted", true)));
 	idleCrouchState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
 	idleCrouchState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 	idleCrouchState->AddStateTransition(new AnimationTransition(dieHarvestState, new FlagEqualsCondition("dead_harvest", true)));
@@ -205,6 +229,7 @@ PlayerAnimator* PlayerAnimator::Create()
 	runState->AddStateTransition(new AnimationTransition(attackState, new FlagEqualsCondition("weapon_attack", true)));
 	runState->AddStateTransition(new AnimationTransition(attackUpMeleeState, new FlagEqualsCondition("melee_attack_up", true)));
 	runState->AddStateTransition(new AnimationTransition(attackMeleeState, new FlagEqualsCondition("melee_attack", true)));
+	runState->AddStateTransition(new AnimationTransition(exhaustState, new FlagEqualsCondition("exhausted", true)));
 	runState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
 	runState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
@@ -215,6 +240,7 @@ PlayerAnimator* PlayerAnimator::Create()
 	jumpState->AddStateTransition(new AnimationTransition(attackJumpState, new FlagEqualsCondition("weapon_attack", true)));
 	jumpState->AddStateTransition(new AnimationTransition(attackUpJumpMeleeState, new FlagEqualsCondition("melee_attack_up", true)));
 	jumpState->AddStateTransition(new AnimationTransition(attackJumpMeleeState, new FlagEqualsCondition("melee_attack", true)));
+	jumpState->AddStateTransition(new AnimationTransition(exhaustState, new FlagEqualsCondition("exhausted", true)));
 	jumpState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
 	jumpState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
@@ -236,6 +262,7 @@ PlayerAnimator* PlayerAnimator::Create()
 	fallState->AddStateTransition(new AnimationTransition(attackChargedJumpState, new FlagEqualsCondition("weapon_attack_charged", true)));
 	fallState->AddStateTransition(new AnimationTransition(attackUpJumpMeleeState, new FlagEqualsCondition("melee_attack_up", true)));
 	fallState->AddStateTransition(new AnimationTransition(attackJumpMeleeState, new FlagEqualsCondition("melee_attack", true)));
+	fallState->AddStateTransition(new AnimationTransition(exhaustState, new FlagEqualsCondition("exhausted", true)));
 	fallState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
 	fallState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
@@ -292,6 +319,9 @@ PlayerAnimator* PlayerAnimator::Create()
 
 	hitFrontState->AddStateTransition(new AnimationTransition(idleState, new FlagEqualsCondition("hit_front", false)));
 	hitFrontState->AddStateTransition(new AnimationTransition(dieFrontState, new FlagEqualsCondition("decaying", true)));
+
+	exhaustState->AddStateTransition(new AnimationTransition(idleState, new FlagEqualsCondition("exhausted", false)));
+	exhaustState->AddStateTransition(new AnimationTransition(dieExhaustState, new FlagEqualsCondition("decaying", true)));
 
 	// Crea y devuelve el animator
 	return new PlayerAnimator(idleState);

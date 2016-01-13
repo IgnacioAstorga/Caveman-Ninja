@@ -20,6 +20,10 @@
 #define BOUNCE_SPEED -100.0f
 #define FLY_SPEED_HORIZONTAL 100.0f
 #define FLY_SPEED_VERTICAL -100.0f
+#define COLLISION_DAMAGE 5
+#define DAMAGE_PAUSE_TIME 0.5f
+#define EXHAUST_PAUSE_TIME 1.5f
+#define EXHAUST_DAMAGE 3
 
 PlayerLifeComponent::PlayerLifeComponent(ColliderComponent* colliderComponent, int lifePoints, float graceTime, float harvestTime, float decayTime, bool harvesting)
 {
@@ -29,10 +33,6 @@ PlayerLifeComponent::PlayerLifeComponent(ColliderComponent* colliderComponent, i
 	this->harvestTime = harvestTime;
 	this->decayTime = decayTime;
 	this->harvesting = harvesting;
-	this->hit = false;
-	this->invulnerable = false;
-	this->dead = false;
-	this->decaying = false;
 }
 
 PlayerLifeComponent::~PlayerLifeComponent()
@@ -47,6 +47,8 @@ bool PlayerLifeComponent::OnStart()
 	GameController->player = player;
 
 	// Registra los timers
+	App->time->RegisterTimer(&hitTimer);
+	App->time->RegisterTimer(&exhaustedTimer);
 	App->time->RegisterTimer(&graceTimer);
 	App->time->RegisterTimer(&harvestTimer);
 	App->time->RegisterTimer(&decayTimer);
@@ -64,6 +66,14 @@ bool PlayerLifeComponent::OnStart()
 	// Carga los efectos de sonido
 	hitSound = App->audio->LoadFx("assets/sounds/player_hit.wav");
 	dieSound = App->audio->LoadFx("assets/sounds/player_die.wav");
+	exhaustSound = App->audio->LoadFx("assets/sounds/player_exhaust.wav");
+
+	// Establece los valores por defecto
+	this->hit = false;
+	this->invulnerable = false;
+	this->dead = false;
+	this->decaying = false;
+	this->exhausted = false;
 
 	return true;
 }
@@ -71,6 +81,8 @@ bool PlayerLifeComponent::OnStart()
 bool PlayerLifeComponent::OnCleanUp()
 {
 	// Desregistra los timers
+	App->time->UnregisterTimer(&hitTimer);
+	App->time->UnregisterTimer(&exhaustedTimer);
 	App->time->UnregisterTimer(&graceTimer);
 	App->time->UnregisterTimer(&harvestTimer);
 	App->time->UnregisterTimer(&decayTimer);
@@ -81,22 +93,24 @@ bool PlayerLifeComponent::OnCleanUp()
 bool PlayerLifeComponent::OnUpdate()
 {
 	// Animación de golpeo
-	if (hit && !inputComponent->IsStopped())
+	if (hit && hitTimer.IsTimerExpired())
 		hit = false;
+
+	// Animación de cansancio
+	if (exhausted && exhaustedTimer.IsTimerExpired())
+		exhausted = false;
 
 	// Periodo de gracia
 	if (invulnerable && graceTimer.IsTimerExpired())
 		invulnerable = false;
 
 	// Hambre
-	if (harvesting)
-	{
+	if (harvesting && !dead)
 		while (harvestTimer.IsTimerExpired(true))
 		{
-			currentLifePoints -= 1;
-			if (currentLifePoints <= 0)
+			Hurt(1, HARVEST);
+			if (dead)
 			{
-				Die(HARVEST);
 				float offsetX;
 				if (inputComponent->orientation == FORWARD)
 					offsetX = HARVEST_EFFECT_OFFSET_X;
@@ -107,10 +121,9 @@ bool PlayerLifeComponent::OnUpdate()
 				break;
 			}
 		}
-	}
 
 	// Comienzo del periodo de muerte al llegar al suelo
-	if (dead && gravityComponent->jumpComponent->jumping == false)
+	if (!hit && !exhausted && dead && gravityComponent->onAir == false)
 		Decay();
 
 	// Periodo de muerte
@@ -152,7 +165,7 @@ bool PlayerLifeComponent::OnCollisionEnter(Collider * self, Collider * other)
 	}
 	else
 		// Hace daño al personaje
-		TakeDamage(5, damagePosition);	// 5 es el daño por colisión con enemigo
+		TakeDamage(COLLISION_DAMAGE, damagePosition);
 
 	return true;
 }
@@ -163,6 +176,33 @@ void PlayerLifeComponent::Heal(int amount)
 	currentLifePoints += amount;
 	if (currentLifePoints > maxLifePoints)
 		currentLifePoints = maxLifePoints;
+}
+
+void PlayerLifeComponent::Hurt(int amount, DeathType type, bool stop)
+{
+	// Resta la vida del personaje
+	currentLifePoints -= amount;
+	if (currentLifePoints <= 0)
+		Die(type, stop);
+}
+
+void PlayerLifeComponent::Exhaust()
+{
+	// Le garantiza inmunidad
+	exhausted = true;
+	invulnerable = true;
+	graceTimer.SetTimer(graceTime);
+
+	// Paraliza al personaje
+	inputComponent->Stop(EXHAUST_PAUSE_TIME);
+	exhaustedTimer.SetTimer(EXHAUST_PAUSE_TIME);
+
+	// Reproduce el efecto de sonido
+	App->audio->PlayFx(exhaustSound);
+
+	// Le resta vida
+	entity->transform->speed.x = 0.0f;
+	Hurt(EXHAUST_DAMAGE, EXHAUST, true);
 }
 
 void PlayerLifeComponent::TakeDamage(int amount, fPoint damagePosition)
@@ -178,7 +218,8 @@ void PlayerLifeComponent::TakeDamage(int amount, fPoint damagePosition)
 	hitEffect->Instantiate();
 
 	// Lanza volando al personaje y le paraliza
-	inputComponent->Stop(0.5f);
+	inputComponent->Stop(DAMAGE_PAUSE_TIME);
+	hitTimer.SetTimer(DAMAGE_PAUSE_TIME);
 	if (entity->transform->GetGlobalPosition().x >= damagePosition.x)
 		entity->transform->SetSpeed(FLY_SPEED_HORIZONTAL, FLY_SPEED_VERTICAL);
 	else
@@ -191,9 +232,7 @@ void PlayerLifeComponent::TakeDamage(int amount, fPoint damagePosition)
 	App->audio->PlayFx(hitSound);
 
 	// Le resta vida
-	currentLifePoints -= amount;
-	if (currentLifePoints <= 0)
-		Die(DAMAGE, false);
+	Hurt(amount, DAMAGE);
 }
 
 void PlayerLifeComponent::Die(DeathType deathType, bool stop)

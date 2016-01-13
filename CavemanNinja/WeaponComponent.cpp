@@ -3,6 +3,7 @@
 #include "PlayerInputComponent.h"
 #include "PlayerJumpComponent.h"
 #include "PlayerGravityComponent.h"
+#include "PlayerLifeComponent.h"
 #include "SpriteRendererComponent.h"
 #include "CircleColliderComponent.h"
 #include "Application.h"
@@ -17,6 +18,7 @@
 #include "SDL_mixer.h"
 
 #define UP_FACTOR -1.25f
+#define EXHAUST_TIME 5.0f
 
 #define CHARGE_SOUND_CHANNEL 1	// Canal reservado 1
 
@@ -53,12 +55,16 @@ bool WeaponComponent::OnStart()
 
 	// Registra el timer del ataque cuerpo a cuerpo y del ataque cargado
 	App->time->RegisterTimer(&chargeTimer);
+	App->time->RegisterTimer(&exhaustTimer);
 	App->time->RegisterTimer(&meleeTimer);
 	meleeComponent->Disable();
 
 	// Obtiene los componentes del jugador
 	inputComponent = entity->FindComponent<PlayerInputComponent>();
 	jumpComponent = entity->FindComponent<PlayerJumpComponent>();
+	lifeComponent = entity->FindComponent<PlayerLifeComponent>();
+
+	charging = false;
 
 	return inputComponent != NULL && jumpComponent != NULL && meleeComponent != NULL;
 }
@@ -67,6 +73,7 @@ bool WeaponComponent::OnCleanUp()
 {
 	// Desregistra el timer del ataque cuerpo a cuerpo y del ataque cargado
 	App->time->UnregisterTimer(&chargeTimer);
+	App->time->UnregisterTimer(&exhaustTimer);
 	App->time->UnregisterTimer(&meleeTimer);
 	meleeComponent->Disable();
 
@@ -115,6 +122,12 @@ bool WeaponComponent::OnPreUpdate()
 			// Empieza a cargar el ataque
 			charging = true;
 			chargeTimer.SetTimer(chargeTime);
+			exhaustTimer.SetTimer(EXHAUST_TIME);
+		}
+		else if (charging && exhaustTimer.IsTimerExpired())
+		{
+			// El personaje se cansa
+			lifeComponent->Exhaust();
 		}
 		return true;
 	}

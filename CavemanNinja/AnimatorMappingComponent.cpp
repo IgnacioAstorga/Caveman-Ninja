@@ -129,20 +129,22 @@ void AnimatorMappingComponent::ConfigureAnimator(Animator * animator)
 	animator->SetFlagValue("dead_harvest", lifeComponent->dead && lifeComponent->deathCause == HARVEST);
 
 	// Mapea si el personaje está muriendo o no
-	animator->SetFlagValue("decaying", lifeComponent->decaying && lifeComponent->deathCause == DAMAGE);
+	animator->SetFlagValue("decaying", lifeComponent->decaying && lifeComponent->deathCause != HARVEST);
 
 	// Mapea si el personaje ha sido herido o no
-	bool hitted = lifeComponent->hit && inputComponent->IsStopped();
 	bool hitFromBack;
 	if (speed.x > 0)
 		hitFromBack = inputComponent->orientation == FORWARD;
 	else
 		hitFromBack = inputComponent->orientation == BACKWARD;
-	animator->SetFlagValue("hit_back", hitted && hitFromBack);
-	animator->SetFlagValue("hit_front", hitted && !hitFromBack);
+	animator->SetFlagValue("hit_back", lifeComponent->hit && hitFromBack);
+	animator->SetFlagValue("hit_front", lifeComponent->hit && !hitFromBack);
+
+	// Mapea si el personaje está exausto o no
+	animator->SetFlagValue("exhausted", lifeComponent->exhausted);
 
 	// Flipea el animator según la velocidad
-	if (!hitted)
+	if (!lifeComponent->hit)
 	{
 		if (speed.x > 0)
 			animator->SetFlip(SDL_FLIP_NONE);

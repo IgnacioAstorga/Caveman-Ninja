@@ -42,6 +42,7 @@ PlayerArmAnimator* PlayerArmAnimator::Create()
 
 	// Crea las transiciones entre los estados
 	startState->AddStateTransition(new AnimationTransition(phase1State, new AnimationEndCondition()));
+	startState->AddStateTransition(new AnimationTransition(startState, new FlagEqualsCondition("charging", false)));
 	startState->AddStateTransition(new AnimationTransition(chargedState, new FlagEqualsCondition("attack_charged", true)));
 
 	phase1State->AddStateTransition(new AnimationTransition(phase2State, new AnimationEndCondition()));

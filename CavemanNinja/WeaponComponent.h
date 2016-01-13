@@ -6,6 +6,7 @@
 
 class PlayerInputComponent;
 class PlayerJumpComponent;
+class PlayerLifeComponent;
 class CircleColliderComponent;
 class Animator;
 
@@ -44,10 +45,12 @@ public:
 
 	Timer meleeTimer;
 	Timer chargeTimer;
+	Timer exhaustTimer;
 
 	Animator* animator;
 	PlayerInputComponent* inputComponent;
 	PlayerJumpComponent* jumpComponent;
+	PlayerLifeComponent* lifeComponent;
 	CircleColliderComponent* meleeComponent;
 
 	unsigned int fireSound;
