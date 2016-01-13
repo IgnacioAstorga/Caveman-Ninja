@@ -11,6 +11,9 @@
 #include "UserInterfaceComponent.h"
 #include "DinosaurEye.h"
 
+#include "RollingBall.h"
+#include "Transform.h"
+
 void Scene_Level1::OnCreateScene()
 {
 	backgroundSky = new Entity("background_sky");
@@ -87,7 +90,8 @@ void Scene_Level1::OnCreateScene()
 
 	for (int i = 0; i < 10; ++i)
 	{
-		EnemyCaveman* enemy = new EnemyCaveman("caveman_" + i, 300.0f + 100.0f * i, 0);
+		RollingBall* enemy = new RollingBall("caveman_" + i, 300.0f + 100.0f * i, 0);
+		enemy->transform->speed.x = -25;
 		AddChild(enemy);
 	}
 }

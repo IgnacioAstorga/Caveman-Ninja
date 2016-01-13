@@ -82,18 +82,9 @@ bool AnimatorMappingComponent::OnPostUpdate()
 	ConfigureAnimator(armAnimator);
 
 	// Alterna entre las dos versiones del renderer
-	if (weaponComponent->charging)
-	{
-		mainRendererComponent->Disable();
-		chargingRendererComponent->Enable();
-		armRendererComponent->Enable();
-	}
-	else
-	{
-		mainRendererComponent->Enable();
-		chargingRendererComponent->Disable();
-		armRendererComponent->Disable();
-	}
+	mainRendererComponent->SetVisible(!weaponComponent->charging);
+	chargingRendererComponent->SetVisible(weaponComponent->charging);
+	armRendererComponent->SetVisible(weaponComponent->charging);
 
 	// Coloca el brazo en la posición adecuada
 	float offsetX = inputComponent->orientation == FORWARD ? -32.0f : -16.0f;

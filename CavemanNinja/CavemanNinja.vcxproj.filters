@@ -157,6 +157,10 @@
     <ClCompile Include="PlayerArmAnimator.cpp">
       <Filter>Player\Animations</Filter>
     </ClCompile>
+    <ClCompile Include="RollingBallAnimator.cpp">
+      <Filter>Enemies\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyBasicAnimatorMappingComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scenes">
@@ -388,6 +392,12 @@
     </ClInclude>
     <ClInclude Include="PlayerArmAnimator.h">
       <Filter>Player\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="RollingBallAnimator.h">
+      <Filter>Enemies\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBasicAnimatorMappingComponent.h">
+      <Filter>Enemies\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

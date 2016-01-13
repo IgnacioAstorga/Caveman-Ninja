@@ -63,8 +63,7 @@ bool RollingBallGravityComponent::OnCollisionEnter(Collider* self, Collider* oth
 		return true;
 
 	// Comprueba si está muerto y ha caido al suelo
-	//if (lifeComponent->dead && falling)
-	if (false)
+	if (lifeComponent->dead && falling)
 	{
 		entity->transform->SetSpeed(0.0f, 0.0f);
 		lifeComponent->Decay();

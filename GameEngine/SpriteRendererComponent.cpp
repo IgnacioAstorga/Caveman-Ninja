@@ -25,6 +25,8 @@ SpriteRendererComponent::SpriteRendererComponent(string textureName, Animation* 
 	this->speed = speed;
 	this->tiledHorizontal = tiledHorizontal;
 	this->tiledVertical = tiledVertical;
+
+	this->visible = true;
 }
 
 SpriteRendererComponent::~SpriteRendererComponent()
@@ -58,7 +60,7 @@ bool SpriteRendererComponent::OnCleanUp()
 
 bool SpriteRendererComponent::OnPostUpdate()
 {
-	if (texture == nullptr || entity == nullptr)
+	if (texture == nullptr || entity == nullptr || !IsVisible())
 		return false;
 
 	// Determina la posición de la imagen en pantalla
@@ -179,4 +181,14 @@ void SpriteRendererComponent::SetOffset(float x, float y)
 void SpriteRendererComponent::SetOffset(fPoint offset)
 {
 	this->offset = offset;
+}
+
+bool SpriteRendererComponent::IsVisible()
+{
+	return visible;
+}
+
+void SpriteRendererComponent::SetVisible(bool visible)
+{
+	this->visible = visible;
 }

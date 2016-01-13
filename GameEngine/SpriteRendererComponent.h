@@ -30,6 +30,9 @@ public:
 	void SetOffset(float x, float y);
 	void SetOffset(fPoint offset);
 
+	bool IsVisible();
+	void SetVisible(bool visible);
+
 private:
 	string textureName;
 	SDL_Texture* texture = nullptr;
@@ -39,6 +42,8 @@ private:
 	float speed;
 	bool tiledHorizontal;
 	bool tiledVertical;
+
+	bool visible;
 
 	SDL_Rect renderArea;
 };

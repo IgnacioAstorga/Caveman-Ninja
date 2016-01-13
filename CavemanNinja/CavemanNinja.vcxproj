@@ -134,6 +134,7 @@
     <ClCompile Include="DinosaurEye.cpp" />
     <ClCompile Include="DinosaurEyeComponent.cpp" />
     <ClCompile Include="EnemyAnimatorMappingComponent.cpp" />
+    <ClCompile Include="EnemyBasicAnimatorMappingComponent.cpp" />
     <ClCompile Include="EnemyGravityComponent.cpp" />
     <ClCompile Include="EnemyCaveman.cpp" />
     <ClCompile Include="EnemyCavemanAnimator.cpp" />
@@ -145,6 +146,7 @@
     <ClCompile Include="Pickup.cpp" />
     <ClCompile Include="GUIScoreTextComponent.cpp" />
     <ClCompile Include="PlayerArmAnimator.cpp" />
+    <ClCompile Include="RollingBallAnimator.cpp" />
     <ClCompile Include="RollingBallGravityComponent.cpp" />
     <ClCompile Include="RollingBall.cpp" />
     <ClCompile Include="ScoreTextEffect.cpp" />
@@ -194,6 +196,7 @@
     <ClInclude Include="DinosaurEye.h" />
     <ClInclude Include="DinosaurEyeComponent.h" />
     <ClInclude Include="EnemyAnimatorMappingComponent.h" />
+    <ClInclude Include="EnemyBasicAnimatorMappingComponent.h" />
     <ClInclude Include="EnemyCaveman.h" />
     <ClInclude Include="EnemyCavemanAnimator.h" />
     <ClInclude Include="EnemyGravityComponent.h" />
@@ -203,6 +206,7 @@
     <ClInclude Include="GUIPortraitComponent.h" />
     <ClInclude Include="GUIScoreTextComponent.h" />
     <ClInclude Include="PlayerArmAnimator.h" />
+    <ClInclude Include="RollingBallAnimator.h" />
     <ClInclude Include="RollingBallGravityComponent.h" />
     <ClInclude Include="RollingBall.h" />
     <ClInclude Include="SpawnPickupOnDeathComponent.h" />

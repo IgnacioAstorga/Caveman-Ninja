@@ -12,6 +12,8 @@
 #include "ModuleAudio.h"
 #include "WeaponComponent.h"
 
+#define FALLING_TIME 0.25f
+
 PlayerJumpComponent::PlayerJumpComponent(float jumpSpeed, float longJumpMultiplier)
 {
 	this->jumpSpeed = jumpSpeed;
@@ -159,5 +161,5 @@ void PlayerJumpComponent::LeapDown()
 
 	// Cambia el flag y activa el timer de leaping
 	leapingDown = true;
-	leapingDownTimer.SetTimer(0.1f);	// Tiempo suficiente para atravesar el collider de la plataforma
+	leapingDownTimer.SetTimer(FALLING_TIME);	// Tiempo suficiente para atravesar el collider de la plataforma
 }
