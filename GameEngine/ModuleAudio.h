@@ -25,7 +25,7 @@ public:
 	bool ResumeMusic();
 
 	unsigned int LoadFx(const char* path);
-	bool PlayFx(unsigned int fx, int repeat = 0);
+	bool PlayFx(unsigned int fx, int repeat = 0, int channel = -1);
 
 private:
 

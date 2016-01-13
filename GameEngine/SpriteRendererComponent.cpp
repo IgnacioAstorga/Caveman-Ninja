@@ -170,3 +170,13 @@ Animation* SpriteRendererComponent::GetAnimation() const
 {
 	return animation;
 }
+
+void SpriteRendererComponent::SetOffset(float x, float y)
+{
+	SetOffset(fPoint(x, y));
+}
+
+void SpriteRendererComponent::SetOffset(fPoint offset)
+{
+	this->offset = offset;
+}

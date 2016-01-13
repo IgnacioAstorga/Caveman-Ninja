@@ -42,25 +42,33 @@ PlayerAnimator* PlayerAnimator::Create()
 	attackCrouch->frames.push_back({ 2, 4 });
 	attackCrouch->frames.push_back({ 3, 4 });
 
-	BasicAnimation* attackMelee = new BasicAnimation(1024, 1024, 8, 8, 12.0f, false);
+	BasicAnimation* attackMelee = new BasicAnimation(1024, 1024, 8, 8, 8.0f, false);
 	attackMelee->frames.push_back({ 0, 5 });
 	attackMelee->frames.push_back({ 1, 5 });
 
-	BasicAnimation* attackUpMelee = new BasicAnimation(1024, 1024, 8, 8, 12.0f, false);
+	BasicAnimation* attackUpMelee = new BasicAnimation(1024, 1024, 8, 8, 8.0f, false);
 	attackUpMelee->frames.push_back({ 2, 5 });
 	attackUpMelee->frames.push_back({ 3, 5 });
 
-	BasicAnimation* attackJumpMelee = new BasicAnimation(1024, 1024, 8, 8, 12.0f, false);
+	BasicAnimation* attackJumpMelee = new BasicAnimation(1024, 1024, 8, 8, 8.0f, false);
 	attackJumpMelee->frames.push_back({ 4, 5 });
 	attackJumpMelee->frames.push_back({ 5, 5 });
 
-	BasicAnimation* attackUpJumpMelee = new BasicAnimation(1024, 1024, 8, 8, 12.0f, false);
+	BasicAnimation* attackUpJumpMelee = new BasicAnimation(1024, 1024, 8, 8, 8.0f, false);
 	attackUpJumpMelee->frames.push_back({ 6, 5 });
 	attackUpJumpMelee->frames.push_back({ 7, 5 });
 
-	BasicAnimation* attackCrouchMelee = new BasicAnimation(1024, 1024, 8, 8, 12.0f, false);
+	BasicAnimation* attackCrouchMelee = new BasicAnimation(1024, 1024, 8, 8, 8.0f, false);
 	attackCrouchMelee->frames.push_back({ 0, 6 });
 	attackCrouchMelee->frames.push_back({ 1, 6 });
+
+	BasicAnimation* attackCharged = new BasicAnimation(1024, 1024, 8, 8, 8.0f, false);
+	attackCharged->frames.push_back({ 4, 0 });
+	attackCharged->frames.push_back({ 5, 6 });
+
+	BasicAnimation* attackChargedJump = new BasicAnimation(1024, 1024, 8, 8, 8.0f, false);
+	attackChargedJump->frames.push_back({ 6, 0 });
+	attackChargedJump->frames.push_back({ 5, 6 });
 
 	BasicAnimation* run = new BasicAnimation(1024, 1024, 8, 8, 8.0f);
 	run->frames.push_back({ 1, 0 });
@@ -132,6 +140,8 @@ PlayerAnimator* PlayerAnimator::Create()
 	AnimationState* attackUpMeleeState = new AnimationState(attackUpMelee);
 	AnimationState* attackUpJumpMeleeState = new AnimationState(attackUpJumpMelee);
 	AnimationState* attackCrouchMeleeState = new AnimationState(attackCrouchMelee);
+	AnimationState* attackChargedState = new AnimationState(attackCharged);
+	AnimationState* attackChargedJumpState = new AnimationState(attackChargedJump);
 	AnimationState* runState = new AnimationState(run);
 	AnimationState* jumpState = new AnimationState(jump);
 	AnimationState* longJumpStartState = new AnimationState(longJumpStart);
@@ -153,6 +163,7 @@ PlayerAnimator* PlayerAnimator::Create()
 	idleState->AddStateTransition(new AnimationTransition(idleCrouchState, new FlagEqualsCondition("crouch", true)));
 	idleState->AddStateTransition(new AnimationTransition(attackUpState, new FlagEqualsCondition("weapon_attack_up", true)));
 	idleState->AddStateTransition(new AnimationTransition(attackState, new FlagEqualsCondition("weapon_attack", true)));
+	idleState->AddStateTransition(new AnimationTransition(attackChargedState, new FlagEqualsCondition("weapon_attack_charged", true)));
 	idleState->AddStateTransition(new AnimationTransition(attackUpMeleeState, new FlagEqualsCondition("melee_attack_up", true)));
 	idleState->AddStateTransition(new AnimationTransition(attackMeleeState, new FlagEqualsCondition("melee_attack", true)));
 	idleState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
@@ -165,6 +176,7 @@ PlayerAnimator* PlayerAnimator::Create()
 	idleUpState->AddStateTransition(new AnimationTransition(longJumpStartState, new FlagEqualsCondition("jumping_long", true)));
 	idleUpState->AddStateTransition(new AnimationTransition(fallState, new FlagEqualsCondition("falling", true)));
 	idleUpState->AddStateTransition(new AnimationTransition(idleState, new FlagEqualsCondition("looking_up", false)));
+	idleUpState->AddStateTransition(new AnimationTransition(attackChargedState, new FlagEqualsCondition("weapon_attack_charged", true)));
 	idleUpState->AddStateTransition(new AnimationTransition(attackUpState, new FlagEqualsCondition("weapon_attack_up", true)));
 	idleUpState->AddStateTransition(new AnimationTransition(attackState, new FlagEqualsCondition("weapon_attack", true)));
 	idleUpState->AddStateTransition(new AnimationTransition(attackUpMeleeState, new FlagEqualsCondition("melee_attack_up", true)));
@@ -176,6 +188,7 @@ PlayerAnimator* PlayerAnimator::Create()
 
 	idleCrouchState->AddStateTransition(new AnimationTransition(attackCrouchState, new FlagEqualsCondition("weapon_attack", true)));
 	idleCrouchState->AddStateTransition(new AnimationTransition(attackCrouchMeleeState, new FlagEqualsCondition("melee_attack", true)));
+	idleCrouchState->AddStateTransition(new AnimationTransition(attackChargedState, new FlagEqualsCondition("weapon_attack_charged", true)));
 	idleCrouchState->AddStateTransition(new AnimationTransition(fallState, new FlagEqualsCondition("falling", true)));
 	idleCrouchState->AddStateTransition(new AnimationTransition(idleState, new FlagEqualsCondition("crouch", false)));
 	idleCrouchState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
@@ -187,6 +200,7 @@ PlayerAnimator* PlayerAnimator::Create()
 	runState->AddStateTransition(new AnimationTransition(jumpState, new FlagEqualsCondition("jumping", true)));
 	runState->AddStateTransition(new AnimationTransition(longJumpStartState, new FlagEqualsCondition("jumping_long", true)));
 	runState->AddStateTransition(new AnimationTransition(fallState, new FlagEqualsCondition("falling", true)));
+	runState->AddStateTransition(new AnimationTransition(attackChargedState, new FlagEqualsCondition("weapon_attack_charged", true)));
 	runState->AddStateTransition(new AnimationTransition(attackUpState, new FlagEqualsCondition("weapon_attack_up", true)));
 	runState->AddStateTransition(new AnimationTransition(attackState, new FlagEqualsCondition("weapon_attack", true)));
 	runState->AddStateTransition(new AnimationTransition(attackUpMeleeState, new FlagEqualsCondition("melee_attack_up", true)));
@@ -196,6 +210,7 @@ PlayerAnimator* PlayerAnimator::Create()
 
 	jumpState->AddStateTransition(new AnimationTransition(fallState, new FlagEqualsCondition("falling", true)));
 	jumpState->AddStateTransition(new AnimationTransition(idleState, new FlagEqualsCondition("jumping", false)));
+	jumpState->AddStateTransition(new AnimationTransition(attackChargedJumpState, new FlagEqualsCondition("weapon_attack_charged", true)));
 	jumpState->AddStateTransition(new AnimationTransition(attackUpJumpState, new FlagEqualsCondition("weapon_attack_up", true)));
 	jumpState->AddStateTransition(new AnimationTransition(attackJumpState, new FlagEqualsCondition("weapon_attack", true)));
 	jumpState->AddStateTransition(new AnimationTransition(attackUpJumpMeleeState, new FlagEqualsCondition("melee_attack_up", true)));
@@ -218,6 +233,7 @@ PlayerAnimator* PlayerAnimator::Create()
 	fallState->AddStateTransition(new AnimationTransition(jumpState, new FlagLessThanCondition("speedY_absolute", 0.0f)));
 	fallState->AddStateTransition(new AnimationTransition(attackUpJumpState, new FlagEqualsCondition("weapon_attack_up", true)));
 	fallState->AddStateTransition(new AnimationTransition(attackJumpState, new FlagEqualsCondition("weapon_attack", true)));
+	fallState->AddStateTransition(new AnimationTransition(attackChargedJumpState, new FlagEqualsCondition("weapon_attack_charged", true)));
 	fallState->AddStateTransition(new AnimationTransition(attackUpJumpMeleeState, new FlagEqualsCondition("melee_attack_up", true)));
 	fallState->AddStateTransition(new AnimationTransition(attackJumpMeleeState, new FlagEqualsCondition("melee_attack", true)));
 	fallState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
@@ -262,6 +278,14 @@ PlayerAnimator* PlayerAnimator::Create()
 	attackCrouchMeleeState->AddStateTransition(new AnimationTransition(idleCrouchState, new AnimationEndCondition()));
 	attackCrouchMeleeState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
 	attackCrouchMeleeState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+
+	attackChargedState->AddStateTransition(new AnimationTransition(idleState, new AnimationEndCondition()));
+	attackChargedState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	attackChargedState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
+
+	attackChargedJumpState->AddStateTransition(new AnimationTransition(jumpState, new AnimationEndCondition()));
+	attackChargedJumpState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
+	attackChargedJumpState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
 	hitBackState->AddStateTransition(new AnimationTransition(idleState, new FlagEqualsCondition("hit_back", false)));
 	hitBackState->AddStateTransition(new AnimationTransition(dieBackState, new FlagEqualsCondition("decaying", true)));

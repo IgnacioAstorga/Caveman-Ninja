@@ -4,26 +4,39 @@
 #include "Component.h"
 
 class Animator;
+class SpriteRendererComponent;
 class PlayerGravityComponent;
 class PlayerJumpComponent;
 class PlayerInputComponent;
 class PlayerLifeComponent;
+class WeaponComponent;
 
 class AnimatorMappingComponent : public Component
 {
 public:
-	AnimatorMappingComponent();
+	AnimatorMappingComponent(SpriteRendererComponent* mainRendererComponent, SpriteRendererComponent* chargingRendererComponent, SpriteRendererComponent* armRendererComponent);
 	virtual ~AnimatorMappingComponent();
 
 protected:
 	bool OnStart();
 	bool OnPostUpdate();
 
+private:
+	void ConfigureAnimator(Animator* animator);
+
 public:
-	Animator* animator;
+	SpriteRendererComponent* mainRendererComponent;
+	SpriteRendererComponent* chargingRendererComponent;
+	SpriteRendererComponent* armRendererComponent;
+
+	Animator* mainAnimator;
+	Animator* chargingAnimator;
+	Animator* armAnimator;
+
 	PlayerGravityComponent* gravityComponent;
 	PlayerJumpComponent* jumpComponent;
 	PlayerInputComponent* inputComponent;
 	PlayerLifeComponent* lifeComponent;
+	WeaponComponent* weaponComponent;
 };
 #endif // __ANIMATORMAPPINGCOMPONENT_H__

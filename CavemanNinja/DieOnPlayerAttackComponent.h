@@ -23,7 +23,7 @@ protected:
 	bool OnCollisionEnter(Collider* self, Collider* other);
 
 public:
-	void Die(Transform* otherTransform);
+	void Die(Transform* otherTransform, bool big = false);
 	void Decay();
 
 public:

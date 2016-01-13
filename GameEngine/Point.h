@@ -144,11 +144,12 @@ public:
 		return(*this);
 	}
 
-	Point ProjectionOn(const Point& v) const
+	Point ProjectionOn(const Point& other) const
 	{
-		T norm = v.Norm();
-		T product = Dot(v);
-		return v * (product / norm);
+		T dotProduct = this->Dot(other);
+		T scalar = dotProduct / other.Norm();
+		Point<T> copy = other;
+		return copy.Normalize() * scalar;
 	}
 
 	T Dot(const Point& v) const

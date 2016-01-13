@@ -6,6 +6,9 @@
 #include "SDL_mixer.h"
 #pragma comment( lib, "SDL2_mixer.lib" )
 
+#define MAX_CHANNELS 16
+#define RESERVE_CHANNELS 8
+
 using namespace std;
 
 ModuleAudio::ModuleAudio( bool start_enabled) : Module( start_enabled)
@@ -50,6 +53,15 @@ bool ModuleAudio::Init()
 	if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
 	{
 		LOG("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
+		ret = false;
+	}
+
+	// Establece el número de canales y reserva para cosas específicas
+	Mix_AllocateChannels(MAX_CHANNELS);
+	int reservedChannels = Mix_ReserveChannels(RESERVE_CHANNELS);
+	if (reservedChannels != RESERVE_CHANNELS)
+	{
+		LOG("SDL_mixer could not reserve enough channels! The number of channes reserved was: %d\n", reservedChannels);
 		ret = false;
 	}
 
@@ -164,13 +176,13 @@ unsigned int ModuleAudio::LoadFx(const char* path)
 }
 
 // Play WAV
-bool ModuleAudio::PlayFx(unsigned int id, int repeat)
+bool ModuleAudio::PlayFx(unsigned int id, int repeat, int channel)
 {
 	bool ret = false;
 
 	if(id < fx.size())
 	{
-		Mix_PlayChannel(-1, fx[id], repeat);
+		Mix_PlayChannel(channel, fx[id], repeat);
 		ret = true;
 	}
 

@@ -12,7 +12,7 @@ class Animator;
 class WeaponComponent : public Component
 {
 public:
-	WeaponComponent(CircleColliderComponent* meleeComponent, fPoint meleeOffset, fPoint rangedOffset, fPoint initialSpeed, float delay, int maximumProjectileCount);
+	WeaponComponent(CircleColliderComponent* meleeComponent, fPoint meleeOffset, fPoint rangedOffset, float chargeTime, float delay, int maximumProjectileCount);
 	virtual ~WeaponComponent();
 
 protected:
@@ -22,6 +22,9 @@ protected:
 	bool OnPreUpdate();
 
 	virtual Entity* GetWeaponProjectile(fPoint position, int projectileNumber) = 0;
+	virtual Entity* GetChargedWeaponProjectile(fPoint position, int projectileNumber) = 0;
+	virtual fPoint GetInitialSpeed() = 0;
+	virtual fPoint GetInitialChargedSpeed() = 0;
 	virtual unsigned int GetFireSound() = 0;
 
 private:
@@ -31,14 +34,16 @@ private:
 public:
 	fPoint meleeOffset;
 	fPoint rangedOffset;
-	fPoint initialSpeed;
 
 	float delay;
 	float currentDelay;
 	int maximumProjectileCount;
 	int projectileCount;
+	float chargeTime;
+	bool charging;
 
 	Timer meleeTimer;
+	Timer chargeTimer;
 
 	Animator* animator;
 	PlayerInputComponent* inputComponent;
@@ -46,5 +51,7 @@ public:
 	CircleColliderComponent* meleeComponent;
 
 	unsigned int fireSound;
+	unsigned int fireChargedSound;
+	unsigned int chargeCompleteSound;
 };
 #endif //__WEAPONCOMPONENT_H__

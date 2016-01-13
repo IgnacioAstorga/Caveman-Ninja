@@ -27,12 +27,12 @@ void EnemyCaveman::OnCreate()
 	ColliderComponent* colliderComponent;
 	CircleColliderComponent* attackComponent;
 	AddComponent(new SpriteRendererComponent("assets/images/enemy_caveman_1.png", EnemyCavemanAnimator::Create(), -64, -128));
-	AddComponent(colliderComponent = new RectangleColliderComponent(25, 46, { PLAYER, PLAYER_ATTACK }, 0, -23, 0, ENEMY, true));
+	AddComponent(colliderComponent = new RectangleColliderComponent(25, 46, { PLAYER, PLAYER_ATTACK, PLAYER_ATTACK_BIG }, 0, -23, 0, ENEMY, true));
 	AddComponent(attackComponent = new CircleColliderComponent(20, collisionsTypes, 0, -23, ENEMY_ATTACK, false, false));
 	AddComponent(new AIComponent(CavemanAIManager::Create(attackComponent, colliderComponent)));
 	AddComponent(new DieOnPlayerAttackComponent(1.25f, colliderComponent));
 	AddComponent(colliderComponent = new CircleColliderComponent(1.0f, { FLOOR, GROUND }, 0.0f, 0.0f, ENEMY, true));
-	AddComponent(new EnemyGravityComponent(500.0f, colliderComponent, 5.0f));
+	AddComponent(new EnemyGravityComponent(500.0f, colliderComponent));
 	AddComponent(new MovementSimpleComponent());
 	AddComponent(new EntityLifetimeComponent(5.0f, false));
 	AddComponent(new EnemyAnimatorMappingComponent());

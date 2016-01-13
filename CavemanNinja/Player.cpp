@@ -8,6 +8,7 @@
 #include "PlayerGravityComponent.h"
 #include "PlayerJumpComponent.h"
 #include "PlayerAnimator.h"
+#include "PlayerArmAnimator.h"
 #include "AnimatorMappingComponent.h"
 #include "WeaponTomahawk.h"
 #include "PlayerLifeComponent.h"
@@ -16,7 +17,12 @@ void Player::OnCreate()
 {
 	// Añade las componentes de la entidad
 	ColliderComponent* colliderComponent;
-	AddComponent(new SpriteRendererComponent("assets/images/player_green.png", PlayerAnimator::Create(), -64, -128));
+	SpriteRendererComponent* mainRendererComponent;
+	SpriteRendererComponent* chargingRendererComponent;
+	SpriteRendererComponent* armRendererComponent;
+	AddComponent(mainRendererComponent = new SpriteRendererComponent("assets/images/player_green.png", PlayerAnimator::Create(), -64, -128));
+	AddComponent(chargingRendererComponent = new SpriteRendererComponent("assets/images/player_green_charging.png", PlayerAnimator::Create(), -64, -128));
+	AddComponent(armRendererComponent = new SpriteRendererComponent("assets/images/player_green_arm.png", PlayerArmAnimator::Create(), -48, -48));
 	AddComponent(colliderComponent = new RectangleColliderComponent(28, 47, { WALL, ENEMY, ENEMY_ATTACK, PICKUP }, 0, -24, 0, PLAYER, true));
 	AddComponent(new PlayerLifeComponent(colliderComponent, 18, 1.0f, 5.0f, 2.0f));
 	AddComponent(new PlayerInputComponent(75.0f, colliderComponent, 0.1f));
@@ -24,7 +30,7 @@ void Player::OnCreate()
 	AddComponent(new PlayerGravityComponent(500.0f, colliderComponent, 5.0f));
 	AddComponent(new PlayerJumpComponent(250.0f, 1.25f));
 	AddComponent(new MovementSimpleComponent());
-	AddComponent(new AnimatorMappingComponent());
+	AddComponent(new AnimatorMappingComponent(mainRendererComponent, chargingRendererComponent, armRendererComponent));
 
 	// Añade el componente del arma
 	vector<int> collisionsTypes;

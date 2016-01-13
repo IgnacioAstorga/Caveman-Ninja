@@ -27,6 +27,8 @@ protected:
 
 public:
 	Animation* GetAnimation() const;
+	void SetOffset(float x, float y);
+	void SetOffset(fPoint offset);
 
 private:
 	string textureName;

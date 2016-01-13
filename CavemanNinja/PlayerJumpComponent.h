@@ -7,6 +7,7 @@
 class PlayerGravityComponent;
 class PlayerInputComponent;
 class RectangleBasicCollider;
+class WeaponComponent;
 
 class PlayerJumpComponent : public Component
 {
@@ -38,6 +39,7 @@ public:
 	PlayerGravityComponent* fallingComponent;
 	PlayerInputComponent* inputComponent;
 	RectangleBasicCollider* hitboxCollider;
+	WeaponComponent* weaponComponent;
 
 	float originalOffsetY;
 	float originalHeight;

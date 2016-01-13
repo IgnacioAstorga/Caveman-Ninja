@@ -11,6 +11,8 @@
 #include "SpawnPickupOnDeathComponent.h"
 #include "AIComponent.h"
 
+#define BIG_FACTOR 2.0f;
+
 DieOnPlayerAttackComponent::DieOnPlayerAttackComponent(float decayTime, ColliderComponent* colliderComponent, bool start_enabled)
 	: Component(start_enabled)
 {
@@ -59,11 +61,11 @@ bool DieOnPlayerAttackComponent::OnUpdate()
 bool DieOnPlayerAttackComponent::OnCollisionEnter(Collider * self, Collider * other)
 {
 	// Comprueba si es el collider adecuado y si es un ataque del jugador
-	if (self != colliderComponent->GetCollider() || other->GetType() != PLAYER_ATTACK)
+	if (self != colliderComponent->GetCollider() || (other->GetType() != PLAYER_ATTACK && other->GetType() != PLAYER_ATTACK_BIG))
 		return true;
 
 	// Mata al personaje
-	Die(other->transform);
+	Die(other->transform, other->GetType() == PLAYER_ATTACK_BIG);
 
 	// Reproduce los efectos de sonido
 	App->audio->PlayFx(hitSound);
@@ -79,7 +81,7 @@ bool DieOnPlayerAttackComponent::OnCollisionEnter(Collider * self, Collider * ot
 	return true;
 }
 
-void DieOnPlayerAttackComponent::Die(Transform* otherTransform)
+void DieOnPlayerAttackComponent::Die(Transform* otherTransform, bool big)
 {
 	if (dead)
 		return;
@@ -105,6 +107,8 @@ void DieOnPlayerAttackComponent::Die(Transform* otherTransform)
 		entity->transform->SetSpeed(-100.0f, -150.0f);
 	else
 		entity->transform->SetSpeed(0.0f, -200.0f);
+	if (big)
+		entity->transform->speed *= BIG_FACTOR;
 
 	// Reproduce los efectos de sonido
 	App->audio->PlayFx(dieSound);

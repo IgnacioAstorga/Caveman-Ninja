@@ -107,7 +107,7 @@ void GameControllerComponent::Win()
 		(*it)->Kill();
 
 	// Reproduce el sonido y para la música
-	App->audio->PlayFx(victorySound);
+	App->audio->PlayFx(victorySound, 0);	// Canal reservado 0
 	App->audio->PauseMusic();
 
 	// Activa el timer

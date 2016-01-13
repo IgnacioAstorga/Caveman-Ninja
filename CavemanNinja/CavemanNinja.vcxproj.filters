@@ -145,6 +145,18 @@
     <ClCompile Include="CavemanRunAIBehaviour.cpp">
       <Filter>Enemies\AI\Caveman</Filter>
     </ClCompile>
+    <ClCompile Include="RollingBallGravityComponent.cpp">
+      <Filter>Enemies\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="RollingBall.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="TomahawkBigProjectile.cpp">
+      <Filter>Weapons\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerArmAnimator.cpp">
+      <Filter>Player\Animations</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scenes">
@@ -364,6 +376,18 @@
     </ClInclude>
     <ClInclude Include="CavemanRunAIBehaviour.h">
       <Filter>Enemies\AI\Caveman</Filter>
+    </ClInclude>
+    <ClInclude Include="RollingBallGravityComponent.h">
+      <Filter>Enemies\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RollingBall.h">
+      <Filter>Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="TomahawkBigProjectile.h">
+      <Filter>Weapons\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerArmAnimator.h">
+      <Filter>Player\Animations</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

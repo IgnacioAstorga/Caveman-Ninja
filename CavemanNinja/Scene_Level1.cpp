@@ -68,7 +68,6 @@ void Scene_Level1::OnCreateScene()
 	dinosaurEye = new DinosaurEye("dinosaur_eye", 720, 141);
 	ground->AddChild(dinosaurEye);
 
-
 	player = new Player("player_1", 20, 190);
 	AddChild(player);
 

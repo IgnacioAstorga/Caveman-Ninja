@@ -10,6 +10,7 @@
 #include "ModuleInput.h"
 #include "ModuleTime.h"
 #include "ModuleAudio.h"
+#include "WeaponComponent.h"
 
 PlayerJumpComponent::PlayerJumpComponent(float jumpSpeed, float longJumpMultiplier)
 {
@@ -34,6 +35,11 @@ bool PlayerJumpComponent::OnStart()
 	// Intenta recuperar el componente donde comprobar si está detenido
 	inputComponent = entity->FindComponent<PlayerInputComponent>();
 	if (inputComponent == NULL)
+		return false;
+
+	// Intenta recuperar el arma del personaje
+	weaponComponent = entity->FindComponent<WeaponComponent>();
+	if (weaponComponent == NULL)
 		return false;
 
 	// Intenta recuperar la hitbox del personaje
@@ -132,10 +138,10 @@ void PlayerJumpComponent::Jump()
 
 	// Modifica la velocidad vertical de la entidad para hacerla saltar
 	fPoint currentSpeed = entity->transform->GetGlobalSpeed();
-	float totalJumpSpeed = jumpSpeed * (lookingUp ? longJumpMultiplier : 1.0f);
+	longJumping = lookingUp && !weaponComponent->charging;	// No puede saltar alto mientras carga el arma
+	float totalJumpSpeed = jumpSpeed * (longJumping ? longJumpMultiplier : 1.0f);
 	entity->transform->SetGlobalSpeed(currentSpeed.x, -totalJumpSpeed);	// Arriba es negativo
 	jumping = true;
-	longJumping = lookingUp;
 
 	// Reproduce un sonido
 	if (jumping && longJumping)

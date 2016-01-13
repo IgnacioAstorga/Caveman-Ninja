@@ -1,5 +1,5 @@
-#ifndef __ENEMYGRAVITYCOMPONENT_H__
-#define __ENEMYGRAVITYCOMPONENT_H__
+#ifndef __ROLLINGBALLGRAVITYCOMPONENT_H__
+#define __ROLLINGBALLGRAVITYCOMPONENT_H__
 
 #include "Component.h"
 #include "ColliderTypes.h"
@@ -8,21 +8,26 @@
 class ColliderComponent;
 class DieOnPlayerAttackComponent;
 
-class EnemyGravityComponent : public Component
+class RollingBallGravityComponent : public Component
 {
 public:
-	EnemyGravityComponent(float gravity, ColliderComponent* colliderComponent);
-	virtual ~EnemyGravityComponent();
+	RollingBallGravityComponent(float gravity, float friction, ColliderComponent* colliderComponent);
+	virtual ~RollingBallGravityComponent();
 
 protected:
 	bool OnStart();
+	bool OnPreUpdate();
 	bool OnUpdate();
 	bool OnCollisionEnter(Collider* self, Collider* other);
 	bool OnCollisionStay(Collider* self, Collider* other);
 
 public:
 	float gravity;
+	float friction;
 	bool falling;
+
+	fPoint lastPosition;
+	fPoint lastFrameVelocity;
 
 	ColliderComponent* colliderComponent;
 	DieOnPlayerAttackComponent* lifeComponent;

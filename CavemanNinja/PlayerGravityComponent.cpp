@@ -60,6 +60,12 @@ bool PlayerGravityComponent::OnUpdate()
 	return true;
 }
 
+bool PlayerGravityComponent::OnPostUpdate()
+{
+	onAir = jumpComponent->jumping || falling;
+	return true;
+}
+
 bool PlayerGravityComponent::OnCollisionEnter(Collider* self, Collider* other)
 {
 	// Primero, detecta si la colisión es con el suelo
@@ -83,7 +89,7 @@ bool PlayerGravityComponent::OnCollisionEnter(Collider* self, Collider* other)
 	falling = false;
 	if (jumpComponent != NULL)
 	{
-		if (jumpComponent->jumping)
+		if (onAir)
 			App->audio->PlayFx(landSound);
 		jumpComponent->jumping = false;
 		jumpComponent->longJumping = false;

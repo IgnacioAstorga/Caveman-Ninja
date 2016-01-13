@@ -144,8 +144,12 @@
     <ClCompile Include="OnFoodPickUpComponent.cpp" />
     <ClCompile Include="Pickup.cpp" />
     <ClCompile Include="GUIScoreTextComponent.cpp" />
+    <ClCompile Include="PlayerArmAnimator.cpp" />
+    <ClCompile Include="RollingBallGravityComponent.cpp" />
+    <ClCompile Include="RollingBall.cpp" />
     <ClCompile Include="ScoreTextEffect.cpp" />
     <ClCompile Include="SpawnPickupOnDeathComponent.cpp" />
+    <ClCompile Include="TomahawkBigProjectile.cpp" />
     <ClCompile Include="UserInterfaceComponent.cpp" />
     <ClCompile Include="GUILifebarComponent.cpp" />
     <ClCompile Include="GUILifebarPoint.cpp" />
@@ -198,10 +202,14 @@
     <ClInclude Include="GUIPortrait.h" />
     <ClInclude Include="GUIPortraitComponent.h" />
     <ClInclude Include="GUIScoreTextComponent.h" />
+    <ClInclude Include="PlayerArmAnimator.h" />
+    <ClInclude Include="RollingBallGravityComponent.h" />
+    <ClInclude Include="RollingBall.h" />
     <ClInclude Include="SpawnPickupOnDeathComponent.h" />
     <ClInclude Include="OnFoodPickUpComponent.h" />
     <ClInclude Include="Pickup.h" />
     <ClInclude Include="ScoreTextEffect.h" />
+    <ClInclude Include="TomahawkBigProjectile.h" />
     <ClInclude Include="UserInterfaceComponent.h" />
     <ClInclude Include="GUILifebarComponent.h" />
     <ClInclude Include="GUILifebarPoint.h" />
