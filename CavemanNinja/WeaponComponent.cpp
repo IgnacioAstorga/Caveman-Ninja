@@ -243,3 +243,10 @@ void WeaponComponent::RangedAttack()
 	// Reestablece el delay del ataque
 	currentDelay = 0;
 }
+
+void WeaponComponent::DecreaseCount(int amount)
+{
+	projectileCount -= amount;
+	if (projectileCount < 0)
+		projectileCount = 0;
+}

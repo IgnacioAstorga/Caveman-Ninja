@@ -6,7 +6,8 @@
 enum WeaponPickupType
 {
 	WEAPON_TOMAHAWK = 0,
-	WEAPON_FANG = 1
+	WEAPON_FANG = 1,
+	WEAPON_BOOMERANG = 2
 };
 
 class WeaponPickup : public Entity

@@ -17,7 +17,7 @@
 #define GRAVITY 0.0f
 #define FRICTION 0.5f
 #define SPEED_DOWN 25.0f
-#define NUMBER_OF_WEAPONS 2
+#define NUMBER_OF_WEAPONS 3
 #define ACTIVATION_DELAY 0.1f
 
 void Egg::OnCreate()

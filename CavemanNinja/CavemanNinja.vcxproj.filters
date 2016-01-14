@@ -220,6 +220,18 @@
     <ClCompile Include="SpawnEntityOnDeathComponent.cpp">
       <Filter>Enemies\Components</Filter>
     </ClCompile>
+    <ClCompile Include="WeaponBoomerang.cpp">
+      <Filter>Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="BoomerangAIComponent.cpp">
+      <Filter>Weapons\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="BoomerangProjectile.cpp">
+      <Filter>Weapons\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="BoomerangBigProjectile.cpp">
+      <Filter>Weapons\Projectiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scenes">
@@ -299,6 +311,9 @@
     </Filter>
     <Filter Include="Enemies\AI\Thrower">
       <UniqueIdentifier>{e6f20727-cd8e-45e4-a0be-b092ff863d99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Weapons\AI">
+      <UniqueIdentifier>{7dd7b15a-a2a8-4d5c-8de9-487a231c98b4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -529,6 +544,18 @@
     </ClInclude>
     <ClInclude Include="SpawnEntityOnDeathComponent.h">
       <Filter>Enemies\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponBoomerang.h">
+      <Filter>Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="BoomerangProjectile.h">
+      <Filter>Weapons\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="BoomerangAIComponent.h">
+      <Filter>Weapons\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="BoomerangBigProjectile.h">
+      <Filter>Weapons\Projectiles</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

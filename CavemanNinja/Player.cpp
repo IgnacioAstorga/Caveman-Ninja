@@ -15,6 +15,7 @@
 
 #include "WeaponTomahawk.h"
 #include "WeaponFang.h"
+#include "WeaponBoomerang.h"
 
 #define LIFE_POINTS 18
 #define GRACE_TIME 1.0f
@@ -66,6 +67,9 @@ void Player::SetWeapon(WeaponPickupType newWeaponType)
 		break;
 	case WEAPON_FANG:
 		newWeapon = new WeaponFang(meleeComponent, MELEE_ATTACK_OFFSET);
+		break;
+	case WEAPON_BOOMERANG:
+		newWeapon = new WeaponBoomerang(meleeComponent, MELEE_ATTACK_OFFSET);
 		break;
 	default:
 		return;

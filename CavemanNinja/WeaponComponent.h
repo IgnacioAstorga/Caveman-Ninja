@@ -33,6 +33,9 @@ private:
 	void RangedAttack();
 
 public:
+	void DecreaseCount(int amount);
+
+public:
 	fPoint meleeOffset;
 	fPoint rangedOffset;
 

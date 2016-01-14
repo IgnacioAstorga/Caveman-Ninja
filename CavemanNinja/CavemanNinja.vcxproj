@@ -121,6 +121,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BoomerangAIComponent.cpp" />
+    <ClCompile Include="BoomerangBigProjectile.cpp" />
+    <ClCompile Include="BoomerangProjectile.cpp" />
     <ClCompile Include="CavemanAIManager.cpp" />
     <ClCompile Include="AnimatorMappingComponent.cpp" />
     <ClCompile Include="CameraMovementComponent.cpp" />
@@ -185,6 +188,7 @@
     <ClCompile Include="Scene_Level1.cpp" />
     <ClCompile Include="CavemanNinjaApp.cpp" />
     <ClCompile Include="TomahawkAnimator.cpp" />
+    <ClCompile Include="WeaponBoomerang.cpp" />
     <ClCompile Include="WeaponDestroyOnCollisionComponent.cpp" />
     <ClCompile Include="WeaponFang.cpp" />
     <ClCompile Include="WeaponGravityComponent.cpp" />
@@ -201,6 +205,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BoomerangAIComponent.h" />
+    <ClInclude Include="BoomerangBigProjectile.h" />
+    <ClInclude Include="BoomerangProjectile.h" />
     <ClInclude Include="CavemanAIManager.h" />
     <ClInclude Include="AnimatorMappingComponent.h" />
     <ClInclude Include="CameraMovementComponent.h" />
@@ -268,6 +275,7 @@
     <ClInclude Include="PlayerLifeComponent.h" />
     <ClInclude Include="Scene_Level1.h" />
     <ClInclude Include="TomahawkAnimator.h" />
+    <ClInclude Include="WeaponBoomerang.h" />
     <ClInclude Include="WeaponDestroyOnCollisionComponent.h" />
     <ClInclude Include="WeaponFang.h" />
     <ClInclude Include="WeaponGravityComponent.h" />

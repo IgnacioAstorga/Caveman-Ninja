@@ -19,7 +19,7 @@ void WeaponPickup::OnCreate()
 {
 	// Crea la animación adecuada de la entidad
 	BasicAnimation* animation = new BasicAnimation(128, 64, 4, 2, 0.0f, false);
-	animation->frames.push_back({ type % 4, type / 2 });
+	animation->frames.push_back({ type % 4, type / 4 });
 
 	// Crea el vector con los tipos de colliders ("{}" no soporta un solo elemento)
 	vector<int> collisionsTypes;

@@ -26,7 +26,7 @@ bool WeaponDestroyOnCollisionComponent::OnCollisionEnter(Collider * self, Collid
 		if (playerWeapon == NULL)	// El arma puede cambiar, hay que recuperarlo cada vez
 			return true;
 
-		playerWeapon->projectileCount -= 1;	// Reduce en uno la cuenta de proyectiles disparados
+		playerWeapon->DecreaseCount(1);	// Reduce en uno la cuenta de proyectiles disparados
 	}
 	return true;
 }
