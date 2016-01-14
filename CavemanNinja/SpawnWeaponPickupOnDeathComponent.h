@@ -1,15 +1,23 @@
 #ifndef __SPAWNWEAPONPICKUPONDEATHCOMPONENT_H__
 #define __SPAWNWEAPONPICKUPONDEATHCOMPONENT_H__
 
-#include "SpawnPickupOnDeathComponent.h"
+#include "SpawnEntityOnDeathComponent.h"
+#include "WeaponPickup.h"
 
-class SpawnWeaponPickupOnDeathComponent : public SpawnPickupOnDeathComponent
+class SpawnWeaponPickupOnDeathComponent : public SpawnEntityOnDeathComponent
 {
 public:
-	SpawnWeaponPickupOnDeathComponent(int type) : SpawnPickupOnDeathComponent(type) {};
+	SpawnWeaponPickupOnDeathComponent(WeaponPickupType type) : SpawnEntityOnDeathComponent(), type(type) {};
 	~SpawnWeaponPickupOnDeathComponent() {};
 
 protected:
-	Entity* GetPickup(int type);
+	Entity * SpawnWeaponPickupOnDeathComponent::GetEntity()
+	{
+		return new WeaponPickup((WeaponPickupType)type, "weapon_pickup_" + entity->name);
+	};
+
+public:
+	WeaponPickupType type;
 };
+
 #endif	// __SPAWNWEAPONPICKUPONDEATHCOMPONENT_H__

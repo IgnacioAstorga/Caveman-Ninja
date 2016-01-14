@@ -8,7 +8,7 @@
 #include "ModuleTime.h"
 #include "ModuleAudio.h"
 #include "EnemyHitEffect.h"
-#include "SpawnPickupOnDeathComponent.h"
+#include "SpawnEntityOnDeathComponent.h"
 #include "AIComponent.h"
 #include "EntityLifetimeComponent.h"
 
@@ -122,9 +122,9 @@ void DieOnPlayerAttackComponent::Die(Transform* otherTransform, bool big)
 	// Reproduce los efectos de sonido
 	App->audio->PlayFx(dieSound);
 
-	// Da la señal a los componentes que hagan aparecer pickups
-	list<SpawnPickupOnDeathComponent*> spawners = entity->FindAllComponents<SpawnPickupOnDeathComponent>();
-	for (list<SpawnPickupOnDeathComponent*>::iterator it = spawners.begin(); it != spawners.end(); ++it)
+	// Da la señal a los componentes que hagan aparecer entidades
+	list<SpawnEntityOnDeathComponent*> spawners = entity->FindAllComponents<SpawnEntityOnDeathComponent>();
+	for (list<SpawnEntityOnDeathComponent*>::iterator it = spawners.begin(); it != spawners.end(); ++it)
 		(*it)->Spawn();
 
 	// Si tiene componente de vida, lo activa

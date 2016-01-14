@@ -146,6 +146,9 @@
     <ClCompile Include="EnemyThrowerAnimator.cpp" />
     <ClCompile Include="FangBigProjectile.cpp" />
     <ClCompile Include="FangProjectile.cpp" />
+    <ClCompile Include="FlyingDinosaur.cpp" />
+    <ClCompile Include="FlyingDinosaurAIComponent.cpp" />
+    <ClCompile Include="FlyingDinosaurAnimator.cpp" />
     <ClCompile Include="GameControllerComponent.cpp" />
     <ClCompile Include="GUIPortrait.cpp" />
     <ClCompile Include="GUIPortraitComponent.cpp" />
@@ -158,9 +161,7 @@
     <ClCompile Include="RollingBallGravityComponent.cpp" />
     <ClCompile Include="RollingBall.cpp" />
     <ClCompile Include="ScoreTextEffect.cpp" />
-    <ClCompile Include="SpawnFoodPickupOnDeathComponent.cpp" />
-    <ClCompile Include="SpawnPickupOnDeathComponent.cpp" />
-    <ClCompile Include="SpawnWeaponPickupOnDeathComponent.cpp" />
+    <ClCompile Include="SpawnEntityOnDeathComponent.cpp" />
     <ClCompile Include="ThrowerAIManager.cpp" />
     <ClCompile Include="ThrowerIdleAIBehaviour.cpp" />
     <ClCompile Include="ThrowerRunAIBehaviour.cpp" />
@@ -227,6 +228,9 @@
     <ClInclude Include="EnemyThrowerAnimator.h" />
     <ClInclude Include="FangBigProjectile.h" />
     <ClInclude Include="FangProjectile.h" />
+    <ClInclude Include="FlyingDinosaur.h" />
+    <ClInclude Include="FlyingDinosaurAIComponent.h" />
+    <ClInclude Include="FlyingDinosaurAnimator.h" />
     <ClInclude Include="GameControllerComponent.h" />
     <ClInclude Include="GUIPortrait.h" />
     <ClInclude Include="GUIPortraitComponent.h" />
@@ -236,8 +240,9 @@
     <ClInclude Include="RollingBallAnimator.h" />
     <ClInclude Include="RollingBallGravityComponent.h" />
     <ClInclude Include="RollingBall.h" />
+    <ClInclude Include="SpawnEggOnDeathComponent.h" />
     <ClInclude Include="SpawnFoodPickupOnDeathComponent.h" />
-    <ClInclude Include="SpawnPickupOnDeathComponent.h" />
+    <ClInclude Include="SpawnEntityOnDeathComponent.h" />
     <ClInclude Include="OnFoodPickUpComponent.h" />
     <ClInclude Include="FoodPickup.h" />
     <ClInclude Include="ScoreTextEffect.h" />

@@ -303,6 +303,9 @@
     <ClInclude Include="SingleAnimation.h">
       <Filter>Elements\Animations</Filter>
     </ClInclude>
+    <ClInclude Include="ActivateComponentAfterTimeComponent.h">
+      <Filter>Elements\Entities\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -472,6 +475,9 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Elements\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="ActivateComponentAfterTimeComponent.cpp">
+      <Filter>Elements\Entities\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -109,9 +109,6 @@
     <ClCompile Include="ScoreTextEffect.cpp">
       <Filter>Effects</Filter>
     </ClCompile>
-    <ClCompile Include="SpawnPickupOnDeathComponent.cpp">
-      <Filter>Enemies\Components</Filter>
-    </ClCompile>
     <ClCompile Include="GUIScoreTextComponent.cpp">
       <Filter>GUI\Score</Filter>
     </ClCompile>
@@ -211,10 +208,16 @@
     <ClCompile Include="FoodPickup.cpp">
       <Filter>Pickups</Filter>
     </ClCompile>
-    <ClCompile Include="SpawnFoodPickupOnDeathComponent.cpp">
-      <Filter>Enemies\Components</Filter>
+    <ClCompile Include="FlyingDinosaurAnimator.cpp">
+      <Filter>Enemies\Animations</Filter>
     </ClCompile>
-    <ClCompile Include="SpawnWeaponPickupOnDeathComponent.cpp">
+    <ClCompile Include="FlyingDinosaurAIComponent.cpp">
+      <Filter>Enemies\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="FlyingDinosaur.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnEntityOnDeathComponent.cpp">
       <Filter>Enemies\Components</Filter>
     </ClCompile>
   </ItemGroup>
@@ -404,9 +407,6 @@
     <ClInclude Include="ScoreTextEffect.h">
       <Filter>Effects</Filter>
     </ClInclude>
-    <ClInclude Include="SpawnPickupOnDeathComponent.h">
-      <Filter>Enemies\Components</Filter>
-    </ClInclude>
     <ClInclude Include="GUIScoreTextComponent.h">
       <Filter>GUI\Score</Filter>
     </ClInclude>
@@ -513,6 +513,21 @@
       <Filter>Enemies\Components</Filter>
     </ClInclude>
     <ClInclude Include="SpawnWeaponPickupOnDeathComponent.h">
+      <Filter>Enemies\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyingDinosaurAnimator.h">
+      <Filter>Enemies\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyingDinosaur.h">
+      <Filter>Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyingDinosaurAIComponent.h">
+      <Filter>Enemies\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnEggOnDeathComponent.h">
+      <Filter>Enemies\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnEntityOnDeathComponent.h">
       <Filter>Enemies\Components</Filter>
     </ClInclude>
   </ItemGroup>
