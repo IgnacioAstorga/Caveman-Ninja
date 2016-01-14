@@ -316,12 +316,15 @@ PlayerAnimator* PlayerAnimator::Create()
 	attackChargedJumpState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
 	hitBackState->AddStateTransition(new AnimationTransition(idleState, new FlagEqualsCondition("hit_back", false)));
+	hitBackState->AddStateTransition(new AnimationTransition(dieHarvestState, new FlagEqualsCondition("dead_harvest", true)));
 	hitBackState->AddStateTransition(new AnimationTransition(dieBackState, new FlagEqualsCondition("decaying", true)));
 
 	hitFrontState->AddStateTransition(new AnimationTransition(idleState, new FlagEqualsCondition("hit_front", false)));
+	hitFrontState->AddStateTransition(new AnimationTransition(dieHarvestState, new FlagEqualsCondition("dead_harvest", true)));
 	hitFrontState->AddStateTransition(new AnimationTransition(dieFrontState, new FlagEqualsCondition("decaying", true)));
 
 	exhaustState->AddStateTransition(new AnimationTransition(idleState, new FlagEqualsCondition("exhausted", false)));
+	exhaustState->AddStateTransition(new AnimationTransition(dieHarvestState, new FlagEqualsCondition("dead_harvest", true)));
 	exhaustState->AddStateTransition(new AnimationTransition(dieExhaustState, new FlagEqualsCondition("decaying", true)));
 
 	// Crea y devuelve el animator
