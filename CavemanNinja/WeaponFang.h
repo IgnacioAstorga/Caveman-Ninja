@@ -1,12 +1,12 @@
-#ifndef __WEAPONTOMAHAWK_H__
-#define __WEAPONTOMAHAWK_H__
+#ifndef __WEAPONFANG_H__
+#define __WEAPONFANG_H__
 
 #include "WeaponComponent.h"
 
-class WeaponTomahawk : public WeaponComponent
+class WeaponFang : public WeaponComponent
 {
 public:
-	WeaponTomahawk(CircleColliderComponent* meleeComponent, fPoint meleeOffset);
+	WeaponFang(CircleColliderComponent* meleeComponent, fPoint meleeOffset);
 
 protected:
 	Entity* GetWeaponProjectile(fPoint position, int projectileNumber, bool up);
@@ -15,4 +15,4 @@ protected:
 	fPoint GetInitialChargedSpeed();
 	unsigned int GetFireSound();
 };
-#endif //__WEAPONTOMAHAWK_H__
+#endif //__WEAPONFANG_H__

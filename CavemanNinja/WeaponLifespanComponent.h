@@ -4,12 +4,10 @@
 #include "Component.h"
 #include "Timer.h"
 
-class WeaponComponent;
-
 class WeaponLifespanComponent : public Component
 {
 public:
-	WeaponLifespanComponent(float lifeTime, WeaponComponent* weaponComponent);
+	WeaponLifespanComponent(float lifeTime);
 	virtual ~WeaponLifespanComponent();
 
 protected:
@@ -25,7 +23,5 @@ public:
 public:
 	float lifeTime;
 	Timer lifetimeTimer;
-
-	WeaponComponent* weaponComponent;
 };
 #endif // __WEAPONLIFESPANCOMPONENT_H__

@@ -10,8 +10,11 @@
 #include "PlayerAnimator.h"
 #include "PlayerArmAnimator.h"
 #include "AnimatorMappingComponent.h"
-#include "WeaponTomahawk.h"
 #include "PlayerLifeComponent.h"
+#include "WeaponPickup.h"
+
+#include "WeaponTomahawk.h"
+#include "WeaponFang.h"
 
 #define LIFE_POINTS 18
 #define GRACE_TIME 1.0f
@@ -46,12 +49,47 @@ void Player::OnCreate()
 	// Añade el componente del arma
 	vector<int> collisionsTypes;
 	collisionsTypes.push_back(ENEMY);
-	CircleColliderComponent* meleeComponent;
 	AddComponent(meleeComponent = new CircleColliderComponent(MELEE_ATTACK_RADIUS, collisionsTypes, 0.0f, 0.0f, PLAYER_ATTACK, false));
-	AddComponent(new WeaponTomahawk(meleeComponent, MELEE_ATTACK_OFFSET));
+	SetWeapon(WEAPON_TOMAHAWK);
 }
 
 void Player::OnDestroy()
 {
 	// En principio no hace nada
+}
+
+void Player::SetWeapon(WeaponPickupType newWeaponType)
+{
+	// Determina el nuevo arma
+	WeaponComponent* newWeapon;
+	switch (newWeaponType)
+	{
+	case WEAPON_TOMAHAWK:
+		newWeapon = new WeaponTomahawk(meleeComponent, MELEE_ATTACK_OFFSET);
+		break;
+	case WEAPON_FANG:
+		newWeapon = new WeaponFang(meleeComponent, MELEE_ATTACK_OFFSET);
+		break;
+	default:
+		return;
+	}
+
+	// Recupera su arma actual
+	WeaponComponent* currentWeapon = FindComponent<WeaponComponent>();
+	int projectileCount = 0;
+	if (currentWeapon != NULL)
+	{
+		// Establece el número de proyectiles disparados igual al anterior
+		projectileCount = currentWeapon->projectileCount;
+
+		// Hace CleanUp y destruye el arma anterior
+		currentWeapon->CleanUp();
+		RemoveComponent(currentWeapon);
+		RELEASE(currentWeapon);
+	}
+
+	// Hace Start y añade el arma nueva
+	AddComponent(newWeapon);
+	newWeapon->Start();
+	newWeapon->projectileCount = projectileCount;
 }

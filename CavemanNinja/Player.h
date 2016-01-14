@@ -3,6 +3,10 @@
 
 #include "Entity.h"
 
+enum WeaponPickupType;
+class WeaponComponent;
+class CircleColliderComponent;
+
 class Player : public Entity
 {
 public:
@@ -12,5 +16,11 @@ public:
 protected:
 	void OnCreate();
 	void OnDestroy();
+
+public:
+	void SetWeapon(WeaponPickupType newWeaponType);
+
+private:
+	CircleColliderComponent* meleeComponent;
 };
 #endif	// __PLAYER_H__

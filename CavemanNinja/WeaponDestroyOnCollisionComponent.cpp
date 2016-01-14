@@ -2,11 +2,12 @@
 #include "Collider.h"
 #include "Entity.h"
 #include "WeaponComponent.h"
+#include "GameControllerComponent.h"
+#include "Player.h"
 
-WeaponDestroyOnCollisionComponent::WeaponDestroyOnCollisionComponent(ColliderType colliderType, WeaponComponent* weaponComponent)
+WeaponDestroyOnCollisionComponent::WeaponDestroyOnCollisionComponent(ColliderType colliderType)
 {
 	this->colliderType = colliderType;
-	this->weaponComponent = weaponComponent;
 }
 
 WeaponDestroyOnCollisionComponent::~WeaponDestroyOnCollisionComponent()
@@ -19,7 +20,13 @@ bool WeaponDestroyOnCollisionComponent::OnCollisionEnter(Collider * self, Collid
 	if (other->GetType() == colliderType)
 	{
 		entity->Destroy();	// Destruye la entidad
-		weaponComponent->projectileCount -= 1;	// Reduce en uno la cuenta de proyectiles disparados
+
+		// Recupera el componente de ataque del jugador
+		WeaponComponent* playerWeapon = GameController->player->FindComponent<WeaponComponent>();
+		if (playerWeapon == NULL)	// El arma puede cambiar, hay que recuperarlo cada vez
+			return true;
+
+		playerWeapon->projectileCount -= 1;	// Reduce en uno la cuenta de proyectiles disparados
 	}
 	return true;
 }

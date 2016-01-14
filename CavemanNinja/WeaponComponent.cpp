@@ -189,14 +189,15 @@ void WeaponComponent::MeleeAttack()
 
 void WeaponComponent::RangedAttack()
 {
-	// Determina la posición del disparo
-	fPoint position = entity->transform->GetGlobalPosition();
-	position.x += inputComponent->orientation == FORWARD ? rangedOffset.x : -rangedOffset.x;
-	position.y += jumpComponent->crouch == true ? rangedOffset.y / 2.0f : rangedOffset.y;
-
 	// Comprueba si el ataque está cargado
 	bool chargeComplete = charging && chargeTimer.IsTimerExpired();
 	charging = false;
+
+	// Determina la posición del disparo
+	fPoint position = entity->transform->GetGlobalPosition();
+	if (!jumpComponent->lookingUp || chargeComplete)
+		position.x += inputComponent->orientation == FORWARD ? rangedOffset.x : -rangedOffset.x;
+	position.y += jumpComponent->crouch == true ? rangedOffset.y / 2.0f : rangedOffset.y;
 
 	// Crea el proyectil del disparo
 	fPoint speed;
@@ -208,12 +209,12 @@ void WeaponComponent::RangedAttack()
 	}
 	else
 	{
-		projectile = GetWeaponProjectile(position, projectileCount);
+		projectile = GetWeaponProjectile(position, projectileCount, jumpComponent->lookingUp);
 		speed = GetInitialSpeed();
 	}
 
 	// Lo configura
-	if (jumpComponent->lookingUp && !chargeComplete)	// No puede disparar atauqes cargados hacia arriba
+	if (jumpComponent->lookingUp && !chargeComplete)	// No puede disparar ataques cargados hacia arriba
 		projectile->transform->SetGlobalSpeed(0.0f, UP_FACTOR * speed.Norm());
 	else
 	{

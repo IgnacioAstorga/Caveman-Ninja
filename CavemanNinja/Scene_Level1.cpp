@@ -12,6 +12,7 @@
 
 #include "EnemyCaveman.h"
 #include "EnemyThrower.h"
+#include "WeaponPickup.h"
 
 void Scene_Level1::OnCreateScene()
 {
@@ -87,17 +88,20 @@ void Scene_Level1::OnCreateScene()
 	gameController->AddComponent(new RectangleColliderComponent(10, 4000, collisionsTypes, 850, 0, 0, VICTORY, true));
 	AddChild(gameController);
 
-	for (int i = 0; i < 10; ++i)
+	for (int i = 0; i < 3; ++i)
 	{
 		Enemy* enemy = new EnemyCaveman("caveman_" + i, 250.0f + 100.0f * i, 0);
 		AddChild(enemy);
 	}
 
-	for (int i = 0; i < 10; ++i)
+	for (int i = 0; i < 3; ++i)
 	{
 		Enemy* enemy = new EnemyThrower("thrower_" + i, 300.0f + 100.0f * i, 0);
 		AddChild(enemy);
 	}
+
+	AddChild(new WeaponPickup(WEAPON_FANG, "fang", 100.0f, 100.0f));
+	AddChild(new WeaponPickup(WEAPON_TOMAHAWK, "tomahawk", 200.0f, 100.0f));
 }
 
 void Scene_Level1::OnDestroyScene()

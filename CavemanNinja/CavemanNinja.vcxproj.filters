@@ -190,6 +190,21 @@
     <ClCompile Include="ThrowerRunAIBehaviour.cpp">
       <Filter>Enemies\AI\Thrower</Filter>
     </ClCompile>
+    <ClCompile Include="WeaponFang.cpp">
+      <Filter>Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="FangProjectile.cpp">
+      <Filter>Weapons\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="FangBigProjectile.cpp">
+      <Filter>Weapons\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="OnWeaponPickUpComponent.cpp">
+      <Filter>Pickups\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponPickup.cpp">
+      <Filter>Pickups</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scenes">
@@ -460,6 +475,21 @@
     </ClInclude>
     <ClInclude Include="ThrowerRunAIBehaviour.h">
       <Filter>Enemies\AI\Thrower</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponFang.h">
+      <Filter>Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="FangProjectile.h">
+      <Filter>Weapons\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="FangBigProjectile.h">
+      <Filter>Weapons\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponPickup.h">
+      <Filter>Pickups</Filter>
+    </ClInclude>
+    <ClInclude Include="OnWeaponPickUpComponent.h">
+      <Filter>Pickups\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

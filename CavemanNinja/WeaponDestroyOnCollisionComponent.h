@@ -4,12 +4,10 @@
 #include "Component.h"
 #include "ColliderTypes.h"
 
-class WeaponComponent;
-
 class WeaponDestroyOnCollisionComponent : public Component
 {
 public:
-	WeaponDestroyOnCollisionComponent(ColliderType colliderType, WeaponComponent* weaponComponent);
+	WeaponDestroyOnCollisionComponent(ColliderType colliderType);
 	virtual ~WeaponDestroyOnCollisionComponent();
 
 protected:
@@ -17,6 +15,5 @@ protected:
 
 public:
 	ColliderType colliderType;
-	WeaponComponent* weaponComponent;
 };
 #endif // __WEAPONDESTROYONCOLLISIONCOMPONENT_H__

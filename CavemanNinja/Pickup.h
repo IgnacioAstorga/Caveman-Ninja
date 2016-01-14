@@ -3,7 +3,8 @@
 
 #include "Entity.h"
 
-enum PickupType {
+enum PickupType
+{
 	FOOD_SMALL,
 	FOOD_MEAT,
 	FOOD_BIG
