@@ -8,8 +8,9 @@
 #include "ModuleTime.h"
 #include "ModuleAudio.h"
 #include "EnemyHitEffect.h"
-#include "SpawnPickupOnDeathComponent.h"
+#include "SpawnEntityOnDeathComponent.h"
 #include "AIComponent.h"
+#include "EntityLifetimeComponent.h"
 
 #define BIG_FACTOR 2.0f;
 
@@ -30,6 +31,11 @@ bool DieOnPlayerAttackComponent::OnStart()
 {
 	// Recupera el componente de la IA
 	aiComponent = entity->FindComponent<AIComponent>();
+
+	// Recupera y desactiva el componente de lifetime
+	lifetimeComponent = entity->FindComponent<EntityLifetimeComponent>();
+	if (lifetimeComponent != NULL)
+		lifetimeComponent->Disable();
 
 	// Registra el timer
 	App->time->RegisterTimer(&decayTimer);
@@ -116,10 +122,14 @@ void DieOnPlayerAttackComponent::Die(Transform* otherTransform, bool big)
 	// Reproduce los efectos de sonido
 	App->audio->PlayFx(dieSound);
 
-	// Da la señal a los componentes que hagan aparecer pickups
-	list<SpawnPickupOnDeathComponent*> spawners = entity->FindAllComponents<SpawnPickupOnDeathComponent>();
-	for (list<SpawnPickupOnDeathComponent*>::iterator it = spawners.begin(); it != spawners.end(); ++it)
+	// Da la señal a los componentes que hagan aparecer entidades
+	list<SpawnEntityOnDeathComponent*> spawners = entity->FindAllComponents<SpawnEntityOnDeathComponent>();
+	for (list<SpawnEntityOnDeathComponent*>::iterator it = spawners.begin(); it != spawners.end(); ++it)
 		(*it)->Spawn();
+
+	// Si tiene componente de vida, lo activa
+	if (lifetimeComponent != NULL)
+		lifetimeComponent->Enable();
 }
 
 void DieOnPlayerAttackComponent::Decay()

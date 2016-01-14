@@ -14,14 +14,14 @@
 WeaponTomahawk::WeaponTomahawk(CircleColliderComponent* meleeComponent, fPoint meleeOffset)
 	: WeaponComponent(meleeComponent, meleeOffset, RANGED_OFFSET, CHARGE_TIME, DELAY, MAX_PROJECTILE_COUNT) {}
 
-Entity* WeaponTomahawk::GetWeaponProjectile(fPoint position, int projectileNumber)
+Entity* WeaponTomahawk::GetWeaponProjectile(fPoint position, int projectileNumber, bool up)
 {
-	return new TomahawkProjectile(this, "tomahawk_" + projectileNumber, position.x, position.y);
+	return new TomahawkProjectile("tomahawk_" + projectileNumber, position.x, position.y);
 }
 
 Entity * WeaponTomahawk::GetChargedWeaponProjectile(fPoint position, int projectileNumber)
 {
-	return new TomahawkBigProjectile(this, "tomahawk_big_" + projectileNumber, position.x, position.y);
+	return new TomahawkBigProjectile("tomahawk_big_" + projectileNumber, position.x, position.y);
 }
 
 fPoint WeaponTomahawk::GetInitialSpeed()

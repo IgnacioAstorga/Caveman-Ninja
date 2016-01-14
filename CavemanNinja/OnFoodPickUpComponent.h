@@ -3,12 +3,12 @@
 
 #include "Component.h"
 
-enum PickupType;
+enum FoodPickupType;
 
 class OnFoodPickUpComponent : public Component
 {
 public:
-	OnFoodPickUpComponent(PickupType type);
+	OnFoodPickUpComponent(FoodPickupType type);
 	virtual ~OnFoodPickUpComponent();
 
 protected:
@@ -16,7 +16,7 @@ protected:
 	bool OnCollisionEnter(Collider* self, Collider* other);
 
 public:
-	PickupType type;
+	FoodPickupType type;
 
 	unsigned int pickupSound;
 };

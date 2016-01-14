@@ -121,6 +121,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BoomerangAIComponent.cpp" />
+    <ClCompile Include="BoomerangBigProjectile.cpp" />
+    <ClCompile Include="BoomerangProjectile.cpp" />
     <ClCompile Include="CavemanAIManager.cpp" />
     <ClCompile Include="AnimatorMappingComponent.cpp" />
     <ClCompile Include="CameraMovementComponent.cpp" />
@@ -133,6 +136,8 @@
     <ClCompile Include="DieOnPlayerAttackComponent.cpp" />
     <ClCompile Include="DinosaurEye.cpp" />
     <ClCompile Include="DinosaurEyeComponent.cpp" />
+    <ClCompile Include="Egg.cpp" />
+    <ClCompile Include="EggAnimator.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyAnimatorMappingComponent.cpp" />
     <ClCompile Include="EnemyBasicAnimatorMappingComponent.cpp" />
@@ -142,18 +147,24 @@
     <ClCompile Include="EnemyHitEffect.cpp" />
     <ClCompile Include="EnemyThrower.cpp" />
     <ClCompile Include="EnemyThrowerAnimator.cpp" />
+    <ClCompile Include="FangBigProjectile.cpp" />
+    <ClCompile Include="FangProjectile.cpp" />
+    <ClCompile Include="FlyingDinosaur.cpp" />
+    <ClCompile Include="FlyingDinosaurAIComponent.cpp" />
+    <ClCompile Include="FlyingDinosaurAnimator.cpp" />
     <ClCompile Include="GameControllerComponent.cpp" />
     <ClCompile Include="GUIPortrait.cpp" />
     <ClCompile Include="GUIPortraitComponent.cpp" />
     <ClCompile Include="OnFoodPickUpComponent.cpp" />
-    <ClCompile Include="Pickup.cpp" />
+    <ClCompile Include="OnWeaponPickUpComponent.cpp" />
+    <ClCompile Include="FoodPickup.cpp" />
     <ClCompile Include="GUIScoreTextComponent.cpp" />
     <ClCompile Include="PlayerArmAnimator.cpp" />
     <ClCompile Include="RollingBallAnimator.cpp" />
     <ClCompile Include="RollingBallGravityComponent.cpp" />
     <ClCompile Include="RollingBall.cpp" />
     <ClCompile Include="ScoreTextEffect.cpp" />
-    <ClCompile Include="SpawnPickupOnDeathComponent.cpp" />
+    <ClCompile Include="SpawnEntityOnDeathComponent.cpp" />
     <ClCompile Include="ThrowerAIManager.cpp" />
     <ClCompile Include="ThrowerIdleAIBehaviour.cpp" />
     <ClCompile Include="ThrowerRunAIBehaviour.cpp" />
@@ -177,12 +188,15 @@
     <ClCompile Include="Scene_Level1.cpp" />
     <ClCompile Include="CavemanNinjaApp.cpp" />
     <ClCompile Include="TomahawkAnimator.cpp" />
+    <ClCompile Include="WeaponBoomerang.cpp" />
     <ClCompile Include="WeaponDestroyOnCollisionComponent.cpp" />
+    <ClCompile Include="WeaponFang.cpp" />
     <ClCompile Include="WeaponGravityComponent.cpp" />
     <ClCompile Include="TomahawkProjectile.cpp" />
     <ClCompile Include="WeaponAnimatorMappingComponent.cpp" />
     <ClCompile Include="WeaponComponent.cpp" />
     <ClCompile Include="WeaponLifespanComponent.cpp" />
+    <ClCompile Include="WeaponPickup.cpp" />
     <ClCompile Include="WeaponTomahawk.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -191,6 +205,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BoomerangAIComponent.h" />
+    <ClInclude Include="BoomerangBigProjectile.h" />
+    <ClInclude Include="BoomerangProjectile.h" />
     <ClInclude Include="CavemanAIManager.h" />
     <ClInclude Include="AnimatorMappingComponent.h" />
     <ClInclude Include="CameraMovementComponent.h" />
@@ -204,6 +221,8 @@
     <ClInclude Include="DieOnPlayerAttackComponent.h" />
     <ClInclude Include="DinosaurEye.h" />
     <ClInclude Include="DinosaurEyeComponent.h" />
+    <ClInclude Include="Egg.h" />
+    <ClInclude Include="EggAnimator.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyAIManager.h" />
     <ClInclude Include="EnemyAnimatorMappingComponent.h" />
@@ -214,18 +233,27 @@
     <ClInclude Include="EnemyHitEffect.h" />
     <ClInclude Include="EnemyThrower.h" />
     <ClInclude Include="EnemyThrowerAnimator.h" />
+    <ClInclude Include="FangBigProjectile.h" />
+    <ClInclude Include="FangProjectile.h" />
+    <ClInclude Include="FlyingDinosaur.h" />
+    <ClInclude Include="FlyingDinosaurAIComponent.h" />
+    <ClInclude Include="FlyingDinosaurAnimator.h" />
     <ClInclude Include="GameControllerComponent.h" />
     <ClInclude Include="GUIPortrait.h" />
     <ClInclude Include="GUIPortraitComponent.h" />
     <ClInclude Include="GUIScoreTextComponent.h" />
+    <ClInclude Include="OnWeaponPickUpComponent.h" />
     <ClInclude Include="PlayerArmAnimator.h" />
     <ClInclude Include="RollingBallAnimator.h" />
     <ClInclude Include="RollingBallGravityComponent.h" />
     <ClInclude Include="RollingBall.h" />
-    <ClInclude Include="SpawnPickupOnDeathComponent.h" />
+    <ClInclude Include="SpawnEggOnDeathComponent.h" />
+    <ClInclude Include="SpawnFoodPickupOnDeathComponent.h" />
+    <ClInclude Include="SpawnEntityOnDeathComponent.h" />
     <ClInclude Include="OnFoodPickUpComponent.h" />
-    <ClInclude Include="Pickup.h" />
+    <ClInclude Include="FoodPickup.h" />
     <ClInclude Include="ScoreTextEffect.h" />
+    <ClInclude Include="SpawnWeaponPickupOnDeathComponent.h" />
     <ClInclude Include="ThrowerAIManager.h" />
     <ClInclude Include="ThrowerIdleAIBehaviour.h" />
     <ClInclude Include="ThrowerRunAIBehaviour.h" />
@@ -247,12 +275,15 @@
     <ClInclude Include="PlayerLifeComponent.h" />
     <ClInclude Include="Scene_Level1.h" />
     <ClInclude Include="TomahawkAnimator.h" />
+    <ClInclude Include="WeaponBoomerang.h" />
     <ClInclude Include="WeaponDestroyOnCollisionComponent.h" />
+    <ClInclude Include="WeaponFang.h" />
     <ClInclude Include="WeaponGravityComponent.h" />
     <ClInclude Include="TomahawkProjectile.h" />
     <ClInclude Include="WeaponComponent.h" />
     <ClInclude Include="WeaponAnimatorMappingComponent.h" />
     <ClInclude Include="WeaponLifespanComponent.h" />
+    <ClInclude Include="WeaponPickup.h" />
     <ClInclude Include="WeaponTomahawk.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

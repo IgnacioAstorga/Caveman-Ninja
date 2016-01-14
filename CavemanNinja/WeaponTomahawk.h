@@ -9,7 +9,7 @@ public:
 	WeaponTomahawk(CircleColliderComponent* meleeComponent, fPoint meleeOffset);
 
 protected:
-	Entity* GetWeaponProjectile(fPoint position, int projectileNumber);
+	Entity* GetWeaponProjectile(fPoint position, int projectileNumber, bool up);
 	Entity* GetChargedWeaponProjectile(fPoint position, int projectileNumber);
 	fPoint GetInitialSpeed();
 	fPoint GetInitialChargedSpeed();

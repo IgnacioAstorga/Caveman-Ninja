@@ -42,11 +42,14 @@ bool WeaponAnimatorMappingComponent::OnPostUpdate()
 	else if (speed < 0)
 		renderer->GetAnimation()->SetFlip(SDL_FLIP_HORIZONTAL);
 
-	if (animator == NULL || gravityComponent == NULL)
+	if (animator == NULL)
 		return true;	// No da error, no tiene por qué tener animator
 
 	// Mapea la velocidad horizontal de la entidad al animator
 	animator->SetFlagValue("speedX_absolute", abs(speed));
+
+	if (gravityComponent == NULL)
+		return true;	// No da error, no tiene por qué tener gravedad
 
 	// Mapea si la entidad está callendo o no
 	animator->SetFlagValue("falling", gravityComponent->falling);

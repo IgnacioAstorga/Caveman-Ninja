@@ -3,11 +3,12 @@
 #include "ModuleTime.h"
 #include "Entity.h"
 #include "WeaponComponent.h"
+#include "GameControllerComponent.h"
+#include "Player.h"
 
-WeaponLifespanComponent::WeaponLifespanComponent(float lifeTime, WeaponComponent* weaponComponent)
+WeaponLifespanComponent::WeaponLifespanComponent(float lifeTime)
 {
 	this->lifeTime = lifeTime;
-	this->weaponComponent = weaponComponent;
 }
 
 WeaponLifespanComponent::~WeaponLifespanComponent()
@@ -21,7 +22,7 @@ bool WeaponLifespanComponent::OnStart()
 	App->time->RegisterTimer(&lifetimeTimer);
 	lifetimeTimer.SetTimer(lifeTime);
 
-	return weaponComponent != NULL;
+	return true;
 }
 
 bool WeaponLifespanComponent::OnCleanUp()
@@ -37,7 +38,13 @@ bool WeaponLifespanComponent::OnPostUpdate()
 	if (lifetimeTimer.IsTimerExpired())
 	{ 
 		entity->Destroy();	// Destruye la entidad
-		weaponComponent->projectileCount -= 1;	// Reduce en uno la cuenta de proyectiles disparados
+
+		// Recupera el componente de ataque del jugador
+		WeaponComponent* playerWeapon = GameController->player->FindComponent<WeaponComponent>();
+		if (playerWeapon == NULL)	// El arma puede cambiar, hay que recuperarlo cada vez
+			return true;
+
+		playerWeapon->DecreaseCount(1);	// Reduce en uno la cuenta de proyectiles disparados
 	}
 
 	return true;

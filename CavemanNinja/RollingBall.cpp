@@ -9,6 +9,7 @@
 #include "SpriteRendererComponent.h"
 #include "RollingBallAnimator.h"
 #include "EnemyBasicAnimatorMappingComponent.h"
+#include "EntityLifetimeComponent.h"
 
 #define DECAY_TIME 1.25f
 #define FLY_SPEED { 0.0f, 0.0f }
@@ -25,6 +26,7 @@ void RollingBall::OnCreate()
 	AddComponent(colliderComponent = new CircleColliderComponent(1.0f, { FLOOR, GROUND }, 0.0f, 0.0f, ENEMY, true));
 	AddComponent(new RollingBallGravityComponent(GRAVITY, FRICTION, colliderComponent));
 	AddComponent(new MovementSimpleComponent());
+	AddComponent(new EntityLifetimeComponent(5.0f, false));
 	AddComponent(new EnemyBasicAnimatorMappingComponent());
 }
 

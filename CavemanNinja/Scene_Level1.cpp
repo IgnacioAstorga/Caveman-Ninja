@@ -12,6 +12,8 @@
 
 #include "EnemyCaveman.h"
 #include "EnemyThrower.h"
+#include "FlyingDinosaur.h"
+#include "Egg.h"
 
 void Scene_Level1::OnCreateScene()
 {
@@ -32,7 +34,7 @@ void Scene_Level1::OnCreateScene()
 
 	ground = new Entity("ground");
 	ground->AddComponent(new SpriteRendererComponent("assets/images/world_1_background.png"));
-	ground->AddComponent(new RectangleColliderComponent(4000, 10, { PLAYER, PLAYER_ATTACK, ENEMY }, 0, 225, 0, FLOOR, true));
+	ground->AddComponent(new RectangleColliderComponent(4000, 10, { PLAYER, PLAYER_ATTACK, ENEMY, EGG }, 0, 225, 0, FLOOR, true));
 	ground->AddComponent(new LineColliderComponent(	// El lomo
 	{ 
 		fPoint(290, 211),
@@ -87,17 +89,16 @@ void Scene_Level1::OnCreateScene()
 	gameController->AddComponent(new RectangleColliderComponent(10, 4000, collisionsTypes, 850, 0, 0, VICTORY, true));
 	AddChild(gameController);
 
-	for (int i = 0; i < 10; ++i)
-	{
-		Enemy* enemy = new EnemyCaveman("caveman_" + i, 250.0f + 100.0f * i, 0);
-		AddChild(enemy);
-	}
+	for (int i = 0; i < 0; ++i)
+		AddChild(new EnemyCaveman("caveman_" + i, 250.0f + 100.0f * i, 0));
 
-	for (int i = 0; i < 10; ++i)
-	{
-		Enemy* enemy = new EnemyThrower("thrower_" + i, 300.0f + 100.0f * i, 0);
-		AddChild(enemy);
-	}
+	for (int i = 0; i < 0; ++i)
+		AddChild(new EnemyThrower("thrower_" + i, 300.0f + 100.0f * i, 0));
+
+	for (int i = 0; i < 4; ++i)
+		AddChild(new Egg("egg_" + i, 150.0f + 200.0f * i, 150.0f));
+
+	AddChild(new FlyingDinosaur("dinosaur", 200.0f, 100.0f));
 }
 
 void Scene_Level1::OnDestroyScene()

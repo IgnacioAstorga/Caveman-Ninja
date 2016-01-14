@@ -103,17 +103,11 @@
     <ClCompile Include="GUIPortrait.cpp">
       <Filter>GUI\Portrait</Filter>
     </ClCompile>
-    <ClCompile Include="Pickup.cpp">
-      <Filter>Pickups</Filter>
-    </ClCompile>
     <ClCompile Include="OnFoodPickUpComponent.cpp">
       <Filter>Pickups\Components</Filter>
     </ClCompile>
     <ClCompile Include="ScoreTextEffect.cpp">
       <Filter>Effects</Filter>
-    </ClCompile>
-    <ClCompile Include="SpawnPickupOnDeathComponent.cpp">
-      <Filter>Enemies\Components</Filter>
     </ClCompile>
     <ClCompile Include="GUIScoreTextComponent.cpp">
       <Filter>GUI\Score</Filter>
@@ -189,6 +183,54 @@
     </ClCompile>
     <ClCompile Include="ThrowerRunAIBehaviour.cpp">
       <Filter>Enemies\AI\Thrower</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponFang.cpp">
+      <Filter>Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="FangProjectile.cpp">
+      <Filter>Weapons\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="FangBigProjectile.cpp">
+      <Filter>Weapons\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="OnWeaponPickUpComponent.cpp">
+      <Filter>Pickups\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponPickup.cpp">
+      <Filter>Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="EggAnimator.cpp">
+      <Filter>Enemies\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="Egg.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="FoodPickup.cpp">
+      <Filter>Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="FlyingDinosaurAnimator.cpp">
+      <Filter>Enemies\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="FlyingDinosaurAIComponent.cpp">
+      <Filter>Enemies\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="FlyingDinosaur.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnEntityOnDeathComponent.cpp">
+      <Filter>Enemies\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponBoomerang.cpp">
+      <Filter>Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="BoomerangAIComponent.cpp">
+      <Filter>Weapons\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="BoomerangProjectile.cpp">
+      <Filter>Weapons\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="BoomerangBigProjectile.cpp">
+      <Filter>Weapons\Projectiles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -269,6 +311,9 @@
     </Filter>
     <Filter Include="Enemies\AI\Thrower">
       <UniqueIdentifier>{e6f20727-cd8e-45e4-a0be-b092ff863d99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Weapons\AI">
+      <UniqueIdentifier>{7dd7b15a-a2a8-4d5c-8de9-487a231c98b4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -371,17 +416,11 @@
     <ClInclude Include="GUIPortrait.h">
       <Filter>GUI\Portrait</Filter>
     </ClInclude>
-    <ClInclude Include="Pickup.h">
-      <Filter>Pickups</Filter>
-    </ClInclude>
     <ClInclude Include="OnFoodPickUpComponent.h">
       <Filter>Pickups\Components</Filter>
     </ClInclude>
     <ClInclude Include="ScoreTextEffect.h">
       <Filter>Effects</Filter>
-    </ClInclude>
-    <ClInclude Include="SpawnPickupOnDeathComponent.h">
-      <Filter>Enemies\Components</Filter>
     </ClInclude>
     <ClInclude Include="GUIScoreTextComponent.h">
       <Filter>GUI\Score</Filter>
@@ -460,6 +499,63 @@
     </ClInclude>
     <ClInclude Include="ThrowerRunAIBehaviour.h">
       <Filter>Enemies\AI\Thrower</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponFang.h">
+      <Filter>Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="FangProjectile.h">
+      <Filter>Weapons\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="FangBigProjectile.h">
+      <Filter>Weapons\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponPickup.h">
+      <Filter>Pickups</Filter>
+    </ClInclude>
+    <ClInclude Include="OnWeaponPickUpComponent.h">
+      <Filter>Pickups\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="EggAnimator.h">
+      <Filter>Enemies\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="Egg.h">
+      <Filter>Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="FoodPickup.h">
+      <Filter>Pickups</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnFoodPickupOnDeathComponent.h">
+      <Filter>Enemies\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnWeaponPickupOnDeathComponent.h">
+      <Filter>Enemies\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyingDinosaurAnimator.h">
+      <Filter>Enemies\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyingDinosaur.h">
+      <Filter>Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="FlyingDinosaurAIComponent.h">
+      <Filter>Enemies\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnEggOnDeathComponent.h">
+      <Filter>Enemies\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnEntityOnDeathComponent.h">
+      <Filter>Enemies\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponBoomerang.h">
+      <Filter>Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="BoomerangProjectile.h">
+      <Filter>Weapons\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="BoomerangAIComponent.h">
+      <Filter>Weapons\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="BoomerangBigProjectile.h">
+      <Filter>Weapons\Projectiles</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

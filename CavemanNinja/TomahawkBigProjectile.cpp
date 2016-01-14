@@ -1,5 +1,4 @@
 #include "TomahawkBigProjectile.h"
-#include "TomahawkAnimator.h"
 #include "SpriteRendererComponent.h"
 #include "BasicAnimation.h"
 #include "MovementSimpleComponent.h"
@@ -13,13 +12,6 @@
 #define GRAVITY 500.0f
 #define LIFETIME 2.0f
 
-TomahawkBigProjectile::TomahawkBigProjectile(WeaponComponent * weaponComponent, std::string name, float positionX, float positionY)
-	: Entity(name, positionX, positionY)
-{
-	this->weaponComponent = weaponComponent;
-	OnCreate();
-}
-
 void TomahawkBigProjectile::OnCreate()
 {
 	BasicAnimation* animation = new BasicAnimation(128, 128, 2, 2, 4.0f);
@@ -32,9 +24,9 @@ void TomahawkBigProjectile::OnCreate()
 	AddComponent(new SpriteRendererComponent("assets/images/weapon_tomahawk_big.png", animation, -32, -32));
 	AddComponent(new WeaponAnimatorMappingComponent());
 	AddComponent(new MovementSimpleComponent());
-	AddComponent(colliderComponent = new CircleColliderComponent(22.0f, { FLOOR, ENEMY }, 0.0f, 0.0f, PLAYER_ATTACK_BIG, false));
+	AddComponent(colliderComponent = new CircleColliderComponent(22.0f, { FLOOR, ENEMY, EGG }, 0.0f, 0.0f, PLAYER_ATTACK_BIG, false));
 	AddComponent(new WeaponGravityComponent(GRAVITY, colliderComponent));
-	AddComponent(new WeaponLifespanComponent(LIFETIME, weaponComponent));
+	AddComponent(new WeaponLifespanComponent(LIFETIME));
 }
 
 void TomahawkBigProjectile::OnDestroy()

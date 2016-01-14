@@ -39,11 +39,6 @@ bool PlayerJumpComponent::OnStart()
 	if (inputComponent == NULL)
 		return false;
 
-	// Intenta recuperar el arma del personaje
-	weaponComponent = entity->FindComponent<WeaponComponent>();
-	if (weaponComponent == NULL)
-		return false;
-
 	// Intenta recuperar la hitbox del personaje
 	hitboxCollider = dynamic_cast<RectangleBasicCollider*>(inputComponent->colliderComponent->GetCollider());
 	if (hitboxCollider == NULL)
@@ -137,6 +132,11 @@ void PlayerJumpComponent::Jump()
 
 	if (inputComponent->IsStopped())
 		return;	// No se puede saltar si el personaje está detenido
+
+	// Recupera el componente de ataque de la entidad
+	weaponComponent = entity->FindComponent<WeaponComponent>();
+	if (weaponComponent == NULL)	// El arma puede cambiar, hay que recuperarlo cada vez
+		return;
 
 	// Modifica la velocidad vertical de la entidad para hacerla saltar
 	fPoint currentSpeed = entity->transform->GetGlobalSpeed();

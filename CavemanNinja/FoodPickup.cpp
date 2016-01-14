@@ -1,4 +1,4 @@
-#include "Pickup.h"
+#include "FoodPickup.h"
 #include "SpriteRendererComponent.h"
 #include "BasicAnimation.h"
 #include "CircleColliderComponent.h"
@@ -8,23 +8,22 @@
 
 #define PICKUP_LIFETIME 10.0f
 
-Pickup::Pickup(PickupType type, string name, float positionX, float positionY)
+FoodPickup::FoodPickup(FoodPickupType type, string name, float positionX, float positionY)
 	: Entity(name, positionX, positionY) 
 {
 	this->type = type;
 	OnCreate();
 }
 
-void Pickup::OnCreate()
+void FoodPickup::OnCreate()
 {
 	// Crea la animación adecuada de la entidad
 	BasicAnimation* animation = new BasicAnimation(256, 192, 8, 6, 0.0f, false);
-
 	switch (type)
 	{
 		case FOOD_SMALL:
 		{
-			// Selecciona una imagen de las 4 primeras filas
+			// Selecciona una comida de las 4 primeras filas
 			int column = rand() % animation->columns;
 			int row = rand() % 4;
 			animation->frames.push_back({ column, row });
@@ -32,14 +31,14 @@ void Pickup::OnCreate()
 		}
 		case FOOD_MEAT:
 		{
-			// Selecciona una de las 3 primeras imágenes de la 5ª fila
+			// Selecciona una comida de las 3 primeras imágenes de la 5ª fila
 			int column = rand() % 3;
 			animation->frames.push_back({ column, 4 });
 			break;
 		}
 		case FOOD_BIG:
 		{
-			// Selecciona una de las 5 últimas imágenes de la 5ª fila
+			// Selecciona una comida de las 5 últimas imágenes de la 5ª fila
 			int column = animation->columns - rand() % 5;
 			animation->frames.push_back({ column, 4 });
 			break;
@@ -59,7 +58,7 @@ void Pickup::OnCreate()
 	AddComponent(new EntityLifetimeComponent(PICKUP_LIFETIME));
 }
 
-void Pickup::OnDestroy()
+void FoodPickup::OnDestroy()
 {
 	// En principio no hace nada
 }

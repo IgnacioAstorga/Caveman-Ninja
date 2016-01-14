@@ -68,17 +68,17 @@ bool AnimatorMappingComponent::OnStart()
 	if (lifeComponent == NULL)
 		return false;
 
-	// Recupera el componente de ataque de la entidad
-	weaponComponent = entity->FindComponent<WeaponComponent>();
-	if (weaponComponent == NULL)
-		return false;
-
 	return true;
 }
 
 bool AnimatorMappingComponent::OnPostUpdate()
 {
 	if (mainAnimator == NULL || chargingAnimator == NULL || armAnimator == NULL || gravityComponent == NULL || jumpComponent == NULL)
+		return false;
+
+	// Recupera el componente de ataque de la entidad
+	weaponComponent = entity->FindComponent<WeaponComponent>();
+	if (weaponComponent == NULL)	// El arma puede cambiar, hay que recuperarlo cada vez
 		return false;
 
 	// Mapea los animator

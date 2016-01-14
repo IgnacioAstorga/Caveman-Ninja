@@ -22,7 +22,7 @@ protected:
 
 	bool OnPreUpdate();
 
-	virtual Entity* GetWeaponProjectile(fPoint position, int projectileNumber) = 0;
+	virtual Entity* GetWeaponProjectile(fPoint position, int projectileNumber, bool up) = 0;
 	virtual Entity* GetChargedWeaponProjectile(fPoint position, int projectileNumber) = 0;
 	virtual fPoint GetInitialSpeed() = 0;
 	virtual fPoint GetInitialChargedSpeed() = 0;
@@ -31,6 +31,9 @@ protected:
 private:
 	void MeleeAttack();
 	void RangedAttack();
+
+public:
+	void DecreaseCount(int amount);
 
 public:
 	fPoint meleeOffset;

@@ -144,7 +144,7 @@ bool PlayerLifeComponent::OnCollisionEnter(Collider * self, Collider * other)
 	// Comprueba si es el collider adecuado y si es un ataque del jugador
 	if (self != colliderComponent->GetCollider())
 		return true;
-	if (other->GetType() != ENEMY && other->GetType() != ENEMY_ATTACK)
+	if (other->GetType() != ENEMY && other->GetType() != ENEMY_ATTACK && other->GetType() != EGG)
 		return true;
 
 	// Si acaba de ser golpeado, aborta
@@ -163,7 +163,7 @@ bool PlayerLifeComponent::OnCollisionEnter(Collider * self, Collider * other)
 		gravityComponent->jumpComponent->jumping = true;
 		gravityComponent->falling = false;
 	}
-	else
+	else if (other->GetType() != EGG)
 		// Hace daño al personaje
 		TakeDamage(COLLISION_DAMAGE, damagePosition);
 
