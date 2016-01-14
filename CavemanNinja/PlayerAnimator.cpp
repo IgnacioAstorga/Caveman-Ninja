@@ -230,6 +230,7 @@ PlayerAnimator* PlayerAnimator::Create()
 	runState->AddStateTransition(new AnimationTransition(attackUpMeleeState, new FlagEqualsCondition("melee_attack_up", true)));
 	runState->AddStateTransition(new AnimationTransition(attackMeleeState, new FlagEqualsCondition("melee_attack", true)));
 	runState->AddStateTransition(new AnimationTransition(exhaustState, new FlagEqualsCondition("exhausted", true)));
+	runState->AddStateTransition(new AnimationTransition(dieHarvestState, new FlagEqualsCondition("dead_harvest", true)));
 	runState->AddStateTransition(new AnimationTransition(hitBackState, new FlagEqualsCondition("hit_back", true)));
 	runState->AddStateTransition(new AnimationTransition(hitFrontState, new FlagEqualsCondition("hit_front", true)));
 
