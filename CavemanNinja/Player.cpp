@@ -37,7 +37,7 @@ void Player::OnCreate()
 	AddComponent(mainRendererComponent = new SpriteRendererComponent("assets/images/player_green.png", PlayerAnimator::Create(), -64, -128));
 	AddComponent(chargingRendererComponent = new SpriteRendererComponent("assets/images/player_green_charging.png", PlayerAnimator::Create(), -64, -128));
 	AddComponent(armRendererComponent = new SpriteRendererComponent("assets/images/player_green_arm.png", PlayerArmAnimator::Create(), -48, -48));
-	AddComponent(colliderComponent = new RectangleColliderComponent(28, 47, { WALL, ENEMY, ENEMY_ATTACK, PICKUP }, 0, -24, 0, PLAYER, true));
+	AddComponent(colliderComponent = new RectangleColliderComponent(28, 47, { WALL, ENEMY, ENEMY_ATTACK, PICKUP, EGG }, 0, -24, 0, PLAYER, true));
 	AddComponent(new PlayerLifeComponent(colliderComponent, LIFE_POINTS, GRACE_TIME, HARVEST_PERIOD, DECAY_TIME));
 	AddComponent(new PlayerInputComponent(MOVEMENT_SPEED, colliderComponent));
 	AddComponent(colliderComponent = new CircleColliderComponent(1.0f, { FLOOR, GROUND, VICTORY }, 0.0f, 0.0f, PLAYER, true));
@@ -45,12 +45,9 @@ void Player::OnCreate()
 	AddComponent(new PlayerJumpComponent(JUMP_SPEED, LONG_JUMP_MULTIPLIER));
 	AddComponent(new MovementSimpleComponent());
 	AddComponent(new AnimatorMappingComponent(mainRendererComponent, chargingRendererComponent, armRendererComponent));
+	AddComponent(meleeComponent = new CircleColliderComponent(MELEE_ATTACK_RADIUS, { ENEMY, EGG }, 0.0f, 0.0f, PLAYER_ATTACK, false));
 
-	// Añade el componente del arma
-	vector<int> collisionsTypes;
-	collisionsTypes.push_back(ENEMY);
-	AddComponent(meleeComponent = new CircleColliderComponent(MELEE_ATTACK_RADIUS, collisionsTypes, 0.0f, 0.0f, PLAYER_ATTACK, false));
-	SetWeapon(WEAPON_TOMAHAWK);
+	SetWeapon(WEAPON_TOMAHAWK);	// Añade el arma inicial
 }
 
 void Player::OnDestroy()

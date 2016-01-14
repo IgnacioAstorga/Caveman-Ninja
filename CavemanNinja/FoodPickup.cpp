@@ -1,4 +1,4 @@
-#include "Pickup.h"
+#include "FoodPickup.h"
 #include "SpriteRendererComponent.h"
 #include "BasicAnimation.h"
 #include "CircleColliderComponent.h"
@@ -8,14 +8,14 @@
 
 #define PICKUP_LIFETIME 10.0f
 
-Pickup::Pickup(PickupType type, string name, float positionX, float positionY)
+FoodPickup::FoodPickup(FoodPickupType type, string name, float positionX, float positionY)
 	: Entity(name, positionX, positionY) 
 {
 	this->type = type;
 	OnCreate();
 }
 
-void Pickup::OnCreate()
+void FoodPickup::OnCreate()
 {
 	// Crea la animación adecuada de la entidad
 	BasicAnimation* animation = new BasicAnimation(256, 192, 8, 6, 0.0f, false);
@@ -58,7 +58,7 @@ void Pickup::OnCreate()
 	AddComponent(new EntityLifetimeComponent(PICKUP_LIFETIME));
 }
 
-void Pickup::OnDestroy()
+void FoodPickup::OnDestroy()
 {
 	// En principio no hace nada
 }

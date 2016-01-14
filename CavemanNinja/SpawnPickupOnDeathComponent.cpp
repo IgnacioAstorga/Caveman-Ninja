@@ -1,8 +1,8 @@
 #include "SpawnPickupOnDeathComponent.h"
-#include "Pickup.h"
+#include "Entity.h"
 #include "Transform.h"
 
-SpawnPickupOnDeathComponent::SpawnPickupOnDeathComponent(PickupType type)
+SpawnPickupOnDeathComponent::SpawnPickupOnDeathComponent(int type)
 {
 	this->type = type;
 }
@@ -15,7 +15,8 @@ SpawnPickupOnDeathComponent::~SpawnPickupOnDeathComponent()
 void SpawnPickupOnDeathComponent::Spawn()
 {
 	// Crea el pickup
+	Entity* pickup = GetPickup(type);
 	fPoint position = entity->transform->GetGlobalPosition();
-	Pickup* pickup = new Pickup(type, "pickup_" + entity->name, position.x, position.y);
+	pickup->transform->SetGlobalPosition(position.x, position.y);
 	pickup->Instantiate();
 }

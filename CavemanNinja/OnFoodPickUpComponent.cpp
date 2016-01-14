@@ -1,7 +1,7 @@
 #include "OnFoodPickUpComponent.h"
 #include "Collider.h"
 #include "ColliderTypes.h"
-#include "Pickup.h"
+#include "FoodPickup.h"
 #include "GameControllerComponent.h"
 #include "Player.h"
 #include "PlayerLifeComponent.h"
@@ -18,7 +18,7 @@
 #define FOOD_MEAT_RESTORATION 3
 #define FOOD_BIG_RESTORATION 5
 
-OnFoodPickUpComponent::OnFoodPickUpComponent(PickupType type)
+OnFoodPickUpComponent::OnFoodPickUpComponent(FoodPickupType type)
 {
 	this->type = type;
 }

@@ -9,8 +9,8 @@
 #include "MovementSimpleComponent.h"
 #include "DieOnPlayerAttackComponent.h"
 #include "EnemyAnimatorMappingComponent.h"
-#include "Pickup.h"
-#include "SpawnPickupOnDeathComponent.h"
+#include "FoodPickup.h"
+#include "SpawnFoodPickupOnDeathComponent.h"
 #include "AIComponent.h"
 #include "CavemanAIManager.h"
 #include "EntityLifetimeComponent.h"
@@ -42,12 +42,12 @@ void EnemyCaveman::OnCreate()
 	AddComponent(new EnemyAnimatorMappingComponent());
 
 	// Añade el componente que hace aparecer un pickup de forma aleatoria
-	PickupType type;
+	FoodPickupType type;
 	if (Random().Value() < MEAT_CHANCE)	// Probabilidad de que sea carne
 		type = FOOD_MEAT;
 	else
 		type = FOOD_SMALL;
-	AddComponent(new SpawnPickupOnDeathComponent(type));
+	AddComponent(new SpawnFoodPickupOnDeathComponent(type));
 }
 
 void EnemyCaveman::OnDestroy()

@@ -7,6 +7,7 @@
 #include <string>
 
 class ColliderComponent;
+class EntityLifetimeComponent;
 class AIComponent;
 class Transform;
 
@@ -41,6 +42,7 @@ public:
 	Timer decayTimer;
 
 	ColliderComponent* colliderComponent;
+	EntityLifetimeComponent* lifetimeComponent;
 	AIComponent* aiComponent;
 
 	unsigned int hitSound;

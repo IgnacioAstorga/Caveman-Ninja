@@ -103,9 +103,6 @@
     <ClCompile Include="GUIPortrait.cpp">
       <Filter>GUI\Portrait</Filter>
     </ClCompile>
-    <ClCompile Include="Pickup.cpp">
-      <Filter>Pickups</Filter>
-    </ClCompile>
     <ClCompile Include="OnFoodPickUpComponent.cpp">
       <Filter>Pickups\Components</Filter>
     </ClCompile>
@@ -204,6 +201,21 @@
     </ClCompile>
     <ClCompile Include="WeaponPickup.cpp">
       <Filter>Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="EggAnimator.cpp">
+      <Filter>Enemies\Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="Egg.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="FoodPickup.cpp">
+      <Filter>Pickups</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnFoodPickupOnDeathComponent.cpp">
+      <Filter>Enemies\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnWeaponPickupOnDeathComponent.cpp">
+      <Filter>Enemies\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -386,9 +398,6 @@
     <ClInclude Include="GUIPortrait.h">
       <Filter>GUI\Portrait</Filter>
     </ClInclude>
-    <ClInclude Include="Pickup.h">
-      <Filter>Pickups</Filter>
-    </ClInclude>
     <ClInclude Include="OnFoodPickUpComponent.h">
       <Filter>Pickups\Components</Filter>
     </ClInclude>
@@ -490,6 +499,21 @@
     </ClInclude>
     <ClInclude Include="OnWeaponPickUpComponent.h">
       <Filter>Pickups\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="EggAnimator.h">
+      <Filter>Enemies\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="Egg.h">
+      <Filter>Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="FoodPickup.h">
+      <Filter>Pickups</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnFoodPickupOnDeathComponent.h">
+      <Filter>Enemies\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnWeaponPickupOnDeathComponent.h">
+      <Filter>Enemies\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

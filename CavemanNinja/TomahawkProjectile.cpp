@@ -18,10 +18,11 @@ void TomahawkProjectile::OnCreate()
 	AddComponent(new SpriteRendererComponent("assets/images/weapon_tomahawk.png", TomahawkAnimator::Create(), -16, -16));
 	AddComponent(new WeaponAnimatorMappingComponent());
 	AddComponent(new MovementSimpleComponent());
-	AddComponent(colliderComponent = new CircleColliderComponent(11.0f, { FLOOR, ENEMY }, 0.0f, 0.0f, PLAYER_ATTACK, false));
+	AddComponent(colliderComponent = new CircleColliderComponent(11.0f, { FLOOR, ENEMY, EGG }, 0.0f, 0.0f, PLAYER_ATTACK, false));
 	AddComponent(new WeaponGravityComponent(GRAVITY, colliderComponent));
 	AddComponent(new WeaponLifespanComponent(LIFETIME));
 	AddComponent(new WeaponDestroyOnCollisionComponent(ENEMY));
+	AddComponent(new WeaponDestroyOnCollisionComponent(EGG));
 }
 
 void TomahawkProjectile::OnDestroy()

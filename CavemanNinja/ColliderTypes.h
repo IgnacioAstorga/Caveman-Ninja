@@ -13,6 +13,7 @@ enum ColliderType
 	ENEMY,
 	ENEMY_ATTACK,
 	PICKUP,
+	EGG,
 	VICTORY
 };
 #endif	// __COLLIDERTYPES_H__

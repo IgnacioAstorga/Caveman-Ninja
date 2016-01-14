@@ -8,13 +8,16 @@ enum PickupType;
 class SpawnPickupOnDeathComponent : public Component
 {
 public:
-	SpawnPickupOnDeathComponent(PickupType type);
-	~SpawnPickupOnDeathComponent();
+	SpawnPickupOnDeathComponent(int type);
+	virtual ~SpawnPickupOnDeathComponent();
 
 public:
 	void Spawn();
 
+protected:
+	virtual Entity* GetPickup(int type) = 0;
+
 public:
-	PickupType type;
+	int type;
 };
 #endif	// __SPAWNPICKUPONDEATHCOMPONENT_H__

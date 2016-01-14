@@ -24,7 +24,7 @@ void TomahawkBigProjectile::OnCreate()
 	AddComponent(new SpriteRendererComponent("assets/images/weapon_tomahawk_big.png", animation, -32, -32));
 	AddComponent(new WeaponAnimatorMappingComponent());
 	AddComponent(new MovementSimpleComponent());
-	AddComponent(colliderComponent = new CircleColliderComponent(22.0f, { FLOOR, ENEMY }, 0.0f, 0.0f, PLAYER_ATTACK_BIG, false));
+	AddComponent(colliderComponent = new CircleColliderComponent(22.0f, { FLOOR, ENEMY, EGG }, 0.0f, 0.0f, PLAYER_ATTACK_BIG, false));
 	AddComponent(new WeaponGravityComponent(GRAVITY, colliderComponent));
 	AddComponent(new WeaponLifespanComponent(LIFETIME));
 }
