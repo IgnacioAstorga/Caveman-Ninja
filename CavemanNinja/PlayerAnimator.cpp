@@ -128,7 +128,7 @@ PlayerAnimator* PlayerAnimator::Create()
 	dieHarvest->frames.push_back({ 6, 3 });
 	dieHarvest->frames.push_back({ 7, 3 });
 
-	BasicAnimation* dieExhaust = new BasicAnimation(1024, 1024, 8, 8, 4.0f, false);
+	BasicAnimation* dieExhaust = new BasicAnimation(1024, 1024, 8, 8, 6.0f, false);
 	dieExhaust->frames.push_back({ 3, 7 });
 	dieExhaust->frames.push_back({ 4, 7 });
 	dieExhaust->frames.push_back({ 5, 7 });

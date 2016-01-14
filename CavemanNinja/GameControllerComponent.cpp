@@ -103,14 +103,14 @@ void GameControllerComponent::Win()
 	// Desactiva el componente de vida del jugador
 	player->FindComponent<PlayerLifeComponent>()->Disable();
 
+	// Reproduce el sonido y para la música
+	App->audio->PauseMusic();
+	App->audio->PlayFx(victorySound, 0);	// Canal reservado 0
+
 	// Mata a todos los enemigos
 	list<Enemy*> enemies = App->scene->GetCurrentScene()->FindAllChildren<Enemy>();
 	for (list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); ++it)
 		(*it)->Kill();
-
-	// Reproduce el sonido y para la música
-	App->audio->PlayFx(victorySound, 0);	// Canal reservado 0
-	App->audio->PauseMusic();
 
 	// Activa el timer
 	victoryTimer.SetTimer(RESTART_DELAY);

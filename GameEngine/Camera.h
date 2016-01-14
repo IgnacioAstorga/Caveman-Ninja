@@ -1,6 +1,8 @@
 #ifndef __CAMERA_H__
 #define __CAMERA_H__
 
+#include "Point.h"
+
 struct SDL_Rect;
 class Transform;
 
@@ -12,6 +14,7 @@ public:
 
 public:
 	SDL_Rect GetViewArea();
+	bool Contains(fPoint point);
 
 	bool active;
 

@@ -16,7 +16,7 @@
 #define FLY_SPEED { 0.0f, 0.0f }
 #define GRAVITY 0.0f
 #define FRICTION 0.5f
-#define SPEED_DOWN 25.0f
+#define SPEED_DOWN 50.0f
 #define NUMBER_OF_WEAPONS 3
 #define ACTIVATION_DELAY 0.1f
 

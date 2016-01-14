@@ -145,6 +145,7 @@
     <ClCompile Include="EnemyCaveman.cpp" />
     <ClCompile Include="EnemyCavemanAnimator.cpp" />
     <ClCompile Include="EnemyHitEffect.cpp" />
+    <ClCompile Include="EnemySpawner.cpp" />
     <ClCompile Include="EnemyThrower.cpp" />
     <ClCompile Include="EnemyThrowerAnimator.cpp" />
     <ClCompile Include="FangBigProjectile.cpp" />
@@ -165,6 +166,7 @@
     <ClCompile Include="RollingBall.cpp" />
     <ClCompile Include="ScoreTextEffect.cpp" />
     <ClCompile Include="SpawnEntityOnDeathComponent.cpp" />
+    <ClCompile Include="SpawnEntityOnEnterCameraComponent.cpp" />
     <ClCompile Include="ThrowerAIManager.cpp" />
     <ClCompile Include="ThrowerIdleAIBehaviour.cpp" />
     <ClCompile Include="ThrowerRunAIBehaviour.cpp" />
@@ -231,6 +233,7 @@
     <ClInclude Include="EnemyCavemanAnimator.h" />
     <ClInclude Include="EnemyGravityComponent.h" />
     <ClInclude Include="EnemyHitEffect.h" />
+    <ClInclude Include="EnemySpawner.h" />
     <ClInclude Include="EnemyThrower.h" />
     <ClInclude Include="EnemyThrowerAnimator.h" />
     <ClInclude Include="FangBigProjectile.h" />
@@ -248,6 +251,7 @@
     <ClInclude Include="RollingBallGravityComponent.h" />
     <ClInclude Include="RollingBall.h" />
     <ClInclude Include="SpawnEggOnDeathComponent.h" />
+    <ClInclude Include="SpawnEntityOnEnterCameraComponent.h" />
     <ClInclude Include="SpawnFoodPickupOnDeathComponent.h" />
     <ClInclude Include="SpawnEntityOnDeathComponent.h" />
     <ClInclude Include="OnFoodPickUpComponent.h" />

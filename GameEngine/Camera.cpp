@@ -27,3 +27,15 @@ SDL_Rect Camera::GetViewArea()
 
 	return viewArea;
 }
+
+bool Camera::Contains(fPoint point)
+{
+	fPoint cameraPosition = transform->GetGlobalPosition();
+	fPoint cameraScale = transform->GetGlobalScale();
+	if (point.x < cameraPosition.x || point.x > cameraPosition.x + (width * cameraScale.x / SCREEN_SIZE))
+		return false;
+	else if (point.y < cameraPosition.y || point.y > cameraPosition.y + (height * cameraScale.y / SCREEN_SIZE))
+		return false;
+	else
+		return true;
+}

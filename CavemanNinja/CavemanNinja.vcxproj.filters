@@ -232,6 +232,12 @@
     <ClCompile Include="BoomerangBigProjectile.cpp">
       <Filter>Weapons\Projectiles</Filter>
     </ClCompile>
+    <ClCompile Include="EnemySpawner.cpp">
+      <Filter>Other</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnEntityOnEnterCameraComponent.cpp">
+      <Filter>Other\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Scenes">
@@ -556,6 +562,12 @@
     </ClInclude>
     <ClInclude Include="BoomerangBigProjectile.h">
       <Filter>Weapons\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemySpawner.h">
+      <Filter>Other</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnEntityOnEnterCameraComponent.h">
+      <Filter>Other\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

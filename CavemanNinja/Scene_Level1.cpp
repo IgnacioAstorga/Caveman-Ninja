@@ -10,10 +10,10 @@
 #include "UserInterfaceComponent.h"
 #include "DinosaurEye.h"
 
+#include "EnemySpawner.h"
 #include "EnemyCaveman.h"
 #include "EnemyThrower.h"
 #include "FlyingDinosaur.h"
-#include "Egg.h"
 
 void Scene_Level1::OnCreateScene()
 {
@@ -84,21 +84,37 @@ void Scene_Level1::OnCreateScene()
 
 	vector<int> collisionsTypes;
 	collisionsTypes.push_back(PLAYER);
-	gameController = new Entity("game_controller", 100, 100);
+	gameController = new Entity("game_controller");
 	gameController->AddComponent(new GameControllerComponent());
-	gameController->AddComponent(new RectangleColliderComponent(10, 4000, collisionsTypes, 850, 0, 0, VICTORY, true));
+	gameController->AddComponent(new RectangleColliderComponent(10, 4000, collisionsTypes, 950, 0, 0, VICTORY, true));
 	AddChild(gameController);
 
-	for (int i = 0; i < 0; ++i)
-		AddChild(new EnemyCaveman("caveman_" + i, 250.0f + 100.0f * i, 0));
+	// Añade la chica al final
+	Entity* girl = new Entity("girl", 955, 156);
+	girl->AddComponent(new SpriteRendererComponent("assets/images/girl.png"));
+	AddChild(girl);
 
-	for (int i = 0; i < 0; ++i)
-		AddChild(new EnemyThrower("thrower_" + i, 300.0f + 100.0f * i, 0));
+	// Coloca los enemigos
+	int index = 0;
 
-	for (int i = 0; i < 4; ++i)
-		AddChild(new Egg("egg_" + i, 150.0f + 200.0f * i, 150.0f));
+	AddChild(new EnemySpawner(new EnemyCaveman("enemy_" + index++), 218, 220));
+	AddChild(new EnemySpawner(new EnemyCaveman("enemy_" + index++), 359, 180));
+	AddChild(new EnemySpawner(new EnemyCaveman("enemy_" + index++), 467, 220));
+	AddChild(new EnemySpawner(new EnemyCaveman("enemy_" + index++), 500, 220));
+	AddChild(new EnemySpawner(new EnemyCaveman("enemy_" + index++), 554, 220));
+	AddChild(new EnemySpawner(new EnemyCaveman("enemy_" + index++), 574, 76));
+	AddChild(new EnemySpawner(new EnemyCaveman("enemy_" + index++), 729, 215));
+	AddChild(new EnemySpawner(new EnemyCaveman("enemy_" + index++), 769, 159));
 
-	AddChild(new FlyingDinosaur("dinosaur", 200.0f, 100.0f));
+	AddChild(new EnemySpawner(new EnemyThrower("enemy_" + index++), 484, 101));
+	AddChild(new EnemySpawner(new EnemyThrower("enemy_" + index++), 621, 220));
+	AddChild(new EnemySpawner(new EnemyThrower("enemy_" + index++), 645, 220));
+	AddChild(new EnemySpawner(new EnemyThrower("enemy_" + index++), 707, 141));
+	AddChild(new EnemySpawner(new EnemyThrower("enemy_" + index++), 900, 220));
+
+	AddChild(new EnemySpawner(new FlyingDinosaur("enemy_" + index++), 267, 68));
+	AddChild(new EnemySpawner(new FlyingDinosaur("enemy_" + index++), 593, 30));
+	AddChild(new EnemySpawner(new FlyingDinosaur("enemy_" + index++), 825, 58));
 }
 
 void Scene_Level1::OnDestroyScene()
